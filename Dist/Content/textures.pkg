@@ -1,0 +1,32 @@
+{
+	"resources" : [
+		{
+			"type"			: "ScnTexture",
+			"name"			: "default",
+
+			"source"		: "EngineContent/TextureSource/default.png"
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "test",
+
+			"source"		: "Content/Source/testtexture.png"
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "suit",
+
+			"source"		: "Content/Source/undead/vestiti-capelliV.png"
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "face",
+
+			"source"		: "Content/Source/undead/text_corpoV.png"
+		}
+
+	]
+}

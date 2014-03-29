@@ -1,0 +1,9 @@
+{
+	"resources" : [
+		{
+			"type"		: "ScnModel",
+			"name"		: "marker",
+			"source"	: "Content/Source/marker.obj"
+		}
+	]
+}
