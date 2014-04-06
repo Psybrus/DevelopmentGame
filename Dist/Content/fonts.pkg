@@ -2,12 +2,12 @@
 	"resources" : [
 		{
 			"type"			: "ScnFont",
-			"name"			: "default",
+			"name"			: "courier",
 
-			"source"		: "EngineContent/FontSource/5thagent.ttf",
+			"source"		: "Content/Source/courier.ttf",
 			"distancefield"	: true,
-			"nominalsize"	: 20,
-			"spread"		: 4
+			"nominalsize"	: 24,
+			"spread"		: 16
 		}
 	]
 }

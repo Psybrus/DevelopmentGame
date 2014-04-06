@@ -16,6 +16,7 @@
 #include "GaCameraComponent.h"
 #include "GaAnimationControllerComponent.h"
 #include "GaLevelComponent.h"
+#include "GaTestSelectionComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
 // GPsySetupParams
@@ -34,17 +35,21 @@ void PsyLaunchGame()
 {
 	ScnEntitySpawnParams ScreenEntityParams = 
 	{
-		"default", "LevelEntity", "LevelEntity_0",
+		"default", "MenuEntity", "MenuEntity_0",
 		BcMat4d(),
 		NULL
 	};
 
 	ScnCore::pImpl()->spawnEntity( ScreenEntityParams );
 
-	BcVec3d A( 1.0f, 2.0f, 845.0f );
-	BcVec3d B( 1.0f, -2.0f, 123.0f );
+	ScnEntitySpawnParams CameraEntityParams = 
+	{
+		"default", "CameraEntity", "CameraEntity_0",
+		BcMat4d(),
+		NULL
+	};
 
-	BcAssert( BcAbs( -A.dot( B ) - B.dot( -A ) ) < 0.00001f );
+	ScnCore::pImpl()->spawnEntity( CameraEntityParams );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -54,6 +59,7 @@ void PsyGameRegisterResources()
 	CsCore::pImpl()->registerResource< GaCameraComponent >();
 	CsCore::pImpl()->registerResource< GaAnimationControllerComponent >();
 	CsCore::pImpl()->registerResource< GaLevelComponent >();
+	CsCore::pImpl()->registerResource< GaTestSelectionComponent >();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -63,4 +69,5 @@ void PsyGameUnRegisterResources()
 	CsCore::pImpl()->unregisterResource< GaCameraComponent >();
 	CsCore::pImpl()->unregisterResource< GaAnimationControllerComponent >();
 	CsCore::pImpl()->unregisterResource< GaLevelComponent >();
+	CsCore::pImpl()->unregisterResource< GaTestSelectionComponent >();
 }
