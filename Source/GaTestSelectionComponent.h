@@ -33,7 +33,10 @@ public:
 	virtual void						update( BcF32 Tick );
 
 	virtual void						onAttach( ScnEntityWeakRef Parent );
+	virtual void						onDetach( ScnEntityWeakRef Parent );
 	
+	eEvtReturn							onKeyPress( EvtID ID, const OsEventInputKeyboard& Event );
+
 private:
 	struct TMenuEntry
 	{
@@ -42,6 +45,7 @@ private:
 
 	std::vector< TMenuEntry >			Options_;
 	BcU32								SelectedEntry_;
+	ScnEntityRef						PreviousSpawned_;
 	ScnFontComponentRef					FontComponent_;
 	ScnCanvasComponentRef				Canvas_;
 

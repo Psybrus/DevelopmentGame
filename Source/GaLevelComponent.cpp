@@ -66,18 +66,4 @@ void GaLevelComponent::onAttach( ScnEntityWeakRef Parent )
 	}
 
 	BcPrintf( "Spawned %u animated entities.\n", Idx );
-
-
-	{
-		ScnEntitySpawnParams EntityParams = 
-		{
-			"default", "CameraEntity", BcName( "CameraEntity", 0 ),
-			BcMat4d(),
-			getParentEntity()
-		};
-
-		EntityParams.Transform_.translation( BcVec3d( 0.0f, 0.0f, 0.0f ) );
-		ScnCore::pImpl()->spawnEntity( EntityParams );
-	}
-
 }
