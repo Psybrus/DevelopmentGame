@@ -1,6 +1,10 @@
 local action = _ACTION or ""
 
--- Setup the main solution.
+psybrusSDK = os.getenv("PSYBRUS_SDK") or "../Psybrus"
+boostRoot = os.getenv("BOOST_ROOT") or "C:/Boost"
+boostInclude = boostRoot .. "/include/boost-1_55"
+boostLib = boostRoot .. "/lib"
+
 solution "DevelopmentGame"
 	location ( "Build/" .. action )
 	configurations { "Debug", "Release", "Production" }
@@ -24,10 +28,10 @@ solution "DevelopmentGame"
 		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "NoRTTI", "NoExceptions", "NoFramePointer", "Optimize" }
 
 	-- Build externals.
-	dofile ("../Psybrus/External/premake4.lua")
+	dofile (psybrusSDK .. "/External/premake4.lua")
 
 	-- Build engine.
-	dofile ("../Psybrus/Engine/premake4.lua")
+	dofile (psybrusSDK .. "/Engine/premake4.lua")
 
 	-- Build game source.
 	dofile ("./Source/premake4.lua")
