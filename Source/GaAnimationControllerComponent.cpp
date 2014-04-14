@@ -13,6 +13,13 @@
 
 #include "GaAnimationControllerComponent.h"
 
+#include "Base/BcRandom.h"
+#include "System/Content/CsPackage.h"
+
+#include "System/Scene/ScnEntity.h"
+#include "System/Scene/Animation/ScnAnimationTreeBlendNode.h"
+#include "System/Scene/Animation/ScnAnimationTreeTrackNode.h"
+
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
 DEFINE_RESOURCE( GaAnimationControllerComponent );
@@ -69,25 +76,4 @@ void GaAnimationControllerComponent::onAttach( ScnEntityWeakRef Parent )
 	BcF32 Speed = 0.9f + ( BcRandom::Global.randReal() + 1.0f * 0.1f );
 	pIdleTrack_->setSpeed( Speed );
 	pReloadTrack_->setSpeed( Speed );
-
-	//
-	BcU32 Idx = 0;
-	BcName LightEntities[3] = 
-	{
-		"LightEntityA",
-		"LightEntityB",
-		"LightEntityC",
-	};
-
-	BcU32 LightEntity = BcRandom::Global.randRange( 0, 2 );
-
-	ScnEntitySpawnParams EntityParams = 
-	{
-		"default", LightEntities[ LightEntity ], BcName( "LightEntity", Idx++ ),
-		BcMat4d(),
-		getParentEntity()
-	};
-
-	EntityParams.Transform_.translation( BcVec3d( 32.0f, 128.0f, 0.0f ) );
-	ScnCore::pImpl()->spawnEntity( EntityParams );
 }

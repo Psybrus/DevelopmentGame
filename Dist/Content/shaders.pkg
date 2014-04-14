@@ -12,6 +12,16 @@
 
 		{
 			"type"			: "ScnShader",
+			"name"			: "font",
+
+			"shaders"		: {
+				"vertex" 		: "Content/Engine/font.glslv",
+				"fragment" 		: "Content/Engine/font.glslf"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
 			"name"			: "textured",
 
 			"shaders"		: {
@@ -19,6 +29,5 @@
 				"fragment" 		: "Content/Engine/textured.glslf"
 			}
 		}
-
 	]
 }

@@ -4,10 +4,16 @@
 		/////////////////////////////////////////////////////////////// 
 		// Entities.
 		{
-			"name"		:		"LevelEntity",
+			"name"		:		"MenuEntity",
 			"type"		:		"ScnEntity",
 
 			"components" : [
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
 				{
 					"type"					: "ScnDebugRenderComponent",
 					"noofvertices"			: 65536,
@@ -15,20 +21,68 @@
 				},
 
 				{
-					"type"					: "GaLevelComponent"
-				},
-
-				{
-					"type"					: "ScnLightManagerComponent"
-				},
-
-				{
 					"type"					: "ScnCanvasComponent",
-					"noofvertices" 			: 8192
+					"noofvertices" 			: 8192,
+					"rendermask"			: 1
+				},
+
+				{
+					"type"					: "GaTestSelectionComponent",
+
+					"options"				: [
+						"$(ScnEntity:this.TestLevelEntity1)",
+						"$(ScnEntity:this.TestLevelEntity2)"
+					]
 				}
 			]
 		},
 		
+		{
+			"name"		:		"TestLevelEntity1",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "ScnCanvasComponent",
+					"noofvertices" 			: 8192,
+					"rendermask"			: 1
+				},
+
+				{
+					"type"					: "GaLevelComponent"
+				}
+			]
+		},
+
+		{
+			"name"		:		"TestLevelEntity2",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "ScnCanvasComponent",
+					"noofvertices" 			: 8192,
+					"rendermask"			: 1
+				},
+
+				{
+					"type"					: "GaLevelComponent"
+				}
+			]
+		},
+
 		{
 			"name"		:		"CameraEntity",
 			"type"		:		"ScnEntity",
@@ -63,44 +117,6 @@
 
 		},
 
-		{
-			"name"		:		"LightEntityA",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnLightComponent",
-					"ambientcolour"			: "0.0,0.0,0.0,1.0",
-					"diffusecolour"			: "1.0,0.0,0.0,1.0"
-				}
-			]
-		},
-		
-		{
-			"name"		:		"LightEntityB",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnLightComponent",
-					"ambientcolour"			: "0.0,0.0,0.0,1.0",
-					"diffusecolour"			: "0.0,1.0,0.0,1.0"
-				}
-			]
-		},
-
-		{
-			"name"		:		"LightEntityC",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnLightComponent",
-					"ambientcolour"			: "0.0,0.0,0.0,1.0",
-					"diffusecolour"			: "0.0,0.0,1.0,1.0"
-				}
-			]
-		},
 
 		{
 			"name"		:		"AnimatedEntity",

@@ -13,6 +13,10 @@
 
 #include "GaCameraComponent.h"
 
+#include "System/Os/OsCore.h"
+
+#include "Base/BcMath.h"
+
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
 DEFINE_RESOURCE( GaCameraComponent );

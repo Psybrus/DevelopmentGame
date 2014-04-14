@@ -16,6 +16,9 @@
 
 #include "Psybrus.h"
 
+#include "System/Scene/Animation/ScnAnimation.h"
+#include "System/Scene/Animation/ScnAnimationComponent.h"
+
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
 typedef CsResourceRef< class GaAnimationControllerComponent > GaAnimationControllerComponentRef;
@@ -35,9 +38,9 @@ public:
 	virtual void						onAttach( ScnEntityWeakRef Parent );
 	
 private:
-	ScnAnimationTreeBlendNode*			pRootTrack_;
-	ScnAnimationTreeTrackNode*			pIdleTrack_;
-	ScnAnimationTreeTrackNode*			pReloadTrack_;
+	class ScnAnimationTreeBlendNode*	pRootTrack_;
+	class ScnAnimationTreeTrackNode*	pIdleTrack_;
+	class ScnAnimationTreeTrackNode*	pReloadTrack_;
 
 	ScnAnimationRef						AnimIdle_;
 	ScnAnimationRef						AnimFire_;

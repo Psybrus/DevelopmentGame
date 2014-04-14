@@ -1,6 +1,10 @@
 local action = _ACTION or ""
 
--- Setup the main solution.
+psybrusSDK = os.getenv("PSYBRUS_SDK") or "../Psybrus"
+boostRoot = os.getenv("BOOST_ROOT") or "C:/Boost"
+boostInclude = boostRoot .. "/include/boost-1_55"
+boostLib = boostRoot .. "/lib"
+
 solution "DevelopmentGame"
 	location ( "Build/" .. action )
 	configurations { "Debug", "Release", "Production" }
@@ -11,23 +15,23 @@ solution "DevelopmentGame"
 	configuration "Debug"
 		targetdir ( "Build/" .. action .. "/bin/Debug" )
 		defines { "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "DEBUG", "PSY_DEBUG", "PSY_SERVER" }
-		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "NoRTTI", "NoExceptions", "Symbols" }
+		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "Symbols" }
 
 	configuration "Release"
 		targetdir ( "Build/" .. action .. "/bin/Release" )
 		defines { "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "NDEBUG", "PSY_RELEASE", "PSY_SERVER" }
-		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "NoRTTI", "NoExceptions", "Symbols", "Optimize" }
+		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "Symbols", "Optimize" }
 
 	configuration "Production"
 		targetdir ( "Build/" .. action .. "/bin/Production" )
 		defines { "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "NDEBUG", "PSY_PRODUCTION" }
-		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "NoRTTI", "NoExceptions", "NoFramePointer", "Optimize" }
+		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "NoFramePointer", "Optimize" }
 
 	-- Build externals.
-	dofile ("../Psybrus/External/premake4.lua")
+	dofile (psybrusSDK .. "/External/premake4.lua")
 
 	-- Build engine.
-	dofile ("../Psybrus/Engine/premake4.lua")
+	dofile (psybrusSDK .. "/Engine/premake4.lua")
 
 	-- Build game source.
 	dofile ("./Source/premake4.lua")
