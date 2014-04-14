@@ -2,3 +2,22 @@ body {background-color:#00FF00;}
 h1 {background-color:#6495ed;}
 p {background-color:#e0ffff;}
 div {background-color:#b0c4de;}
+
+#fName {
+	float: left;
+	width: 150px;
+}
+
+#fType {
+	float: left;
+	width: 150px;
+}
+
+#fValue {
+	float: left;
+}
+
+#fieldData {
+	float: left;
+	width: 100%;
+}
