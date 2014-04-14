@@ -16,6 +16,9 @@
 
 #include "Psybrus.h"
 
+#include "System/Os/OsEvents.h"
+#include "System/Scene/ScnEntity.h"
+
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
 typedef CsResourceRef< class GaCameraComponent > GaCameraComponentRef;

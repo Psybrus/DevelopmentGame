@@ -13,6 +13,13 @@
 
 #include "GaAnimationControllerComponent.h"
 
+#include "Base/BcRandom.h"
+#include "System/Content/CsPackage.h"
+
+#include "System/Scene/ScnEntity.h"
+#include "System/Scene/Animation/ScnAnimationTreeBlendNode.h"
+#include "System/Scene/Animation/ScnAnimationTreeTrackNode.h"
+
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
 DEFINE_RESOURCE( GaAnimationControllerComponent );

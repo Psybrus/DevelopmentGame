@@ -13,6 +13,11 @@
 
 #include "GaTestSelectionComponent.h"
 
+#include "System/Content/CsPackage.h"
+#include "System/Os/OsCore.h"
+
+#include "System/Scene/ScnDebugRenderComponent.h"
+
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
 DEFINE_RESOURCE( GaTestSelectionComponent );

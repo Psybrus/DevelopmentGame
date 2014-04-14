@@ -16,6 +16,10 @@
 
 #include "Psybrus.h"
 
+#include "System/Os/OsEvents.h"
+#include "System/Scene/ScnEntity.h"
+#include "System/Scene/ScnFont.h"
+
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
 typedef CsResourceRef< class GaTestSelectionComponent > GaTestSelectionComponentRef;

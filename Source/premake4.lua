@@ -5,12 +5,16 @@ project "DevelopmentGame"
 	language "C++"
 	files { "./**.hh", "./**.h", "./**.c", "./**.cpp" }
    debugdir "../Dist"
-	includedirs { "./", psybrusSDK .. "/Engine/Source/Shared/", psybrusSDK .. "/Engine/Source/Platforms/Windows/" }
-
+   includedirs { 
+      "./", 
+      "../../Psybrus/Engine/Source/Shared/", 
+      "../../Psybrus/Engine/Source/Platforms/Windows/"
+   }
 	-- External includes.
 	includedirs { 
       psybrusSDK .. "/External/jsoncpp/include", 
-      psybrusSDK .. "/External/portaudio/include"
+      psybrusSDK .. "/External/portaudio/include",
+      boostInclude
    }
 
 	configuration "windows"

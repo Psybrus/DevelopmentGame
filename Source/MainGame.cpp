@@ -18,6 +18,10 @@
 #include "GaLevelComponent.h"
 #include "GaTestSelectionComponent.h"
 
+#include "System/Content/CsCore.h"
+#include "System/Os/OsCore.h"
+#include "System/Scene/ScnCore.h"
+
 //////////////////////////////////////////////////////////////////////////
 // GPsySetupParams
 PsySetupParams GPsySetupParams( "Development Game", psySF_GAME_DEV, 1.0f / 60.0f );	
