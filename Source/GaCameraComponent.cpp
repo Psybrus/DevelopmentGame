@@ -21,12 +21,11 @@
 // Define resource internals.
 DEFINE_RESOURCE( GaCameraComponent );
 
-BCREFLECTION_DERIVED_BEGIN( ScnComponent, GaCameraComponent )
-	BCREFLECTION_MEMBER( BcVec3d,							CameraTarget_,					bcRFF_DEFAULT ),
-	BCREFLECTION_MEMBER( BcVec3d,							CameraRotation_,				bcRFF_DEFAULT ),
-	BCREFLECTION_MEMBER( BcF32,								CameraDistance_,				bcRFF_DEFAULT ),
-	BCREFLECTION_MEMBER( BcF32,								CameraZoom_,					bcRFF_DEFAULT ),
-BCREFLECTION_DERIVED_END();
+void GaCameraComponent::StaticRegisterClass()
+{
+	ReRegisterClass< GaCameraComponent >();
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 // initialise

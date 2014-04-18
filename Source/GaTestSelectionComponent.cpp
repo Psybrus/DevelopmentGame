@@ -22,15 +22,20 @@
 // Define resource internals.
 DEFINE_RESOURCE( GaTestSelectionComponent );
 
-BCREFLECTION_EMPTY_REGISTER( GaTestSelectionComponent );
-/*
-BCREFLECTION_DERIVED_BEGIN( ScnComponent, GaAnimationControllerComponent )
-	BCREFLECTION_MEMBER( BcName,							Name_,							bcRFF_DEFAULT | bcRFF_TRANSIENT ),
-	BCREFLECTION_MEMBER( BcU32,								Index_,							bcRFF_DEFAULT | bcRFF_TRANSIENT ),
-	BCREFLECTION_MEMBER( CsPackage,							pPackage_,						bcRFF_POINTER | bcRFF_TRANSIENT ),
-	BCREFLECTION_MEMBER( BcU32,								RefCount_,						bcRFF_DEFAULT | bcRFF_TRANSIENT ),
-BCREFLECTION_DERIVED_END();
-*/
+void GaTestSelectionComponent::StaticRegisterClass()
+{
+	static const ReField Fields[] = 
+	{
+		ReField( "Options_",			&GaTestSelectionComponent::Options_ ),
+		ReField( "SelectedEntry_",		&GaTestSelectionComponent::SelectedEntry_ ),
+		ReField( "PreviousSpawned_",	&GaTestSelectionComponent::PreviousSpawned_ ),
+		ReField( "FontComponent_",		&GaTestSelectionComponent::FontComponent_ ),
+		ReField( "Canvas_",				&GaTestSelectionComponent::Canvas_ ),
+		ReField( "Projection_",			&GaTestSelectionComponent::Projection_ ),
+	};
+		
+	ReRegisterClass< GaTestSelectionComponent >( Fields );
+}
 
 //////////////////////////////////////////////////////////////////////////
 // initialise
