@@ -1,5 +1,3 @@
-openal32LibPath = psybrusSDK .. "/External/openal/libs/Win32/"
-
 project "DevelopmentGame"
 	kind "WindowedApp"
 	language "C++"
