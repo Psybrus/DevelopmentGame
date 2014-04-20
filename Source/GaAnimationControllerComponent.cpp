@@ -61,7 +61,7 @@ void GaAnimationControllerComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 	
-	ScnAnimationComponentRef Animation = getParentEntity()->getComponentByType< ScnAnimationComponent >( ReManager::GetClass( "TestAnimation" ) );
+	ScnAnimationComponentRef Animation = getParentEntity()->getComponentByType< ScnAnimationComponent >(  "TestAnimation"  );
 	pRootTrack_ = Animation->findNodeByType< ScnAnimationTreeBlendNode >( "Root" );
 	pIdleTrack_ = Animation->findNodeByType< ScnAnimationTreeTrackNode >( "IdleTrack_0" );
 	pReloadTrack_ = Animation->findNodeByType< ScnAnimationTreeTrackNode >( "ReloadTrack_0" );
