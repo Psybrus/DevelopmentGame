@@ -21,7 +21,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
-typedef CsResourceRef< class GaAnimationControllerComponent > GaAnimationControllerComponentRef;
+typedef ReObjectRef< class GaAnimationControllerComponent > GaAnimationControllerComponentRef;
 
 //////////////////////////////////////////////////////////////////////////
 // GaAnimationControllerComponent

@@ -22,7 +22,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
-typedef CsResourceRef< class GaTestSelectionComponent > GaTestSelectionComponentRef;
+typedef ReObjectRef< class GaTestSelectionComponent > GaTestSelectionComponentRef;
 
 //////////////////////////////////////////////////////////////////////////
 // GaTestSelectionComponent
