@@ -24,15 +24,11 @@
 // Define resource internals.
 DEFINE_RESOURCE( GaAnimationControllerComponent );
 
-BCREFLECTION_EMPTY_REGISTER( GaAnimationControllerComponent );
-/*
-BCREFLECTION_DERIVED_BEGIN( ScnComponent, GaAnimationControllerComponent )
-	BCREFLECTION_MEMBER( BcName,							Name_,							bcRFF_DEFAULT | bcRFF_TRANSIENT ),
-	BCREFLECTION_MEMBER( BcU32,								Index_,							bcRFF_DEFAULT | bcRFF_TRANSIENT ),
-	BCREFLECTION_MEMBER( CsPackage,							pPackage_,						bcRFF_POINTER | bcRFF_TRANSIENT ),
-	BCREFLECTION_MEMBER( BcU32,								RefCount_,						bcRFF_DEFAULT | bcRFF_TRANSIENT ),
-BCREFLECTION_DERIVED_END();
-*/
+void GaAnimationControllerComponent::StaticRegisterClass()
+{
+	ReRegisterClass< GaAnimationControllerComponent >()
+		.addAttribute( new ScnComponentAttribute( 0 ) );
+}
 
 //////////////////////////////////////////////////////////////////////////
 // initialise
@@ -65,7 +61,7 @@ void GaAnimationControllerComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 	
-	ScnAnimationComponentRef Animation = getParentEntity()->getComponentByType< ScnAnimationComponent >( "TestAnimation" );
+	ScnAnimationComponentRef Animation = getParentEntity()->getComponentByType< ScnAnimationComponent >( ReManager::GetClass( "TestAnimation" ) );
 	pRootTrack_ = Animation->findNodeByType< ScnAnimationTreeBlendNode >( "Root" );
 	pIdleTrack_ = Animation->findNodeByType< ScnAnimationTreeTrackNode >( "IdleTrack_0" );
 	pReloadTrack_ = Animation->findNodeByType< ScnAnimationTreeTrackNode >( "ReloadTrack_0" );
