@@ -1,7 +1,8 @@
-body {background-color:#00FF00;}
-h1 {background-color:#6495ed;}
-p {background-color:#e0ffff;}
-div {background-color:#b0c4de;}
+body {background-color:#ffffff;
+	color: #000000;}
+h1 {background-color:#ffffff;}
+p {background-color:#ffffff;}
+div {background-color:#ffffff;}
 
 #fName {
 	float: left;
