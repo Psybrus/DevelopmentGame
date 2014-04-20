@@ -22,3 +22,13 @@ div {background-color:#ffffff;}
 	float: left;
 	width: 100%;
 }
+
+#pages{
+	float: left;
+	width: 30%;
+}
+
+#menuWrapper {
+	float: left;
+	width: 100%;
+}

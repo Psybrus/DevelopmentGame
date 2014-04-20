@@ -105,6 +105,9 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 
 	OsEventInputKeyboard::Delegate OnKeyPress = OsEventInputKeyboard::Delegate::bind< GaTestSelectionComponent, &GaTestSelectionComponent::onKeyPress >( this );
 	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, OnKeyPress );
+
+	DsCore::pImpl()->registerFunction("Test Entity 1", std::bind(&GaTestSelectionComponent::LoadEntity, this, 0));
+	DsCore::pImpl()->registerFunction("Test Entity 2", std::bind(&GaTestSelectionComponent::LoadEntity, this, 1));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -112,8 +115,9 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 //virtual
 void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 {
-	OsCore::pImpl()->unsubscribeAll( this );
-
+	DsCore::pImpl()->deregisterFunction("Test Entity 1");
+	DsCore::pImpl()->deregisterFunction("Test Entity 2");
+	OsCore::pImpl()->unsubscribeAll(this);
 }
 	
 //////////////////////////////////////////////////////////////////////////
@@ -145,22 +149,29 @@ eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const OsEventInputKey
 		break;
 
 	case OsEventInputKeyboard::KEYCODE_RETURN:
-		if( PreviousSpawned_.isValid() )
-		{
-			ScnCore::pImpl()->removeEntity( PreviousSpawned_ );
-		}
-
-		auto TemplateEntity = Options_[ SelectedEntry_ ].EntityToSpawn_;
-		ScnEntitySpawnParams SpawnEntity = 
-		{
-			TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",
-			BcMat4d(),
-			NULL
-		};
-
-		PreviousSpawned_ = ScnCore::pImpl()->spawnEntity( SpawnEntity );
-		BcAssertMsg( PreviousSpawned_.isValid(), "We expect everything to have been preloaded." );
+		LoadEntity(SelectedEntry_);
+		BcAssertMsg( PreviousSpawned_.isValid(), "We expect everythig nto have been preloaded." );
 		break;
 	}
 	return evtRET_PASS;
+}
+
+void GaTestSelectionComponent::LoadEntity(int Entity)
+{
+	SelectedEntry_ = Entity;
+	if (PreviousSpawned_.isValid())
+	{
+		ScnCore::pImpl()->removeEntity(PreviousSpawned_);
+	}
+
+	auto TemplateEntity = Options_[SelectedEntry_].EntityToSpawn_;
+	ScnEntitySpawnParams SpawnEntity =
+	{
+		TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",
+		BcMat4d(),
+		NULL
+	};
+
+	PreviousSpawned_ = ScnCore::pImpl()->spawnEntity(SpawnEntity);
+	BcAssertMsg(PreviousSpawned_.isValid(), "We expect everything to have been preloaded.");
 }

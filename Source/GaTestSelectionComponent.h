@@ -19,6 +19,7 @@
 #include "System/Os/OsEvents.h"
 #include "System/Scene/ScnEntity.h"
 #include "System/Scene/ScnFont.h"
+#include "System/Debug/DsCore.h"
 
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
@@ -54,6 +55,8 @@ private:
 	ScnCanvasComponentRef				Canvas_;
 
 	BcMat4d								Projection_;
+
+	void								LoadEntity(int Entity);
 };
 
 #endif
