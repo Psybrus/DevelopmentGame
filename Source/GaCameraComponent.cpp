@@ -23,7 +23,8 @@ DEFINE_RESOURCE( GaCameraComponent );
 
 void GaCameraComponent::StaticRegisterClass()
 {
-	ReRegisterClass< GaCameraComponent >();
+	ReRegisterClass< GaCameraComponent >()
+		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
 
