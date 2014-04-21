@@ -19,7 +19,7 @@ solution "DevelopmentGame"
 --		openal32LibPath = psybrusSDK .. "/External/openal/libs/Win64/"
 
 	configuration "vs*"
-		defines { "STATICLIB", "_CRT_SECURE_NO_WARNINGS", "_STATIC_CPPLIB", "_HAS_EXCEPTIONS=0" }	
+		defines { "STATICLIB", "_CRT_SECURE_NO_WARNINGS", "_STATIC_CPPLIB" }	
 
 	configuration "Debug"
 		targetdir ( "Build/" .. action .. "/bin/Debug" )
