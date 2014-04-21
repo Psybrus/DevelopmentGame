@@ -70,26 +70,26 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 	Canvas_->clear();
 	Canvas_->pushMatrix( Projection_ );
 
-	BcMat4d TextScaleMatrix;
-	TextScaleMatrix.scale( BcVec4d( 0.04f, 0.04f, 1.0f, 1.0f ) );
+	MaMat4d TextScaleMatrix;
+	TextScaleMatrix.scale( MaVec4d( 0.04f, 0.04f, 1.0f, 1.0f ) );
 
-	FontComponent_->setAlphaTestStepping( BcVec2d( 0.4f, 0.45f ) );
+	FontComponent_->setAlphaTestStepping( MaVec2d( 0.4f, 0.45f ) );
 
 	Canvas_->pushMatrix( TextScaleMatrix );
 
-	BcVec2d Position( 0.0f, 0.0f );
-	BcVec2d Size;
+	MaVec2d Position( 0.0f, 0.0f );
+	MaVec2d Size;
 	for( BcU32 Idx = 0; Idx < Options_.size(); ++Idx )
 	{
 		const auto& Option( Options_[ Idx ] );
 		const auto Colour = Idx == SelectedEntry_ ? RsColour::GREEN : RsColour::GRAY;
 		Size = FontComponent_->drawCentered( Canvas_, Position, (*Option.EntityToSpawn_->getName()), Colour );
-		Position += BcVec2d( 0.0f, Size.y() );
+		Position += MaVec2d( 0.0f, Size.y() );
 	}
 
 	ScnDebugRenderComponent::pImpl()->drawGrid( 
-		BcVec3d( 0.0f, 0.0f, 0.0f ),
-		BcVec3d( 500.0f, 0.0f, 500.0f ),
+		MaVec3d( 0.0f, 0.0f, 0.0f ),
+		MaVec3d( 500.0f, 0.0f, 500.0f ),
 		1.0f,
 		10.0f,
 		0 );
@@ -160,7 +160,7 @@ eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const OsEventInputKey
 		ScnEntitySpawnParams SpawnEntity = 
 		{
 			TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",
-			BcMat4d(),
+			MaMat4d(),
 			NULL
 		};
 

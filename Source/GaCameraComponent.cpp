@@ -60,7 +60,7 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 		{
 			OsCore::pImpl()->getClient( 0 )->setMouseLock( BcTrue );
 			BcF32 RotateSpeed = 0.25f;
-			CameraRotation_ += BcVec3d( LastMouseEvent_.MouseDY_, LastMouseEvent_.MouseDX_, 0.0f ) * RotateSpeed * Tick;
+			CameraRotation_ += MaVec3d( LastMouseEvent_.MouseDY_, LastMouseEvent_.MouseDX_, 0.0f ) * RotateSpeed * Tick;
 		}
 		break;
 
@@ -69,8 +69,8 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 			OsCore::pImpl()->getClient( 0 )->setMouseLock( BcTrue );
 
 			BcF32 PanSpeed = 4.0f;
-			BcMat4d CameraRotationMatrix = getCameraRotationMatrix();
-			BcVec3d OffsetVector = BcVec3d( LastMouseEvent_.MouseDX_, LastMouseEvent_.MouseDY_, 0.0f ) * CameraRotationMatrix;
+			MaMat4d CameraRotationMatrix = getCameraRotationMatrix();
+			MaVec3d OffsetVector = MaVec3d( LastMouseEvent_.MouseDX_, LastMouseEvent_.MouseDY_, 0.0f ) * CameraRotationMatrix;
 			CameraTarget_ += OffsetVector * Tick * PanSpeed;
 		}
 		break;
@@ -80,16 +80,16 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 	CameraDistance_ = BcClamp( CameraDistance_, 1.0f, 4096.0f );
 	CameraZoom_ = 0.0f;
 
-	BcMat4d Matrix;
-	BcVec3d ViewDistance = BcVec3d( 0.0f, 0.0f, CameraDistance_ );
-	BcMat4d CameraRotationMatrix = getCameraRotationMatrix();
+	MaMat4d Matrix;
+	MaVec3d ViewDistance = MaVec3d( 0.0f, 0.0f, CameraDistance_ );
+	MaMat4d CameraRotationMatrix = getCameraRotationMatrix();
 	ViewDistance = ViewDistance * CameraRotationMatrix;
-	BcVec3d ViewFromPosition = CameraTarget_ + ViewDistance;
+	MaVec3d ViewFromPosition = CameraTarget_ + ViewDistance;
 
-	Matrix.lookAt( ViewFromPosition, CameraTarget_, BcVec3d( CameraRotationMatrix.row1().x(), CameraRotationMatrix.row1().y(), CameraRotationMatrix.row1().z() ) );
+	Matrix.lookAt( ViewFromPosition, CameraTarget_, MaVec3d( CameraRotationMatrix.row1().x(), CameraRotationMatrix.row1().y(), CameraRotationMatrix.row1().z() ) );
 	Matrix.inverse();
-	//Matrix.rotation( BcVec3d( BcPIDIV2 - ( BcPI / 16.0f ), 0.0f, 0.0f ) );
-	//Matrix.translation( BcVec3d( 0.0f, -4.0f, -2.0f ) );
+	//Matrix.rotation( MaVec3d( BcPIDIV2 - ( BcPI / 16.0f ), 0.0f, 0.0f ) );
+	//Matrix.translation( MaVec3d( 0.0f, -4.0f, -2.0f ) );
 	getParentEntity()->setLocalMatrix( Matrix );
 
 	CameraState_ = NextCameraState_;
@@ -190,11 +190,11 @@ eEvtReturn GaCameraComponent::onMouseWheel( EvtID ID, const OsEventInputMouse& E
 	
 //////////////////////////////////////////////////////////////////////////
 // getCameraRotationMatrix
-BcMat4d GaCameraComponent::getCameraRotationMatrix() const
+MaMat4d GaCameraComponent::getCameraRotationMatrix() const
 {
-	BcMat4d CameraPitchMatrix;
-	BcMat4d CameraYawMatrix;
-	CameraPitchMatrix.rotation( BcVec3d( CameraRotation_.x(), 0.0f, 0.0f ) );
-	CameraYawMatrix.rotation( BcVec3d( 0.0f, CameraRotation_.y(), 0.0f ) );
+	MaMat4d CameraPitchMatrix;
+	MaMat4d CameraYawMatrix;
+	CameraPitchMatrix.rotation( MaVec3d( CameraRotation_.x(), 0.0f, 0.0f ) );
+	CameraYawMatrix.rotation( MaVec3d( 0.0f, CameraRotation_.y(), 0.0f ) );
 	return CameraPitchMatrix * CameraYawMatrix;
 }

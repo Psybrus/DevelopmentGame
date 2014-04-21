@@ -43,11 +43,11 @@ public:
 	eEvtReturn							onMouseMove( EvtID ID, const OsEventInputMouse& Event );
 	eEvtReturn							onMouseWheel( EvtID ID, const OsEventInputMouse& Event );
 
-	BcMat4d								getCameraRotationMatrix() const;
+	MaMat4d								getCameraRotationMatrix() const;
 	
 private:
-	BcVec3d								CameraTarget_;
-	BcVec3d								CameraRotation_;
+	MaVec3d								CameraTarget_;
+	MaVec3d								CameraRotation_;
 	BcF32								CameraDistance_;
 	BcF32								CameraZoom_;
 

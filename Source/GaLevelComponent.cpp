@@ -52,11 +52,11 @@ void GaLevelComponent::onAttach( ScnEntityWeakRef Parent )
 		ScnEntitySpawnParams EntityParams = 
 		{
 			"default", "AnimatedEntity", BcName( "AnimatedEntity", Idx++ ),
-			BcMat4d(),
+			MaMat4d(),
 			getParentEntity()
 		};
 
-		EntityParams.Transform_.translation( BcVec3d( 0.0f, 0.0f, X ) );
+		EntityParams.Transform_.translation( MaVec3d( 0.0f, 0.0f, X ) );
 		ScnCore::pImpl()->spawnEntity( EntityParams );
 	}
 

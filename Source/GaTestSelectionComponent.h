@@ -53,7 +53,7 @@ private:
 	ScnFontComponentRef					FontComponent_;
 	ScnCanvasComponentRef				Canvas_;
 
-	BcMat4d								Projection_;
+	MaMat4d								Projection_;
 };
 
 #endif
