@@ -174,7 +174,7 @@ void GaTestSelectionComponent::LoadEntity(int Entity)
 	ScnEntitySpawnParams SpawnEntity =
 	{
 		TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",
-		BcMat4d(),
+		MaMat4d(),
 		NULL
 	};
 
