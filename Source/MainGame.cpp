@@ -60,18 +60,8 @@ void PsyLaunchGame()
 // PsyGameRegisterResources
 void PsyGameRegisterResources()
 {
-	CsCore::pImpl()->registerResource< GaCameraComponent >();
-	CsCore::pImpl()->registerResource< GaAnimationControllerComponent >();
-	CsCore::pImpl()->registerResource< GaLevelComponent >();
-	CsCore::pImpl()->registerResource< GaTestSelectionComponent >();
-}
-
-//////////////////////////////////////////////////////////////////////////
-// PsyGameUnRegisterResources
-void PsyGameUnRegisterResources()
-{
-	CsCore::pImpl()->unregisterResource< GaCameraComponent >();
-	CsCore::pImpl()->unregisterResource< GaAnimationControllerComponent >();
-	CsCore::pImpl()->unregisterResource< GaLevelComponent >();
-	CsCore::pImpl()->unregisterResource< GaTestSelectionComponent >();
+	GaCameraComponent::StaticRegisterClass();
+	GaAnimationControllerComponent::StaticRegisterClass();
+	GaLevelComponent::StaticRegisterClass();
+	GaTestSelectionComponent::StaticRegisterClass();
 }
