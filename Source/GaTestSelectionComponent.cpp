@@ -34,7 +34,7 @@ void GaTestSelectionComponent::StaticRegisterClass()
 		ReField( "Projection_",			&GaTestSelectionComponent::Projection_ ),
 	};
 		
-	ReRegisterClass< GaTestSelectionComponent >( Fields )
+	ReRegisterClass< GaTestSelectionComponent, Super >( Fields )
 		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 

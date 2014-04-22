@@ -19,7 +19,7 @@ DEFINE_RESOURCE( GaLevelComponent );
 
 void GaLevelComponent::StaticRegisterClass()
 {
-	ReRegisterClass< GaLevelComponent >();
+	ReRegisterClass< GaLevelComponent, Super >();
 }
 
 //////////////////////////////////////////////////////////////////////////

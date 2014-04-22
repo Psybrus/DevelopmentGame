@@ -26,7 +26,7 @@ DEFINE_RESOURCE( GaAnimationControllerComponent );
 
 void GaAnimationControllerComponent::StaticRegisterClass()
 {
-	ReRegisterClass< GaAnimationControllerComponent >()
+	ReRegisterClass< GaAnimationControllerComponent, Super >()
 		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
