@@ -1,6 +1,16 @@
 {
 	"resources" : [
 		{
+			"type"			: "ScnShader", 
+			"name"			: "hlsltest",
+			"shader"		: "Content/Engine/default.hlsl",
+			"entries"		: {
+				"vs_4_1" : 		"vertexMain",
+				"ps_4_1" :		"pixelMain"
+			}
+		},
+
+		{
 			"type"			: "ScnShader",
 			"name"			: "default",
 

@@ -136,7 +136,7 @@
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
-					"islit"					: true
+					"islit"					: false
 				},
 
 				{

@@ -29,7 +29,7 @@
 			"name"			: "weapon_shotgun",
 
 			// Shader
-			"shader"		: "$(ScnShader:shaders.textured)",
+			"shader"		: "$(ScnShader:shaders.hlsltest)",
 
 			// Textures
 			"textures"		: {
@@ -101,7 +101,7 @@
 			"name"			: "ruinerbody01",
 
 			// Shader
-			"shader"		: "$(ScnShader:shaders.textured)",
+			"shader"		: "$(ScnShader:shaders.hlsltest)",
 
 			// Textures
 			"textures"		: {
