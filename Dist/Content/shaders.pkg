@@ -24,7 +24,7 @@
 			"type"			: "ScnShader",
 			"name"			: "textured",
 
-			"shader"		: "Content/Engine/default.hlsl",
+			"shader"		: "Content/Engine/textured.hlsl",
 			"entries"		: {
 				"vs_4_1" : 		"vertexMain",
 				"ps_4_1" :		"pixelMain"
