@@ -9,7 +9,6 @@
 struct VS_OUTPUT
 {
 	float4 Position_	: SV_POSITION;
-	float4 Normal_		: NORMAL;
 	float4 Colour_		: COLOR0;
 	float4 TexCoord0_	: TEXCOORD0;
 };
@@ -36,23 +35,21 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 }
 
 ////////////////////////////////////////////////////////////////////////
-// geometryMain
-[maxvertexcount(3)]
-void geometryMain( triangle VS_OUTPUT Input[3],
-                   inout TriangleStream< VS_OUTPUT > OutputStream )
-{
-	for( int i = 0; i < 3; ++i )
-	{
-		VS_OUTPUT Output = Input[i];
-		OutputStream.Append( Output );
-	}
-}
-
-////////////////////////////////////////////////////////////////////////
 // pixelMain
+texture2D aDiffuseTex;
+SamplerState sDiffuseTex;
+
 PS_OUTPUT pixelMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
-	o.Colour_ = i.Colour_;
+	float4 Colour = aDiffuseTex.Sample( sDiffuseTex, i.TexCoord0_.xy );
+	float Factor = smoothstep( uAlphaTestParams.x, uAlphaTestParams.y, Colour.a );
+
+	if( Factor < uAlphaTestParams.z )
+	{
+		//discard;
+	}
+	
+	o.Colour_ = float4( Colour.xyz, Factor ) * i.Colour_;
 	return o;
 }

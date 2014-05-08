@@ -1,8 +1,8 @@
 {
 	"resources" : [
 		{
-			"type"			: "ScnShader", 
-			"name"			: "hlsltest",
+			"type"			: "ScnShader",
+			"name"			: "default",
 			"shader"		: "Content/Engine/default.hlsl",
 			"entries"		: {
 				"vs_4_1" : 		"vertexMain",
@@ -12,21 +12,11 @@
 
 		{
 			"type"			: "ScnShader",
-			"name"			: "default",
-
-			"shaders"		: {
-				"vertex" 		: "Content/Engine/default.glslv",
-				"fragment" 		: "Content/Engine/default.glslf"
-			}
-		},
-
-		{
-			"type"			: "ScnShader",
 			"name"			: "font",
-
-			"shaders"		: {
-				"vertex" 		: "Content/Engine/font.glslv",
-				"fragment" 		: "Content/Engine/font.glslf"
+			"shader"		: "Content/Engine/font.hlsl",
+			"entries"		: {
+				"vs_4_1" : 		"vertexMain",
+				"ps_4_1" :		"pixelMain"
 			}
 		},
 
@@ -34,9 +24,10 @@
 			"type"			: "ScnShader",
 			"name"			: "textured",
 
-			"shaders"		: {
-				"vertex" 		: "Content/Engine/textured.glslv",
-				"fragment" 		: "Content/Engine/textured.glslf"
+			"shader"		: "Content/Engine/default.hlsl",
+			"entries"		: {
+				"vs_4_1" : 		"vertexMain",
+				"ps_4_1" :		"pixelMain"
 			}
 		}
 	]
