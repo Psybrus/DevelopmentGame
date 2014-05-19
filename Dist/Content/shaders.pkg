@@ -2,6 +2,19 @@
 	"resources" : [
 		{
 			"type"			: "ScnShader",
+			"name"			: "textured",
+			
+			"shader"		: "Content/Engine/default.hlsl",
+			"entries"		: {
+				"vs_5_0" : 		"vertexMain",
+				//"hs_5_0" : 		"hullMain",
+				//"ds_5_0" : 		"domainMain",
+				"ps_5_0" :		"pixelMain"
+			}
+		},
+		
+		{
+			"type"			: "ScnShader",
 			"name"			: "default",
 			"shader"		: "Content/Engine/default.hlsl",
 			"entries"		: {
@@ -14,17 +27,6 @@
 			"type"			: "ScnShader",
 			"name"			: "font",
 			"shader"		: "Content/Engine/font.hlsl",
-			"entries"		: {
-				"vs_4_1" : 		"vertexMain",
-				"ps_4_1" :		"pixelMain"
-			}
-		},
-
-		{
-			"type"			: "ScnShader",
-			"name"			: "textured",
-
-			"shader"		: "Content/Engine/textured.hlsl",
 			"entries"		: {
 				"vs_4_1" : 		"vertexMain",
 				"ps_4_1" :		"pixelMain"
