@@ -2,24 +2,37 @@
 	"resources" : [
 		{
 			"type"			: "ScnShader",
-			"name"			: "textured",
-			
-			"shader"		: "Content/Engine/default.hlsl",
-			"entries"		: {
-				"vs_5_0" : 		"vertexMain",
-				//"hs_5_0" : 		"hullMain",
-				//"ds_5_0" : 		"domainMain",
-				"ps_5_0" :		"pixelMain"
-			}
-		},
-		
-		{
-			"type"			: "ScnShader",
 			"name"			: "default",
 			"shader"		: "Content/Engine/default.hlsl",
+
+			"codetypes"	: [
+				"D3D11_4_0_level_9_3",
+				"D3D11_4_0",
+				"D3D11_4_1",
+				"D3D11_5_0"
+			],
+
 			"entries"		: {
-				"vs_4_1" : 		"vertexMain",
-				"ps_4_1" :		"pixelMain"
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "textured",
+			
+			"shader"		: "Content/Engine/textured.hlsl",
+
+			"codetypes"	: [
+				"D3D11_4_0_level_9_3"
+			],
+
+			"entries"		: {
+				"vertex" : 		"vertexMain",
+				//"hull" : 		"hullMain",
+				//"domain" : 		"domainMain",
+				"pixel" :		"pixelMain"
 			}
 		},
 
@@ -27,9 +40,14 @@
 			"type"			: "ScnShader",
 			"name"			: "font",
 			"shader"		: "Content/Engine/font.hlsl",
+
+			"codetypes"	: [
+				"D3D11_4_0_level_9_3"
+			],
+
 			"entries"		: {
-				"vs_4_1" : 		"vertexMain",
-				"ps_4_1" :		"pixelMain"
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
 			}
 		}
 	]
