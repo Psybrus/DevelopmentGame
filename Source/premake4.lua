@@ -16,7 +16,8 @@ project "DevelopmentGame"
 
 	configuration "windows"
          libdirs {
-            openal32LibPath
+            openal32LibPath,
+            boostLib
          }
          links {
             -- Windows libs.
