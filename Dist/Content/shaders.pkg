@@ -7,9 +7,7 @@
 
 			"codetypes"	: [
 				"D3D11_4_0_level_9_3",
-				"D3D11_4_0",
-				"D3D11_4_1",
-				"D3D11_5_0"
+				"D3D11_4_0"
 			],
 
 			"entries"		: {
@@ -25,13 +23,11 @@
 			"shader"		: "Content/Engine/textured.hlsl",
 
 			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
+				"D3D11_4_0"
 			],
 
 			"entries"		: {
 				"vertex" : 		"vertexMain",
-				//"hull" : 		"hullMain",
-				//"domain" : 		"domainMain",
 				"pixel" :		"pixelMain"
 			}
 		},
@@ -47,6 +43,23 @@
 
 			"entries"		: {
 				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "geometry_test",
+			
+			"shader"		: "Content/Engine/geometry_test.hlsl",
+
+			"codetypes"	: [
+				"D3D11_4_0"
+			],
+
+			"entries"		: {
+				"vertex" : 		"vertexMain",
+				"geometry" : 	"geometryMain",
 				"pixel" :		"pixelMain"
 			}
 		}

@@ -31,7 +31,7 @@
 
 					"options"				: [
 						"$(ScnEntity:this.TestLevelEntity1)",
-						"$(ScnEntity:this.TestLevelEntity2)"
+						"$(ScnEntity:this.TestShaderEntity)"
 					]
 				}
 			]
@@ -61,7 +61,7 @@
 		},
 
 		{
-			"name"		:		"TestLevelEntity2",
+			"name"		:		"TestShaderEntity",
 			"type"		:		"ScnEntity",
 
 			"components" : [
@@ -78,7 +78,9 @@
 				},
 
 				{
-					"type"					: "GaLevelComponent"
+					"type"					: "GaTestShaderComponent",
+
+					"material"				: "$(ScnMaterial:materials.geometry_test)"
 				}
 			]
 		},
