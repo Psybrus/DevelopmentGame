@@ -16,6 +16,7 @@
 #include "GaCameraComponent.h"
 #include "GaAnimationControllerComponent.h"
 #include "GaLevelComponent.h"
+#include "GaTestShaderComponent.h"
 #include "GaTestSelectionComponent.h"
 
 #include "System/Content/CsCore.h"
@@ -63,5 +64,6 @@ void PsyGameRegisterResources()
 	GaCameraComponent::StaticRegisterClass();
 	GaAnimationControllerComponent::StaticRegisterClass();
 	GaLevelComponent::StaticRegisterClass();
+	GaTestShaderComponent::StaticRegisterClass();
 	GaTestSelectionComponent::StaticRegisterClass();
 }

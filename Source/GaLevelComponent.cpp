@@ -19,7 +19,8 @@ DEFINE_RESOURCE( GaLevelComponent );
 
 void GaLevelComponent::StaticRegisterClass()
 {
-	ReRegisterClass< GaLevelComponent, Super >();
+	ReRegisterClass< GaLevelComponent, Super >()
+		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
