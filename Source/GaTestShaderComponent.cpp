@@ -61,10 +61,10 @@ void GaTestShaderComponent::initialise( const Json::Value& Object )
 
 	Material_ = this->getPackage()->getPackageCrossRef( Object[ "material" ].asUInt() );
 
-	BcU32 ShaderPermutation = 
-		ScnShaderPermutationFlags::scnSPF_MESH_STATIC_3D |
-		ScnShaderPermutationFlags::scnSPF_RENDER_FORWARD |
-		ScnShaderPermutationFlags::scnSPF_LIGHTING_NONE;
+	ScnShaderPermutationFlags ShaderPermutation = 
+		ScnShaderPermutationFlags::MESH_STATIC_3D |
+		ScnShaderPermutationFlags::RENDER_FORWARD |
+		ScnShaderPermutationFlags::LIGHTING_NONE;
 
 	CsCore::pImpl()->createResource( BcName::INVALID, getPackage(), MaterialComponent_, Material_, ShaderPermutation );
 
@@ -121,7 +121,7 @@ void GaTestShaderComponent::render( class ScnViewComponent* pViewComponent, RsFr
 	// Render primitive.
 	GaTestShaderComponentRenderNode* pRenderNode = pFrame->newObject< GaTestShaderComponentRenderNode >();
 			
-	pRenderNode->Type_ = RsTopologyType::TRIANGLESTRIP;
+	pRenderNode->Type_ = RsTopologyType::TRIANGLE_STRIP;
 	pRenderNode->Offset_ = 0;
 	pRenderNode->NoofIndices_ = 4;
 	pRenderNode->VertexBuffer_ = VertexBuffer_;
