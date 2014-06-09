@@ -47,7 +47,6 @@ private:
 	class RsIndexBuffer*				IndexBuffer_;
 	class RsVertexBuffer*				VertexBuffer_;
 	class RsVertexDeclaration*			VertexDeclaration_;
-	class RsPrimitive*					Primitive_;
 
 	ScnMaterialRef						Material_;
 	ScnMaterialComponentRef				MaterialComponent_;

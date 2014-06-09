@@ -90,7 +90,7 @@ public:
 		pContext_->drawPrimitives( Type_, Offset_, NoofIndices_ );
 	}
 
-	RsPrimitiveType Type_;
+	RsTopologyType Type_;
 	BcU32 Offset_;
 	BcU32 NoofIndices_;
 	RsPrimitive* pPrimitive_;
@@ -119,7 +119,7 @@ void GaTestShaderComponent::render( class ScnViewComponent* pViewComponent, RsFr
 	// Render primitive.
 	GaTestShaderComponentRenderNode* pRenderNode = pFrame->newObject< GaTestShaderComponentRenderNode >();
 			
-	pRenderNode->Type_ = RsPrimitiveType::TRIANGLESTRIP;
+	pRenderNode->Type_ = RsTopologyType::TRIANGLESTRIP;
 	pRenderNode->Offset_ = 0;
 	pRenderNode->NoofIndices_ = 4;
 	pRenderNode->pPrimitive_ = Primitive_;
