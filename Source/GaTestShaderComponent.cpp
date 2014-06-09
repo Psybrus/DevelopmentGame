@@ -143,7 +143,7 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 		0, 1, 2, 3,
 	};
 
-	ObjectUniformBuffer_ = RsCore::pImpl()->createUniformBuffer( RsUniformBufferDesc( sizeof( ScnShaderObjectUniformBlockData ) ) );
+	ObjectUniformBuffer_ = RsCore::pImpl()->createUniformBuffer( RsUniformBufferDesc( ScnShaderObjectUniformBlockData::StaticGetClass() ) );
 	IndexBuffer_ = RsCore::pImpl()->createIndexBuffer( RsIndexBufferDesc( 4 ), Indices );
 	VertexBuffer_ = RsCore::pImpl()->createVertexBuffer( RsVertexBufferDesc( 2048, sizeof( GaVertex ) ) );
 	VertexDeclaration_ = RsCore::pImpl()->createVertexDeclaration( RsVertexDeclarationDesc( 4 )
