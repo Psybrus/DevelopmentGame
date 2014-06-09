@@ -86,14 +86,16 @@ public:
 	void render()
 	{
 		PSY_PROFILER_SECTION( RenderRoot, "GaTestShaderComponentRenderNode::render" );
-		pContext_->setPrimitive( pPrimitive_ );
+		pContext_->setVertexBuffer( 0, VertexBuffer_ );
+		pContext_->setVertexDeclaration( VertexDeclaration_ );
 		pContext_->drawPrimitives( Type_, Offset_, NoofIndices_ );
 	}
 
 	RsPrimitiveType Type_;
 	BcU32 Offset_;
 	BcU32 NoofIndices_;
-	RsPrimitive* pPrimitive_;
+	RsVertexBuffer* VertexBuffer_;
+	RsVertexDeclaration* VertexDeclaration_;
 };
 
 
@@ -122,7 +124,8 @@ void GaTestShaderComponent::render( class ScnViewComponent* pViewComponent, RsFr
 	pRenderNode->Type_ = RsPrimitiveType::TRIANGLESTRIP;
 	pRenderNode->Offset_ = 0;
 	pRenderNode->NoofIndices_ = 4;
-	pRenderNode->pPrimitive_ = Primitive_;
+	pRenderNode->VertexBuffer_ = VertexBuffer_;
+	pRenderNode->VertexDeclaration_ = VertexDeclaration_;
 	pRenderNode->Sort_ = Sort;
 			
 	pFrame->addRenderNode( pRenderNode );
@@ -150,10 +153,6 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 		.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::COLOUR, 0 ) )
 		.addElement( RsVertexElement( 0, 52, 2, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ) );
 
-	Primitive_ = RsCore::pImpl()->createPrimitive( RsPrimitiveDesc( VertexDeclaration_ )
-		.setIndexBuffer( IndexBuffer_ )
-		.setVertexBuffer( 0, VertexBuffer_ ) );
-
 	auto Vertices = reinterpret_cast< GaVertex* >( VertexBuffer_->lock() );
 	*Vertices++ = GaVertex( MaVec3d( -1.0f, -1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 0.0f ) );
 	*Vertices++ = GaVertex( MaVec3d(  1.0f, -1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 0.0f ) );
@@ -175,7 +174,6 @@ void GaTestShaderComponent::onDetach( ScnEntityWeakRef Parent )
 	Parent->detach( MaterialComponent_ );
 	MaterialComponent_ = nullptr;
 
-	RsCore::pImpl()->destroyResource( Primitive_ );
 	RsCore::pImpl()->destroyResource( VertexDeclaration_ );
 	RsCore::pImpl()->destroyResource( VertexBuffer_ );
 	RsCore::pImpl()->destroyResource( IndexBuffer_ );
