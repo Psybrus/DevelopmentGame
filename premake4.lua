@@ -24,17 +24,17 @@ solution "DevelopmentGame"
 	configuration "Debug"
 		targetdir ( "Build/" .. action .. "/bin/Debug" )
 		defines { "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "DEBUG", "PSY_DEBUG", "PSY_SERVER" }
-		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "Symbols" }
+		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "Symbols" }
 
 	configuration "Release"
 		targetdir ( "Build/" .. action .. "/bin/Release" )
 		defines { "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "NDEBUG", "PSY_RELEASE", "PSY_SERVER" }
-		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "Symbols", "Optimize" }
+		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "Symbols", "Optimize" }
 
 	configuration "Production"
 		targetdir ( "Build/" .. action .. "/bin/Production" )
 		defines { "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "NDEBUG", "PSY_PRODUCTION" }
-		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoPCH", "NoFramePointer", "Optimize" }
+		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoFramePointer", "Optimize" }
 
 	-- Build externals.
 	dofile (psybrusSDK .. "/External/premake4.lua")
