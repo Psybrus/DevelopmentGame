@@ -1,2 +1,2 @@
-..\Psybrus\premake4.exe --os=windows --platform=x64 vs2012
+..\Psybrus\premake4.exe --os=windows --platform=x32 vs2012
 pause

@@ -86,7 +86,7 @@ public:
 	void render()
 	{
 		PSY_PROFILER_SECTION( RenderRoot, "GaTestShaderComponentRenderNode::render" );
-		pContext_->setVertexBuffer( 0, VertexBuffer_ );
+		pContext_->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
 		pContext_->setVertexDeclaration( VertexDeclaration_ );
 		pContext_->drawPrimitives( Type_, Offset_, NoofIndices_ );
 	}
@@ -94,7 +94,7 @@ public:
 	RsTopologyType Type_;
 	BcU32 Offset_;
 	BcU32 NoofIndices_;
-	RsVertexBuffer* VertexBuffer_;
+	RsBuffer* VertexBuffer_;
 	RsVertexDeclaration* VertexDeclaration_;
 };
 
@@ -104,9 +104,16 @@ void GaTestShaderComponent::render( class ScnViewComponent* pViewComponent, RsFr
 {
 	Super::render( pViewComponent, pFrame, Sort );
 
-	auto UniformBlock = reinterpret_cast< ScnShaderObjectUniformBlockData* >( ObjectUniformBuffer_->lock() );
-	UniformBlock->WorldTransform_ = MaMat4d();
-	ObjectUniformBuffer_->unlock();
+	RsCore::pImpl()->updateBuffer( 
+		ObjectUniformBuffer_,
+		0, sizeof( ScnShaderObjectUniformBlockData ),
+		RsResourceUpdateFlags::ASYNC,
+		[ & ]( RsBuffer* Buffer, const RsBufferLock& Lock )
+		{
+			auto UniformBlock = reinterpret_cast< ScnShaderObjectUniformBlockData* >( Lock.Buffer_ );
+			UniformBlock->WorldTransform_ = MaMat4d();
+		} );
+
 
 	// Set skinning parameters.
 	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_ );
@@ -138,14 +145,35 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 
-	BcU16 Indices[4] = 
-	{
-		0, 1, 2, 3,
-	};
 
-	ObjectUniformBuffer_ = RsCore::pImpl()->createUniformBuffer( RsUniformBufferDesc( ScnShaderObjectUniformBlockData::StaticGetClass() ) );
-	IndexBuffer_ = RsCore::pImpl()->createIndexBuffer( RsIndexBufferDesc( 4 ), Indices );
-	VertexBuffer_ = RsCore::pImpl()->createVertexBuffer( RsVertexBufferDesc( 2048, sizeof( GaVertex ) ) );
+	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
+		RsBufferDesc(
+			RsBufferType::UNIFORM,
+			RsResourceCreationFlags::STREAM,
+			sizeof( ScnShaderObjectUniformBlockData ) ) );
+
+	BcU32 IndexBufferSize = sizeof( BcU16 ) * 4;
+	IndexBuffer_ = RsCore::pImpl()->createBuffer(
+		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ) );
+
+	RsCore::pImpl()->updateBuffer( 
+		IndexBuffer_, 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
+		[]( RsBuffer* Buffer, const RsBufferLock& BufferLock )
+		{
+			BcU16* Indices = reinterpret_cast< BcU16* >( BufferLock.Buffer_ );
+			Indices[ 0 ] = 0;
+			Indices[ 1 ] = 1;
+			Indices[ 2 ] = 2;
+			Indices[ 3 ] = 3;
+		} );
+
+	BcU32 VertexBufferSize = 2048 * sizeof( GaVertex );
+	VertexBuffer_ = RsCore::pImpl()->createBuffer( 
+		RsBufferDesc( 
+			RsBufferType::VERTEX,
+			RsResourceCreationFlags::STATIC,
+			VertexBufferSize ) );
+
 	VertexDeclaration_ = RsCore::pImpl()->createVertexDeclaration( RsVertexDeclarationDesc( 4 )
 		.addElement( RsVertexElement( 0,  0, 3, RsVertexDataType::FLOAT32,    RsVertexUsage::POSITION, 0 ) )
 		.addElement( RsVertexElement( 0, 16, 3, RsVertexDataType::FLOAT32,    RsVertexUsage::NORMAL, 0 ) )
@@ -153,12 +181,18 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 		.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::COLOUR, 0 ) )
 		.addElement( RsVertexElement( 0, 52, 2, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ) );
 
-	auto Vertices = reinterpret_cast< GaVertex* >( VertexBuffer_->lock() );
-	*Vertices++ = GaVertex( MaVec3d( -1.0f, -1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 0.0f ) );
-	*Vertices++ = GaVertex( MaVec3d(  1.0f, -1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 0.0f ) );
-	*Vertices++ = GaVertex( MaVec3d( -1.0f,  1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 1.0f ) );
-	*Vertices++ = GaVertex( MaVec3d(  1.0f,  1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 1.0f ) );
-	VertexBuffer_->unlock();
+	RsCore::pImpl()->updateBuffer( 
+		VertexBuffer_,
+		0, VertexBufferSize,
+		RsResourceUpdateFlags::ASYNC,
+		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
+		{
+			auto Vertices = reinterpret_cast< GaVertex* >( Lock.Buffer_ );
+			*Vertices++ = GaVertex( MaVec3d( -1.0f, -1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 0.0f ) );
+			*Vertices++ = GaVertex( MaVec3d(  1.0f, -1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 0.0f ) );
+			*Vertices++ = GaVertex( MaVec3d( -1.0f,  1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 1.0f ) );
+			*Vertices++ = GaVertex( MaVec3d(  1.0f,  1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 1.0f ) );
+		} );
 
 	Parent->attach( MaterialComponent_ );
 
