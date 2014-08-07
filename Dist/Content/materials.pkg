@@ -17,7 +17,7 @@
 				"depth_write_enable" 		: 0,
 				"depth_test_enable" 		: 0,
 				"depth_test_compare" 		: "lessequal",
-				"blend_mode" 				: "blend"
+				"blend_mode" 				: "none"
 			}
 		},
 

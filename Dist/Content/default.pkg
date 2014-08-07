@@ -31,7 +31,8 @@
 
 					"options"				: [
 						"$(ScnEntity:this.TestLevelEntity1)",
-						"$(ScnEntity:this.TestShaderEntity)"
+						"$(ScnEntity:this.TestShaderEntity)",
+						"$(ScnEntity:this.TestModelEntity)"
 					]
 				}
 			]
@@ -80,6 +81,29 @@
 				{
 					"type"					: "GaTestShaderComponent",
 
+					"material"				: "$(ScnMaterial:materials.geometry_test)"
+				}
+			]
+		},
+
+		{
+			"name"		:		"TestModelEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "ScnModelComponent",
+					"model"					: "$(ScnModel:models.teapot)"
+				},
+
+				{
+					"type"					: "GaTestModelComponent",
 					"material"				: "$(ScnMaterial:materials.geometry_test)"
 				}
 			]
