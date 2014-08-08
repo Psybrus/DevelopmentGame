@@ -98,11 +98,6 @@
 				},
 
 				{
-					"type"					: "ScnModelComponent",
-					"model"					: "$(ScnModel:models.teapot)"
-				},
-
-				{
 					"type"					: "GaTestModelComponent",
 					"material"				: "$(ScnMaterial:materials.geometry_test)"
 				}
@@ -185,6 +180,19 @@
 							}
 						]
 					}
+				}
+			]
+		},
+
+		{
+			"name"		:		"ModelEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:models.teapot)"
 				}
 			]
 		}
