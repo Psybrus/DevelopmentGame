@@ -17,6 +17,7 @@
 #include "GaAnimationControllerComponent.h"
 #include "GaLevelComponent.h"
 #include "GaTestModelComponent.h"
+#include "GaTestParticleComponent.h"
 #include "GaTestShaderComponent.h"
 #include "GaTestSelectionComponent.h"
 
@@ -66,6 +67,7 @@ void PsyGameRegisterResources()
 	GaAnimationControllerComponent::StaticRegisterClass();
 	GaLevelComponent::StaticRegisterClass();
 	GaTestModelComponent::StaticRegisterClass();
+	GaTestParticleComponent::StaticRegisterClass();
 	GaTestShaderComponent::StaticRegisterClass();
 	GaTestSelectionComponent::StaticRegisterClass();
 }
