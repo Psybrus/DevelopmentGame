@@ -23,6 +23,27 @@
 
 		{
 			"type"			: "ScnMaterial",
+			"name"			: "particles",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.textured)",
+
+			// Textures
+			"textures"		: {
+				"aDiffuseTex"	: "$(ScnTexture:textures.particles)"
+			},
+
+			// State
+			"state"			: {
+				"depth_write_enable" 		: 0,
+				"depth_test_enable" 		: 1,
+				"depth_test_compare" 		: "lessequal",
+				"blend_mode" 				: "add"
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
 			"name"			: "font",
 
 			// Shader

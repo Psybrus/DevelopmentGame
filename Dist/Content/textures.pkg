@@ -8,6 +8,18 @@
 		},
 
 		{
+			"type"			: "ScnTextureAtlas",
+			"name"			: "particles",
+
+			"source"		: [
+				"EngineContent/TextureSource/particle0.png",
+				"EngineContent/TextureSource/particle1.png",
+				"EngineContent/TextureSource/particle2.png",
+				"EngineContent/TextureSource/particle3.png"
+			]
+		},
+
+		{
 			"type"			: "ScnTexture",
 			"name"			: "test",
 
