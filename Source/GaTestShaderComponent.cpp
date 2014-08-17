@@ -28,7 +28,7 @@ struct GaVertex
 	GaVertex()
 	{}
 
-	GaVertex( MaVec3d Position, MaVec3d Normal, MaVec3d Tangent, MaVec4d Colour, MaVec2d TexCoord ):
+	GaVertex( MaVec4d Position, MaVec4d Normal, MaVec4d Tangent, MaVec4d Colour, MaVec2d TexCoord ):
 		Position_( Position ),
 		Normal_( Normal ),
 		Tangent_( Tangent ),
@@ -36,9 +36,9 @@ struct GaVertex
 		TexCoord_( TexCoord )
 	{}
 
-	MaVec3d Position_;
-	MaVec3d Normal_;
-	MaVec3d Tangent_;
+	MaVec4d Position_;
+	MaVec4d Normal_;
+	MaVec4d Tangent_;
 	MaVec4d Colour_;
 	MaVec2d TexCoord_;
 };
@@ -174,10 +174,10 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ) );
 
-	VertexDeclaration_ = RsCore::pImpl()->createVertexDeclaration( RsVertexDeclarationDesc( 4 )
-		.addElement( RsVertexElement( 0,  0, 3, RsVertexDataType::FLOAT32,    RsVertexUsage::POSITION, 0 ) )
-		.addElement( RsVertexElement( 0, 16, 3, RsVertexDataType::FLOAT32,    RsVertexUsage::NORMAL, 0 ) )
-		.addElement( RsVertexElement( 0, 32, 3, RsVertexDataType::FLOAT32,    RsVertexUsage::TANGENT, 0 ) )
+	VertexDeclaration_ = RsCore::pImpl()->createVertexDeclaration( RsVertexDeclarationDesc( 5 )
+		.addElement( RsVertexElement( 0,  0, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::POSITION, 0 ) )
+		.addElement( RsVertexElement( 0, 16, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::NORMAL, 0 ) )
+		.addElement( RsVertexElement( 0, 32, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::TANGENT, 0 ) )
 		.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::COLOUR, 0 ) )
 		.addElement( RsVertexElement( 0, 52, 2, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ) );
 
@@ -188,10 +188,10 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
 		{
 			auto Vertices = reinterpret_cast< GaVertex* >( Lock.Buffer_ );
-			*Vertices++ = GaVertex( MaVec3d( -1.0f, -1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 0.0f ) );
-			*Vertices++ = GaVertex( MaVec3d(  1.0f, -1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 0.0f ) );
-			*Vertices++ = GaVertex( MaVec3d( -1.0f,  1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 1.0f ) );
-			*Vertices++ = GaVertex( MaVec3d(  1.0f,  1.0f,  0.0f ) * 10.0f, MaVec3d( 0.0f, 0.0f, 1.0f ), MaVec3d( 1.0f, 0.0f, 0.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 1.0f ) );
+			*Vertices++ = GaVertex( MaVec4d( -1.0f, -1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 0.0f ) );
+			*Vertices++ = GaVertex( MaVec4d(  1.0f, -1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 0.0f ) );
+			*Vertices++ = GaVertex( MaVec4d( -1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 1.0f ) );
+			*Vertices++ = GaVertex( MaVec4d(  1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 1.0f ) );
 		} );
 
 	Parent->attach( MaterialComponent_ );
