@@ -46,7 +46,7 @@ void GaLevelComponent::onAttach( ScnEntityWeakRef Parent )
 	Super::onAttach( Parent );
 
 	BcU32 Idx = 0;
-	BcF32 Width = 128.0f;
+	BcF32 Width = 1024.0f;
 
 	for( BcF32 X = -Width; X <= Width; X += 64.0f )
 	{

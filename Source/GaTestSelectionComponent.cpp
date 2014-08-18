@@ -112,8 +112,11 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 	OsEventInputKeyboard::Delegate OnKeyPress = OsEventInputKeyboard::Delegate::bind< GaTestSelectionComponent, &GaTestSelectionComponent::onKeyPress >( this );
 	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, OnKeyPress );
 
-	DsCore::pImpl()->registerFunction("Test Entity 1", std::bind(&GaTestSelectionComponent::LoadEntity, this, 0));
-	DsCore::pImpl()->registerFunction("Test Entity 2", std::bind(&GaTestSelectionComponent::LoadEntity, this, 1));
+	if( DsCore::pImpl() )
+	{
+		DsCore::pImpl()->registerFunction("Test Entity 1", std::bind(&GaTestSelectionComponent::LoadEntity, this, 0));
+		DsCore::pImpl()->registerFunction("Test Entity 2", std::bind(&GaTestSelectionComponent::LoadEntity, this, 1));
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -121,8 +124,11 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 //virtual
 void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 {
-	DsCore::pImpl()->deregisterFunction("Test Entity 1");
-	DsCore::pImpl()->deregisterFunction("Test Entity 2");
+	if( DsCore::pImpl() )
+	{
+		DsCore::pImpl()->deregisterFunction("Test Entity 1");
+		DsCore::pImpl()->deregisterFunction("Test Entity 2");
+	}
 	OsCore::pImpl()->unsubscribeAll(this);
 	Super::onDetach( Parent );
 }
