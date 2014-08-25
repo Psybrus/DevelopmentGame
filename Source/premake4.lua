@@ -1,7 +1,8 @@
+
 project "DevelopmentGame"
 	kind "WindowedApp"
 	language "C++"
-	files { "./**.h", "./**.inl", "./**.cpp" }
+	files { "./AutoGenRegisterReflection.cpp", "./**.h", "./**.inl", "./**.cpp" }
    debugdir "../Dist"
    includedirs { 
       "./", 
@@ -15,6 +16,10 @@ project "DevelopmentGame"
    }
 
 	configuration "windows"
+         prebuildcommands {
+               "C:\\Python27\\python.exe $(PSYBRUS_SDK)/reflection_parse.py DevelopmentGame"
+         }
+
          libdirs {
             openal32LibPath,
             boostLib
@@ -30,5 +35,6 @@ project "DevelopmentGame"
             "OpenAL32",
 
             -- Engine libs.
-            "Engine"
+            "Engine",
          }
+

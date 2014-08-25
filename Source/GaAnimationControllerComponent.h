@@ -29,7 +29,7 @@ class GaAnimationControllerComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( ScnComponent, GaAnimationControllerComponent );
+	DECLARE_RESOURCE( GaAnimationControllerComponent, ScnComponent );
 
 	void								initialise( const Json::Value& Object );
 

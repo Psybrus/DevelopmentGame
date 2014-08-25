@@ -29,7 +29,7 @@ class GaCameraComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( ScnComponent, GaCameraComponent );
+	DECLARE_RESOURCE( GaCameraComponent, ScnComponent );
 
 	void								initialise( const Json::Value& Object );
 

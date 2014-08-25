@@ -23,14 +23,14 @@ DEFINE_RESOURCE( GaCameraComponent );
 
 void GaCameraComponent::StaticRegisterClass()
 {	
-	static const ReField Fields[] = 
+	ReField* Fields[] = 
 	{
-		ReField( "CameraTarget_",		&GaCameraComponent::CameraTarget_ ),
-		ReField( "CameraRotation_",		&GaCameraComponent::CameraRotation_ ),
-		ReField( "CameraDistance_",		&GaCameraComponent::CameraDistance_ ),
-		ReField( "CameraZoom_",			&GaCameraComponent::CameraZoom_ ),
-		ReField( "CameraState_",		&GaCameraComponent::CameraState_ ),
-		ReField( "NextCameraState_",	&GaCameraComponent::NextCameraState_ ),
+		new ReField( "CameraTarget_",		&GaCameraComponent::CameraTarget_ ),
+		new ReField( "CameraRotation_",		&GaCameraComponent::CameraRotation_ ),
+		new ReField( "CameraDistance_",		&GaCameraComponent::CameraDistance_ ),
+		new ReField( "CameraZoom_",			&GaCameraComponent::CameraZoom_ ),
+		new ReField( "CameraState_",		&GaCameraComponent::CameraState_ ),
+		new ReField( "NextCameraState_",	&GaCameraComponent::NextCameraState_ ),
 	};
 
 	ReRegisterClass< GaCameraComponent, Super >( Fields )

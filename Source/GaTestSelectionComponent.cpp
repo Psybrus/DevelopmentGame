@@ -24,14 +24,14 @@ DEFINE_RESOURCE( GaTestSelectionComponent );
 
 void GaTestSelectionComponent::StaticRegisterClass()
 {
-	static const ReField Fields[] = 
+	ReField* Fields[] = 
 	{
-		ReField( "Options_",			&GaTestSelectionComponent::Options_ ),
-		ReField( "SelectedEntry_",		&GaTestSelectionComponent::SelectedEntry_ ),
-		ReField( "PreviousSpawned_",	&GaTestSelectionComponent::PreviousSpawned_ ),
-		ReField( "FontComponent_",		&GaTestSelectionComponent::FontComponent_ ),
-		ReField( "Canvas_",				&GaTestSelectionComponent::Canvas_ ),
-		ReField( "Projection_",			&GaTestSelectionComponent::Projection_ ),
+		new ReField( "Options_",			&GaTestSelectionComponent::Options_ ),
+		new ReField( "SelectedEntry_",		&GaTestSelectionComponent::SelectedEntry_ ),
+		new ReField( "PreviousSpawned_",	&GaTestSelectionComponent::PreviousSpawned_ ),
+		new ReField( "FontComponent_",		&GaTestSelectionComponent::FontComponent_ ),
+		new ReField( "Canvas_",				&GaTestSelectionComponent::Canvas_ ),
+		new ReField( "Projection_",			&GaTestSelectionComponent::Projection_ ),
 	};
 		
 	ReRegisterClass< GaTestSelectionComponent, Super >( Fields )

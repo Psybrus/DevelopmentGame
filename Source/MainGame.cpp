@@ -58,16 +58,3 @@ void PsyLaunchGame()
 
 	ScnCore::pImpl()->spawnEntity( CameraEntityParams );
 }
-
-//////////////////////////////////////////////////////////////////////////
-// PsyGameRegisterResources
-void PsyGameRegisterResources()
-{
-	GaCameraComponent::StaticRegisterClass();
-	GaAnimationControllerComponent::StaticRegisterClass();
-	GaLevelComponent::StaticRegisterClass();
-	GaTestModelComponent::StaticRegisterClass();
-	GaTestParticleComponent::StaticRegisterClass();
-	GaTestShaderComponent::StaticRegisterClass();
-	GaTestSelectionComponent::StaticRegisterClass();
-}

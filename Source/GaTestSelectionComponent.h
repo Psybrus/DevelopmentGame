@@ -31,7 +31,7 @@ class GaTestSelectionComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( ScnComponent, GaTestSelectionComponent );
+	DECLARE_RESOURCE( GaTestSelectionComponent, ScnComponent );
 
 	void								initialise( const Json::Value& Object );
 

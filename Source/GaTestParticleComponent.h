@@ -29,7 +29,7 @@ class GaTestParticleComponent:
 	public ScnRenderableComponent
 {
 public:
-	DECLARE_RESOURCE( ScnRenderableComponent, GaTestParticleComponent );
+	DECLARE_RESOURCE( GaTestParticleComponent, ScnRenderableComponent );
 
 	void initialise( const Json::Value& Object );
 
