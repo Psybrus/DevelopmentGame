@@ -15,9 +15,9 @@
 #define __GaTestParticleComponent_H__
 
 #include "Psybrus.h"
-#include "System/Scene/ScnRenderableComponent.h"
+#include "System/Scene/Rendering/ScnRenderableComponent.h"
 
-#include "System/Scene/ScnParticleSystemComponent.h"
+#include "System/Scene/Rendering/ScnParticleSystemComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef

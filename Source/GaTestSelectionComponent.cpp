@@ -16,7 +16,7 @@
 #include "System/Content/CsPackage.h"
 #include "System/Os/OsCore.h"
 
-#include "System/Scene/ScnDebugRenderComponent.h"
+#include "System/Scene/Rendering/ScnDebugRenderComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.

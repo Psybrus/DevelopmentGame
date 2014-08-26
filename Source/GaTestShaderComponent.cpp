@@ -13,8 +13,8 @@
 
 #include "GaTestShaderComponent.h"
 
-#include "System/Scene/ScnShaderFileData.h"
-#include "System/Scene/ScnViewComponent.h"
+#include "System/Scene/Rendering/ScnShaderFileData.h"
+#include "System/Scene/Rendering/ScnViewComponent.h"
 
 #include "System/Content/CsPackage.h"
 #include "System/Content/CsCore.h"

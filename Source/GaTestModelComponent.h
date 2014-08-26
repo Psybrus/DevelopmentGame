@@ -15,9 +15,9 @@
 #define __GaTestModelComponent_H__
 
 #include "Psybrus.h"
-#include "System/Scene/ScnRenderableComponent.h"
+#include "System/Scene/Rendering/ScnRenderableComponent.h"
 
-#include "System/Scene/ScnMaterial.h"
+#include "System/Scene/Rendering/ScnMaterial.h"
 
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
