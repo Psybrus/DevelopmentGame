@@ -49,7 +49,18 @@ DEFINE_RESOURCE( GaTestShaderComponent );
 
 void GaTestShaderComponent::StaticRegisterClass()
 {
-	ReRegisterClass< GaTestShaderComponent, Super >()
+	ReField* Fields[] = 
+	{
+		new ReField( "MaterialComponent_", &GaTestShaderComponent::MaterialComponent_, bcRFF_TRANSIENT ),
+		new ReField( "ObjectUniformBuffer_", &GaTestShaderComponent::ObjectUniformBuffer_, bcRFF_TRANSIENT ),
+		new ReField( "TestUniformBuffer_", &GaTestShaderComponent::TestUniformBuffer_, bcRFF_TRANSIENT ),
+		new ReField( "IndexBuffer_", &GaTestShaderComponent::IndexBuffer_, bcRFF_TRANSIENT ),
+		new ReField( "VertexBuffer_", &GaTestShaderComponent::VertexBuffer_, bcRFF_TRANSIENT ),
+		new ReField( "VertexDeclaration_", &GaTestShaderComponent::VertexDeclaration_, bcRFF_TRANSIENT ),
+		new ReField( "Material_", &GaTestShaderComponent::Material_, bcRFF_SHALLOW_COPY ),
+	};
+		
+	ReRegisterClass< GaTestShaderComponent, Super >( Fields )
 		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
@@ -59,15 +70,7 @@ void GaTestShaderComponent::initialise( const Json::Value& Object )
 {
 	Super::initialise( Object );
 
-	Material_ = this->getPackage()->getPackageCrossRef( Object[ "material" ].asUInt() );
-
-	ScnShaderPermutationFlags ShaderPermutation = 
-		ScnShaderPermutationFlags::MESH_STATIC_3D |
-		ScnShaderPermutationFlags::RENDER_FORWARD |
-		ScnShaderPermutationFlags::LIGHTING_NONE;
-
-	CsCore::pImpl()->createResource( BcName::INVALID, getPackage(), MaterialComponent_, Material_, ShaderPermutation );
-
+	Material_ = ScnMaterialRef( this->getPackage()->getPackageCrossRef( Object[ "material" ].asUInt() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -193,6 +196,17 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 			*Vertices++ = GaVertex( MaVec4d( -1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 1.0f ) );
 			*Vertices++ = GaVertex( MaVec4d(  1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 1.0f ) );
 		} );
+
+	ScnShaderPermutationFlags ShaderPermutation = 
+		ScnShaderPermutationFlags::MESH_STATIC_3D |
+		ScnShaderPermutationFlags::RENDER_FORWARD |
+		ScnShaderPermutationFlags::LIGHTING_NONE;
+
+	ScnMaterialComponentRef MaterialComponent;
+	if( CsCore::pImpl()->createResource( BcName::INVALID, getPackage(), MaterialComponent, Material_, ShaderPermutation ) ) 
+	{
+		MaterialComponent_ = MaterialComponent;
+	}
 
 	Parent->attach( MaterialComponent_ );
 

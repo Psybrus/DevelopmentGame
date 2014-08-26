@@ -42,9 +42,9 @@ private:
 	class ScnAnimationTreeTrackNode*	pIdleTrack_;
 	class ScnAnimationTreeTrackNode*	pReloadTrack_;
 
-	ScnAnimationRef						AnimIdle_;
-	ScnAnimationRef						AnimFire_;
-	ScnAnimationRef						AnimReload_;
+	ScnAnimation*						AnimIdle_;
+	ScnAnimation*						AnimFire_;
+	ScnAnimation*						AnimReload_;
 };
 
 #endif

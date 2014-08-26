@@ -42,14 +42,14 @@ public:
 	virtual MaAABB						getAABB() const;
 
 private:
-	class RsBuffer*				ObjectUniformBuffer_;
-	class RsBuffer*				TestUniformBuffer_;
-	class RsBuffer*				IndexBuffer_;
-	class RsBuffer*				VertexBuffer_;
-	class RsVertexDeclaration*			VertexDeclaration_;
+	class RsBuffer* ObjectUniformBuffer_;
+	class RsBuffer* TestUniformBuffer_;
+	class RsBuffer* IndexBuffer_;
+	class RsBuffer* VertexBuffer_;
+	class RsVertexDeclaration* VertexDeclaration_;
 
-	ScnMaterialRef						Material_;
-	ScnMaterialComponentRef				MaterialComponent_;
+	ScnMaterial* Material_;
+	ScnMaterialComponent* MaterialComponent_;
 };
 
 #endif
