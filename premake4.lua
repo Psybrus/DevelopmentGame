@@ -2,7 +2,7 @@ local action = _ACTION or ""
 
 psybrusSDK = os.getenv("PSYBRUS_SDK") or "../Psybrus"
 boostRoot = os.getenv("BOOST_ROOT") or "C:/Boost"
-boostInclude = boostRoot .. "/include/boost-1_55"
+boostInclude = boostRoot .. "/include/boost-1_56"
 boostLib = boostRoot .. "/lib"
 
 solution "DevelopmentGame"
