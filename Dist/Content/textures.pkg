@@ -4,7 +4,8 @@
 			"type"			: "ScnTexture",
 			"name"			: "default",
 
-			"source"		: "EngineContent/TextureSource/default.png"
+			"source"		: "EngineContent/TextureSource/default.png",
+			"spread"		: 32
 		},
 
 		{
