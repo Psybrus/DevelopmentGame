@@ -48,8 +48,8 @@ private:
 	class RsBuffer* VertexBuffer_;
 	class RsVertexDeclaration* VertexDeclaration_;
 
-	ScnMaterial* Material_;
-	ScnMaterialComponent* MaterialComponent_;
+	ScnMaterialRef Material_;
+	ScnMaterialComponentRef MaterialComponent_;
 };
 
 #endif
