@@ -1,5 +1,5 @@
 
-project "DevelopmentGame"
+project( solution().name )
 	kind "WindowedApp"
 	language "C++"
 	files { "./AutoGenRegisterReflection.cpp", "./**.h", "./**.inl", "./**.cpp" }
@@ -17,7 +17,7 @@ project "DevelopmentGame"
 
 	configuration "windows"
          prebuildcommands {
-               "C:\\Python27\\python.exe $(PSYBRUS_SDK)/reflection_parse.py DevelopmentGame"
+               "C:\\Python27\\python.exe $(PSYBRUS_SDK)/reflection_parse.py " .. solution().name
          }
 
          libdirs {
