@@ -70,7 +70,7 @@ void GaTestShaderComponent::initialise( const Json::Value& Object )
 {
 	Super::initialise( Object );
 
-	Material_ = ScnMaterialRef( this->getPackage()->getPackageCrossRef( Object[ "material" ].asUInt() ) );
+	Material_ = ScnMaterialRef( this->getPackage()->getCrossRefResource( Object[ "material" ].asUInt() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

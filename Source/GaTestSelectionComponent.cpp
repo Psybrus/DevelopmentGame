@@ -53,7 +53,7 @@ void GaTestSelectionComponent::initialise( const Json::Value& Object )
 	{
 		TMenuEntry Entry = 
 		{
-			getPackage()->getPackageCrossRef( Option.asUInt() )
+			getPackage()->getCrossRefResource( Option.asUInt() )
 		};
 
 		Options_.push_back( Entry );

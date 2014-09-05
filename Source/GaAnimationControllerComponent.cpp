@@ -46,9 +46,9 @@ void GaAnimationControllerComponent::initialise( const Json::Value& Object )
 {
 	Super::initialise();
 
-	AnimIdle_ = ScnAnimationRef( getPackage()->getPackageCrossRef( Object[ "anim_idle" ].asUInt() ) );
-	AnimFire_ = ScnAnimationRef( getPackage()->getPackageCrossRef( Object[ "anim_fire" ].asUInt() ) );
-	AnimReload_ = ScnAnimationRef( getPackage()->getPackageCrossRef( Object[ "anim_reload" ].asUInt() ) );
+	AnimIdle_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_idle" ].asUInt() ) );
+	AnimFire_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_fire" ].asUInt() ) );
+	AnimReload_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_reload" ].asUInt() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
