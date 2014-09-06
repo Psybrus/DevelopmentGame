@@ -37,8 +37,7 @@ void GaTestModelComponent::initialise( const Json::Value& Object )
 {
 	Super::initialise( Object );
 
-	Material_ = this->getPackage()->getPackageCrossRef( Object[ "material" ].asUInt() );
-	
+	Material_ = this->getPackage()->getCrossRefResource( Object[ "material" ].asUInt() );	
 }
 
 //////////////////////////////////////////////////////////////////////////

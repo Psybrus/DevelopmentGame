@@ -1,6 +1,5 @@
 local action = _ACTION or ""
 
-psybrusSDK = os.getenv("PSYBRUS_SDK")
 if psybrusSDK == nil then
 	print "Missing PSYBRUS_SDK: Defaulting to ../Psybrus"
 	psybrusSDK = "../Psybrus"
@@ -16,10 +15,11 @@ else
 	print ("BOOST_ROOT: " .. boostRoot)
 end
 
-boostInclude = boostRoot .. "/include/boost-1_56"
-boostLib = boostRoot .. "/lib"
-
 solution "DevelopmentGame"
+	psybrusSDK = os.getenv("PSYBRUS_SDK") or "../Psybrus"
+	boostRoot = os.getenv("BOOST_ROOT") or "C:/Boost"
+	boostInclude = boostRoot .. "/include/boost-1_56"
+	boostLib = boostRoot .. "/lib"
 	location ( "Build/" .. action )
 	configurations { "Debug", "Release", "Production" }
 

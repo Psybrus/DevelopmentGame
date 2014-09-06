@@ -12,7 +12,7 @@
 **************************************************************************/
 
 #include "GaTestSelectionComponent.h"
-
+ 
 #include "System/Content/CsPackage.h"
 #include "System/Os/OsCore.h"
 
@@ -53,7 +53,7 @@ void GaTestSelectionComponent::initialise( const Json::Value& Object )
 	{
 		TMenuEntry Entry = 
 		{
-			getPackage()->getPackageCrossRef( Option.asUInt() )
+			getPackage()->getCrossRefResource( Option.asUInt() )
 		};
 
 		Options_.push_back( Entry );
@@ -182,7 +182,7 @@ void GaTestSelectionComponent::LoadEntity(int Entity)
 	{
 		TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",
 		MaMat4d(),
-		NULL
+		nullptr
 	};
 
 	PreviousSpawned_ = ScnCore::pImpl()->spawnEntity(SpawnEntity);
