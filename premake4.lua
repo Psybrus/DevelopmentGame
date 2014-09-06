@@ -1,7 +1,21 @@
 local action = _ACTION or ""
 
-psybrusSDK = os.getenv("PSYBRUS_SDK") or "../Psybrus"
-boostRoot = os.getenv("BOOST_ROOT") or "C:/Boost"
+psybrusSDK = os.getenv("PSYBRUS_SDK")
+if psybrusSDK == nil then
+	print "Missing PSYBRUS_SDK: Defaulting to ../Psybrus"
+	psybrusSDK = "../Psybrus"
+else
+	print ("PSYBRUS_SDK: " .. psybrusSDK)
+end
+
+boostRoot = os.getenv("BOOST_ROOT")
+if boostRoot == nil then
+	print "Missing BOOST_ROOT: Defaulting to C:/Boost"
+	boostRoot = "C:/Boost"
+else
+	print ("BOOST_ROOT: " .. boostRoot)
+end
+
 boostInclude = boostRoot .. "/include/boost-1_56"
 boostLib = boostRoot .. "/lib"
 
