@@ -3,14 +3,19 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "default",
-			"shader"		: "Content/Engine/default.hlsl",
+			"source"		: "Content/Engine/default.hlsl",
 
 			"codetypes"	: [
 				"D3D11_4_0_level_9_3",
 				"D3D11_4_0"
 			],
 
-			"entries"		: {
+			"backendtypes" : [
+				"D3D11",
+				"GLSL"
+			],
+
+			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
 			}
@@ -19,14 +24,18 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "textured",
-			
-			"shader"		: "Content/Engine/textured.hlsl",
+			"source"		: "Content/Engine/textured.hlsl",
 
 			"codetypes"	: [
 				"D3D11_4_0"
 			],
 
-			"entries"		: {
+			"backendtypes" : [
+				"D3D11",
+				"GLSL"
+			],
+
+			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
 			}
@@ -35,13 +44,18 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "font",
-			"shader"		: "Content/Engine/font.hlsl",
+			"source"		: "Content/Engine/font.hlsl",
 
 			"codetypes"	: [
 				"D3D11_4_0_level_9_3"
 			],
 
-			"entries"		: {
+			"backendtypes" : [
+				"D3D11",
+				"GLSL"
+			],
+
+			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
 			}
@@ -50,14 +64,18 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "geometry_test",
-			
-			"shader"		: "Content/Engine/geometry_test.hlsl",
+			"source"		: "Content/Engine/geometry_test.hlsl",
 
 			"codetypes"	: [
 				"D3D11_4_0"
 			],
 
-			"entries"		: {
+			"backendtypes" : [
+				"D3D11",
+				"GLSL"
+			],
+
+			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"geometry" : 	"geometryMain",
 				"pixel" :		"pixelMain"
