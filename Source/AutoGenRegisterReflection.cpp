@@ -55,6 +55,7 @@
 #include "System/Scene/Sound/ScnSound.h"
 #include "System/Scene/Sound/ScnSoundEmitter.h"
 #include "System/Scene/Sound/ScnSoundListenerComponent.h"
+#include "System/Sound/SsCore.h"
 #include "System/SysKernel.h"
 #include "System/SysSystem.h"
 #include "GaAnimationControllerComponent.h"
@@ -133,6 +134,7 @@ void AutoGenRegisterReflection()
 	ScnSound::StaticRegisterClass();
 	ScnSoundEmitterComponent::StaticRegisterClass();
 	ScnSoundListenerComponent::StaticRegisterClass();
+	SsCore::StaticRegisterClass();
 	SysKernel::StaticRegisterClass();
 	SysSystem::StaticRegisterClass();
 	GaAnimationControllerComponent::StaticRegisterClass();

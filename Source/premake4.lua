@@ -21,7 +21,6 @@ project( solution().name )
          }
 
          libdirs {
-            openal32LibPath,
             boostLib
          }
          links {
@@ -32,7 +31,6 @@ project( solution().name )
             "winmm",
             "ws2_32",
             "IPHlpApi",
-            "OpenAL32",
 
             -- Engine libs.
             "Engine",
