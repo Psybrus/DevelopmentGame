@@ -28,6 +28,7 @@
 #include "System/Scene/Import/ScnMaterialImport.h"
 #include "System/Scene/Import/ScnModelImport.h"
 #include "System/Scene/Import/ScnShaderImport.h"
+#include "System/Scene/Import/ScnSoundImport.h"
 #include "System/Scene/Import/ScnTextureImport.h"
 #include "System/Scene/Physics/ScnPhysicsBoxCollisionShape.h"
 #include "System/Scene/Physics/ScnPhysicsCollisionShape.h"
@@ -55,6 +56,7 @@
 #include "System/Scene/Sound/ScnSound.h"
 #include "System/Scene/Sound/ScnSoundEmitter.h"
 #include "System/Scene/Sound/ScnSoundListenerComponent.h"
+#include "System/Sound/SoLoud/SsCoreImplSoLoud.h"
 #include "System/Sound/SsCore.h"
 #include "System/SysKernel.h"
 #include "System/SysSystem.h"
@@ -99,6 +101,7 @@ void AutoGenRegisterReflection()
 	ScnMaterialImport::StaticRegisterClass();
 	ScnModelImport::StaticRegisterClass();
 	ScnShaderImport::StaticRegisterClass();
+	ScnSoundImport::StaticRegisterClass();
 	ScnTextureImport::StaticRegisterClass();
 	ScnPhysicsBoxCollisionShape::StaticRegisterClass();
 	ScnPhysicsCollisionShape::StaticRegisterClass();
@@ -134,6 +137,7 @@ void AutoGenRegisterReflection()
 	ScnSound::StaticRegisterClass();
 	ScnSoundEmitterComponent::StaticRegisterClass();
 	ScnSoundListenerComponent::StaticRegisterClass();
+	SsCoreImplSoLoud::StaticRegisterClass();
 	SsCore::StaticRegisterClass();
 	SysKernel::StaticRegisterClass();
 	SysSystem::StaticRegisterClass();

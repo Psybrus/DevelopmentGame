@@ -1,6 +1,13 @@
 {
 
 	"resources" : [
+		{
+			"name"		:		"Sound",
+			"type"		:		"ScnSound",
+			"source"	:		"Content/Source/testsound.sfs",
+			"isstream"	:		true
+		},
+
 		/////////////////////////////////////////////////////////////// 
 		// Entities.
 		{
@@ -106,7 +113,12 @@
 				},
 
 				{
-					"type"					: "GaTestParticleComponent"
+					"type"					: "ScnSoundEmitterComponent"
+				},
+
+				{
+					"type"					: "GaTestParticleComponent",
+					"sound"					: "$(ScnSound:this.Sound)"
 				}
 			]
 		},

@@ -18,6 +18,8 @@
 #include "System/Scene/Rendering/ScnRenderableComponent.h"
 
 #include "System/Scene/Rendering/ScnParticleSystemComponent.h"
+#include "System/Scene/Sound/ScnSound.h"
+#include "System/Scene/Sound/ScnSoundEmitter.h"
 
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
@@ -42,6 +44,9 @@ public:
 
 private:
 	ScnParticleSystemComponentRef ParticleSystem_;
+
+	ScnSoundRef Sound_;
+	ScnSoundEmitterComponentRef SoundEmitter_;
 	
 };
 
