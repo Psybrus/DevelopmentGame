@@ -28,12 +28,12 @@ solution "DevelopmentGame"
 
 	configuration "Debug"
 		targetdir ( "Build/" .. action .. "/bin/Debug" )
-		defines { "PSY_USE_PROFILER=0", "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "DEBUG", "PSY_DEBUG", "PSY_SERVER" }
+		defines { "PSY_USE_PROFILER=0", "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "DEBUG", "PSY_DEBUG", "PSY_IMPORT_PIPELINE" }
 		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "Symbols" }
 
 	configuration "Release"
 		targetdir ( "Build/" .. action .. "/bin/Release" )
-		defines { "PSY_USE_PROFILER=0", "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "NDEBUG", "PSY_RELEASE", "PSY_SERVER" }
+		defines { "PSY_USE_PROFILER=0", "STATICLIB", "WINDOWS", "_WIN32", "WIN32", "NDEBUG", "PSY_RELEASE", "PSY_IMPORT_PIPELINE" }
 		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "Symbols", "Optimize" }
 
 	configuration "Production"
@@ -42,11 +42,11 @@ solution "DevelopmentGame"
 		flags { "StaticRuntime", "EnableSSE", "EnableSSE2", "FloatFast", "NativeWChar", "NoFramePointer", "Optimize" }
 
 	-- Build externals.
-	dofile (psybrusSDK .. "/External/premake4.lua")
+	dofile (psybrusSDK .. "/External/genie.lua")
 
 	-- Build engine.
-	dofile (psybrusSDK .. "/Engine/premake4.lua")
+	dofile (psybrusSDK .. "/Engine/genie.lua")
 
 	-- Build game source.
-	dofile ("./Source/premake4.lua")
+	dofile ("./Source/genie.lua")
 
