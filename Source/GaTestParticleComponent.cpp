@@ -55,11 +55,12 @@ void GaTestParticleComponent::update( BcF32 Tick )
 
 	static BcRandom Rand;
 
-	static float Ticker = 0.0f;;
+	static float Ticker = 0.0f;
 	Ticker += Tick;
-	if( Ticker > 1.0f )
+	if( Ticker > 0.01f )
 	{
-		Ticker -= 1.0f;
+		Ticker -= 0.01f;
+		//SoundEmitter_->setPitch( ( Rand.randReal() + 1.1f ) * 0.5f );
 		SoundEmitter_->play( Sound_ );
 	}
 

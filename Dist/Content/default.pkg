@@ -4,7 +4,7 @@
 		{
 			"name"		:		"Sound",
 			"type"		:		"ScnSound",
-			"source"	:		"Content/Source/testsound.sfs",
+			"source"	:		"Content/Source/WinLevel.wav",
 			"isstream"	:		true
 		},
 
