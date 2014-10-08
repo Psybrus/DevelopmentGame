@@ -23,14 +23,14 @@ DEFINE_RESOURCE( GaCameraComponent );
 
 void GaCameraComponent::StaticRegisterClass()
 {	
-	static const ReField Fields[] = 
+	ReField* Fields[] = 
 	{
-		ReField( "CameraTarget_",		&GaCameraComponent::CameraTarget_ ),
-		ReField( "CameraRotation_",		&GaCameraComponent::CameraRotation_ ),
-		ReField( "CameraDistance_",		&GaCameraComponent::CameraDistance_ ),
-		ReField( "CameraZoom_",			&GaCameraComponent::CameraZoom_ ),
-		ReField( "CameraState_",		&GaCameraComponent::CameraState_ ),
-		ReField( "NextCameraState_",	&GaCameraComponent::NextCameraState_ ),
+		new ReField( "CameraTarget_",		&GaCameraComponent::CameraTarget_ ),
+		new ReField( "CameraRotation_",		&GaCameraComponent::CameraRotation_ ),
+		new ReField( "CameraDistance_",		&GaCameraComponent::CameraDistance_ ),
+		new ReField( "CameraZoom_",			&GaCameraComponent::CameraZoom_ ),
+		new ReField( "CameraState_",		&GaCameraComponent::CameraState_ ),
+		new ReField( "NextCameraState_",	&GaCameraComponent::NextCameraState_ ),
 	};
 
 	ReRegisterClass< GaCameraComponent, Super >( Fields )
@@ -86,6 +86,9 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 		break;
 	}
 
+	// Keyboard rotation.
+	CameraRotation_ += CameraRotationDelta_ * Tick;
+
 	CameraDistance_ += CameraZoom_ * Tick;
 	CameraDistance_ = BcClamp( CameraDistance_, 1.0f, 4096.0f );
 	CameraZoom_ = 0.0f;
@@ -125,6 +128,13 @@ void GaCameraComponent::onAttach( ScnEntityWeakRef Parent )
 	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEUP, OnMouseUp );
 	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEMOVE, OnMouseMove );
 	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEWHEEL, OnMouseWheel );
+
+	OsEventInputKeyboard::Delegate OnKeyboardDown = OsEventInputKeyboard::Delegate::bind< GaCameraComponent, &GaCameraComponent::onKeyDown >( this );
+	OsEventInputKeyboard::Delegate OnKeyboardUp = OsEventInputKeyboard::Delegate::bind< GaCameraComponent, &GaCameraComponent::onKeyUp >( this );
+
+	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, OnKeyboardDown );
+	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYUP, OnKeyboardUp );
+
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -197,6 +207,53 @@ eEvtReturn GaCameraComponent::onMouseWheel( EvtID ID, const OsEventInputMouse& E
 	
 	return evtRET_PASS;
 }
+
+//////////////////////////////////////////////////////////////////////////
+// onKeyDown
+eEvtReturn GaCameraComponent::onKeyDown( EvtID ID, const OsEventInputKeyboard& Event )
+{
+	LastKeyboardEvent_ = Event;
+
+	switch( Event.KeyCode_ )
+	{
+	case OsEventInputKeyboard::KEYCODE_LEFT:
+		CameraRotationDelta_.y( -1.0f );
+		break;
+	case OsEventInputKeyboard::KEYCODE_RIGHT:
+		CameraRotationDelta_.y(  1.0f );
+		break;
+	case OsEventInputKeyboard::KEYCODE_UP:
+		CameraRotationDelta_.x( -1.0f );
+		break;
+	case OsEventInputKeyboard::KEYCODE_DOWN:
+		CameraRotationDelta_.x(  1.0f );
+		break;
+	}
+
+	return evtRET_PASS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// onKeyUp
+eEvtReturn GaCameraComponent::onKeyUp( EvtID ID, const OsEventInputKeyboard& Event )
+{
+	LastKeyboardEvent_ = Event;
+
+	switch( Event.KeyCode_ )
+	{
+	case OsEventInputKeyboard::KEYCODE_LEFT:
+	case OsEventInputKeyboard::KEYCODE_RIGHT:
+		CameraRotationDelta_.y( 0.0f );
+		break;
+	case OsEventInputKeyboard::KEYCODE_UP:
+	case OsEventInputKeyboard::KEYCODE_DOWN:
+		CameraRotationDelta_.x( 0.0f );
+		break;
+	}
+
+	return evtRET_PASS;
+}
+
 	
 //////////////////////////////////////////////////////////////////////////
 // getCameraRotationMatrix

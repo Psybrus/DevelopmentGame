@@ -17,7 +17,28 @@
 				"depth_write_enable" 		: 0,
 				"depth_test_enable" 		: 0,
 				"depth_test_compare" 		: "lessequal",
-				"blend_mode" 				: "blend"
+				"blend_mode" 				: "none"
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "particles",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.textured)",
+
+			// Textures
+			"textures"		: {
+				"aDiffuseTex"	: "$(ScnTexture:textures.particles)"
+			},
+
+			// State
+			"state"			: {
+				"depth_write_enable" 		: 0,
+				"depth_test_enable" 		: 1,
+				"depth_test_compare" 		: "lessequal",
+				"blend_mode" 				: "add"
 			}
 		},
 
@@ -163,5 +184,32 @@
 				"alpha_test_threshold" 		: 0,
 				"blend_mode" 				: "none"
 			}
-		}	]
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "geometry_test",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.geometry_test)",
+
+			// Textures
+			"textures"		: {
+			},
+
+			// State
+			"state"			: {
+				"depth_write_enable" 		: 0,
+				"depth_test_enable" 		: 0,
+				"depth_test_compare" 		: "lessequal",
+				"depth_bias" 				: 0,
+				"alpha_test_enable" 		: 0,
+				"alpha_test_compare" 		: "never",
+				"alpha_test_threshold" 		: 0,
+				"blend_mode" 				: "none",
+				"fill_mode"					: "wireframe"
+			}
+		}
+
+	]
 }

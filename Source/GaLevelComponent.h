@@ -26,7 +26,7 @@ class GaLevelComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( ScnComponent, GaLevelComponent );
+	DECLARE_RESOURCE( GaLevelComponent, ScnComponent );
 
 	void								initialise( const Json::Value& Object );
 

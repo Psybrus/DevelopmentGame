@@ -1,7 +1,8 @@
-project "DevelopmentGame"
+
+project( solution().name )
 	kind "WindowedApp"
 	language "C++"
-	files { "./**.h", "./**.inl", "./**.cpp" }
+	files { "./AutoGenRegisterReflection.cpp", "./**.h", "./**.inl", "./**.cpp" }
    debugdir "../Dist"
    includedirs { 
       "./", 
@@ -15,8 +16,11 @@ project "DevelopmentGame"
    }
 
 	configuration "windows"
+         prebuildcommands {
+               "C:\\Python27\\python.exe $(PSYBRUS_SDK)/reflection_parse.py " .. solution().name
+         }
+
          libdirs {
-            openal32LibPath,
             boostLib
          }
          links {
@@ -27,8 +31,8 @@ project "DevelopmentGame"
             "winmm",
             "ws2_32",
             "IPHlpApi",
-            "OpenAL32",
 
             -- Engine libs.
-            "Engine"
+            "Engine",
          }
+

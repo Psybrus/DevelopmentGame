@@ -29,22 +29,21 @@ class GaAnimationControllerComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( ScnComponent, GaAnimationControllerComponent );
+	DECLARE_RESOURCE( GaAnimationControllerComponent, ScnComponent );
 
-	void								initialise( const Json::Value& Object );
+	void initialise( const Json::Value& Object );
 
-	virtual void						update( BcF32 Tick );
+	virtual void update( BcF32 Tick );
 
-	virtual void						onAttach( ScnEntityWeakRef Parent );
+	virtual void onAttach( ScnEntityWeakRef Parent );
 	
 private:
-	class ScnAnimationTreeBlendNode*	pRootTrack_;
-	class ScnAnimationTreeTrackNode*	pIdleTrack_;
-	class ScnAnimationTreeTrackNode*	pReloadTrack_;
-
-	ScnAnimationRef						AnimIdle_;
-	ScnAnimationRef						AnimFire_;
-	ScnAnimationRef						AnimReload_;
+	ReObjectRef< class ScnAnimationTreeBlendNode > pRootTrack_;
+	ReObjectRef< class ScnAnimationTreeTrackNode > pIdleTrack_;
+	ReObjectRef< class ScnAnimationTreeTrackNode > pReloadTrack_;
+	ScnAnimationRef AnimIdle_;
+	ScnAnimationRef AnimFire_;
+	ScnAnimationRef AnimReload_;
 };
 
 #endif

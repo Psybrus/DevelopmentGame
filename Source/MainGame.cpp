@@ -16,6 +16,9 @@
 #include "GaCameraComponent.h"
 #include "GaAnimationControllerComponent.h"
 #include "GaLevelComponent.h"
+#include "GaTestModelComponent.h"
+#include "GaTestParticleComponent.h"
+#include "GaTestShaderComponent.h"
 #include "GaTestSelectionComponent.h"
 
 #include "System/Content/CsCore.h"
@@ -41,7 +44,7 @@ void PsyLaunchGame()
 	{
 		"default", "MenuEntity", "MenuEntity_0",
 		MaMat4d(),
-		NULL
+		nullptr
 	};
 
 	ScnCore::pImpl()->spawnEntity( ScreenEntityParams );
@@ -50,18 +53,8 @@ void PsyLaunchGame()
 	{
 		"default", "CameraEntity", "CameraEntity_0",
 		MaMat4d(),
-		NULL
+		nullptr
 	};
 
 	ScnCore::pImpl()->spawnEntity( CameraEntityParams );
-}
-
-//////////////////////////////////////////////////////////////////////////
-// PsyGameRegisterResources
-void PsyGameRegisterResources()
-{
-	GaCameraComponent::StaticRegisterClass();
-	GaAnimationControllerComponent::StaticRegisterClass();
-	GaLevelComponent::StaticRegisterClass();
-	GaTestSelectionComponent::StaticRegisterClass();
 }
