@@ -18,7 +18,7 @@
 
 #include "System/Os/OsEvents.h"
 #include "System/Scene/ScnEntity.h"
-#include "System/Scene/ScnFont.h"
+#include "System/Scene/Rendering/ScnFont.h"
 #include "System/Debug/DsCore.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -31,7 +31,7 @@ class GaTestSelectionComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( ScnComponent, GaTestSelectionComponent );
+	DECLARE_RESOURCE( GaTestSelectionComponent, ScnComponent );
 
 	void								initialise( const Json::Value& Object );
 

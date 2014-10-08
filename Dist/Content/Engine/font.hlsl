@@ -43,9 +43,9 @@ PS_OUTPUT pixelMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
 	float4 Colour = aDiffuseTex.Sample( sDiffuseTex, i.TexCoord0_.xy );
-	float Factor = smoothstep( uAlphaTestParams.x, uAlphaTestParams.y, Colour.a );
+	float Factor = smoothstep( AlphaTestParams_.x, AlphaTestParams_.y, Colour.a );
 
-	if( Factor < uAlphaTestParams.z )
+	if( Factor < AlphaTestParams_.z )
 	{
 		//discard;
 	}

@@ -12,11 +12,11 @@
 **************************************************************************/
 
 #include "GaTestSelectionComponent.h"
-
+ 
 #include "System/Content/CsPackage.h"
 #include "System/Os/OsCore.h"
 
-#include "System/Scene/ScnDebugRenderComponent.h"
+#include "System/Scene/Rendering/ScnDebugRenderComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
@@ -24,14 +24,14 @@ DEFINE_RESOURCE( GaTestSelectionComponent );
 
 void GaTestSelectionComponent::StaticRegisterClass()
 {
-	static const ReField Fields[] = 
+	ReField* Fields[] = 
 	{
-		ReField( "Options_",			&GaTestSelectionComponent::Options_ ),
-		ReField( "SelectedEntry_",		&GaTestSelectionComponent::SelectedEntry_ ),
-		ReField( "PreviousSpawned_",	&GaTestSelectionComponent::PreviousSpawned_ ),
-		ReField( "FontComponent_",		&GaTestSelectionComponent::FontComponent_ ),
-		ReField( "Canvas_",				&GaTestSelectionComponent::Canvas_ ),
-		ReField( "Projection_",			&GaTestSelectionComponent::Projection_ ),
+		new ReField( "Options_",			&GaTestSelectionComponent::Options_ ),
+		new ReField( "SelectedEntry_",		&GaTestSelectionComponent::SelectedEntry_ ),
+		new ReField( "PreviousSpawned_",	&GaTestSelectionComponent::PreviousSpawned_ ),
+		new ReField( "FontComponent_",		&GaTestSelectionComponent::FontComponent_ ),
+		new ReField( "Canvas_",				&GaTestSelectionComponent::Canvas_ ),
+		new ReField( "Projection_",			&GaTestSelectionComponent::Projection_ ),
 	};
 		
 	ReRegisterClass< GaTestSelectionComponent, Super >( Fields )
@@ -53,7 +53,7 @@ void GaTestSelectionComponent::initialise( const Json::Value& Object )
 	{
 		TMenuEntry Entry = 
 		{
-			getPackage()->getPackageCrossRef( Option.asUInt() )
+			getPackage()->getCrossRefResource( Option.asUInt() )
 		};
 
 		Options_.push_back( Entry );
@@ -112,8 +112,11 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 	OsEventInputKeyboard::Delegate OnKeyPress = OsEventInputKeyboard::Delegate::bind< GaTestSelectionComponent, &GaTestSelectionComponent::onKeyPress >( this );
 	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, OnKeyPress );
 
-	DsCore::pImpl()->registerFunction("Test Entity 1", std::bind(&GaTestSelectionComponent::LoadEntity, this, 0));
-	DsCore::pImpl()->registerFunction("Test Entity 2", std::bind(&GaTestSelectionComponent::LoadEntity, this, 1));
+	if( DsCore::pImpl() )
+	{
+		DsCore::pImpl()->registerFunction("Test Entity 1", std::bind(&GaTestSelectionComponent::LoadEntity, this, 0));
+		DsCore::pImpl()->registerFunction("Test Entity 2", std::bind(&GaTestSelectionComponent::LoadEntity, this, 1));
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -121,9 +124,13 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 //virtual
 void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 {
-	DsCore::pImpl()->deregisterFunction("Test Entity 1");
-	DsCore::pImpl()->deregisterFunction("Test Entity 2");
+	if( DsCore::pImpl() )
+	{
+		DsCore::pImpl()->deregisterFunction("Test Entity 1");
+		DsCore::pImpl()->deregisterFunction("Test Entity 2");
+	}
 	OsCore::pImpl()->unsubscribeAll(this);
+	Super::onDetach( Parent );
 }
 	
 //////////////////////////////////////////////////////////////////////////
@@ -175,7 +182,7 @@ void GaTestSelectionComponent::LoadEntity(int Entity)
 	{
 		TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",
 		MaMat4d(),
-		NULL
+		nullptr
 	};
 
 	PreviousSpawned_ = ScnCore::pImpl()->spawnEntity(SpawnEntity);

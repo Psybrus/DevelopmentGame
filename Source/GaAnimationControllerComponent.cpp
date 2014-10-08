@@ -26,7 +26,17 @@ DEFINE_RESOURCE( GaAnimationControllerComponent );
 
 void GaAnimationControllerComponent::StaticRegisterClass()
 {
-	ReRegisterClass< GaAnimationControllerComponent, Super >()
+	ReField* Fields[] = 
+	{
+		new ReField( "pRootTrack_", &GaAnimationControllerComponent::pRootTrack_, bcRFF_TRANSIENT ),
+		new ReField( "pIdleTrack_", &GaAnimationControllerComponent::pIdleTrack_, bcRFF_TRANSIENT ),
+		new ReField( "pReloadTrack_", &GaAnimationControllerComponent::pReloadTrack_, bcRFF_TRANSIENT ),
+		new ReField( "AnimIdle_", &GaAnimationControllerComponent::AnimIdle_, bcRFF_SHALLOW_COPY ),
+		new ReField( "AnimFire_", &GaAnimationControllerComponent::AnimFire_, bcRFF_SHALLOW_COPY ),
+		new ReField( "AnimReload_", &GaAnimationControllerComponent::AnimReload_, bcRFF_SHALLOW_COPY ),
+	};
+		
+	ReRegisterClass< GaAnimationControllerComponent, Super >( Fields )
 		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
@@ -36,9 +46,9 @@ void GaAnimationControllerComponent::initialise( const Json::Value& Object )
 {
 	Super::initialise();
 
-	AnimIdle_ = getPackage()->getPackageCrossRef( Object[ "anim_idle" ].asUInt() );
-	AnimFire_ = getPackage()->getPackageCrossRef( Object[ "anim_fire" ].asUInt() );
-	AnimReload_ = getPackage()->getPackageCrossRef( Object[ "anim_reload" ].asUInt() );
+	AnimIdle_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_idle" ].asUInt() ) );
+	AnimFire_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_fire" ].asUInt() ) );
+	AnimReload_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_reload" ].asUInt() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -61,7 +71,7 @@ void GaAnimationControllerComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 	
-	ScnAnimationComponentRef Animation = getParentEntity()->getComponentByType< ScnAnimationComponent >( "TestAnimation" );
+	ScnAnimationComponentRef Animation = getParentEntity()->getComponentByType< ScnAnimationComponent >();
 	pRootTrack_ = Animation->findNodeByType< ScnAnimationTreeBlendNode >( "Root" );
 	pIdleTrack_ = Animation->findNodeByType< ScnAnimationTreeTrackNode >( "IdleTrack_0" );
 	pReloadTrack_ = Animation->findNodeByType< ScnAnimationTreeTrackNode >( "ReloadTrack_0" );

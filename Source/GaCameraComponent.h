@@ -29,7 +29,7 @@ class GaCameraComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( ScnComponent, GaCameraComponent );
+	DECLARE_RESOURCE( GaCameraComponent, ScnComponent );
 
 	void								initialise( const Json::Value& Object );
 
@@ -43,6 +43,9 @@ public:
 	eEvtReturn							onMouseMove( EvtID ID, const OsEventInputMouse& Event );
 	eEvtReturn							onMouseWheel( EvtID ID, const OsEventInputMouse& Event );
 
+	eEvtReturn							onKeyDown( EvtID ID, const OsEventInputKeyboard& Event );
+	eEvtReturn							onKeyUp( EvtID ID, const OsEventInputKeyboard& Event );
+
 	MaMat4d								getCameraRotationMatrix() const;
 	
 private:
@@ -50,6 +53,8 @@ private:
 	MaVec3d								CameraRotation_;
 	BcF32								CameraDistance_;
 	BcF32								CameraZoom_;
+
+	MaVec3d								CameraRotationDelta_;
 
 	enum CameraState
 	{
@@ -61,6 +66,7 @@ private:
 	CameraState							CameraState_;
 	CameraState							NextCameraState_;
 	OsEventInputMouse					LastMouseEvent_;
+	OsEventInputKeyboard				LastKeyboardEvent_;
 };
 
 #endif
