@@ -17,7 +17,7 @@ project( solution().name )
 
 	configuration "windows"
          prebuildcommands {
-               "C:\\Python27\\python.exe $(PSYBRUS_SDK)/reflection_parse.py " .. solution().name
+               "C:\\Python27\\python.exe $(PSYBRUS_SDK)/reflection_parse.py " .. "$(ProjectDir)"
          }
 
          libdirs {
