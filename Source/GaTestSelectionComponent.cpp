@@ -114,8 +114,8 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 
 	if( DsCore::pImpl() )
 	{
-		DsCore::pImpl()->registerFunction("Test Entity 1", std::bind(&GaTestSelectionComponent::LoadEntity, this, 0));
-		DsCore::pImpl()->registerFunction("Test Entity 2", std::bind(&GaTestSelectionComponent::LoadEntity, this, 1));
+		CreateEntity1_ = DsCore::pImpl()->registerFunction("Test Entity 1", std::bind(&GaTestSelectionComponent::LoadEntity, this, 0));
+		CreateEntity2_ = DsCore::pImpl()->registerFunction("Test Entity 2", std::bind(&GaTestSelectionComponent::LoadEntity, this, 1));
 	}
 }
 
@@ -126,8 +126,8 @@ void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 {
 	if( DsCore::pImpl() )
 	{
-		DsCore::pImpl()->deregisterFunction("Test Entity 1");
-		DsCore::pImpl()->deregisterFunction("Test Entity 2");
+		DsCore::pImpl()->deregisterFunction( CreateEntity1_ );
+		DsCore::pImpl()->deregisterFunction( CreateEntity2_ );
 	}
 	OsCore::pImpl()->unsubscribeAll(this);
 	Super::onDetach( Parent );

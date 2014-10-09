@@ -57,6 +57,9 @@ private:
 	MaMat4d								Projection_;
 
 	void								LoadEntity(int Entity);
+
+	BcU32 CreateEntity1_;
+	BcU32 CreateEntity2_;
 };
 
 #endif
