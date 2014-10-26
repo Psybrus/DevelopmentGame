@@ -63,11 +63,10 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "geometry_test",
-			"source"		: "Content/Engine/default.hlsl",
+			"source"		: "Content/Engine/geometry_test.hlsl",
 
 			"codetypes"	: [
-				//"D3D11_4_0"
-				"D3D11_4_0_level_9_3"
+				"D3D11_4_0"
 			],
 
 			"backendtypes" : [
@@ -77,9 +76,10 @@
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
-				//"geometry" : 	"geometryMain",
+				"geometry" : 	"geometryMain",
 				"pixel" :		"pixelMain"
 			}
 		}
 	]
 }
+
