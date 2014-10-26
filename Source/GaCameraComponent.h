@@ -31,6 +31,7 @@ class GaCameraComponent:
 public:
 	DECLARE_RESOURCE( GaCameraComponent, ScnComponent );
 
+	void								initialise();
 	void								initialise( const Json::Value& Object );
 
 	virtual void						preUpdate( BcF32 Tick );

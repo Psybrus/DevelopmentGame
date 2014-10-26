@@ -37,6 +37,17 @@ void GaCameraComponent::StaticRegisterClass()
 		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
+//////////////////////////////////////////////////////////////////////////
+// initialise
+void GaCameraComponent::initialise()
+{
+	Super::initialise();
+
+	CameraState_ = STATE_IDLE;
+	NextCameraState_ = STATE_IDLE;
+	CameraDistance_ = 64.0f;
+	CameraZoom_ = 0.0f;
+}
 
 //////////////////////////////////////////////////////////////////////////
 // initialise
