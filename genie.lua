@@ -35,6 +35,8 @@ solution "DevelopmentGame"
 
 	configuration "gmake"
 		buildoptions { "-std=c++11" }
+		--buildoptions { "-fsanitize=thread", "-fPIE", "-pie" }
+		--linkoptions { "-fsanitize=thread", "-fPIE", "-pie", "-ltsan" }
 
 	configuration "Debug"
 		targetdir ( "Build/" .. action .. "/bin/Debug" )

@@ -70,7 +70,7 @@ project( solution().name )
          "X11",
          "GL",
          "pthread",
-         "SDL2",
+         "SDL2"
       }
 
 	configuration "windows"
