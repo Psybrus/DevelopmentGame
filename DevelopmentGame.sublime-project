@@ -3,10 +3,6 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "Build/gmake"
-		},
-		{
-			"follow_symlinks": true,
 			"path": "."
 		},
 		{
