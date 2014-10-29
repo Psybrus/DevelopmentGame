@@ -1,7 +1,5 @@
 
-project( solution().name )
-	kind "WindowedApp"
-	language "C++"
+PsyProjectGameExe( solution().name )
 	files { "./AutoGenRegisterReflection.cpp", "./**.h", "./**.inl", "./**.cpp" }
    debugdir "../Dist"
    includedirs { 
