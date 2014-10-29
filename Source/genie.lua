@@ -4,16 +4,16 @@ PsyProjectGameExe( solution().name )
    debugdir "../Dist"
    includedirs { 
       "./", 
-      "../../Psybrus/Engine/Source/Shared/", 
+      "../Psybrus/Engine/Source/Shared/", 
    }
 	-- External includes.
 	includedirs { 
-      "../../Psybrus/External/jsoncpp/include", 
+      "../Psybrus/External/jsoncpp/include", 
    }
 
   configuration "linux"
       includedirs {
-         "../../Psybrus/Engine/Source/Platforms/Linux/",
+         "../Psybrus/Engine/Source/Platforms/Linux/",
       }
 
       prebuildcommands {
