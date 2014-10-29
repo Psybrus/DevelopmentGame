@@ -49,7 +49,12 @@ PsyProjectGameExe( solution().name )
       "External_zlib",
    }
 
-   PsyAddBoostLibs()
+   PsyAddBoostLibs {
+      "boost_regex",
+      "boost_filesystem",
+      "boost_system",
+      "boost_wave",
+   }
 
   configuration "linux"
       includedirs {
