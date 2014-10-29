@@ -1,7 +1,7 @@
 
 -- Run psybrus scripts.
-psybrusSDK = "../Psybrus"
-dofile( psybrusSDK .. "/Scripts/Psybrus.lua" )
+psybrusSDK = "Psybrus"
+dofile( "Psybrus/Scripts/Psybrus.lua" )
 
 -- Check boost path on windows.
 if os.is("windows") then
@@ -23,10 +23,10 @@ boostLib = boostRoot .. "/lib"
 PsySolutionGame( "DevelopmentGame" )
 
 -- Build externals.
-dofile (psybrusSDK .. "/External/genie.lua")
+dofile ("Psybrus/External/genie.lua")
 
 -- Build engine.
-dofile (psybrusSDK .. "/Engine/genie.lua")
+dofile ("Psybrus/Engine/genie.lua")
 
 -- Build game source.
 dofile ("./Source/genie.lua")
