@@ -35,9 +35,7 @@ PsyProjectGameExe( solution().name )
       "External_assimp",
       "External_assimp_contrib",
       "External_BulletPhysics",
-      "External_enet",
       "External_freetype",
-      "External_glew",
       "External_HLSLCrossCompiler",
       "External_jsoncpp",
       "External_libb64",
@@ -45,7 +43,6 @@ PsyProjectGameExe( solution().name )
       "External_png",
       "External_SoLoud",
       "External_squish",
-      "External_webby",
       "External_zlib",
    }
 
@@ -56,7 +53,14 @@ PsyProjectGameExe( solution().name )
       "boost_wave",
    }
 
-  configuration "linux"
+   configuration { "windows or linux-gcc or linux-clang" }
+   PsyAddExternalLinks {
+      "External_enet",
+      "External_glew",
+      "External_webby",
+   }
+
+   configuration "linux"
       includedirs {
          "../Psybrus/Engine/Source/Platforms/Linux/",
       }
@@ -66,7 +70,7 @@ PsyProjectGameExe( solution().name )
       }
 
 
-	configuration "windows"
+   configuration "windows"
       includedirs {
          "../../Psybrus/Engine/Source/Platforms/Windows/",
          BOOST_INCLUDE_PATH
