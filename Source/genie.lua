@@ -53,24 +53,23 @@ PsyProjectGameExe( solution().name )
       "boost_wave",
    }
 
-   configuration { "windows or linux-gcc or linux-clang" }
+   configuration { "windows-* or linux-*" }
    PsyAddExternalLinks {
       "External_enet",
       "External_glew",
       "External_webby",
    }
 
-   configuration "linux"
+   configuration "linux*"
       includedirs {
          "../Psybrus/Engine/Source/Platforms/Linux/",
       }
 
       prebuildcommands {
-            -- "python ../../../Psybrus/reflection_parse.py " .. solution().name
+         --"python ../../Psybrus/reflection_parse.py " .. solution().name
       }
 
-
-   configuration "windows"
+   configuration "windows-*"
       includedirs {
          "../../Psybrus/Engine/Source/Platforms/Windows/",
          BOOST_INCLUDE_PATH
