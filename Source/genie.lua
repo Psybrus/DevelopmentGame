@@ -32,17 +32,12 @@ PsyProjectGameExe( solution().name )
    
    PsyAddExternalLinks {
       -- External libs.
-      "External_assimp",
-      "External_assimp_contrib",
       "External_BulletPhysics",
-      "External_freetype",
-      "External_HLSLCrossCompiler",
       "External_jsoncpp",
       "External_libb64",
       "External_pcre",
       "External_png",
       "External_SoLoud",
-      "External_squish",
       "External_zlib",
    }
 
@@ -54,11 +49,16 @@ PsyProjectGameExe( solution().name )
    }
 
    configuration { "windows-* or linux-*" }
-   PsyAddExternalLinks {
-      "External_enet",
-      "External_glew",
-      "External_webby",
-   }
+      PsyAddExternalLinks {
+         "External_assimp",
+         "External_assimp_contrib",
+         "External_enet",
+         "External_freetype",
+         "External_HLSLCrossCompiler",
+         "External_glew",
+         "External_squish",
+         "External_webby",
+      }
 
    configuration "linux*"
       includedirs {
