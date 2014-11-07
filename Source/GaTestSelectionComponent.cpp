@@ -17,6 +17,9 @@
 #include "System/Os/OsCore.h"
 
 #include "System/Scene/Rendering/ScnDebugRenderComponent.h"
+#include "System/SysKernel.h"
+
+#include <boost/format.hpp>
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
@@ -79,6 +82,30 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 
 	MaVec2d Position( 0.0f, 0.0f );
 	MaVec2d Size;
+
+	static BcF32 GameTimeTotal = 0.0f;
+	static BcF32 FrameTimeTotal = 0.0f;
+	static BcF32 GameTimeAccum = 0.0f;
+	static BcF32 FrameTimeAccum = 0.0f;
+	static int CaptureAmount = 60;
+	static int CaptureAccum = 0;
+	GameTimeAccum += SysKernel::pImpl()->getGameThreadTime();
+	FrameTimeAccum += SysKernel::pImpl()->getFrameTime();
+	++CaptureAccum;
+	if( CaptureAccum >= CaptureAmount )
+	{
+		GameTimeTotal = GameTimeAccum / BcF32( CaptureAccum );
+		FrameTimeTotal = FrameTimeAccum / BcF32( CaptureAccum );
+		GameTimeAccum = 0.0f;
+		FrameTimeAccum = 0.0f;
+		CaptureAccum = 0;
+	}
+
+	auto PerfString = boost::str( boost::format( "Perf: Game: %1% ms, Frame %2% ms" ) % ( GameTimeTotal * 1000.0f ) % ( FrameTimeTotal * 1000.0f ) );
+
+	Size = FontComponent_->drawCentered( Canvas_, Position, PerfString.c_str(), RsColour::BLUE );
+	Position += MaVec2d( 0.0f, Size.y() );
+
 	for( BcU32 Idx = 0; Idx < Options_.size(); ++Idx )
 	{
 		const auto& Option( Options_[ Idx ] );
