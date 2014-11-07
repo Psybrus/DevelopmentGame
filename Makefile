@@ -1,5 +1,5 @@
 all:
-	cd Build/gmake && $(MAKE)
+	cd Projects/gmake-linux-clang && $(MAKE)
 
 clean:
-	cd Build/gmake && $(MAKE) clean
+	cd Projects/gmake-linux-clang && $(MAKE) clean
