@@ -6,6 +6,8 @@
 #include "System/SysKernel.h"
 #include "System/Renderer/RsCoreImpl.h"
 #include "System/Renderer/RsTypes.h"
+#include "System/Renderer/RsRenderState.h"
+#include "System/Renderer/RsSamplerState.h"
 #include "System/Renderer/RsCore.h"
 #include "System/Scene/Import/ScnShaderImport.h"
 #include "System/Scene/Import/ScnSoundImport.h"
@@ -79,6 +81,13 @@ void AutoGenRegisterReflection()
 	RsCoreImpl::StaticRegisterClass();
 	RsColour::StaticRegisterClass();
 	RsCore::StaticRegisterClass();
+	RsRenderTargetBlendState::StaticRegisterClass();
+	RsBlendState::StaticRegisterClass();
+	RsStencilFaceState::StaticRegisterClass();
+	RsDepthStencilState::StaticRegisterClass();
+	RsRasteriserState::StaticRegisterClass();
+	RsRenderStateDesc::StaticRegisterClass();
+	RsSamplerStateDesc::StaticRegisterClass();
 	ScnShaderImport::StaticRegisterClass();
 	ScnSoundImport::StaticRegisterClass();
 	ScnEntityImport::StaticRegisterClass();
