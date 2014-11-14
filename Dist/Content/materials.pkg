@@ -362,7 +362,7 @@
 					"fillmode" : "wireframe",
 					"cullmode" : "none",
 					"depthclipenable" : true,
-					"antialiasedlineenable" : true
+					"antialiasedlineenable" : false
 				}
 			}
 		}
