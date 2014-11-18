@@ -31,6 +31,22 @@
 			// Shader
 			"shader"		: "$(ScnShader:shaders.textured)",
 
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				},
+				"aNormalTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				},
+				"aSpecularTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				}
+			},
+
 			// Textures
 			"textures"		: {
 				"aDiffuseTex"	: "$(ScnTexture:this.onslaught01_d)",
@@ -115,6 +131,18 @@
 
 			// Shader
 			"shader"		: "$(ScnShader:shaders.textured)",
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				},
+				"aNormalTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				}
+			},
 
 			// Textures
 			"textures"		: {

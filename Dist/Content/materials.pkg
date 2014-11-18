@@ -12,6 +12,14 @@
 				"aDiffuseTex"	: "$(ScnTexture:textures.default)"
 			},
 
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				}
+			},
+
 			// New render state.
 			"renderstate" : {
 				"blendstate" : {
@@ -48,6 +56,14 @@
 			// Textures
 			"textures"		: {
 				"aDiffuseTex"	: "$(ScnTexture:textures.particles)"
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				}
 			},
 
 			// New render state.
@@ -95,6 +111,14 @@
 				"aDiffuseTex"	: "$(ScnTexture:textures.default)"
 			},
 
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				}
+			},
+
 			// New render state.
 			"renderstate" : {
 				"blendstate" : {
@@ -137,6 +161,10 @@
 
 			// Textures
 			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
 			},
 
 			// New render state.
@@ -184,6 +212,14 @@
 				"aDiffuseTex"	: "$(ScnTexture:textures.test)"
 			},
 
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				}
+			},
+
 			// New render state.
 			"renderstate" : {
 				"blendstate" : {
@@ -222,6 +258,14 @@
 			// Textures
 			"textures"		: {
 				"aDiffuseTex"	: "$(ScnTexture:textures.suit)"
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				}
 			},
 
 			// New render state.
@@ -263,6 +307,14 @@
 				"aDiffuseTex"	: "$(ScnTexture:textures.suit)"
 			},
 
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				}
+			},
+
 			// New render state.
 			"renderstate" : {
 				"blendstate" : {
@@ -302,6 +354,14 @@
 				"aDiffuseTex"	: "$(ScnTexture:textures.face)"
 			},
 
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap"
+				}
+			},
+
 			// New render state.
 			"renderstate" : {
 				"blendstate" : {
@@ -338,6 +398,10 @@
 
 			// Textures
 			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
 			},
 
 			// New render state.
