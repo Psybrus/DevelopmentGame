@@ -35,15 +35,21 @@
 			"samplers"		: {
 				"aDiffuseTex"	: {
 					"addressu" : "wrap",
-					"addressv" : "wrap"
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
 				},
 				"aNormalTex"	: {
 					"addressu" : "wrap",
-					"addressv" : "wrap"
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
 				},
 				"aSpecularTex"	: {
 					"addressu" : "wrap",
-					"addressv" : "wrap"
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
 				}
 			},
 
@@ -136,11 +142,15 @@
 			"samplers"		: {
 				"aDiffuseTex"	: {
 					"addressu" : "wrap",
-					"addressv" : "wrap"
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
 				},
 				"aNormalTex"	: {
 					"addressu" : "wrap",
-					"addressv" : "wrap"
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
 				}
 			},
 
