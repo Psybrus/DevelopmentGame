@@ -138,11 +138,13 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 	OsEventInputKeyboard::Delegate OnKeyPress = OsEventInputKeyboard::Delegate::bind< GaTestSelectionComponent, &GaTestSelectionComponent::onKeyPress >( this );
 	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, OnKeyPress );
 
+#if !PLATFORM_HTML5
 	if( DsCore::pImpl() )
 	{
 		CreateEntity1_ = DsCore::pImpl()->registerFunction("Test Entity 1", std::bind(&GaTestSelectionComponent::LoadEntity, this, 0));
 		CreateEntity2_ = DsCore::pImpl()->registerFunction("Test Entity 2", std::bind(&GaTestSelectionComponent::LoadEntity, this, 1));
 	}
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -150,11 +152,14 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 //virtual
 void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 {
+#if !PLATFORM_HTML5
 	if( DsCore::pImpl() )
 	{
 		DsCore::pImpl()->deregisterFunction( CreateEntity1_ );
 		DsCore::pImpl()->deregisterFunction( CreateEntity2_ );
 	}
+#endif
+	
 	OsCore::pImpl()->unsubscribeAll(this);
 	Super::onDetach( Parent );
 }

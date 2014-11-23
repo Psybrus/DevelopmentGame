@@ -32,6 +32,7 @@ PsyProjectGameExe( solution().name )
    
    PsyAddExternalLinks {
       "BulletPhysics",
+      "freetype",
       "jsoncpp",
       "libb64",
       "pcre",
@@ -52,7 +53,6 @@ PsyProjectGameExe( solution().name )
          "assimp",
          "assimp_contrib",
          "enet",
-         "freetype",
          "HLSLCrossCompiler",
          "glew",
          "squish",
