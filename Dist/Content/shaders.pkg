@@ -69,7 +69,7 @@
 			"source"		: "Content/Engine/geometry_test.hlsl",
 
 			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
+				"D3D11_4_0"
 			],
 
 			"backendtypes" : [

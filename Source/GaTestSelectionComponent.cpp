@@ -159,7 +159,7 @@ void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 		DsCore::pImpl()->deregisterFunction( CreateEntity2_ );
 	}
 #endif
-	
+
 	OsCore::pImpl()->unsubscribeAll(this);
 	Super::onDetach( Parent );
 }
