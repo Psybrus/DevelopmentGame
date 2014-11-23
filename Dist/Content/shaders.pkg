@@ -11,7 +11,8 @@
 
 			"backendtypes" : [
 				"D3D11",
-				"GLSL"
+				"GLSL",
+				"GLSL_ES"
 			],
 
 			"entrypoints"		: {
@@ -31,7 +32,8 @@
 
 			"backendtypes" : [
 				"D3D11",
-				"GLSL"
+				"GLSL",
+				"GLSL_ES"
 			],
 
 			"entrypoints"		: {
@@ -51,7 +53,8 @@
 
 			"backendtypes" : [
 				"D3D11",
-				"GLSL"
+				"GLSL",
+				"GLSL_ES"
 			],
 
 			"entrypoints"		: {
@@ -66,17 +69,18 @@
 			"source"		: "Content/Engine/geometry_test.hlsl",
 
 			"codetypes"	: [
-				"D3D11_4_0"
+				"D3D11_4_0_level_9_3"
 			],
 
 			"backendtypes" : [
 				"D3D11",
-				"GLSL"
+				"GLSL",
+				"GLSL_ES"
 			],
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
-				"geometry" : 	"geometryMain",
+				//"geometry" : 	"geometryMain",
 				"pixel" :		"pixelMain"
 			}
 		}
