@@ -13,51 +13,50 @@ PsyProjectGameExe( solution().name )
 
    PsyAddEngineLinks {
       "Engine",
-      "Engine_System_Sound",
-      "Engine_System_Scene",
-      "Engine_System_Renderer",
-      "Engine_System_Os",
-      "Engine_System_Network",
-      "Engine_System_Debug",
-      "Engine_System_Content",
-      "Engine_System_File",
-      "Engine_System",
-      "Engine_Serialisation",
-      "Engine_Reflection",
-      "Engine_Math",
-      "Engine_Import",
-      "Engine_Events",
-      "Engine_Base",
+      "System_Sound",
+      "System_Scene",
+      "System_Renderer",
+      "System_Os",
+      "System_Network",
+      "System_Debug",
+      "System_Content",
+      "System_File",
+      "System",
+      "Serialisation",
+      "Reflection",
+      "Math",
+      "Import",
+      "Events",
+      "Base",
    }
    
    PsyAddExternalLinks {
-      -- External libs.
-      "External_BulletPhysics",
-      "External_jsoncpp",
-      "External_libb64",
-      "External_pcre",
-      "External_png",
-      "External_SoLoud",
-      "External_zlib",
+      "BulletPhysics",
+      "jsoncpp",
+      "libb64",
+      "pcre",
+      "png",
+      "SoLoud",
+      "zlib",
    }
 
    PsyAddBoostLibs {
-      "boost_regex",
-      "boost_filesystem",
-      "boost_system",
-      "boost_wave",
+      "regex",
+      "filesystem",
+      "system",
+      "wave",
    }
 
    configuration { "windows-* or linux-*" }
       PsyAddExternalLinks {
-         "External_assimp",
-         "External_assimp_contrib",
-         "External_enet",
-         "External_freetype",
-         "External_HLSLCrossCompiler",
-         "External_glew",
-         "External_squish",
-         "External_webby",
+         "assimp",
+         "assimp_contrib",
+         "enet",
+         "freetype",
+         "HLSLCrossCompiler",
+         "glew",
+         "squish",
+         "webby",
       }
 
    configuration "linux*"

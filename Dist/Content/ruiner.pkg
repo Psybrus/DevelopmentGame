@@ -31,6 +31,28 @@
 			// Shader
 			"shader"		: "$(ScnShader:shaders.textured)",
 
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+				"aNormalTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+				"aSpecularTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				}
+			},
+
 			// Textures
 			"textures"		: {
 				"aDiffuseTex"	: "$(ScnTexture:this.onslaught01_d)",
@@ -38,16 +60,29 @@
 				"aSpecularTex"	: "$(ScnTexture:this.onslaught01_s)"
 			},
 
-			// State
-			"state"			: {
-				"depth_write_enable" 		: 1,
-				"depth_test_enable" 		: 1,
-				"depth_test_compare" 		: "lessequal",
-				"depth_bias" 				: 0,
-				"alpha_test_enable" 		: 0,
-				"alpha_test_compare" 		: "never",
-				"alpha_test_threshold" 		: 0,
-				"blend_mode" 				: "none"
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : true
+				}
 			}
 		},
 
@@ -102,6 +137,22 @@
 
 			// Shader
 			"shader"		: "$(ScnShader:shaders.textured)",
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+				"aNormalTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				}
+			},
 
 			// Textures
 			"textures"		: {
