@@ -19,8 +19,6 @@
 #include "System/Scene/Rendering/ScnDebugRenderComponent.h"
 #include "System/SysKernel.h"
 
-#include <boost/format.hpp>
-
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
 DEFINE_RESOURCE( GaTestSelectionComponent );
@@ -101,9 +99,10 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 		CaptureAccum = 0;
 	}
 
-	auto PerfString = boost::str( boost::format( "Perf: Game: %1% ms, Frame %2% ms" ) % ( GameTimeTotal * 1000.0f ) % ( FrameTimeTotal * 1000.0f ) );
+	BcChar PerfChars[ 128 ];
+	BcSPrintf( PerfChars, "Perf: Game: %.3f ms, Frame %.3f ms", ( GameTimeTotal * 1000.0f ), ( FrameTimeTotal * 1000.0f ) );
 
-	Size = FontComponent_->drawCentered( Canvas_, Position, PerfString.c_str(), RsColour::BLUE );
+	Size = FontComponent_->drawCentered( Canvas_, Position, PerfChars, RsColour::BLUE );
 	Position += MaVec2d( 0.0f, Size.y() );
 
 	for( BcU32 Idx = 0; Idx < Options_.size(); ++Idx )
