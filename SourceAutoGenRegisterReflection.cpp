@@ -1,17 +1,17 @@
-#include "GaTestModelComponent.h"
-#include "GaLevelComponent.h"
-#include "GaTestShaderComponent.h"
 #include "GaAnimationControllerComponent.h"
 #include "GaCameraComponent.h"
-#include "GaTestSelectionComponent.h"
+#include "GaLevelComponent.h"
+#include "GaTestModelComponent.h"
 #include "GaTestParticleComponent.h"
+#include "GaTestSelectionComponent.h"
+#include "GaTestShaderComponent.h"
 void AutoGenRegisterReflection()
 {
-	GaTestModelComponent::StaticRegisterClass();
-	GaLevelComponent::StaticRegisterClass();
-	GaTestShaderComponent::StaticRegisterClass();
 	GaAnimationControllerComponent::StaticRegisterClass();
 	GaCameraComponent::StaticRegisterClass();
-	GaTestSelectionComponent::StaticRegisterClass();
+	GaLevelComponent::StaticRegisterClass();
+	GaTestModelComponent::StaticRegisterClass();
 	GaTestParticleComponent::StaticRegisterClass();
+	GaTestSelectionComponent::StaticRegisterClass();
+	GaTestShaderComponent::StaticRegisterClass();
 }

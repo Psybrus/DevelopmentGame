@@ -70,12 +70,12 @@ PsyProjectGameExe( solution().name )
 
    configuration "windows-*"
       includedirs {
-         "../../Psybrus/Engine/Source/Platforms/Windows/",
+         "../Psybrus/Engine/Source/Platforms/Windows/",
          BOOST_INCLUDE_PATH
       }
 
       prebuildcommands {
-            "C:\\Python27\\python.exe $(PSYBRUS_SDK)/reflection_parse.py " .. solution().name
+            "C:\\Python27\\python.exe ../../Psybrus/reflection_parse.py " .. solution().name
       }
 
       libdirs {
