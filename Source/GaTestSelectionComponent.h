@@ -60,7 +60,6 @@ private:
 
 	std::vector< BcU32 >				OptionsHandles_;
 
-
 };
 
 #endif

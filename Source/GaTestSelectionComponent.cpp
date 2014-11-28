@@ -120,7 +120,6 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 			BcU32 handle = DsCore::pImpl()->registerFunction(*Option.EntityToSpawn_->getName(), std::bind(&GaTestSelectionComponent::LoadEntity, this, Idx));
 			OptionsHandles_.push_back(handle);
 		}
-
 	}
 
 
