@@ -57,6 +57,10 @@ private:
 	MaMat4d								Projection_;
 
 	void								LoadEntity(int Entity);
+
+	std::vector< BcU32 >				OptionsHandles_;
+
+
 };
 
 #endif
