@@ -54,6 +54,7 @@ PsyProjectGameExe( solution().name )
          "assimp_contrib",
          "enet",
          "HLSLCrossCompiler",
+         "hlsl2glslfork",
          "glew",
          "squish",
          "webby",

@@ -46,6 +46,8 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 	return o;
 }
 
+#if PSY_BACKEND_TYPE != PSY_BACKEND_TYPE_GLSL_ES
+
 ////////////////////////////////////////////////////////////////////////
 // geometryMain
 [maxvertexcount(3)]
@@ -119,6 +121,9 @@ VS_OUTPUT domainMain( PATCH_OUTPUT Input,
 
 	return o;
 }
+
+#endif // PSY_BACKEND_TYPE != PSY_BACKEND_TYPE_GLSL_ES
+
 
 ////////////////////////////////////////////////////////////////////////
 // pixelMain
