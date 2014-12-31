@@ -53,8 +53,9 @@ PsyProjectGameExe( solution().name )
          "assimp",
          "assimp_contrib",
          "enet",
-         "HLSLCrossCompiler",
+         "glsl-optimizer",
          "hlsl2glslfork",
+         "HLSLCrossCompiler",
          "glew",
          "squish",
          "webby",
@@ -66,7 +67,7 @@ PsyProjectGameExe( solution().name )
       }
 
       prebuildcommands {
-         --"python ../../Psybrus/reflection_parse.py " .. solution().name
+         "python ../../Psybrus/reflection_parse.py " .. solution().name
       }
 
    configuration "windows-*"
@@ -82,4 +83,3 @@ PsyProjectGameExe( solution().name )
       libdirs {
            BOOST_LIB_PATH
       }
-
