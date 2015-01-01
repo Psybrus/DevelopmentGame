@@ -79,13 +79,13 @@ void GaTestFontComponent::update( BcF32 Tick )
 
 	ScnFontDrawParams DrawParams = ScnFontDrawParams()
 		.setSize( 32.0f )
-		.setAlignmentBorder( 32.0f )
+		.setAlignmentBorder( 8.0f )
 		.setTextColour( RsColour::WHITE );
 
 	auto& FontComponent = FontComponents_[ CurrFontComponent_ ];
 
 	MaVec2d TextDimensions( MaVec2d( HalfWidth, HalfHeight ) );
-	MaVec2d TextPosition( TextDimensions * -0.5f );
+	MaVec2d TextPosition( 0.0f, 0.0f );
 
 	FontComponent->drawText( 
 		Canvas_,
