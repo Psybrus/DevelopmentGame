@@ -84,9 +84,11 @@ void GaTestFontComponent::update( BcF32 Tick )
 
 	auto& FontComponent = FontComponents_[ CurrFontComponent_ ];
 
-	MaVec2d TextDimensions( MaVec2d( HalfWidth, HalfHeight ) );
+	const MaVec2d TextDimensions( MaVec2d( HalfWidth, HalfHeight ) );
+	const MaVec2d HalfTextDimensions = TextDimensions * 0.5f;
 	MaVec2d TextPosition( 0.0f, 0.0f );
 
+	// Test alignment.
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
@@ -167,8 +169,6 @@ void GaTestFontComponent::update( BcF32 Tick )
 		RsColour::GREEN,
 		100 );
 
-	MaVec2d HalfTextDimensions = TextDimensions * 0.5f;
-
 	Canvas_->drawLineBox( 
 		TextPosition,
 		TextPosition + HalfTextDimensions,
@@ -180,6 +180,26 @@ void GaTestFontComponent::update( BcF32 Tick )
 		TextPosition + TextDimensions,
 		RsColour::GREEN,
 		100 );
+
+	// Test wrapping.
+	TextPosition.y( -TextDimensions.y() );
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setSize( 48.0f )
+			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::TOP )
+			.setWrappingEnabled( BcTrue ),
+		TextPosition,
+		TextDimensions,
+		L"The quick brown            fox jumps over              the lazy           dog.\n" );
+
+	Canvas_->setMaterialComponent( DebugMaterial_ );
+	Canvas_->drawLineBox( 
+		TextPosition,
+		TextPosition + TextDimensions,
+		RsColour::GREEN,
+		100 );
+
 
 	Canvas_->popMatrix();
 }
