@@ -44,6 +44,7 @@ public:
 private:
 	std::vector< ScnFontComponentRef > FontComponents_;
 	ScnCanvasComponentRef Canvas_;
+	ScnMaterialComponentRef DebugMaterial_;
 
 	BcU32 CurrFontComponent_;
 };

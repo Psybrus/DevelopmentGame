@@ -154,6 +154,12 @@
 				},
 
 				{
+					"type"					: "ScnMaterialComponent",
+					"material"				: "$(ScnMaterial:materials.debugrender)",
+					"permutation"			: "2d"
+				},
+
+				{
 					"type"					: "ScnFontComponent",
 					"font"					: "$(ScnFont:fonts.courier)",
 					"material"				: "$(ScnMaterial:materials.font)"

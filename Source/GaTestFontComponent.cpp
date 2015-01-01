@@ -34,6 +34,7 @@ void GaTestFontComponent::StaticRegisterClass()
 	{
 		new ReField( "FontComponents_", &GaTestFontComponent::FontComponents_, bcRFF_TRANSIENT ),
 		new ReField( "Canvas_", &GaTestFontComponent::Canvas_, bcRFF_TRANSIENT ),
+		new ReField( "DebugMaterial_", &GaTestFontComponent::DebugMaterial_, bcRFF_TRANSIENT ),
 		new ReField( "CurrFontComponent_", &GaTestFontComponent::CurrFontComponent_, bcRFF_TRANSIENT ),
 	};
 
@@ -77,18 +78,108 @@ void GaTestFontComponent::update( BcF32 Tick )
 	Canvas_->pushMatrix( Projection );
 
 	ScnFontDrawParams DrawParams = ScnFontDrawParams()
-		.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::TOP )
 		.setSize( 32.0f )
-		.setColour( RsColour::WHITE );
+		.setAlignmentBorder( 32.0f )
+		.setTextColour( RsColour::WHITE );
 
 	auto& FontComponent = FontComponents_[ CurrFontComponent_ ];
 
+	MaVec2d TextDimensions( MaVec2d( HalfWidth, HalfHeight ) );
+	MaVec2d TextPosition( TextDimensions * -0.5f );
+
 	FontComponent->drawText( 
 		Canvas_,
-		DrawParams,
-		MaVec2d( 0.0f, 0.0f ),
-		MaVec2d( 0.0f, 0.0f ),
-		L"Left Justified" );
+		DrawParams
+			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::TOP ),
+		TextPosition,
+		TextDimensions,
+		L"LT\nLT" );
+
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::TOP ),
+		TextPosition,
+		TextDimensions,
+		L"CT\nCT" );
+
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setAlignment( ScnFontAlignment::RIGHT | ScnFontAlignment::TOP ),
+		TextPosition,
+		TextDimensions,
+		L"RT\nRT" );
+
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::VCENTRE ),
+		TextPosition,
+		TextDimensions,
+		L"LC\nLC" );
+
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::VCENTRE ),
+		TextPosition,
+		TextDimensions,
+		L"CC\nCC" );
+
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setAlignment( ScnFontAlignment::RIGHT | ScnFontAlignment::VCENTRE ),
+		TextPosition,
+		TextDimensions,
+		L"RC\nRC" );
+
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::BOTTOM ),
+		TextPosition,
+		TextDimensions,
+		L"LB\nLB" );
+
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::BOTTOM ),
+		TextPosition,
+		TextDimensions,
+		L"CB\nCB" );
+
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setAlignment( ScnFontAlignment::RIGHT | ScnFontAlignment::BOTTOM ),
+		TextPosition,
+		TextDimensions,
+		L"RB\nRB" );
+
+
+	Canvas_->setMaterialComponent( DebugMaterial_ );
+	Canvas_->drawLineBox( 
+		TextPosition,
+		TextPosition + TextDimensions,
+		RsColour::GREEN,
+		100 );
+
+	MaVec2d HalfTextDimensions = TextDimensions * 0.5f;
+
+	Canvas_->drawLineBox( 
+		TextPosition,
+		TextPosition + HalfTextDimensions,
+		RsColour::GREEN,
+		100 );
+
+	Canvas_->drawLineBox( 
+		TextPosition + HalfTextDimensions,
+		TextPosition + TextDimensions,
+		RsColour::GREEN,
+		100 );
 
 	Canvas_->popMatrix();
 }
@@ -102,6 +193,9 @@ void GaTestFontComponent::onAttach( ScnEntityWeakRef Parent )
 
 	Canvas_ = getComponentAnyParentByType< ScnCanvasComponent >();
 	BcAssert( Canvas_.isValid() );
+
+	DebugMaterial_ = getComponentAnyParentByType< ScnMaterialComponent >();
+	BcAssert( DebugMaterial_.isValid() );
 
 	// Font components.
 	ScnFontComponentRef FontComponent;
