@@ -42,13 +42,14 @@ PS_OUTPUT pixelMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
 	float4 Colour = PSY_SAMPLE_2D( DiffuseTex, i.TexCoord0_.xy );
-	float Factor = smoothstep( AlphaTestParams_.x, AlphaTestParams_.y, Colour.a );
+	float Factor = smoothstep( FontParams_.x, FontParams_.y, Colour.a );
 
-	if( Factor < AlphaTestParams_.z )
+	if( Factor < FontParams_.z )
 	{
 		//discard;
 	}
 	
-	o.Colour_ = float4( Colour.xyz, Factor ) * i.Colour_;
+	o.Colour_ = float4( Colour.xyz, Factor ) * i.Colour_;// * TextColour_;
+	//o.Colour_ = float4( 1.0, 1.0, 1.0, 1.0 );
 	return o;
 }

@@ -182,23 +182,30 @@ void GaTestFontComponent::update( BcF32 Tick )
 		100 );
 
 	// Test wrapping.
-	TextPosition.y( -TextDimensions.y() );
-	FontComponent->drawText( 
-		Canvas_,
-		DrawParams
-			.setSize( 48.0f )
-			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::TOP )
-			.setWrappingEnabled( BcTrue ),
-		TextPosition,
-		TextDimensions,
-		L"The quick brown            fox jumps over              the lazy           dog.\n" );
-
 	Canvas_->setMaterialComponent( DebugMaterial_ );
+	TextPosition.y( -TextDimensions.y() );
+
+	Canvas_->drawBox( 
+		TextPosition,
+		TextPosition + TextDimensions,
+		RsColour::WHITE,
+		0 );
+
 	Canvas_->drawLineBox( 
 		TextPosition,
 		TextPosition + TextDimensions,
 		RsColour::GREEN,
 		100 );
+	FontComponent->drawText( 
+		Canvas_,
+		DrawParams
+			.setSize( 48.0f )
+			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::TOP )
+			.setWrappingEnabled( BcTrue )
+			.setTextColour( RsColour::BLACK ),
+		TextPosition,
+		TextDimensions,
+		L"The quick brown fox jumps over the lazy dog.\n" );
 
 
 	Canvas_->popMatrix();
