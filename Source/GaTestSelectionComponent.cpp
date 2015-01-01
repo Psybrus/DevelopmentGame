@@ -102,17 +102,35 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 	BcChar PerfChars[ 128 ];
 	BcSPrintf( PerfChars, "Perf: Game: %.3f ms, Frame %.3f ms", ( GameTimeTotal * 1000.0f ), ( FrameTimeTotal * 1000.0f ) );
 
-	Size = FontComponent_->drawCentered( Canvas_, Position, PerfChars, RsColour::BLUE );
+#if 1
+	ScnFontDrawParams DrawParams = ScnFontDrawParams()
+		.setSize( 32.0f )
+		.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::VCENTRE )
+		.setAlignmentBorder( 8.0f );
+
+	Size = FontComponent_->drawText( 
+		Canvas_,
+		DrawParams
+			.setTextColour( RsColour::BLUE ),
+		Position, 
+		MaVec2d( 0.0f, 0.0f ),
+		PerfChars );
 	Position += MaVec2d( 0.0f, Size.y() );
 
 	for( BcU32 Idx = 0; Idx < Options_.size(); ++Idx )
 	{
 		const auto& Option( Options_[ Idx ] );
 		const auto Colour = Idx == SelectedEntry_ ? RsColour::GREEN : RsColour::GRAY;
-		Size = FontComponent_->drawCentered( Canvas_, Position, (*Option.EntityToSpawn_->getName()), Colour );
+		Size = FontComponent_->drawText( 
+			Canvas_,
+			DrawParams
+				.setTextColour( Colour ),
+			Position, 
+			MaVec2d( 0.0f, 0.0f ),
+			(*Option.EntityToSpawn_->getName()) );
 		Position += MaVec2d( 0.0f, Size.y() );
 	}
-
+#endif
 	ScnDebugRenderComponent::pImpl()->drawGrid( 
 		MaVec3d( 0.0f, 0.0f, 0.0f ),
 		MaVec3d( 500.0f, 0.0f, 500.0f ),

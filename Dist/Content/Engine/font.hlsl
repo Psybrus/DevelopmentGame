@@ -41,15 +41,22 @@ PSY_SAMPLER_2D( DiffuseTex );
 PS_OUTPUT pixelMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
-	float4 Colour = PSY_SAMPLE_2D( DiffuseTex, i.TexCoord0_.xy );
-	float Factor = smoothstep( FontParams_.x, FontParams_.y, Colour.a );
+	float4 TextColour = PSY_SAMPLE_2D( DiffuseTex, i.TexCoord0_.xy );
+	float TextFactor = smoothstep( TextSettings_.x, TextSettings_.y, TextColour.a );
 
-	if( Factor < FontParams_.z )
+	o.Colour_ = float4( TextColour_.xyz, TextFactor * TextColour_.w ) * i.Colour_;
+#if 0
+	// Check if we're within the minimum threshold value for alpha.
+	if( TextFactor > 0.0 )
 	{
-		//discard;
+		o.Colour_ = float4( TextColour_.xyz, TextFactor * TextColour_.w ) * i.Colour_;
+
+		// Add border.
+		if( TextFactor < BorderSettings_.x )
+		{
+			o.Colour_ = float4( BorderColour_.xyzw ) * i.Colour_;
+		}
 	}
-	
-	o.Colour_ = float4( Colour.xyz, Factor ) * i.Colour_;// * TextColour_;
-	//o.Colour_ = float4( 1.0, 1.0, 1.0, 1.0 );
+#endif
 	return o;
 }

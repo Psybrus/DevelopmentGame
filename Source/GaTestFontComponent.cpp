@@ -92,7 +92,8 @@ void GaTestFontComponent::update( BcF32 Tick )
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
-			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::TOP ),
+			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::TOP )
+			.setTextColour( RsColour::RED ),
 		TextPosition,
 		TextDimensions,
 		L"LT\nLT" );
@@ -100,7 +101,8 @@ void GaTestFontComponent::update( BcF32 Tick )
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
-			.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::TOP ),
+			.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::TOP )
+			.setTextColour( RsColour::RED ),
 		TextPosition,
 		TextDimensions,
 		L"CT\nCT" );
@@ -108,7 +110,8 @@ void GaTestFontComponent::update( BcF32 Tick )
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
-			.setAlignment( ScnFontAlignment::RIGHT | ScnFontAlignment::TOP ),
+			.setAlignment( ScnFontAlignment::RIGHT | ScnFontAlignment::TOP )
+			.setTextColour( RsColour::RED ),
 		TextPosition,
 		TextDimensions,
 		L"RT\nRT" );
@@ -116,7 +119,8 @@ void GaTestFontComponent::update( BcF32 Tick )
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
-			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::VCENTRE ),
+			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::VCENTRE )
+			.setTextColour( RsColour::GREEN ),
 		TextPosition,
 		TextDimensions,
 		L"LC\nLC" );
@@ -124,7 +128,8 @@ void GaTestFontComponent::update( BcF32 Tick )
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
-			.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::VCENTRE ),
+			.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::VCENTRE )
+			.setTextColour( RsColour::GREEN ),
 		TextPosition,
 		TextDimensions,
 		L"CC\nCC" );
@@ -132,7 +137,8 @@ void GaTestFontComponent::update( BcF32 Tick )
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
-			.setAlignment( ScnFontAlignment::RIGHT | ScnFontAlignment::VCENTRE ),
+			.setAlignment( ScnFontAlignment::RIGHT | ScnFontAlignment::VCENTRE )
+			.setTextColour( RsColour::GREEN ),
 		TextPosition,
 		TextDimensions,
 		L"RC\nRC" );
@@ -140,7 +146,8 @@ void GaTestFontComponent::update( BcF32 Tick )
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
-			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::BOTTOM ),
+			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::BOTTOM )
+			.setTextColour( RsColour::BLUE ),
 		TextPosition,
 		TextDimensions,
 		L"LB\nLB" );
@@ -148,7 +155,8 @@ void GaTestFontComponent::update( BcF32 Tick )
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
-			.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::BOTTOM ),
+			.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::BOTTOM )
+			.setTextColour( RsColour::BLUE ),
 		TextPosition,
 		TextDimensions,
 		L"CB\nCB" );
@@ -156,7 +164,8 @@ void GaTestFontComponent::update( BcF32 Tick )
 	FontComponent->drawText( 
 		Canvas_,
 		DrawParams
-			.setAlignment( ScnFontAlignment::RIGHT | ScnFontAlignment::BOTTOM ),
+			.setAlignment( ScnFontAlignment::RIGHT | ScnFontAlignment::BOTTOM )
+			.setTextColour( RsColour::BLUE ),
 		TextPosition,
 		TextDimensions,
 		L"RB\nRB" );

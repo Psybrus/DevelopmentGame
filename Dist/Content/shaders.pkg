@@ -10,7 +10,6 @@
 			],
 
 			"backendtypes" : [
-				"D3D11",
 				"GLSL",
 				"GLSL_ES"
 			],
@@ -31,7 +30,6 @@
 			],
 
 			"backendtypes" : [
-				"D3D11",
 				"GLSL",
 				"GLSL_ES"
 			],
@@ -52,7 +50,6 @@
 			],
 
 			"backendtypes" : [
-				"D3D11",
 				"GLSL",
 				"GLSL_ES"
 			],
@@ -73,7 +70,6 @@
 			],
 
 			"backendtypes" : [
-				"D3D11",
 				"GLSL",
 				"GLSL_ES"
 			],
