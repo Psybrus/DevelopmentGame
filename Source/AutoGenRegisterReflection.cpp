@@ -1,6 +1,7 @@
 #include "System/Content/CsTypes.h"
 #include "System/Content/CsResource.h"
 #include "System/Content/CsResourceImporter.h"
+#include "System/Content/CsRedirector.h"
 #include "System/Content/CsPackage.h"
 #include "System/Content/CsPackageImporter.h"
 #include "System/SysKernel.h"
@@ -76,6 +77,8 @@ void AutoGenRegisterReflection()
 	CsResource::StaticRegisterClass();
 	CsResourceImporterAttribute::StaticRegisterClass();
 	CsResourceImporter::StaticRegisterClass();
+	CsRedirectorImport::StaticRegisterClass();
+	CsRedirector::StaticRegisterClass();
 	CsPackage::StaticRegisterClass();
 	CsPackageDependencies::StaticRegisterClass();
 	SysKernel::StaticRegisterClass();

@@ -211,7 +211,7 @@ void GaTestFontComponent::update( BcF32 Tick )
 			.setSize( 48.0f )
 			.setAlignment( ScnFontAlignment::LEFT | ScnFontAlignment::TOP )
 			.setWrappingEnabled( BcTrue )
-			.setTextColour( RsColour::WHITE )
+			.setTextColour( RsColour::BLACK )
 			.setBorderColour( RsColour::BLACK )
 			.setTextSettings( MaVec4d( 0.4f, 0.5f, 0.0f, 0.0f ) )
 			.setBorderSettings( MaVec4d( 1.0f, 0.0f, 0.0f, 0.0f ) ),
