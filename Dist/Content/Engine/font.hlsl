@@ -45,18 +45,14 @@ PS_OUTPUT pixelMain( VS_OUTPUT i )
 	float TextFactor = smoothstep( TextSettings_.x, TextSettings_.y, TextColour.a );
 
 	o.Colour_ = float4( TextColour_.xyz, TextFactor * TextColour_.w ) * i.Colour_;
-#if 0
-	// Check if we're within the minimum threshold value for alpha.
-	if( TextFactor > 0.0 )
-	{
-		o.Colour_ = float4( TextColour_.xyz, TextFactor * TextColour_.w ) * i.Colour_;
 
-		// Add border.
-		if( TextFactor < BorderSettings_.x )
-		{
-			o.Colour_ = float4( BorderColour_.xyzw ) * i.Colour_;
-		}
+#if 0
+	// Add border.
+	if( TextFactor < BorderSettings_.x )
+	{
+		o.Colour_ = float4( BorderColour_.xyz, TextFactor * BorderColour_.w ) * i.Colour_;
 	}
 #endif
+
 	return o;
 }
