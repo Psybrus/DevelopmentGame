@@ -106,7 +106,7 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 	ScnFontDrawParams DrawParams = ScnFontDrawParams()
 		.setSize( 32.0f )
 		.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::VCENTRE )
-		.setAlignmentBorder( 8.0f );
+		.setMargin( 8.0f );
 
 	Size = FontComponent_->drawText( 
 		Canvas_,

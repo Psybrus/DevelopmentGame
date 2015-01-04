@@ -79,7 +79,7 @@ void GaTestFontComponent::update( BcF32 Tick )
 
 	ScnFontDrawParams DrawParams = ScnFontDrawParams()
 		.setSize( 32.0f )
-		.setAlignmentBorder( 8.0f )
+		.setMargin( 8.0f )
 		.setTextColour( RsColour::WHITE );
 
 	auto& FontComponent = FontComponents_[ CurrFontComponent_ ];
