@@ -2,7 +2,7 @@
 	"resources" : [
 		{
 			"type"			: "ScnShader",
-			"name"			: "font",
+			"name"			: "font_shader",
 			"source"		: "Content/Engine/font.hlsl",
 
 			"codetypes"	: [
@@ -22,10 +22,10 @@
 
 		{
 			"type"			: "ScnMaterial",
-			"name"			: "font",
+			"name"			: "font_material",
 
 			// Shader
-			"shader"		: "$(ScnShader:this.font)",
+			"shader"		: "$(ScnShader:this.font_shader)",
 
 			// Textures
 			"textures"		: {

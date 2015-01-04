@@ -41,12 +41,6 @@
 		},
 
 		{
-			"type"			: "CsRedirector",
-			"name"			: "font",
-			"target"		: "$(ScnShader:fonts.font)"
-		},
-
-		{
 			"type"			: "ScnShader",
 			"name"			: "geometry_test",
 			"source"		: "Content/Engine/geometry_test.hlsl",
