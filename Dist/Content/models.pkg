@@ -3,7 +3,10 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "teapot",
-			"source"	: "Content/Source/teapot/wt_teapot.obj"
+			"source"	: "Content/Source/teapot/wt_teapot.obj",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.default)"
+			}
 		}
 	]
 }

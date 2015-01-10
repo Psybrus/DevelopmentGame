@@ -3,7 +3,11 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "character_jacketmale",
-			"source"	: "Content/Source/ruiner/character/jacketmale.md5mesh"
+			"source"	: "Content/Source/ruiner/character/jacketmale.md5mesh",
+			"materials" : {
+				"(.*)" : 					"$(ScnMaterial:materials.default)",
+				"ruiner.ruinerbody01" : 	"$(ScnMaterial:this.ruinerbody01)"
+			}
 		},
 
 		{
