@@ -59,6 +59,7 @@ PsyProjectGameExe( solution().name )
          "glew",
          "squish",
          "webby",
+         "ThinkGear",
       }
 
    configuration "linux*"
