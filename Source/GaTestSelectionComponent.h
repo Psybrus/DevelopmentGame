@@ -58,8 +58,8 @@ private:
 
 	void								LoadEntity(int Entity);
 
-	BcU32 CreateEntity1_;
-	BcU32 CreateEntity2_;
+	std::vector< BcU32 >				OptionsHandles_;
+
 };
 
 #endif
