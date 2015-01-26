@@ -159,8 +159,12 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 #if !PLATFORM_HTML5
 	if( DsCore::pImpl() )
 	{
-		CreateEntity1_ = DsCore::pImpl()->registerFunction("Test Entity 1", std::bind(&GaTestSelectionComponent::LoadEntity, this, 0));
-		CreateEntity2_ = DsCore::pImpl()->registerFunction("Test Entity 2", std::bind(&GaTestSelectionComponent::LoadEntity, this, 1));
+		for (BcU32 Idx = 0; Idx < Options_.size(); ++Idx)
+		{
+			const auto& Option(Options_[Idx]);
+			BcU32 handle = DsCore::pImpl()->registerFunction(*Option.EntityToSpawn_->getName(), std::bind(&GaTestSelectionComponent::LoadEntity, this, Idx));
+			OptionsHandles_.push_back(handle);
+		}
 	}
 #endif
 }
@@ -173,8 +177,10 @@ void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 #if !PLATFORM_HTML5
 	if( DsCore::pImpl() )
 	{
-		DsCore::pImpl()->deregisterFunction( CreateEntity1_ );
-		DsCore::pImpl()->deregisterFunction( CreateEntity2_ );
+		for ( BcU32 Idx = 0; Idx < OptionsHandles_.size(); ++Idx )
+		{
+			DsCore::pImpl()->deregisterFunction( OptionsHandles_[ Idx ] );
+		}
 	}
 #endif
 
