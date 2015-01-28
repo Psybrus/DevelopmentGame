@@ -7,6 +7,25 @@
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.default)"
 			}
+		},
+
+		{
+			"type"		: "ScnModel",
+			"name"		: "test_fbx_model_static",
+			"source"	: "Content/Source/test_fbx_model_static.fbx",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.default)"
+			}
+		},
+
+		{
+			"type"		: "ScnModel",
+			"name"		: "test_fbx_model_skinned",
+			"source"	: "Content/Source/test_fbx_model_skinned.fbx",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.default)"
+			}
 		}
 	]
 }
+ 

@@ -271,7 +271,7 @@
 				{
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
-					"model"					: "$(ScnModel:models.teapot)"
+					"model"					: "$(ScnModel:models.test_fbx_model_static)"
 				}
 			]
 		}

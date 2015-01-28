@@ -56,7 +56,7 @@ void GaTestModelComponent::onAttach( ScnEntityWeakRef Parent )
 	Super::onAttach( Parent );
 
 	BcU32 Idx = 0;
-	BcF32 Width = 32.0f;
+	BcF32 Width = 0.0f;
 
 	for( BcF32 X = -Width; X <= Width; X += 2.0f )
 	{
