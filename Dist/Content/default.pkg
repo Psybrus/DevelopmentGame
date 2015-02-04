@@ -202,7 +202,9 @@
 					"far"					: 4000.0,
 					"hfov"					: 0.75,
 					"vfov"					: 0.0,
-					"rendermask"			: 1
+					"rendermask"			: 1,
+					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
+					"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"
 				},
 
 				{
