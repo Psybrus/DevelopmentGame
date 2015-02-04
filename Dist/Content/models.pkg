@@ -25,6 +25,12 @@
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.default)"
 			}
+		},
+
+		{
+			"type"		: "ScnAnimation",
+			"name"		: "test_fbx_model_skinned_anim",
+			"source"	: "Content/Source/test_fbx_model_skinned.fbx"
 		}
 	]
 }

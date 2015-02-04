@@ -142,7 +142,7 @@
 				},
 
 				"depthstencilstate" : {
-					"depthtestenable" : true,
+					"depthtestenable" : false,
 					"depthwriteenable" : false,
 					"depthfunc" : "lessequal",
 					"stencilenable" : false
