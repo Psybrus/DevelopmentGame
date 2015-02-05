@@ -45,7 +45,6 @@
 #include "System/Scene/Rendering/ScnModel.h"
 #include "System/Scene/Rendering/ScnParticleSystemComponent.h"
 #include "System/Scene/Rendering/ScnRenderPipeline.h"
-#include "System/Scene/Rendering/ScnRenderTarget.h"
 #include "System/Scene/Rendering/ScnRenderableComponent.h"
 #include "System/Scene/Rendering/ScnShader.h"
 #include "System/Scene/Rendering/ScnShaderFileData.h"
@@ -65,6 +64,7 @@
 #include "System/SysSystem.h"
 #include "GaAnimationControllerComponent.h"
 #include "GaCameraComponent.h"
+#include "GaFullscreenQuadComponent.h"
 #include "GaLevelComponent.h"
 #include "GaMindwaveVisualiserComponent.h"
 #include "GaTestFontComponent.h"
@@ -134,7 +134,6 @@ void AutoGenRegisterReflection()
 	ScnModelComponent::StaticRegisterClass();
 	ScnParticleSystemComponent::StaticRegisterClass();
 	ScnRenderPipeline::StaticRegisterClass();
-	ScnRenderTarget::StaticRegisterClass();
 	ScnRenderableComponent::StaticRegisterClass();
 	ScnShader::StaticRegisterClass();
 	ScnShaderViewUniformBlockData::StaticRegisterClass();
@@ -159,6 +158,7 @@ void AutoGenRegisterReflection()
 	SysSystem::StaticRegisterClass();
 	GaAnimationControllerComponent::StaticRegisterClass();
 	GaCameraComponent::StaticRegisterClass();
+	GaFullscreenQuadComponent::StaticRegisterClass();
 	GaLevelComponent::StaticRegisterClass();
 	GaMindwaveVisualiserComponent::StaticRegisterClass();
 	GaTestFontComponent::StaticRegisterClass();

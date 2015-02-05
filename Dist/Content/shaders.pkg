@@ -42,6 +42,27 @@
 
 		{
 			"type"			: "ScnShader",
+			"name"			: "fullscreen",
+			"source"		: "Content/Engine/fullscreen.hlsl",
+
+			"codetypes"	: [
+				"D3D11_4_0"
+			],
+
+			"backendtypes" : [
+				"GLSL",
+				"GLSL_ES"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+
+		{
+			"type"			: "ScnShader",
 			"name"			: "geometry_test",
 			"source"		: "Content/Engine/geometry_test.hlsl",
 

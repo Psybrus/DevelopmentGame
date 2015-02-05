@@ -205,6 +205,26 @@
 					"rendermask"			: 1,
 					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
 					"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"
+					
+				},
+
+				{
+					"type"					: "ScnViewComponent",
+					"x"						: 0.0,
+					"y"						: 0.0,
+					"width"					: 1.0,
+					"height"				: 1.0,
+					"near"					: 0.1,
+					"far"					: 4000.0,
+					"hfov"					: 0.75,
+					"vfov"					: 0.0,
+					"rendermask"			: 2
+				},
+
+				{
+					"type"					: "GaFullscreenQuadComponent",
+					"material"				: "$(ScnMaterial:materials.test_rt)",
+					"rendermask"			: 2
 				},
 
 				{
