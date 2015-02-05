@@ -47,8 +47,8 @@
 			"type" : "ScnTexture",
 			"name" : "test_rt",
 			"rendertarget" : true,
-			"width" : -1,
-			"height" : -1,
+			"width" : -4,
+			"height" : -4,
 			"texturetype" : "tex2d",
 			"format" : "R8G8B8A8"
 		},
@@ -57,8 +57,8 @@
 			"type" : "ScnTexture",
 			"name" : "test_dst",
 			"depthstenciltarget" : true,
-			"width" : -1,
-			"height" : -1,
+			"width" : -4,
+			"height" : -4,
 			"texturetype" : "tex2d",
 			"format" : "D24S8"
 		}
