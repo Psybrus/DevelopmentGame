@@ -57,12 +57,19 @@
 
 			// Textures
 			"textures"		: {
-				"aDiffuseTex"	: "$(ScnTexture:textures.test_rt)"
+				"aColourTex"	: "$(ScnTexture:textures.test_rt)",
+				"aDepthTex"		: "$(ScnTexture:textures.test_dst)"
 			},
 
 			// Samplers
 			"samplers"		: {
-				"aDiffuseTex"	: {
+				"aColourTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "nearest",
+					"magfilter" : "nearest"
+				},
+				"aDepthTex"	: {
 					"addressu" : "wrap",
 					"addressv" : "wrap",
 					"minfilter" : "nearest",
@@ -137,7 +144,7 @@
 
 				"depthstencilstate" : {
 					"depthtestenable" : true,
-					"depthwriteenable" : false,
+					"depthwriteenable" : true,
 					"depthfunc" : "lessequal",
 					"stencilenable" : false
 				},
@@ -190,7 +197,7 @@
 				},
 
 				"depthstencilstate" : {
-					"depthtestenable" : false,
+					"depthtestenable" : true,
 					"depthwriteenable" : false,
 					"depthfunc" : "lessequal",
 					"stencilenable" : false

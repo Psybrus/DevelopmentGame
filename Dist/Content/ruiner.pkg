@@ -56,16 +56,29 @@
 				"aNormalTex"	: "$(ScnTexture:this.ruinerbody01_local)"
 			},
 
-			// State
-			"state"			: {
-				"depth_write_enable" 		: 1,
-				"depth_test_enable" 		: 1,
-				"depth_test_compare" 		: "lessequal",
-				"depth_bias" 				: 0,
-				"alpha_test_enable" 		: 0,
-				"alpha_test_compare" 		: "never",
-				"alpha_test_threshold" 		: 0,
-				"blend_mode" 				: "none"
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : true,
+					"depthwriteenable" : true,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : true
+				}
 			}
 		},
 

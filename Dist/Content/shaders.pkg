@@ -46,7 +46,7 @@
 			"source"		: "Content/Engine/fullscreen.hlsl",
 
 			"codetypes"	: [
-				"D3D11_4_0"
+				"D3D11_4_0_level_9_3"
 			],
 
 			"backendtypes" : [
