@@ -5,12 +5,13 @@
 			"name"			: "default",
 			"source"		: "Content/Engine/default.hlsl",
 
+			"includepermutations" : [
+				"RENDER_FORWARD",
+				"PASS_MAIN",
+				"LIGHTING_NONE"
+			],
+
 			"excludepermutations" : [
-				"RENDER_DEFERRED",
-				"RENDER_FORWARD_PLUS",
-				"PASS_SHADOW",
-				"MESH_INSTANCED_3D",
-				"LIGHTING_DIFFUSE",
 				"VERTEX_COLOUR_MULTIPLY_0"
 			],
 
