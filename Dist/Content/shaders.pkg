@@ -12,7 +12,6 @@
 			],
 
 			"excludepermutations" : [
-				"VERTEX_COLOUR_MULTIPLY_0"
 			],
 
 			"codetypes"	: [
@@ -40,8 +39,7 @@
 				"RENDER_FORWARD_PLUS",
 				"PASS_SHADOW",
 				"MESH_INSTANCED_3D",
-				"LIGHTING_DIFFUSE",
-				"VERTEX_COLOUR_MULTIPLY_0"
+				"LIGHTING_DIFFUSE"
 			],
 
 			"codetypes"	: [
@@ -69,8 +67,7 @@
 				"RENDER_FORWARD_PLUS",
 				"PASS_SHADOW",
 				"MESH_INSTANCED_3D",
-				"LIGHTING_DIFFUSE",
-				"VERTEX_COLOUR_MULTIPLY_0"
+				"LIGHTING_DIFFUSE"
 			],
 
 			"codetypes"	: [
@@ -99,8 +96,7 @@
 				"RENDER_FORWARD_PLUS",
 				"PASS_SHADOW",
 				"MESH_INSTANCED_3D",
-				"LIGHTING_DIFFUSE",
-				"VERTEX_COLOUR_MULTIPLY_0"
+				"LIGHTING_DIFFUSE"
 			],
 
 			"codetypes"	: [
