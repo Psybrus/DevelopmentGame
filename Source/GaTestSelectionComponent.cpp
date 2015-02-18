@@ -218,6 +218,7 @@ eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const OsEventInputKey
 
 	case OsEventInputKeyboard::KEYCODE_RETURN:
 		LoadEntity(SelectedEntry_);
+		LoadEntity(SelectedEntry_);
 		BcAssertMsg( PreviousSpawned_.isValid(), "We expect everythig nto have been preloaded." );
 		break;
 	}
