@@ -66,6 +66,7 @@
 #include "GaAnimationControllerComponent.h"
 #include "GaCameraComponent.h"
 #include "GaLevelComponent.h"
+#include "GaMindwaveVisualiserComponent.h"
 #include "GaTestFontComponent.h"
 #include "GaTestModelComponent.h"
 #include "GaTestParticleComponent.h"
@@ -159,6 +160,7 @@ void AutoGenRegisterReflection()
 	GaAnimationControllerComponent::StaticRegisterClass();
 	GaCameraComponent::StaticRegisterClass();
 	GaLevelComponent::StaticRegisterClass();
+	GaMindwaveVisualiserComponent::StaticRegisterClass();
 	GaTestFontComponent::StaticRegisterClass();
 	GaTestModelComponent::StaticRegisterClass();
 	GaTestParticleComponent::StaticRegisterClass();
