@@ -50,6 +50,61 @@
 
 		{
 			"type"			: "ScnMaterial",
+			"name"			: "test_rt",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.fullscreen)",
+
+			// Textures
+			"textures"		: {
+				"aColourTex"	: "$(ScnTexture:textures.test_rt)",
+				"aDepthTex"		: "$(ScnTexture:textures.test_dst)"
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aColourTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "nearest",
+					"magfilter" : "nearest"
+				},
+				"aDepthTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "nearest",
+					"magfilter" : "nearest"
+				}
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : false,
+					"antialiasedlineenable" : false
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
 			"name"			: "particles",
 
 			// Shader

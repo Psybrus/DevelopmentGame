@@ -64,6 +64,7 @@
 #include "System/SysSystem.h"
 #include "GaAnimationControllerComponent.h"
 #include "GaCameraComponent.h"
+#include "GaFullscreenQuadComponent.h"
 #include "GaLevelComponent.h"
 #include "GaMindwaveVisualiserComponent.h"
 #include "GaTestFontComponent.h"
@@ -157,6 +158,7 @@ void AutoGenRegisterReflection()
 	SysSystem::StaticRegisterClass();
 	GaAnimationControllerComponent::StaticRegisterClass();
 	GaCameraComponent::StaticRegisterClass();
+	GaFullscreenQuadComponent::StaticRegisterClass();
 	GaLevelComponent::StaticRegisterClass();
 	GaMindwaveVisualiserComponent::StaticRegisterClass();
 	GaTestFontComponent::StaticRegisterClass();
