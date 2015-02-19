@@ -45,7 +45,6 @@
 #include "System/Scene/Rendering/ScnModel.h"
 #include "System/Scene/Rendering/ScnParticleSystemComponent.h"
 #include "System/Scene/Rendering/ScnRenderPipeline.h"
-#include "System/Scene/Rendering/ScnRenderTarget.h"
 #include "System/Scene/Rendering/ScnRenderableComponent.h"
 #include "System/Scene/Rendering/ScnShader.h"
 #include "System/Scene/Rendering/ScnShaderFileData.h"
@@ -134,7 +133,6 @@ void AutoGenRegisterReflection()
 	ScnModelComponent::StaticRegisterClass();
 	ScnParticleSystemComponent::StaticRegisterClass();
 	ScnRenderPipeline::StaticRegisterClass();
-	ScnRenderTarget::StaticRegisterClass();
 	ScnRenderableComponent::StaticRegisterClass();
 	ScnShader::StaticRegisterClass();
 	ScnShaderViewUniformBlockData::StaticRegisterClass();
