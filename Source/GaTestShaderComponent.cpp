@@ -111,7 +111,7 @@ void GaTestShaderComponent::render( class ScnViewComponent* pViewComponent, RsFr
 		ObjectUniformBuffer_,
 		0, sizeof( ScnShaderObjectUniformBlockData ),
 		RsResourceUpdateFlags::ASYNC,
-		[ & ]( RsBuffer* Buffer, const RsBufferLock& Lock )
+		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
 		{
 			auto UniformBlock = reinterpret_cast< ScnShaderObjectUniformBlockData* >( Lock.Buffer_ );
 			UniformBlock->WorldTransform_ = MaMat4d();
