@@ -61,5 +61,5 @@ void GaLevelComponent::onAttach( ScnEntityWeakRef Parent )
 		ScnCore::pImpl()->spawnEntity( EntityParams );
 	}
 
-	BcPrintf( "Spawned %u animated entities.\n", Idx );
+	PSY_LOG( "Spawned %u animated entities.\n", Idx );
 }

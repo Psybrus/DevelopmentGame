@@ -71,7 +71,7 @@ void GaTestModelComponent::onAttach( ScnEntityWeakRef Parent )
 		ScnCore::pImpl()->spawnEntity( EntityParams );
 	}
 
-	BcPrintf( "Spawned %u model entities.\n", Idx );
+	PSY_LOG( "Spawned %u model entities.\n", Idx );
 
 }
 
