@@ -206,6 +206,7 @@ void GaFullscreenQuadComponent::onAttach( ScnEntityWeakRef Parent )
 	if( CsCore::pImpl()->createResource( BcName::INVALID, getPackage(), MaterialComponent, Material_, ShaderPermutation ) ) 
 	{
 		MaterialComponent_ = MaterialComponent;
+		MaterialComponent_->postInitialise(); // TODO: Remove when init sequence is cleaned up.
 	}
 
 	Parent->attach( MaterialComponent_ );
