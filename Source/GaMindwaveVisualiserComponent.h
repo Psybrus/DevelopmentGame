@@ -40,9 +40,9 @@ public:
 	virtual void						onAttach( ScnEntityWeakRef Parent );
 	virtual void						onDetach( ScnEntityWeakRef Parent );
 	
-	eEvtReturn							onMindwaveData( EvtID ID, const OsEventInputMindwaveData& Event );
-	eEvtReturn							onMindwaveEEGPower( EvtID ID, const OsEventInputMindwaveEEGPower& Event );
-	eEvtReturn							onMindwaveEEGRaw( EvtID ID, const OsEventInputMindwaveEEGRaw& Event );
+	eEvtReturn							onMindwaveData( EvtID ID, const EvtBaseEvent& Event );
+	eEvtReturn							onMindwaveEEGPower( EvtID ID, const EvtBaseEvent& Event );
+	eEvtReturn							onMindwaveEEGRaw( EvtID ID, const EvtBaseEvent& Event );
 
 private:
 

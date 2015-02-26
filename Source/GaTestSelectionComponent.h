@@ -40,7 +40,7 @@ public:
 	virtual void						onAttach( ScnEntityWeakRef Parent );
 	virtual void						onDetach( ScnEntityWeakRef Parent );
 	
-	eEvtReturn							onKeyPress( EvtID ID, const OsEventInputKeyboard& Event );
+	eEvtReturn							onKeyPress( EvtID ID, const EvtBaseEvent& Event );
 
 private:
 	struct TMenuEntry

@@ -153,8 +153,9 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 	Canvas_ = Parent->getComponentAnyParentByType< ScnCanvasComponent >();
 	FontComponent_ = Parent->getComponentAnyParentByType< ScnFontComponent >();
 
-	OsEventInputKeyboard::Delegate OnKeyPress = OsEventInputKeyboard::Delegate::bind< GaTestSelectionComponent, &GaTestSelectionComponent::onKeyPress >( this );
-	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, OnKeyPress );
+	using namespace std::placeholders;
+	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, this,
+		std::bind( &GaTestSelectionComponent::onKeyPress, this, _1, _2 ) );
 
 #if !PLATFORM_HTML5
 	if( DsCore::pImpl() )
@@ -190,9 +191,11 @@ void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 	
 //////////////////////////////////////////////////////////////////////////
 // onKeyPress
-eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const OsEventInputKeyboard& Event )
+eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const EvtBaseEvent& Event )
 {
-	switch( Event.KeyCode_ )
+	const auto& KeyEvent = Event.get< OsEventInputKeyboard >();
+
+	switch( KeyEvent.KeyCode_ )
 	{
 	case OsEventInputKeyboard::KEYCODE_UP:
 		if( SelectedEntry_ > 0 )
@@ -225,6 +228,8 @@ eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const OsEventInputKey
 	return evtRET_PASS;
 }
 
+//////////////////////////////////////////////////////////////////////////
+// LoadEntity
 void GaTestSelectionComponent::LoadEntity(int Entity)
 {
 	SelectedEntry_ = Entity;
