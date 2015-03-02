@@ -202,15 +202,8 @@ void GaFullscreenQuadComponent::onAttach( ScnEntityWeakRef Parent )
 		ScnShaderPermutationFlags::RENDER_FORWARD |
 		ScnShaderPermutationFlags::LIGHTING_NONE;
 
-	ScnMaterialComponentRef MaterialComponent;
-	if( CsCore::pImpl()->createResource( BcName::INVALID, getPackage(), MaterialComponent, Material_, ShaderPermutation ) ) 
-	{
-		MaterialComponent_ = MaterialComponent;
-		MaterialComponent_->postInitialise(); // TODO: Remove when init sequence is cleaned up.
-	}
-
-	Parent->attach( MaterialComponent_ );
-
+	MaterialComponent_ = Parent->attach< ScnMaterialComponent >(
+		BcName::INVALID, Material_, ShaderPermutation );
 }
 
 //////////////////////////////////////////////////////////////////////////
