@@ -35,7 +35,6 @@ PsyProjectGameExe( solution().name )
       "freetype",
       "jsoncpp",
       "libb64",
-      "pcre",
       "png",
       "SoLoud",
       "zlib",
