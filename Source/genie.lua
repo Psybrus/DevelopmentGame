@@ -51,7 +51,6 @@ PsyProjectGameExe( solution().name )
       PsyAddExternalLinks {
          "assimp",
          "assimp_contrib",
-         "enet",
          "glsl-optimizer",
          "hlsl2glslfork",
          "HLSLCrossCompiler",
