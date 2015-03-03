@@ -45,7 +45,7 @@ struct GaVertex
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaFullscreenQuadComponent );
+REFLECTION_DEFINE_DERIVED( GaFullscreenQuadComponent );
 
 void GaFullscreenQuadComponent::StaticRegisterClass()
 {
@@ -62,6 +62,26 @@ void GaFullscreenQuadComponent::StaticRegisterClass()
 		
 	ReRegisterClass< GaFullscreenQuadComponent, Super >( Fields )
 		.addAttribute( new ScnComponentAttribute( 0 ) );
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Ctor
+GaFullscreenQuadComponent::GaFullscreenQuadComponent():
+	ObjectUniformBuffer_( nullptr ),
+	TestUniformBuffer_( nullptr ),
+	IndexBuffer_( nullptr ),
+	VertexBuffer_( nullptr ),
+	VertexDeclaration_( nullptr )
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaFullscreenQuadComponent::~GaFullscreenQuadComponent()
+{
+
 }
 
 //////////////////////////////////////////////////////////////////////////

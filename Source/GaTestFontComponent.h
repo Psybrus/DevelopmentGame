@@ -31,15 +31,17 @@ class GaTestFontComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( GaTestFontComponent, ScnComponent );
+	REFLECTION_DECLARE_DERIVED( GaTestFontComponent, ScnComponent );
 
-	void								initialise();
-	void								initialise( const Json::Value& Object );
+	GaTestFontComponent();
+	virtual ~GaTestFontComponent();
+	
+	void initialise( const Json::Value& Object );
 
-	virtual void						update( BcF32 Tick );
+	virtual void update( BcF32 Tick );
 
-	virtual void						onAttach( ScnEntityWeakRef Parent );
-	virtual void						onDetach( ScnEntityWeakRef Parent );
+	virtual void onAttach( ScnEntityWeakRef Parent );
+	virtual void onDetach( ScnEntityWeakRef Parent );
 
 private:
 	std::vector< ScnFontComponentRef > FontComponents_;

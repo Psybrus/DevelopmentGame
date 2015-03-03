@@ -45,7 +45,7 @@ struct GaVertex
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaTestShaderComponent );
+REFLECTION_DEFINE_DERIVED( GaTestShaderComponent );
 
 void GaTestShaderComponent::StaticRegisterClass()
 {
@@ -62,6 +62,19 @@ void GaTestShaderComponent::StaticRegisterClass()
 		
 	ReRegisterClass< GaTestShaderComponent, Super >( Fields )
 		.addAttribute( new ScnComponentAttribute( 0 ) );
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Ctor
+GaTestShaderComponent::GaTestShaderComponent()
+{
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaTestShaderComponent::~GaTestShaderComponent()
+{
 }
 
 //////////////////////////////////////////////////////////////////////////

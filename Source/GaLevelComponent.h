@@ -26,13 +26,16 @@ class GaLevelComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( GaLevelComponent, ScnComponent );
+	REFLECTION_DECLARE_DERIVED( GaLevelComponent, ScnComponent );
 
-	void								initialise( const Json::Value& Object );
+	GaLevelComponent();
+	virtual ~GaLevelComponent();
+	
+	void initialise( const Json::Value& Object );
 
-	virtual void						update( BcF32 Tick );
+	virtual void update( BcF32 Tick );
 
-	virtual void						onAttach( ScnEntityWeakRef Parent );
+	virtual void onAttach( ScnEntityWeakRef Parent );
 	
 private:
 

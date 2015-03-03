@@ -21,7 +21,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaTestSelectionComponent );
+REFLECTION_DEFINE_DERIVED( GaTestSelectionComponent );
 
 void GaTestSelectionComponent::StaticRegisterClass()
 {
@@ -40,11 +40,24 @@ void GaTestSelectionComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
+// Ctor
+GaTestSelectionComponent::GaTestSelectionComponent()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaTestSelectionComponent::~GaTestSelectionComponent()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
 // initialise
 void GaTestSelectionComponent::initialise( const Json::Value& Object )
 {
-	Super::initialise();
-
 	SelectedEntry_ = 0;
 
 	Projection_.orthoProjection( -8.0f, 56.0f, 30.0f, -4.0f, -1.0f, 1.0f );

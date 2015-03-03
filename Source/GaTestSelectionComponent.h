@@ -31,16 +31,19 @@ class GaTestSelectionComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( GaTestSelectionComponent, ScnComponent );
+	REFLECTION_DECLARE_DERIVED( GaTestSelectionComponent, ScnComponent );
 
-	void								initialise( const Json::Value& Object );
-
-	virtual void						update( BcF32 Tick );
-
-	virtual void						onAttach( ScnEntityWeakRef Parent );
-	virtual void						onDetach( ScnEntityWeakRef Parent );
+	GaTestSelectionComponent();
+	virtual ~GaTestSelectionComponent();
 	
-	eEvtReturn							onKeyPress( EvtID ID, const EvtBaseEvent& Event );
+	void initialise( const Json::Value& Object );
+
+	virtual void update( BcF32 Tick );
+
+	virtual void onAttach( ScnEntityWeakRef Parent );
+	virtual void onDetach( ScnEntityWeakRef Parent );
+	
+	eEvtReturn onKeyPress( EvtID ID, const EvtBaseEvent& Event );
 
 private:
 	struct TMenuEntry
@@ -48,17 +51,17 @@ private:
 		ScnEntityRef EntityToSpawn_;
 	};
 
-	std::vector< TMenuEntry >			Options_;
-	BcU32								SelectedEntry_;
-	ScnEntityRef						PreviousSpawned_;
-	ScnFontComponentRef					FontComponent_;
-	ScnCanvasComponentRef				Canvas_;
+	std::vector< TMenuEntry > Options_;
+	BcU32 SelectedEntry_;
+	ScnEntityRef PreviousSpawned_;
+	ScnFontComponentRef FontComponent_;
+	ScnCanvasComponentRef Canvas_;
 
-	MaMat4d								Projection_;
+	MaMat4d Projection_;
 
-	void								LoadEntity(int Entity);
+	void LoadEntity(int Entity);
 
-	std::vector< BcU32 >				OptionsHandles_;
+	std::vector< BcU32 > OptionsHandles_;
 
 };
 

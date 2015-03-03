@@ -19,7 +19,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaCameraComponent );
+REFLECTION_DEFINE_DERIVED( GaCameraComponent );
 
 void GaCameraComponent::StaticRegisterClass()
 {	
@@ -38,11 +38,9 @@ void GaCameraComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaCameraComponent::initialise()
+// Ctor
+GaCameraComponent::GaCameraComponent()
 {
-	Super::initialise();
-
 	CameraState_ = STATE_IDLE;
 	NextCameraState_ = STATE_IDLE;
 	CameraDistance_ = 64.0f;
@@ -50,11 +48,17 @@ void GaCameraComponent::initialise()
 }
 
 //////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaCameraComponent::~GaCameraComponent()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
 // initialise
 void GaCameraComponent::initialise( const Json::Value& Object )
 {
-	Super::initialise();
-
 	CameraState_ = STATE_IDLE;
 	NextCameraState_ = STATE_IDLE;
 	CameraDistance_ = 64.0f;

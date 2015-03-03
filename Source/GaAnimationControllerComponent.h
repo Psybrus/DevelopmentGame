@@ -29,8 +29,11 @@ class GaAnimationControllerComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( GaAnimationControllerComponent, ScnComponent );
+	REFLECTION_DECLARE_DERIVED( GaAnimationControllerComponent, ScnComponent );
 
+	GaAnimationControllerComponent();
+	virtual ~GaAnimationControllerComponent();
+	
 	void initialise( const Json::Value& Object );
 
 	virtual void update( BcF32 Tick );

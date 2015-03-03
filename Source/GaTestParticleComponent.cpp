@@ -24,7 +24,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaTestParticleComponent );
+REFLECTION_DEFINE_DERIVED( GaTestParticleComponent );
 
 void GaTestParticleComponent::StaticRegisterClass()
 {
@@ -35,6 +35,21 @@ void GaTestParticleComponent::StaticRegisterClass()
 
 	ReRegisterClass< GaTestParticleComponent, Super >( Fields )
 		.addAttribute( new ScnComponentAttribute( 0 ) );
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Ctor
+GaTestParticleComponent::GaTestParticleComponent()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaTestParticleComponent::~GaTestParticleComponent()
+{
+
 }
 
 //////////////////////////////////////////////////////////////////////////

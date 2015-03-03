@@ -22,7 +22,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaAnimationControllerComponent );
+REFLECTION_DEFINE_DERIVED( GaAnimationControllerComponent );
 
 void GaAnimationControllerComponent::StaticRegisterClass()
 {
@@ -41,11 +41,24 @@ void GaAnimationControllerComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
+// Ctor
+GaAnimationControllerComponent::GaAnimationControllerComponent()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaAnimationControllerComponent::~GaAnimationControllerComponent()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
 // initialise
 void GaAnimationControllerComponent::initialise( const Json::Value& Object )
 {
-	Super::initialise();
-
 	AnimIdle_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_idle" ].asUInt() ) );
 	AnimFire_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_fire" ].asUInt() ) );
 	AnimReload_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_reload" ].asUInt() ) );

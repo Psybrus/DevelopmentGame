@@ -29,16 +29,19 @@ class GaTestModelComponent:
 	public ScnRenderableComponent
 {
 public:
-	DECLARE_RESOURCE( GaTestModelComponent, ScnRenderableComponent );
+	REFLECTION_DECLARE_DERIVED( GaTestModelComponent, ScnRenderableComponent );
 
-	void								initialise( const Json::Value& Object );
+	GaTestModelComponent();
+	virtual ~GaTestModelComponent();
+	
+	void initialise( const Json::Value& Object );
 
-	virtual void						update( BcF32 Tick );
+	virtual void update( BcF32 Tick );
 	
-	virtual void						onAttach( ScnEntityWeakRef Parent );
-	virtual void						onDetach( ScnEntityWeakRef Parent );
+	virtual void onAttach( ScnEntityWeakRef Parent );
+	virtual void onDetach( ScnEntityWeakRef Parent );
 	
-	virtual MaAABB						getAABB() const;
+	virtual MaAABB getAABB() const;
 
 private:
 	ScnMaterialRef Material_;

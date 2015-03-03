@@ -21,7 +21,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaMindwaveVisualiserComponent );
+REFLECTION_DEFINE_DERIVED( GaMindwaveVisualiserComponent );
 
 void GaMindwaveVisualiserComponent::StaticRegisterClass()
 {
@@ -42,10 +42,25 @@ void GaMindwaveVisualiserComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
+// Ctor
+GaMindwaveVisualiserComponent::GaMindwaveVisualiserComponent()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaMindwaveVisualiserComponent::~GaMindwaveVisualiserComponent()
+{
+
+}
+
+//////////////////////////////////////////////////////////////////////////
 // initialise
 void GaMindwaveVisualiserComponent::initialise( const Json::Value& Object )
 {
-	Super::initialise();
+
 }
 
 //////////////////////////////////////////////////////////////////////////
