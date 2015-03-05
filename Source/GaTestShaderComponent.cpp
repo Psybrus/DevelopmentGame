@@ -51,13 +51,13 @@ void GaTestShaderComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
-		new ReField( "MaterialComponent_", &GaTestShaderComponent::MaterialComponent_, bcRFF_TRANSIENT ),
 		new ReField( "ObjectUniformBuffer_", &GaTestShaderComponent::ObjectUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "TestUniformBuffer_", &GaTestShaderComponent::TestUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "IndexBuffer_", &GaTestShaderComponent::IndexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexBuffer_", &GaTestShaderComponent::VertexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexDeclaration_", &GaTestShaderComponent::VertexDeclaration_, bcRFF_TRANSIENT ),
 		new ReField( "Material_", &GaTestShaderComponent::Material_, bcRFF_SHALLOW_COPY ),
+		new ReField( "MaterialComponent_", &GaTestShaderComponent::MaterialComponent_, bcRFF_TRANSIENT ),
 	};
 		
 	ReRegisterClass< GaTestShaderComponent, Super >( Fields )
@@ -66,7 +66,12 @@ void GaTestShaderComponent::StaticRegisterClass()
 
 //////////////////////////////////////////////////////////////////////////
 // Ctor
-GaTestShaderComponent::GaTestShaderComponent()
+GaTestShaderComponent::GaTestShaderComponent():
+	ObjectUniformBuffer_( nullptr ),
+	TestUniformBuffer_( nullptr ),
+	IndexBuffer_( nullptr ),
+	VertexBuffer_( nullptr ),
+	VertexDeclaration_( nullptr )
 {
 }
 

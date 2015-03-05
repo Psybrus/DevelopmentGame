@@ -178,7 +178,7 @@
 				{
 					"type"					: "ScnMaterialComponent",
 					"material"				: "$(ScnMaterial:materials.debugrender)",
-					"permutation"			: "2d"
+					"permutationflags"		: "mesh_static_2d"
 				},
 
 				{

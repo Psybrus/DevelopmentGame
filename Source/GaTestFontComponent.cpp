@@ -58,13 +58,6 @@ GaTestFontComponent::~GaTestFontComponent()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestFontComponent::initialise( const Json::Value& Object )
-{
-	CurrFontComponent_ = 0;
-}
-
-//////////////////////////////////////////////////////////////////////////
 // update
 //virtual
 void GaTestFontComponent::update( BcF32 Tick )
