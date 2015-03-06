@@ -26,6 +26,17 @@
 typedef ReObjectRef< class GaTestSelectionComponent > GaTestSelectionComponentRef;
 
 //////////////////////////////////////////////////////////////////////////
+// GaMenuEntry
+struct GaMenuEntry
+{
+	REFLECTION_DECLARE_BASIC( GaMenuEntry );
+	GaMenuEntry(){};
+
+	std::string Name_;
+	ScnEntityRef Entity_;
+};
+
+//////////////////////////////////////////////////////////////////////////
 // GaTestSelectionComponent
 class GaTestSelectionComponent:
 	public ScnComponent
@@ -35,8 +46,6 @@ public:
 
 	GaTestSelectionComponent();
 	virtual ~GaTestSelectionComponent();
-	
-	void initialise( const Json::Value& Object );
 
 	virtual void update( BcF32 Tick );
 
@@ -46,12 +55,7 @@ public:
 	eEvtReturn onKeyPress( EvtID ID, const EvtBaseEvent& Event );
 
 private:
-	struct TMenuEntry
-	{
-		ScnEntityRef EntityToSpawn_;
-	};
-
-	std::vector< TMenuEntry > Options_;
+	std::vector< GaMenuEntry > Options_;
 	BcU32 SelectedEntry_;
 	ScnEntityRef PreviousSpawned_;
 	ScnFontComponentRef FontComponent_;

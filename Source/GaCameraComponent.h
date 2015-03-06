@@ -33,7 +33,6 @@ public:
 
 	GaCameraComponent();
 	virtual ~GaCameraComponent();
-	void initialise( const Json::Value& Object );
 
 	virtual void preUpdate( BcF32 Tick );
 

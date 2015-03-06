@@ -51,13 +51,14 @@ void GaFullscreenQuadComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
+		new ReField( "Material_", &GaFullscreenQuadComponent::Material_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+
 		new ReField( "MaterialComponent_", &GaFullscreenQuadComponent::MaterialComponent_, bcRFF_TRANSIENT ),
 		new ReField( "ObjectUniformBuffer_", &GaFullscreenQuadComponent::ObjectUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "TestUniformBuffer_", &GaFullscreenQuadComponent::TestUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "IndexBuffer_", &GaFullscreenQuadComponent::IndexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexBuffer_", &GaFullscreenQuadComponent::VertexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexDeclaration_", &GaFullscreenQuadComponent::VertexDeclaration_, bcRFF_TRANSIENT ),
-		new ReField( "Material_", &GaFullscreenQuadComponent::Material_, bcRFF_SHALLOW_COPY ),
 	};
 		
 	ReRegisterClass< GaFullscreenQuadComponent, Super >( Fields )
@@ -82,15 +83,6 @@ GaFullscreenQuadComponent::GaFullscreenQuadComponent():
 GaFullscreenQuadComponent::~GaFullscreenQuadComponent()
 {
 
-}
-
-//////////////////////////////////////////////////////////////////////////
-// initialise
-void GaFullscreenQuadComponent::initialise( const Json::Value& Object )
-{
-	Super::initialise( Object );
-
-	Material_ = ScnMaterialRef( this->getPackage()->getCrossRefResource( Object[ "material" ].asUInt() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

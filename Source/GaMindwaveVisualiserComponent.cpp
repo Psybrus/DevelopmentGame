@@ -57,13 +57,6 @@ GaMindwaveVisualiserComponent::~GaMindwaveVisualiserComponent()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaMindwaveVisualiserComponent::initialise( const Json::Value& Object )
-{
-
-}
-
-//////////////////////////////////////////////////////////////////////////
 // update
 //virtual
 void GaMindwaveVisualiserComponent::update( BcF32 Tick )

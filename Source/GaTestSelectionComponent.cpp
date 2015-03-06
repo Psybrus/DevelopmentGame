@@ -21,18 +21,31 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
+REFLECTION_DEFINE_BASIC( GaMenuEntry );
 REFLECTION_DEFINE_DERIVED( GaTestSelectionComponent );
+
+void GaMenuEntry::StaticRegisterClass()
+{
+	ReField* Fields[] = 
+	{
+		new ReField( "Name_", &GaMenuEntry::Name_ ),
+		new ReField( "Entity_", &GaMenuEntry::Entity_, bcRFF_SHALLOW_COPY ),
+	};
+		
+	ReRegisterClass< GaMenuEntry >( Fields );
+}
 
 void GaTestSelectionComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
-		new ReField( "Options_",			&GaTestSelectionComponent::Options_ ),
-		new ReField( "SelectedEntry_",		&GaTestSelectionComponent::SelectedEntry_ ),
-		new ReField( "PreviousSpawned_",	&GaTestSelectionComponent::PreviousSpawned_ ),
-		new ReField( "FontComponent_",		&GaTestSelectionComponent::FontComponent_ ),
-		new ReField( "Canvas_",				&GaTestSelectionComponent::Canvas_ ),
-		new ReField( "Projection_",			&GaTestSelectionComponent::Projection_ ),
+		new ReField( "Options_", &GaTestSelectionComponent::Options_, bcRFF_IMPORTER ),
+
+		new ReField( "SelectedEntry_", &GaTestSelectionComponent::SelectedEntry_ ),
+		new ReField( "PreviousSpawned_", &GaTestSelectionComponent::PreviousSpawned_ ),
+		new ReField( "FontComponent_", &GaTestSelectionComponent::FontComponent_ ),
+		new ReField( "Canvas_", &GaTestSelectionComponent::Canvas_ ),
+		new ReField( "Projection_", &GaTestSelectionComponent::Projection_ ),
 	};
 		
 	ReRegisterClass< GaTestSelectionComponent, Super >( Fields )
@@ -43,7 +56,8 @@ void GaTestSelectionComponent::StaticRegisterClass()
 // Ctor
 GaTestSelectionComponent::GaTestSelectionComponent()
 {
-
+	SelectedEntry_ = 0;
+	Projection_.orthoProjection( -8.0f, 56.0f, 30.0f, -4.0f, -1.0f, 1.0f );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -52,26 +66,6 @@ GaTestSelectionComponent::GaTestSelectionComponent()
 GaTestSelectionComponent::~GaTestSelectionComponent()
 {
 
-}
-
-//////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestSelectionComponent::initialise( const Json::Value& Object )
-{
-	SelectedEntry_ = 0;
-
-	Projection_.orthoProjection( -8.0f, 56.0f, 30.0f, -4.0f, -1.0f, 1.0f );
-
-	const auto& Options( Object[ "options" ] );
-	for( const auto& Option : Options )
-	{
-		TMenuEntry Entry = 
-		{
-			getPackage()->getCrossRefResource( Option.asUInt() )
-		};
-
-		Options_.push_back( Entry );
-	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -140,7 +134,7 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 				.setTextColour( Colour ),
 			Position, 
 			MaVec2d( 0.0f, 0.0f ),
-			(*Option.EntityToSpawn_->getName()) );
+			Option.Name_.c_str() );
 		Position += MaVec2d( 0.0f, Size.y() );
 	}
 #endif
@@ -176,7 +170,7 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 		for (BcU32 Idx = 0; Idx < Options_.size(); ++Idx)
 		{
 			const auto& Option(Options_[Idx]);
-			BcU32 handle = DsCore::pImpl()->registerFunction(*Option.EntityToSpawn_->getName(), std::bind(&GaTestSelectionComponent::LoadEntity, this, Idx));
+			BcU32 handle = DsCore::pImpl()->registerFunction(*Option.Entity_->getName(), std::bind(&GaTestSelectionComponent::LoadEntity, this, Idx));
 			OptionsHandles_.push_back(handle);
 		}
 	}
@@ -251,7 +245,7 @@ void GaTestSelectionComponent::LoadEntity(int Entity)
 		ScnCore::pImpl()->removeEntity(PreviousSpawned_);
 	}
 
-	auto TemplateEntity = Options_[SelectedEntry_].EntityToSpawn_;
+	auto TemplateEntity = Options_[SelectedEntry_].Entity_;
 	ScnEntitySpawnParams SpawnEntity =
 	{
 		TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",

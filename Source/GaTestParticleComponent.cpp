@@ -30,7 +30,7 @@ void GaTestParticleComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
-		new ReField( "Sound_", &GaTestParticleComponent::Sound_, bcRFF_SHALLOW_COPY ),
+		new ReField( "Sound_", &GaTestParticleComponent::Sound_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
 	};
 
 	ReRegisterClass< GaTestParticleComponent, Super >( Fields )
@@ -50,15 +50,6 @@ GaTestParticleComponent::GaTestParticleComponent()
 GaTestParticleComponent::~GaTestParticleComponent()
 {
 
-}
-
-//////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestParticleComponent::initialise( const Json::Value& Object )
-{
-	Super::initialise( Object );
-
-	Sound_ = getPackage()->getCrossRefResource( Object[ "sound" ].asUInt() );
 }
 
 //////////////////////////////////////////////////////////////////////////

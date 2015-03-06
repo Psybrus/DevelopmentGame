@@ -56,16 +56,6 @@ GaCameraComponent::~GaCameraComponent()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaCameraComponent::initialise( const Json::Value& Object )
-{
-	CameraState_ = STATE_IDLE;
-	NextCameraState_ = STATE_IDLE;
-	CameraDistance_ = 64.0f;
-	CameraZoom_ = 0.0f;
-}
-
-//////////////////////////////////////////////////////////////////////////
 // preUpdate
 //virtual
 void GaCameraComponent::preUpdate( BcF32 Tick )

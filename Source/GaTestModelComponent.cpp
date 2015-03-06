@@ -27,7 +27,14 @@ REFLECTION_DEFINE_DERIVED( GaTestModelComponent );
 
 void GaTestModelComponent::StaticRegisterClass()
 {
-	ReRegisterClass< GaTestModelComponent, Super >()
+	ReField* Fields[] = 
+	{
+		new ReField( "Material_", &GaTestModelComponent::Material_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+
+		new ReField( "MaterialComponent_", &GaTestModelComponent::MaterialComponent_, bcRFF_TRANSIENT ),
+	};
+
+	ReRegisterClass< GaTestModelComponent, Super >( Fields )
 		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
@@ -44,15 +51,6 @@ GaTestModelComponent::GaTestModelComponent()
 GaTestModelComponent::~GaTestModelComponent()
 {
 
-}
-
-//////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestModelComponent::initialise( const Json::Value& Object )
-{
-	Super::initialise( Object );
-
-	Material_ = this->getPackage()->getCrossRefResource( Object[ "material" ].asUInt() );	
 }
 
 //////////////////////////////////////////////////////////////////////////

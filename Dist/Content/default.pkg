@@ -37,12 +37,35 @@
 					"type"					: "GaTestSelectionComponent",
 
 					"options"				: [
-						"$(ScnEntity:this.TestLevelEntity1)",
-						"$(ScnEntity:this.TestRenderTargetEntity)",
-						"$(ScnEntity:this.TestShaderEntity)",
-						"$(ScnEntity:this.TestModelEntity)",
-						"$(ScnEntity:this.TestParticleEntity)",
-						"$(ScnEntity:this.TestFontEntity)"
+						{ 
+							"name" : "Animation test",
+							"entity" : "$(ScnEntity:this.TestLevelEntity1)"
+						},
+
+						{ 
+							"name" : "Render target test",
+							"entity" : "$(ScnEntity:this.TestRenderTargetEntity)"
+						},
+
+						{ 
+							"name" : "Shader test",
+							"entity" : "$(ScnEntity:this.TestShaderEntity)"
+						},
+
+						{ 
+							"name" : "Model test",
+							"entity" : "$(ScnEntity:this.TestModelEntity)"
+						},
+
+						{ 
+							"name" : "Particle test",
+							"entity" : "$(ScnEntity:this.TestParticleEntity)"
+						},
+
+						{ 
+							"name" : "Font test",
+							"entity" : "$(ScnEntity:this.TestFontEntity)"
+						}
 					]
 				}
 			]
@@ -265,9 +288,9 @@
 					"type"					: "GaAnimationControllerComponent",
 					"name"					: "AnimationController",
 
-					"anim_idle"				: "$(ScnAnimation:ruiner.character_sword_aim)",
-					"anim_fire"				: "$(ScnAnimation:ruiner.character_walk_fullbody)",
-					"anim_reload"			: "$(ScnAnimation:ruiner.character_sword_aim)"
+					"animidle"				: "$(ScnAnimation:ruiner.character_sword_aim)",
+					"animfire"				: "$(ScnAnimation:ruiner.character_walk_fullbody)",
+					"animreload"			: "$(ScnAnimation:ruiner.character_sword_aim)"
 				},
 
 				{

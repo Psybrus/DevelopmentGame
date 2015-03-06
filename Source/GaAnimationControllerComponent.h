@@ -34,19 +34,17 @@ public:
 	GaAnimationControllerComponent();
 	virtual ~GaAnimationControllerComponent();
 	
-	void initialise( const Json::Value& Object );
-
 	virtual void update( BcF32 Tick );
 
 	virtual void onAttach( ScnEntityWeakRef Parent );
 	
 private:
-	ReObjectRef< class ScnAnimationTreeBlendNode > pRootTrack_;
-	ReObjectRef< class ScnAnimationTreeTrackNode > pIdleTrack_;
-	ReObjectRef< class ScnAnimationTreeTrackNode > pReloadTrack_;
 	ScnAnimationRef AnimIdle_;
 	ScnAnimationRef AnimFire_;
 	ScnAnimationRef AnimReload_;
+	ReObjectRef< class ScnAnimationTreeBlendNode > pRootTrack_;
+	ReObjectRef< class ScnAnimationTreeTrackNode > pIdleTrack_;
+	ReObjectRef< class ScnAnimationTreeTrackNode > pReloadTrack_;
 };
 
 #endif

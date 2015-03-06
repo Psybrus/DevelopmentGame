@@ -162,6 +162,7 @@ void AutoGenRegisterReflection()
 	GaTestFontComponent::StaticRegisterClass();
 	GaTestModelComponent::StaticRegisterClass();
 	GaTestParticleComponent::StaticRegisterClass();
+	GaMenuEntry::StaticRegisterClass();
 	GaTestSelectionComponent::StaticRegisterClass();
 	GaTestShaderComponent::StaticRegisterClass();
 }

@@ -28,12 +28,13 @@ void GaAnimationControllerComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
+		new ReField( "AnimIdle_", &GaAnimationControllerComponent::AnimIdle_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+		new ReField( "AnimFire_", &GaAnimationControllerComponent::AnimFire_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+		new ReField( "AnimReload_", &GaAnimationControllerComponent::AnimReload_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+
 		new ReField( "pRootTrack_", &GaAnimationControllerComponent::pRootTrack_, bcRFF_TRANSIENT ),
 		new ReField( "pIdleTrack_", &GaAnimationControllerComponent::pIdleTrack_, bcRFF_TRANSIENT ),
 		new ReField( "pReloadTrack_", &GaAnimationControllerComponent::pReloadTrack_, bcRFF_TRANSIENT ),
-		new ReField( "AnimIdle_", &GaAnimationControllerComponent::AnimIdle_, bcRFF_SHALLOW_COPY ),
-		new ReField( "AnimFire_", &GaAnimationControllerComponent::AnimFire_, bcRFF_SHALLOW_COPY ),
-		new ReField( "AnimReload_", &GaAnimationControllerComponent::AnimReload_, bcRFF_SHALLOW_COPY ),
 	};
 		
 	ReRegisterClass< GaAnimationControllerComponent, Super >( Fields )
@@ -55,16 +56,7 @@ GaAnimationControllerComponent::~GaAnimationControllerComponent()
 
 }
 
-//////////////////////////////////////////////////////////////////////////
-// initialise
-void GaAnimationControllerComponent::initialise( const Json::Value& Object )
-{
-	AnimIdle_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_idle" ].asUInt() ) );
-	AnimFire_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_fire" ].asUInt() ) );
-	AnimReload_ = ScnAnimationRef( getPackage()->getCrossRefResource( Object[ "anim_reload" ].asUInt() ) );
-}
-
-//////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 // update
 //virtual
 void GaAnimationControllerComponent::update( BcF32 Tick )

@@ -51,12 +51,13 @@ void GaTestShaderComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
+		new ReField( "Material_", &GaTestShaderComponent::Material_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+
 		new ReField( "ObjectUniformBuffer_", &GaTestShaderComponent::ObjectUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "TestUniformBuffer_", &GaTestShaderComponent::TestUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "IndexBuffer_", &GaTestShaderComponent::IndexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexBuffer_", &GaTestShaderComponent::VertexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexDeclaration_", &GaTestShaderComponent::VertexDeclaration_, bcRFF_TRANSIENT ),
-		new ReField( "Material_", &GaTestShaderComponent::Material_, bcRFF_SHALLOW_COPY ),
 		new ReField( "MaterialComponent_", &GaTestShaderComponent::MaterialComponent_, bcRFF_TRANSIENT ),
 	};
 		
@@ -80,15 +81,6 @@ GaTestShaderComponent::GaTestShaderComponent():
 //virtual
 GaTestShaderComponent::~GaTestShaderComponent()
 {
-}
-
-//////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestShaderComponent::initialise( const Json::Value& Object )
-{
-	Super::initialise( Object );
-
-	Material_ = ScnMaterialRef( this->getPackage()->getCrossRefResource( Object[ "material" ].asUInt() ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
