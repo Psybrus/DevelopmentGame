@@ -60,7 +60,7 @@ void GaLevelComponent::onAttach( ScnEntityWeakRef Parent )
 	{
 		ScnEntitySpawnParams EntityParams = 
 		{
-			"default", "AnimatedEntity", BcName( "AnimatedEntity", Idx++ ),
+			"animation_test", "AnimatedEntity", BcName( "AnimatedEntity", Idx++ ),
 			MaMat4d(),
 			getParentEntity()
 		};

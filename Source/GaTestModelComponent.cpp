@@ -75,7 +75,7 @@ void GaTestModelComponent::onAttach( ScnEntityWeakRef Parent )
 	{
 		ScnEntitySpawnParams EntityParams = 
 		{
-			"default", "ModelEntity", BcName( "ModelEntity", Idx++ ),
+			"model_test", "ModelEntity", BcName( "ModelEntity", Idx++ ),
 			MaMat4d(),
 			getParentEntity()
 		};

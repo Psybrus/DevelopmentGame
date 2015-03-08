@@ -1,0 +1,35 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "GaTestModelComponent",
+					"material"				: "$(ScnMaterial:materials.geometry_test)"
+				}
+			]
+		},
+
+		{
+			"name"		:		"ModelEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:models.test_fbx_model_static)"
+				}
+			]
+		}
+	]
+}

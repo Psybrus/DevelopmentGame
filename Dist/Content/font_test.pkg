@@ -1,0 +1,45 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnCanvasComponent",
+					"noofvertices" 			: 8192,
+					"rendermask"			: 1
+				},
+
+				{
+					"type"					: "ScnMaterialComponent",
+					"material"				: "$(ScnMaterial:materials.debugrender)",
+					"permutationflags"		: "mesh_static_2d"
+				},
+
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "GaTestFontComponent"
+				}
+			]
+		}
+	]
+}
