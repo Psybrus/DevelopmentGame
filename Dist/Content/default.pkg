@@ -154,7 +154,7 @@
 				{
 					"type"					: "ScnParticleSystemComponent",
 					"noofparticles"			: 10000,
-					"localspace"			: false,
+					"islocalspace"			: false,
 					"material"				: "$(ScnMaterial:materials.particles)"
 				},
 
@@ -245,8 +245,8 @@
 					"height"				: 1.0,
 					"near"					: 1.0,
 					"far"					: 4000.0,
-					"hfov"					: 0.75,
-					"vfov"					: 0.0,
+					"horizontalfov"			: 0.75,
+					"verticalfov"			: 0.0,
 					"rendermask"			: 1
 				},
 
@@ -258,8 +258,8 @@
 					"height"				: 1.0,
 					"near"					: 10.0,
 					"far"					: 500.0,
-					"hfov"					: 0.75,
-					"vfov"					: 0.0,
+					"horizontalfov"			: 0.75,
+					"verticalfov"			: 0.0,
 					"rendermask"			: 2,
 					"clearcolour"			: "1.0, 1.0, 1.0, 1.0",
 					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
@@ -307,15 +307,15 @@
 
 					// Animation blend tree.
 					"tree"					: {
-						"type"				: "ScnAnimationTreeBlendNode",
+						"$Class"			: "ScnAnimationTreeBlendNode",
 						"name"				: "Root",
 						"children"			: [
 							{
-								"type"		: "ScnAnimationTreeTrackNode",
+								"$Class"	: "ScnAnimationTreeTrackNode",
 								"name"		: "IdleTrack_0"
 							},
 							{
-								"type"		: "ScnAnimationTreeTrackNode",
+								"$Class"	: "ScnAnimationTreeTrackNode",
 								"name"		: "ReloadTrack_0"
 							}
 						]
