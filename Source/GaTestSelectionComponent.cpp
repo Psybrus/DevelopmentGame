@@ -228,7 +228,6 @@ eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const EvtBaseEvent& E
 
 	case OsEventInputKeyboard::KEYCODE_RETURN:
 		LoadEntity(SelectedEntry_);
-		LoadEntity(SelectedEntry_);
 		BcAssertMsg( PreviousSpawned_.isValid(), "We expect everythig nto have been preloaded." );
 		break;
 	}
@@ -244,6 +243,8 @@ void GaTestSelectionComponent::LoadEntity(int Entity)
 	{
 		ScnCore::pImpl()->removeEntity(PreviousSpawned_);
 	}
+
+	PSY_LOG( "Starting %s", Options_[SelectedEntry_].Name_.c_str() );
 
 	auto TemplateEntity = Options_[SelectedEntry_].Entity_;
 	ScnEntitySpawnParams SpawnEntity =

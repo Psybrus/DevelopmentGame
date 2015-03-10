@@ -19,7 +19,30 @@
 				},
 
 				{
-					"type"					: "GaLevelComponent"
+					"type"					: "GaLevelComponent",
+
+					"entities"				: [
+						{
+							"basis"			: "$(ScnEntity:this.AnimatedEntity)",
+							"name"			: "AnimationEntity_0",
+							"position"		: "0.0, 0.0, 0.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.AnimatedEntity)",
+							"name"			: "AnimationEntity_1",
+							"position"		: "0.0, 0.0, 64.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.AnimatedEntity)",
+							"name"			: "AnimationEntity_2",
+							"position"		: "0.0, 0.0, 128.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						}
+					]
 				}
 			]
 		},

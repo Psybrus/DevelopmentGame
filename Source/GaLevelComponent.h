@@ -21,6 +21,19 @@
 typedef ReObjectRef< class GaLevelComponent > GaLevelComponentRef;
 
 //////////////////////////////////////////////////////////////////////////
+// GaLevelEntity
+struct GaLevelEntity
+{
+	REFLECTION_DECLARE_BASIC( GaLevelEntity );
+	GaLevelEntity(){};
+
+	ScnEntityRef Basis_;
+	BcName Name_;
+	MaVec3d Position_;
+	MaVec3d Rotation_;
+};
+
+//////////////////////////////////////////////////////////////////////////
 // GaLevelComponent
 class GaLevelComponent:
 	public ScnComponent
@@ -36,6 +49,7 @@ public:
 	virtual void onAttach( ScnEntityWeakRef Parent );
 	
 private:
+	std::vector< GaLevelEntity > Entities_;
 
 };
 

@@ -33,9 +33,12 @@
 #include "System/Scene/Import/ScnShaderImport.h"
 #include "System/Scene/Import/ScnSoundImport.h"
 #include "System/Scene/Import/ScnTextureImport.h"
-#include "System/Scene/Physics/ScnPhysicsBoxCollisionShape.h"
-#include "System/Scene/Physics/ScnPhysicsCollisionShape.h"
+#include "System/Scene/Physics/ScnPhysicsBoxCollisionComponent.h"
+#include "System/Scene/Physics/ScnPhysicsCapsuleCollisionComponent.h"
+#include "System/Scene/Physics/ScnPhysicsCollisionComponent.h"
+#include "System/Scene/Physics/ScnPhysicsCylinderCollisionComponent.h"
 #include "System/Scene/Physics/ScnPhysicsRigidBodyComponent.h"
+#include "System/Scene/Physics/ScnPhysicsSphereCollisionComponent.h"
 #include "System/Scene/Physics/ScnPhysicsWorldComponent.h"
 #include "System/Scene/Rendering/ScnCanvasComponent.h"
 #include "System/Scene/Rendering/ScnDebugRenderComponent.h"
@@ -116,9 +119,12 @@ void AutoGenRegisterReflection()
 	ScnShaderImport::StaticRegisterClass();
 	ScnSoundImport::StaticRegisterClass();
 	ScnTextureImport::StaticRegisterClass();
-	ScnPhysicsBoxCollisionShape::StaticRegisterClass();
-	ScnPhysicsCollisionShape::StaticRegisterClass();
+	ScnPhysicsBoxCollisionComponent::StaticRegisterClass();
+	ScnPhysicsCapsuleCollisionComponent::StaticRegisterClass();
+	ScnPhysicsCollisionComponent::StaticRegisterClass();
+	ScnPhysicsCylinderCollisionComponent::StaticRegisterClass();
 	ScnPhysicsRigidBodyComponent::StaticRegisterClass();
+	ScnPhysicsSphereCollisionComponent::StaticRegisterClass();
 	ScnPhysicsWorldComponent::StaticRegisterClass();
 	ScnCanvasComponent::StaticRegisterClass();
 	ScnDebugRenderComponent::StaticRegisterClass();
@@ -157,6 +163,7 @@ void AutoGenRegisterReflection()
 	GaAnimationControllerComponent::StaticRegisterClass();
 	GaCameraComponent::StaticRegisterClass();
 	GaFullscreenQuadComponent::StaticRegisterClass();
+	GaLevelEntity::StaticRegisterClass();
 	GaLevelComponent::StaticRegisterClass();
 	GaMindwaveVisualiserComponent::StaticRegisterClass();
 	GaTestFontComponent::StaticRegisterClass();

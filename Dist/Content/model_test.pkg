@@ -7,12 +7,6 @@
 
 			"components" : [
 				{
-					"type"					: "ScnFontComponent",
-					"font"					: "$(ScnFont:fonts.courier)",
-					"material"				: "$(ScnMaterial:materials.font)"
-				},
-
-				{
 					"type"					: "GaTestModelComponent",
 					"material"				: "$(ScnMaterial:materials.geometry_test)"
 				}

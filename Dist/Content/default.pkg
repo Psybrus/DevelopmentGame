@@ -1,13 +1,6 @@
 {
 
 	"resources" : [
-		{
-			"name"		:		"Sound",
-			"type"		:		"ScnSound",
-			"source"	:		"Content/Source/WinLevel.wav",
-			"isstream"	:		true
-		},
-
 		/////////////////////////////////////////////////////////////// 
 		// Entities.
 		{
@@ -65,6 +58,11 @@
 						{ 
 							"name" : "Font test",
 							"entity" : "$(ScnEntity:font_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Physics test",
+							"entity" : "$(ScnEntity:physics_test.TestEntity)"
 						}
 					]
 				}

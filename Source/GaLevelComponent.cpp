@@ -13,13 +13,35 @@
 
 #include "GaLevelComponent.h"
 
+#include "System/Content/CsPackage.h"
+
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
+REFLECTION_DEFINE_BASIC( GaLevelEntity );
+
+void GaLevelEntity::StaticRegisterClass()
+{
+	ReField* Fields[] = 
+	{
+		new ReField( "Basis_", &GaLevelEntity::Basis_, bcRFF_SHALLOW_COPY ),
+		new ReField( "Name_", &GaLevelEntity::Name_ ),
+		new ReField( "Position_", &GaLevelEntity::Position_ ),
+		new ReField( "Rotation_", &GaLevelEntity::Rotation_ ),
+	};
+
+	ReRegisterClass< GaLevelEntity >( Fields );
+}
+
 REFLECTION_DEFINE_DERIVED( GaLevelComponent );
 
 void GaLevelComponent::StaticRegisterClass()
 {
-	ReRegisterClass< GaLevelComponent, Super >()
+	ReField* Fields[] = 
+	{
+		new ReField( "Entities_", &GaLevelComponent::Entities_, bcRFF_IMPORTER ),
+	};
+
+	ReRegisterClass< GaLevelComponent, Super >( Fields )
 		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
@@ -53,21 +75,22 @@ void GaLevelComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 
-	BcU32 Idx = 0;
-	BcF32 Width = 1024.0f;
-
-	for( BcF32 X = -Width; X <= Width; X += 64.0f )
+	for( const auto& LevelEntity : Entities_ )
 	{
+		MaMat4d Transform;
+		Transform.rotation( LevelEntity.Rotation_ );
+		Transform.translation( LevelEntity.Position_ );
+
 		ScnEntitySpawnParams EntityParams = 
 		{
-			"animation_test", "AnimatedEntity", BcName( "AnimatedEntity", Idx++ ),
-			MaMat4d(),
-			getParentEntity()
+			LevelEntity.Basis_->getPackage()->getName(),
+			LevelEntity.Basis_->getName(),
+			LevelEntity.Name_,
+			Transform,
+			getParentEntity(),
+			nullptr
 		};
 
-		EntityParams.Transform_.translation( MaVec3d( 0.0f, 0.0f, X ) );
 		ScnCore::pImpl()->spawnEntity( EntityParams );
 	}
-
-	PSY_LOG( "Spawned %u animated entities.\n", Idx );
 }
