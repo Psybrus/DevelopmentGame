@@ -43,7 +43,7 @@ GaCameraComponent::GaCameraComponent()
 {
 	CameraState_ = STATE_IDLE;
 	NextCameraState_ = STATE_IDLE;
-	CameraDistance_ = 64.0f;
+	CameraDistance_ = 16.0f;
 	CameraZoom_ = 0.0f;
 }
 
