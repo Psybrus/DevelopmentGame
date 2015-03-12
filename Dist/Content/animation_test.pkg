@@ -25,21 +25,21 @@
 						{
 							"basis"			: "$(ScnEntity:this.AnimatedEntity)",
 							"name"			: "AnimationEntity_0",
-							"position"		: "0.0, 0.0, 0.0",
+							"position"		: "0.0, 0.0, -4.0",
 							"rotation"		: "0.0, 0.0, 0.0"
 						},
 
 						{
 							"basis"			: "$(ScnEntity:this.AnimatedEntity)",
 							"name"			: "AnimationEntity_1",
-							"position"		: "0.0, 0.0, 64.0",
+							"position"		: "0.0, 0.0, 0.0",
 							"rotation"		: "0.0, 0.0, 0.0"
 						},
 
 						{
 							"basis"			: "$(ScnEntity:this.AnimatedEntity)",
 							"name"			: "AnimationEntity_2",
-							"position"		: "0.0, 0.0, 128.0",
+							"position"		: "0.0, 0.0, 4.0",
 							"rotation"		: "0.0, 0.0, 0.0"
 						}
 					]
@@ -66,7 +66,8 @@
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
-					"islit"					: false
+					"islit"					: false,
+					"scale"					: "0.1, 0.1, 0.1"
 				},
 
 				{
