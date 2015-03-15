@@ -5,7 +5,7 @@
 			"name"		: "teapot",
 			"source"	: "Content/Source/teapot/wt_teapot.obj",
 			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.default)"
+				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
 			}
 		},
 
@@ -32,7 +32,7 @@
 			"name"		: "sphere",
 			"source"	: "Content/Source/sphere.fbx",
 			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.default)"
+				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
 			}
 		},
 
@@ -41,7 +41,7 @@
 			"name"		: "cube",
 			"source"	: "Content/Source/cube.fbx",
 			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.default)"
+				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
 			}
 		},
 		{

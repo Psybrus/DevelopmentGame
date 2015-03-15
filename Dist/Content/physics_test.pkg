@@ -104,8 +104,22 @@
 							"name"			: "CylinderEntity_0",
 							"position"		: "0.0, 3.0, 5.0",
 							"rotation"		: "0.0, 0.0, 1.57"
-						}
+						},
 
+						// Teapot
+						{
+							"basis"			: "$(ScnEntity:this.TeapotEntity)",
+							"name"			: "TeapotEntity_0",
+							"position"		: "0.0, 3.0, -5.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.TeapotEntity)",
+							"name"			: "TeapotEntity_0",
+							"position"		: "0.0, 6.0, -5.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						}
 					]
 				}
 			]
@@ -240,6 +254,54 @@
 					"restitution"			: 0.5
 				}
 			]
+		},
+
+		{
+			"name"		:		"TeapotEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnPhysicsMeshCollisionComponent",
+					"mesh"					: "$(ScnPhysicsMesh:this.teapot_dynamic)",
+					"size"					: "1.0, 1.0, 1.0",
+					"localscaling"			: "1.0, 1.0, 1.0"
+				},
+
+				{
+					"type"					: "ScnPhysicsRigidBodyComponent",
+
+					"mass"					: 1.0,
+					"friction"				: 0.5,
+					"restitution"			: 0.5
+				},
+				{
+					"type"					: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:models.teapot)",
+					"scale"					: "1.0, 1.0, 1.0"
+				}
+			]
+		},
+
+		{
+			"type"		: "ScnPhysicsMesh",
+			"name"		: "teapot_static",
+			"shapetype"	: "static",
+			"source"	: "Content/Source/teapot/wt_teapot.obj",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.default)"
+			}
+		},
+
+		{
+			"type"		: "ScnPhysicsMesh",
+			"name"		: "teapot_dynamic",
+			"shapetype"	: "dynamic",
+			"source"	: "Content/Source/teapot/wt_teapot.obj",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.default)"
+			}
 		}
 
 	]
