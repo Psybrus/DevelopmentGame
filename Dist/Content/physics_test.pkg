@@ -144,6 +144,7 @@
 
 					"mass"					: 0.0,
 					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
 					"restitution"			: 0.5
 				}
 			]
@@ -168,6 +169,7 @@
 
 					"mass"					: 1.0,
 					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
 					"restitution"			: 0.1
 				},
 
@@ -198,6 +200,7 @@
 
 					"mass"					: 1.0,
 					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
 					"restitution"			: 0.5
 				},
 
@@ -228,6 +231,7 @@
 
 					"mass"					: 1.0,
 					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
 					"restitution"			: 0.5
 				}
 			]
@@ -251,6 +255,7 @@
 
 					"mass"					: 1.0,
 					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
 					"restitution"			: 0.5
 				}
 			]
@@ -273,6 +278,7 @@
 
 					"mass"					: 1.0,
 					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
 					"restitution"			: 0.5
 				},
 				{
