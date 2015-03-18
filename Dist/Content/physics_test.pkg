@@ -110,13 +110,6 @@
 						{
 							"basis"			: "$(ScnEntity:this.TeapotEntity)",
 							"name"			: "TeapotEntity_0",
-							"position"		: "0.0, 3.0, -5.0",
-							"rotation"		: "0.0, 0.0, 0.0"
-						},
-
-						{
-							"basis"			: "$(ScnEntity:this.TeapotEntity)",
-							"name"			: "TeapotEntity_0",
 							"position"		: "0.0, 6.0, -5.0",
 							"rotation"		: "0.0, 0.0, 0.0"
 						}
@@ -281,6 +274,7 @@
 					"rollingfriction"		: 0.1,
 					"restitution"			: 0.5
 				},
+				
 				{
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",

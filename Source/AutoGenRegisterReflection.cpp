@@ -36,7 +36,9 @@
 #include "System/Scene/Physics/ScnPhysicsBoxCollisionComponent.h"
 #include "System/Scene/Physics/ScnPhysicsCapsuleCollisionComponent.h"
 #include "System/Scene/Physics/ScnPhysicsCollisionComponent.h"
+#include "System/Scene/Physics/ScnPhysicsConstraintComponent.h"
 #include "System/Scene/Physics/ScnPhysicsCylinderCollisionComponent.h"
+#include "System/Scene/Physics/ScnPhysicsHingeConstraintComponent.h"
 #include "System/Scene/Physics/ScnPhysicsMesh.h"
 #include "System/Scene/Physics/ScnPhysicsMeshCollisionComponent.h"
 #include "System/Scene/Physics/ScnPhysicsMeshImport.h"
@@ -125,7 +127,9 @@ void AutoGenRegisterReflection()
 	ScnPhysicsBoxCollisionComponent::StaticRegisterClass();
 	ScnPhysicsCapsuleCollisionComponent::StaticRegisterClass();
 	ScnPhysicsCollisionComponent::StaticRegisterClass();
+	ScnPhysicsConstraintComponent::StaticRegisterClass();
 	ScnPhysicsCylinderCollisionComponent::StaticRegisterClass();
+	ScnPhysicsHingeConstraintComponent::StaticRegisterClass();
 	ScnPhysicsMesh::StaticRegisterClass();
 	ScnPhysicsMeshCollisionComponent::StaticRegisterClass();
 	ScnPhysicsMeshImport::StaticRegisterClass();

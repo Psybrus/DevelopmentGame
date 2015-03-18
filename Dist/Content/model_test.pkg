@@ -3,26 +3,23 @@
 	"resources" : [
 		{
 			"name"		:		"TestEntity",
+			"$Class"	: 		"ScnEntity",
 			"type"		:		"ScnEntity",
 
 			"components" : [
 				{
-					"type"					: "GaTestModelComponent",
-					"material"				: "$(ScnMaterial:materials.geometry_test)"
+					"$Class"	:		"ScnEntity",
+					"type"		:		"ScnEntity",
+					"name"		:		"TestModelEntity",
+					"components" : [
+						{
+							"$Class"				: "ScnModelComponent",
+							"type"					: "ScnModelComponent",
+							"model"					: "$(ScnModel:models.test_fbx_model_static)"
+						}
+					]
 				}
-			]
-		},
 
-		{
-			"name"		:		"ModelEntity",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnModelComponent",
-					"name"					: "TestModel",
-					"model"					: "$(ScnModel:models.test_fbx_model_static)"
-				}
 			]
 		}
 	]
