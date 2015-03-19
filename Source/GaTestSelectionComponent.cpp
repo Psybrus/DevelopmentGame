@@ -40,12 +40,15 @@ void GaTestSelectionComponent::StaticRegisterClass()
 	ReField* Fields[] = 
 	{
 		new ReField( "Options_", &GaTestSelectionComponent::Options_, bcRFF_IMPORTER ),
+		new ReField( "RunAutomatedTest_", &GaTestSelectionComponent::RunAutomatedTest_, bcRFF_IMPORTER ),
+		new ReField( "TestMaxTime_", &GaTestSelectionComponent::TestMaxTime_, bcRFF_IMPORTER ),
 
 		new ReField( "SelectedEntry_", &GaTestSelectionComponent::SelectedEntry_ ),
 		new ReField( "PreviousSpawned_", &GaTestSelectionComponent::PreviousSpawned_ ),
 		new ReField( "FontComponent_", &GaTestSelectionComponent::FontComponent_ ),
 		new ReField( "Canvas_", &GaTestSelectionComponent::Canvas_ ),
 		new ReField( "Projection_", &GaTestSelectionComponent::Projection_ ),
+		new ReField( "TestTime_", &GaTestSelectionComponent::TestTime_ ),
 	};
 		
 	ReRegisterClass< GaTestSelectionComponent, Super >( Fields )
@@ -54,7 +57,11 @@ void GaTestSelectionComponent::StaticRegisterClass()
 
 //////////////////////////////////////////////////////////////////////////
 // Ctor
-GaTestSelectionComponent::GaTestSelectionComponent()
+GaTestSelectionComponent::GaTestSelectionComponent():
+	SelectedEntry_( BcErrorCode ),
+	RunAutomatedTest_( BcFalse ),
+	TestMaxTime_( 1.0f ),
+	TestTime_( 1.0f )
 {
 	SelectedEntry_ = 0;
 	Projection_.orthoProjection( -8.0f, 56.0f, 30.0f, -4.0f, -1.0f, 1.0f );
@@ -74,6 +81,18 @@ GaTestSelectionComponent::~GaTestSelectionComponent()
 void GaTestSelectionComponent::update( BcF32 Tick )
 {
 	Super::update( Tick );
+
+	if( RunAutomatedTest_ )
+	{
+		TestTime_ -= Tick;
+		if( TestTime_ < 0.0f )
+		{
+			TestTime_ += TestMaxTime_;
+
+			SelectedEntry_ = ( SelectedEntry_ + 1 ) % Options_.size();
+			LoadEntity( SelectedEntry_ );
+		}
+	}
 
 	Canvas_->clear();
 	Canvas_->pushMatrix( Projection_ );

@@ -29,6 +29,9 @@
 				{
 					"type"					: "GaTestSelectionComponent",
 
+					"runautomatedtest"		: false,
+					"testmaxtime"			: 0.0,
+
 					"options"				: [
 						{ 
 							"name" : "Animation test",

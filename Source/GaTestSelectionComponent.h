@@ -63,6 +63,10 @@ private:
 
 	MaMat4d Projection_;
 
+	BcBool RunAutomatedTest_;
+	BcF32 TestMaxTime_;
+	BcF32 TestTime_;
+
 	void LoadEntity(int Entity);
 
 	std::vector< BcU32 > OptionsHandles_;
