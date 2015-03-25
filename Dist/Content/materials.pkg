@@ -255,7 +255,9 @@
 					"fillmode" : "solid",
 					"cullmode" : "none",
 					"depthclipenable" : true,
-					"antialiasedlineenable" : true
+					"antialiasedlineenable" : true,
+					"depthbias" : 1.0,
+					"slopescaleddepthbias" : 0.0
 				}
 			}
 		},

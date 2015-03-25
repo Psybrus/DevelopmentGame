@@ -30,7 +30,7 @@
 					"type"					: "GaTestSelectionComponent",
 
 					"runautomatedtest"		: false,
-					"testmaxtime"			: 0.0,
+					"testmaxtime"			: 0.2,
 
 					"options"				: [
 						{ 
