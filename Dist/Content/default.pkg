@@ -66,6 +66,11 @@
 						{ 
 							"name" : "Physics test",
 							"entity" : "$(ScnEntity:physics_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Network test",
+							"entity" : "$(ScnEntity:network_test.TestEntity)"
 						}
 					]
 				}

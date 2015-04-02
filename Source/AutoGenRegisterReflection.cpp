@@ -74,6 +74,7 @@
 #include "GaFullscreenQuadComponent.h"
 #include "GaLevelComponent.h"
 #include "GaMindwaveVisualiserComponent.h"
+#include "GaNetworkTestComponent.h"
 #include "GaTestFontComponent.h"
 #include "GaTestModelComponent.h"
 #include "GaTestParticleComponent.h"
@@ -176,6 +177,7 @@ void AutoGenRegisterReflection()
 	GaLevelEntity::StaticRegisterClass();
 	GaLevelComponent::StaticRegisterClass();
 	GaMindwaveVisualiserComponent::StaticRegisterClass();
+	GaNetworkTestComponent::StaticRegisterClass();
 	GaTestFontComponent::StaticRegisterClass();
 	GaTestModelComponent::StaticRegisterClass();
 	GaTestParticleComponent::StaticRegisterClass();

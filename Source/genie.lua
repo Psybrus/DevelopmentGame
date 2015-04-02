@@ -56,6 +56,7 @@ PsyProjectGameExe( solution().name )
          "HLSLCrossCompiler",
          "glew",
          "squish",
+         "RakNet",
          "webby",
          "ThinkGear",
       }
