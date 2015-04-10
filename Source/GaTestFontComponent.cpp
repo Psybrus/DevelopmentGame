@@ -26,7 +26,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaTestFontComponent );
+REFLECTION_DEFINE_DERIVED( GaTestFontComponent );
 
 void GaTestFontComponent::StaticRegisterClass()
 {
@@ -43,21 +43,18 @@ void GaTestFontComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestFontComponent::initialise()
+// Ctor
+GaTestFontComponent::GaTestFontComponent()
 {
-	Super::initialise();
-
 	CurrFontComponent_ = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestFontComponent::initialise( const Json::Value& Object )
+// Dtor
+//virtual
+GaTestFontComponent::~GaTestFontComponent()
 {
-	Super::initialise();
 
-	CurrFontComponent_ = 0;
 }
 
 //////////////////////////////////////////////////////////////////////////

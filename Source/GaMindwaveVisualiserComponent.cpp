@@ -21,7 +21,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaMindwaveVisualiserComponent );
+REFLECTION_DEFINE_DERIVED( GaMindwaveVisualiserComponent );
 
 void GaMindwaveVisualiserComponent::StaticRegisterClass()
 {
@@ -42,10 +42,18 @@ void GaMindwaveVisualiserComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaMindwaveVisualiserComponent::initialise( const Json::Value& Object )
+// Ctor
+GaMindwaveVisualiserComponent::GaMindwaveVisualiserComponent()
 {
-	Super::initialise();
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaMindwaveVisualiserComponent::~GaMindwaveVisualiserComponent()
+{
+
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -67,18 +75,14 @@ void GaMindwaveVisualiserComponent::onAttach( ScnEntityWeakRef Parent )
 	//Canvas_ = Parent->getComponentAnyParentByType< ScnCanvasComponent >();
 	//FontComponent_ = Parent->getComponentAnyParentByType< ScnFontComponent >();
 
-	OsEventInputMindwaveData::Delegate OnMindwaveData = 
-		OsEventInputMindwaveData::Delegate::bind< GaMindwaveVisualiserComponent, &GaMindwaveVisualiserComponent::onMindwaveData >( this );
+	using namespace std::placeholders;
 
-	OsEventInputMindwaveEEGPower::Delegate OnMindwaveEEGPower = 
-		OsEventInputMindwaveEEGPower::Delegate::bind< GaMindwaveVisualiserComponent, &GaMindwaveVisualiserComponent::onMindwaveEEGPower >( this );
-
-	OsEventInputMindwaveEEGRaw::Delegate OnMindwaveEEGRaw = 
-		OsEventInputMindwaveEEGRaw::Delegate::bind< GaMindwaveVisualiserComponent, &GaMindwaveVisualiserComponent::onMindwaveEEGRaw >( this );
-
-	OsCore::pImpl()->subscribe( osEVT_INPUT_MINDWAVE_DATA, OnMindwaveData );
-	OsCore::pImpl()->subscribe( osEVT_INPUT_MINDWAVE_EEG_POWER, OnMindwaveEEGPower );
-	OsCore::pImpl()->subscribe( osEVT_INPUT_MINDWAVE_EEG_RAW, OnMindwaveEEGRaw );
+	OsCore::pImpl()->subscribe( osEVT_INPUT_MINDWAVE_DATA, this,
+		std::bind( &GaMindwaveVisualiserComponent::onMindwaveData, this, _1, _2 ) );
+	OsCore::pImpl()->subscribe( osEVT_INPUT_MINDWAVE_EEG_POWER, this,
+		std::bind( &GaMindwaveVisualiserComponent::onMindwaveEEGPower, this, _1, _2 ) );
+	OsCore::pImpl()->subscribe( osEVT_INPUT_MINDWAVE_EEG_RAW, this,
+		std::bind( &GaMindwaveVisualiserComponent::onMindwaveEEGRaw, this, _1, _2 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -92,21 +96,21 @@ void GaMindwaveVisualiserComponent::onDetach( ScnEntityWeakRef Parent )
 	
 //////////////////////////////////////////////////////////////////////////
 // onMindwaveData
-eEvtReturn GaMindwaveVisualiserComponent::onMindwaveData( EvtID ID, const OsEventInputMindwaveData& Event )
+eEvtReturn GaMindwaveVisualiserComponent::onMindwaveData( EvtID ID, const EvtBaseEvent& Event )
 {
 	return evtRET_PASS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 // onMindwaveEEGPowers
-eEvtReturn GaMindwaveVisualiserComponent::onMindwaveEEGPower( EvtID ID, const OsEventInputMindwaveEEGPower& Event )
+eEvtReturn GaMindwaveVisualiserComponent::onMindwaveEEGPower( EvtID ID, const EvtBaseEvent& Event )
 {
 	return evtRET_PASS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 // onMindwaveEEGRaw
-eEvtReturn GaMindwaveVisualiserComponent::onMindwaveEEGRaw( EvtID ID, const OsEventInputMindwaveEEGRaw& Event )
+eEvtReturn GaMindwaveVisualiserComponent::onMindwaveEEGRaw( EvtID ID, const EvtBaseEvent& Event )
 {
 	return evtRET_PASS;
 }

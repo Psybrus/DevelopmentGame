@@ -24,13 +24,13 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaTestParticleComponent );
+REFLECTION_DEFINE_DERIVED( GaTestParticleComponent );
 
 void GaTestParticleComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
-		new ReField( "Sound_", &GaTestParticleComponent::Sound_, bcRFF_SHALLOW_COPY ),
+		new ReField( "Sound_", &GaTestParticleComponent::Sound_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
 	};
 
 	ReRegisterClass< GaTestParticleComponent, Super >( Fields )
@@ -38,12 +38,18 @@ void GaTestParticleComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestParticleComponent::initialise( const Json::Value& Object )
+// Ctor
+GaTestParticleComponent::GaTestParticleComponent()
 {
-	Super::initialise( Object );
 
-	Sound_ = getPackage()->getCrossRefResource( Object[ "sound" ].asUInt() );
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaTestParticleComponent::~GaTestParticleComponent()
+{
+
 }
 
 //////////////////////////////////////////////////////////////////////////

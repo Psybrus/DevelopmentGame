@@ -21,18 +21,34 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaTestSelectionComponent );
+REFLECTION_DEFINE_BASIC( GaMenuEntry );
+REFLECTION_DEFINE_DERIVED( GaTestSelectionComponent );
+
+void GaMenuEntry::StaticRegisterClass()
+{
+	ReField* Fields[] = 
+	{
+		new ReField( "Name_", &GaMenuEntry::Name_ ),
+		new ReField( "Entity_", &GaMenuEntry::Entity_, bcRFF_SHALLOW_COPY ),
+	};
+		
+	ReRegisterClass< GaMenuEntry >( Fields );
+}
 
 void GaTestSelectionComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
-		new ReField( "Options_",			&GaTestSelectionComponent::Options_ ),
-		new ReField( "SelectedEntry_",		&GaTestSelectionComponent::SelectedEntry_ ),
-		new ReField( "PreviousSpawned_",	&GaTestSelectionComponent::PreviousSpawned_ ),
-		new ReField( "FontComponent_",		&GaTestSelectionComponent::FontComponent_ ),
-		new ReField( "Canvas_",				&GaTestSelectionComponent::Canvas_ ),
-		new ReField( "Projection_",			&GaTestSelectionComponent::Projection_ ),
+		new ReField( "Options_", &GaTestSelectionComponent::Options_, bcRFF_IMPORTER ),
+		new ReField( "RunAutomatedTest_", &GaTestSelectionComponent::RunAutomatedTest_, bcRFF_IMPORTER ),
+		new ReField( "TestMaxTime_", &GaTestSelectionComponent::TestMaxTime_, bcRFF_IMPORTER ),
+
+		new ReField( "SelectedEntry_", &GaTestSelectionComponent::SelectedEntry_ ),
+		new ReField( "PreviousSpawned_", &GaTestSelectionComponent::PreviousSpawned_ ),
+		new ReField( "FontComponent_", &GaTestSelectionComponent::FontComponent_ ),
+		new ReField( "Canvas_", &GaTestSelectionComponent::Canvas_ ),
+		new ReField( "Projection_", &GaTestSelectionComponent::Projection_ ),
+		new ReField( "TestTime_", &GaTestSelectionComponent::TestTime_ ),
 	};
 		
 	ReRegisterClass< GaTestSelectionComponent, Super >( Fields )
@@ -40,25 +56,23 @@ void GaTestSelectionComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestSelectionComponent::initialise( const Json::Value& Object )
+// Ctor
+GaTestSelectionComponent::GaTestSelectionComponent():
+	SelectedEntry_( BcErrorCode ),
+	RunAutomatedTest_( BcFalse ),
+	TestMaxTime_( 1.0f ),
+	TestTime_( 1.0f )
 {
-	Super::initialise();
-
 	SelectedEntry_ = 0;
-
 	Projection_.orthoProjection( -8.0f, 56.0f, 30.0f, -4.0f, -1.0f, 1.0f );
+}
 
-	const auto& Options( Object[ "options" ] );
-	for( const auto& Option : Options )
-	{
-		TMenuEntry Entry = 
-		{
-			getPackage()->getCrossRefResource( Option.asUInt() )
-		};
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaTestSelectionComponent::~GaTestSelectionComponent()
+{
 
-		Options_.push_back( Entry );
-	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -67,6 +81,18 @@ void GaTestSelectionComponent::initialise( const Json::Value& Object )
 void GaTestSelectionComponent::update( BcF32 Tick )
 {
 	Super::update( Tick );
+
+	if( RunAutomatedTest_ )
+	{
+		TestTime_ -= Tick;
+		if( TestTime_ < 0.0f )
+		{
+			TestTime_ += TestMaxTime_;
+
+			SelectedEntry_ = ( SelectedEntry_ + 1 ) % Options_.size();
+			LoadEntity( SelectedEntry_ );
+		}
+	}
 
 	Canvas_->clear();
 	Canvas_->pushMatrix( Projection_ );
@@ -127,7 +153,7 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 				.setTextColour( Colour ),
 			Position, 
 			MaVec2d( 0.0f, 0.0f ),
-			(*Option.EntityToSpawn_->getName()) );
+			Option.Name_.c_str() );
 		Position += MaVec2d( 0.0f, Size.y() );
 	}
 #endif
@@ -153,8 +179,9 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 	Canvas_ = Parent->getComponentAnyParentByType< ScnCanvasComponent >();
 	FontComponent_ = Parent->getComponentAnyParentByType< ScnFontComponent >();
 
-	OsEventInputKeyboard::Delegate OnKeyPress = OsEventInputKeyboard::Delegate::bind< GaTestSelectionComponent, &GaTestSelectionComponent::onKeyPress >( this );
-	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, OnKeyPress );
+	using namespace std::placeholders;
+	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, this,
+		std::bind( &GaTestSelectionComponent::onKeyPress, this, _1, _2 ) );
 
 #if !PLATFORM_HTML5
 	if( DsCore::pImpl() )
@@ -162,7 +189,7 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 		for (BcU32 Idx = 0; Idx < Options_.size(); ++Idx)
 		{
 			const auto& Option(Options_[Idx]);
-			BcU32 handle = DsCore::pImpl()->registerFunction(*Option.EntityToSpawn_->getName(), std::bind(&GaTestSelectionComponent::LoadEntity, this, Idx));
+			BcU32 handle = DsCore::pImpl()->registerFunction(*Option.Entity_->getName(), std::bind(&GaTestSelectionComponent::LoadEntity, this, Idx));
 			OptionsHandles_.push_back(handle);
 		}
 	}
@@ -190,9 +217,11 @@ void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 	
 //////////////////////////////////////////////////////////////////////////
 // onKeyPress
-eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const OsEventInputKeyboard& Event )
+eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const EvtBaseEvent& Event )
 {
-	switch( Event.KeyCode_ )
+	const auto& KeyEvent = Event.get< OsEventInputKeyboard >();
+
+	switch( KeyEvent.KeyCode_ )
 	{
 	case OsEventInputKeyboard::KEYCODE_UP:
 		if( SelectedEntry_ > 0 )
@@ -218,13 +247,14 @@ eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const OsEventInputKey
 
 	case OsEventInputKeyboard::KEYCODE_RETURN:
 		LoadEntity(SelectedEntry_);
-		LoadEntity(SelectedEntry_);
 		BcAssertMsg( PreviousSpawned_.isValid(), "We expect everythig nto have been preloaded." );
 		break;
 	}
 	return evtRET_PASS;
 }
 
+//////////////////////////////////////////////////////////////////////////
+// LoadEntity
 void GaTestSelectionComponent::LoadEntity(int Entity)
 {
 	SelectedEntry_ = Entity;
@@ -233,7 +263,9 @@ void GaTestSelectionComponent::LoadEntity(int Entity)
 		ScnCore::pImpl()->removeEntity(PreviousSpawned_);
 	}
 
-	auto TemplateEntity = Options_[SelectedEntry_].EntityToSpawn_;
+	PSY_LOG( "Starting %s", Options_[SelectedEntry_].Name_.c_str() );
+
+	auto TemplateEntity = Options_[SelectedEntry_].Entity_;
 	ScnEntitySpawnParams SpawnEntity =
 	{
 		TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",

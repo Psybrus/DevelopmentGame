@@ -45,19 +45,20 @@ struct GaVertex
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaTestShaderComponent );
+REFLECTION_DEFINE_DERIVED( GaTestShaderComponent );
 
 void GaTestShaderComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
-		new ReField( "MaterialComponent_", &GaTestShaderComponent::MaterialComponent_, bcRFF_TRANSIENT ),
+		new ReField( "Material_", &GaTestShaderComponent::Material_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+
 		new ReField( "ObjectUniformBuffer_", &GaTestShaderComponent::ObjectUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "TestUniformBuffer_", &GaTestShaderComponent::TestUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "IndexBuffer_", &GaTestShaderComponent::IndexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexBuffer_", &GaTestShaderComponent::VertexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexDeclaration_", &GaTestShaderComponent::VertexDeclaration_, bcRFF_TRANSIENT ),
-		new ReField( "Material_", &GaTestShaderComponent::Material_, bcRFF_SHALLOW_COPY ),
+		new ReField( "MaterialComponent_", &GaTestShaderComponent::MaterialComponent_, bcRFF_TRANSIENT ),
 	};
 		
 	ReRegisterClass< GaTestShaderComponent, Super >( Fields )
@@ -65,12 +66,21 @@ void GaTestShaderComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestShaderComponent::initialise( const Json::Value& Object )
+// Ctor
+GaTestShaderComponent::GaTestShaderComponent():
+	ObjectUniformBuffer_( nullptr ),
+	TestUniformBuffer_( nullptr ),
+	IndexBuffer_( nullptr ),
+	VertexBuffer_( nullptr ),
+	VertexDeclaration_( nullptr )
 {
-	Super::initialise( Object );
+}
 
-	Material_ = ScnMaterialRef( this->getPackage()->getCrossRefResource( Object[ "material" ].asUInt() ) );
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaTestShaderComponent::~GaTestShaderComponent()
+{
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -203,7 +213,7 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 		ScnShaderPermutationFlags::LIGHTING_NONE;
 
 	// Attach a new material component.
-	MaterialComponent_ = Parent->attach< ScnMaterialComponent >( 
+	MaterialComponent_ = Parent->attach< ScnMaterialComponent >(
 		BcName::INVALID, Material_, ShaderPermutation );
 }
 

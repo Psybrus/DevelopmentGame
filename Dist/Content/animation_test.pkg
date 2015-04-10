@@ -1,0 +1,97 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "ScnCanvasComponent",
+					"noofvertices" 			: 8192,
+					"rendermask"			: 1
+				},
+
+				{
+					"type"					: "GaLevelComponent",
+
+					"entities"				: [
+						{
+							"basis"			: "$(ScnEntity:this.AnimatedEntity)",
+							"name"			: "AnimationEntity_0",
+							"position"		: "0.0, 0.0, -4.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.AnimatedEntity)",
+							"name"			: "AnimationEntity_1",
+							"position"		: "0.0, 0.0, 0.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.AnimatedEntity)",
+							"name"			: "AnimationEntity_2",
+							"position"		: "0.0, 0.0, 4.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						}
+					]
+				}
+			]
+		},
+
+
+		{
+			"name"		:		"AnimatedEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "GaAnimationControllerComponent",
+					"name"					: "AnimationController",
+
+					"animidle"				: "$(ScnAnimation:ruiner.character_sword_aim)",
+					"animfire"				: "$(ScnAnimation:ruiner.character_walk_fullbody)",
+					"animreload"			: "$(ScnAnimation:ruiner.character_sword_aim)"
+				},
+
+				{
+					"type"					: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
+					"islit"					: false,
+					"scale"					: "0.1, 0.1, 0.1"
+				},
+
+				{
+					"type"					: "ScnAnimationComponent",
+					"name"					: "TestAnimation",
+					"target"				: "TestModel",
+
+					// Animation blend tree.
+					"tree"					: {
+						"$Class"			: "ScnAnimationTreeBlendNode",
+						"name"				: "Root",
+						"children"			: [
+							{
+								"$Class"	: "ScnAnimationTreeTrackNode",
+								"name"		: "IdleTrack_0"
+							},
+							{
+								"$Class"	: "ScnAnimationTreeTrackNode",
+								"name"		: "ReloadTrack_0"
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}

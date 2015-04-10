@@ -1,0 +1,26 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"$Class"	: 		"ScnEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"$Class"	:		"ScnEntity",
+					"type"		:		"ScnEntity",
+					"name"		:		"TestModelEntity",
+					"components" : [
+						{
+							"$Class"				: "ScnModelComponent",
+							"type"					: "ScnModelComponent",
+							"model"					: "$(ScnModel:models.test_fbx_model_static)"
+						}
+					]
+				}
+
+			]
+		}
+	]
+}

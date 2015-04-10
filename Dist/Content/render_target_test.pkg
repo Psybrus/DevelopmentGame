@@ -1,0 +1,26 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
+					"islit"					: false,
+					"rendermask"			: 2,
+					"scale"					: "0.1, 0.1, 0.1"
+				},
+
+				{
+					"type"					: "GaFullscreenQuadComponent",
+					"material"				: "$(ScnMaterial:materials.test_rt)",
+					"rendermask"			: 1
+				}
+			]
+		}
+	]
+}

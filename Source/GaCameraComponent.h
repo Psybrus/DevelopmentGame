@@ -29,33 +29,33 @@ class GaCameraComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( GaCameraComponent, ScnComponent );
+	REFLECTION_DECLARE_DERIVED( GaCameraComponent, ScnComponent );
 
-	void								initialise();
-	void								initialise( const Json::Value& Object );
+	GaCameraComponent();
+	virtual ~GaCameraComponent();
 
-	virtual void						preUpdate( BcF32 Tick );
+	virtual void preUpdate( BcF32 Tick );
 
-	virtual void						onAttach( ScnEntityWeakRef Parent );
-	virtual void						onDetach( ScnEntityWeakRef Parent );
+	virtual void onAttach( ScnEntityWeakRef Parent );
+	virtual void onDetach( ScnEntityWeakRef Parent );
 
-	eEvtReturn							onMouseDown( EvtID ID, const OsEventInputMouse& Event );
-	eEvtReturn							onMouseUp( EvtID ID, const OsEventInputMouse& Event );
-	eEvtReturn							onMouseMove( EvtID ID, const OsEventInputMouse& Event );
-	eEvtReturn							onMouseWheel( EvtID ID, const OsEventInputMouse& Event );
+	eEvtReturn onMouseDown( EvtID ID, const EvtBaseEvent& Event );
+	eEvtReturn onMouseUp( EvtID ID, const EvtBaseEvent& Event );
+	eEvtReturn onMouseMove( EvtID ID, const EvtBaseEvent& Event );
+	eEvtReturn onMouseWheel( EvtID ID, const EvtBaseEvent& Event );
 
-	eEvtReturn							onKeyDown( EvtID ID, const OsEventInputKeyboard& Event );
-	eEvtReturn							onKeyUp( EvtID ID, const OsEventInputKeyboard& Event );
+	eEvtReturn onKeyDown( EvtID ID, const EvtBaseEvent& Event );
+	eEvtReturn onKeyUp( EvtID ID, const EvtBaseEvent& Event );
 
-	MaMat4d								getCameraRotationMatrix() const;
+	MaMat4d getCameraRotationMatrix() const;
 	
 private:
-	MaVec3d								CameraTarget_;
-	MaVec3d								CameraRotation_;
-	BcF32								CameraDistance_;
-	BcF32								CameraZoom_;
+	MaVec3d CameraTarget_;
+	MaVec3d CameraRotation_;
+	BcF32 CameraDistance_;
+	BcF32 CameraZoom_;
 
-	MaVec3d								CameraRotationDelta_;
+	MaVec3d CameraRotationDelta_;
 
 	enum CameraState
 	{
@@ -64,10 +64,10 @@ private:
 		STATE_PAN
 	};
 
-	CameraState							CameraState_;
-	CameraState							NextCameraState_;
-	OsEventInputMouse					LastMouseEvent_;
-	OsEventInputKeyboard				LastKeyboardEvent_;
+	CameraState CameraState_;
+	CameraState NextCameraState_;
+	OsEventInputMouse LastMouseEvent_;
+	OsEventInputKeyboard LastKeyboardEvent_;
 };
 
 #endif

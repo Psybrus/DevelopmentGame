@@ -45,19 +45,20 @@ struct GaVertex
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaFullscreenQuadComponent );
+REFLECTION_DEFINE_DERIVED( GaFullscreenQuadComponent );
 
 void GaFullscreenQuadComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
+		new ReField( "Material_", &GaFullscreenQuadComponent::Material_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+
 		new ReField( "MaterialComponent_", &GaFullscreenQuadComponent::MaterialComponent_, bcRFF_TRANSIENT ),
 		new ReField( "ObjectUniformBuffer_", &GaFullscreenQuadComponent::ObjectUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "TestUniformBuffer_", &GaFullscreenQuadComponent::TestUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "IndexBuffer_", &GaFullscreenQuadComponent::IndexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexBuffer_", &GaFullscreenQuadComponent::VertexBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "VertexDeclaration_", &GaFullscreenQuadComponent::VertexDeclaration_, bcRFF_TRANSIENT ),
-		new ReField( "Material_", &GaFullscreenQuadComponent::Material_, bcRFF_SHALLOW_COPY ),
 	};
 		
 	ReRegisterClass< GaFullscreenQuadComponent, Super >( Fields )
@@ -65,12 +66,23 @@ void GaFullscreenQuadComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaFullscreenQuadComponent::initialise( const Json::Value& Object )
+// Ctor
+GaFullscreenQuadComponent::GaFullscreenQuadComponent():
+	ObjectUniformBuffer_( nullptr ),
+	TestUniformBuffer_( nullptr ),
+	IndexBuffer_( nullptr ),
+	VertexBuffer_( nullptr ),
+	VertexDeclaration_( nullptr )
 {
-	Super::initialise( Object );
 
-	Material_ = ScnMaterialRef( this->getPackage()->getCrossRefResource( Object[ "material" ].asUInt() ) );
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaFullscreenQuadComponent::~GaFullscreenQuadComponent()
+{
+
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -203,7 +215,7 @@ void GaFullscreenQuadComponent::onAttach( ScnEntityWeakRef Parent )
 		ScnShaderPermutationFlags::LIGHTING_NONE;
 
 	// Attach a new material component.
-	MaterialComponent_ = Parent->attach< ScnMaterialComponent >( 
+	MaterialComponent_ = Parent->attach< ScnMaterialComponent >(
 		BcName::INVALID, Material_, ShaderPermutation );
 }
 

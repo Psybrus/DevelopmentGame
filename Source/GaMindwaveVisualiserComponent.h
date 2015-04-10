@@ -31,18 +31,19 @@ class GaMindwaveVisualiserComponent:
 	public ScnComponent
 {
 public:
-	DECLARE_RESOURCE( GaMindwaveVisualiserComponent, ScnComponent );
+	REFLECTION_DECLARE_DERIVED( GaMindwaveVisualiserComponent, ScnComponent );
 
-	void								initialise( const Json::Value& Object );
-
-	virtual void						update( BcF32 Tick );
-
-	virtual void						onAttach( ScnEntityWeakRef Parent );
-	virtual void						onDetach( ScnEntityWeakRef Parent );
+	GaMindwaveVisualiserComponent();
+	virtual ~GaMindwaveVisualiserComponent();
 	
-	eEvtReturn							onMindwaveData( EvtID ID, const OsEventInputMindwaveData& Event );
-	eEvtReturn							onMindwaveEEGPower( EvtID ID, const OsEventInputMindwaveEEGPower& Event );
-	eEvtReturn							onMindwaveEEGRaw( EvtID ID, const OsEventInputMindwaveEEGRaw& Event );
+	virtual void update( BcF32 Tick );
+
+	virtual void onAttach( ScnEntityWeakRef Parent );
+	virtual void onDetach( ScnEntityWeakRef Parent );
+	
+	eEvtReturn onMindwaveData( EvtID ID, const EvtBaseEvent& Event );
+	eEvtReturn onMindwaveEEGPower( EvtID ID, const EvtBaseEvent& Event );
+	eEvtReturn onMindwaveEEGRaw( EvtID ID, const EvtBaseEvent& Event );
 
 private:
 

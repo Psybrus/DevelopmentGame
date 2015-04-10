@@ -1,0 +1,378 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnPhysicsWorldComponent",
+					"gravity"				: "0.0, -9.8, 0.0",
+					"debugdrawworld"		: true
+				},
+
+
+				{
+					"type"					: "GaLevelComponent",
+
+					"entities"				: [
+						// Floor.
+						{
+							"basis"			: "$(ScnEntity:this.FloorEntity)",
+							"name"			: "FloorEntity_0",
+							"position"		: "0.0, -1.0, 0.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						// Box pile.
+						{
+							"basis"			: "$(ScnEntity:this.BoxEntity)",
+							"name"			: "BoxEntity_0",
+							"position"		: "-1.0, 1.0, 0.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.BoxEntity)",
+							"name"			: "BoxEntity_1",
+							"position"		: "0.0, 1.0, 0.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.BoxEntity)",
+							"name"			: "BoxEntity_2",
+							"position"		: "1.0, 1.0, 0.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.BoxEntity)",
+							"name"			: "BoxEntity_10",
+							"position"		: "-0.5, 2.5, 0.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.BoxEntity)",
+							"name"			: "BoxEntity_11",
+							"position"		: "0.5, 2.5, 0.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.BoxEntity)",
+							"name"			: "BoxEntity_20",
+							"position"		: "0.0, 5.0, 0.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						// Sphere pile.
+						{
+							"basis"			: "$(ScnEntity:this.SphereEntity)",
+							"name"			: "SphereEntity_0",
+							"position"		: "0.0, 1.0, 2.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.SphereEntity)",
+							"name"			: "SphereEntity_1",
+							"position"		: "0.0, 5.0, 3.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.SphereEntity)",
+							"name"			: "SphereEntity_2",
+							"position"		: "0.0, 5.0, 1.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						// Capsule.
+						{
+							"basis"			: "$(ScnEntity:this.CapsuleEntity)",
+							"name"			: "CapsuleEntity_0",
+							"position"		: "0.0, 3.0, 3.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						// Cylinder
+						{
+							"basis"			: "$(ScnEntity:this.CylinderEntity)",
+							"name"			: "CylinderEntity_0",
+							"position"		: "0.0, 3.0, 5.0",
+							"rotation"		: "0.0, 0.0, 1.57"
+						},
+
+						// Teapot
+						{
+							"basis"			: "$(ScnEntity:this.TeapotEntity)",
+							"name"			: "TeapotEntity_0",
+							"position"		: "0.0, 6.0, -5.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.TeapotEntity)",
+							"name"			: "TeapotEntity_0",
+							"position"		: "0.0, 12.0, -5.1",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						{
+							"basis"			: "$(ScnEntity:this.TeapotEntity)",
+							"name"			: "TeapotEntity_0",
+							"position"		: "0.0, 20.0, -4.9",
+							"rotation"		: "0.0, 0.0, 0.0"
+						},
+
+						// Door entity.
+						{
+							"basis"			: "$(ScnEntity:this.DoorEntity)",
+							"name"			: "DoorEntity_0",
+							"position"		: "0.0, 4.0, -5.0",
+							"rotation"		: "0.0, 0.0, 0.0"
+						}
+					]
+				}
+			]
+		},
+
+
+		{
+			"name"		:		"FloorEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnPhysicsBoxCollisionComponent",
+
+					"size"					: "1000.0, 1.0, 1000.0",
+					"localscaling"			: "1.0, 1.0, 1.0",
+					"margin"				: 0.0
+				},
+
+				{
+					"type"					: "ScnPhysicsRigidBodyComponent",
+
+					"mass"					: 0.0,
+					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
+					"restitution"			: 0.5
+				}
+			]
+		},
+
+
+		{
+			"name"		:		"BoxEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnPhysicsBoxCollisionComponent",
+
+					"size"					: "1.0, 1.0, 1.0",
+					"localscaling"			: "1.0, 1.0, 1.0",
+					"margin"				: 0.0
+				},
+
+				{
+					"type"					: "ScnPhysicsRigidBodyComponent",
+
+					"mass"					: 1.0,
+					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
+					"restitution"			: 0.1
+				},
+
+				{
+					"type"					: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:models.cube)",
+					"scale"					: "0.5, 0.5, 0.5"
+				}
+			]
+		},
+
+
+		{
+			"name"		:		"SphereEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnPhysicsSphereCollisionComponent",
+
+					"radius"				: 1.0,
+					"localscaling"			: "1.0, 1.0, 1.0"
+				},
+
+				{
+					"type"					: "ScnPhysicsRigidBodyComponent",
+
+					"mass"					: 1.0,
+					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
+					"restitution"			: 0.5
+				},
+
+				{
+					"type"					: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:models.sphere)"
+				}
+			]
+		},
+
+
+		{
+			"name"		:		"CapsuleEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnPhysicsCapsuleCollisionComponent",
+
+					"radius"				: 0.5,
+					"height"				: 1.0,
+					"localscaling"			: "1.0, 1.0, 1.0"
+				},
+
+				{
+					"type"					: "ScnPhysicsRigidBodyComponent",
+
+					"mass"					: 1.0,
+					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
+					"restitution"			: 0.5
+				}
+			]
+		},
+
+
+		{
+			"name"		:		"CylinderEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnPhysicsCylinderCollisionComponent",
+
+					"size"					: "1.0, 1.0, 1.0",
+					"localscaling"			: "1.0, 1.0, 1.0"
+				},
+
+				{
+					"type"					: "ScnPhysicsRigidBodyComponent",
+
+					"mass"					: 1.0,
+					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
+					"restitution"			: 0.5
+				}
+			]
+		},
+
+		{
+			"name"		:		"TeapotEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnPhysicsMeshCollisionComponent",
+					"mesh"					: "$(ScnPhysicsMesh:this.teapot_dynamic)",
+					"size"					: "1.0, 1.0, 1.0",
+					"localscaling"			: "1.0, 1.0, 1.0"
+				},
+
+				{
+					"type"					: "ScnPhysicsRigidBodyComponent",
+
+					"mass"					: 1.0,
+					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
+					"restitution"			: 0.5
+				},
+				
+				{
+					"type"					: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:models.teapot)",
+					"scale"					: "1.0, 1.0, 1.0"
+				}
+			]
+		},
+
+		{
+			"type"		: "ScnPhysicsMesh",
+			"name"		: "teapot_static",
+			"shapetype"	: "static",
+			"source"	: "Content/Source/teapot/wt_teapot.obj",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.default)"
+			}
+		},
+
+		{
+			"type"		: "ScnPhysicsMesh",
+			"name"		: "teapot_dynamic",
+			"shapetype"	: "convex_decomposition",
+			"source"	: "Content/Source/teapot/wt_teapot.obj",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.default)"
+			},
+
+			// convex decomposition params.
+			"minclusters" : 2,
+			"maxverticespercluster" : 64,
+			"concavity" : 100.0,
+			"addextradistpoints" : false,
+			"addneighbourdistpoints" : false,
+			"addfacepoints" : false
+		},
+
+		{
+			"name"		:		"DoorEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnPhysicsBoxCollisionComponent",
+
+					"size"					: "1.0, 1.0, 1.0",
+					"localscaling"			: "2.0, 0.2, 2.0",
+					"margin"				: 0.0
+				},
+
+				{
+					"type"					: "ScnPhysicsRigidBodyComponent",
+
+					"mass"					: 1.0,
+					"friction"				: 0.5,
+					"rollingfriction"		: 0.1,
+					"restitution"			: 0.5
+				},
+
+				{
+					"type"					: "ScnPhysicsHingeConstraintComponent",
+					"framea"				: {
+						"row0" : "0.0, 0.0, 1.0, 0.0",
+						"row1" : "0.0, 1.0, 0.0, 0.0",
+						"row2" : "-1.0, 0.0, 0.0, 0.0",
+						"row3" : "0.0, 0.0, 1.0, 1.0"
+					}
+				},
+
+				{
+					"type"					: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:models.cube)",
+					"scale"					: "1.0, 0.1, 1.0"
+				}
+			]
+		}
+	]
+}

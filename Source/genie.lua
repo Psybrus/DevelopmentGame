@@ -35,7 +35,6 @@ PsyProjectGameExe( solution().name )
       "freetype",
       "jsoncpp",
       "libb64",
-      "pcre",
       "png",
       "SoLoud",
       "zlib",
@@ -52,7 +51,6 @@ PsyProjectGameExe( solution().name )
       PsyAddExternalLinks {
          "assimp",
          "assimp_contrib",
-         "enet",
          "glsl-optimizer",
          "hlsl2glslfork",
          "HLSLCrossCompiler",

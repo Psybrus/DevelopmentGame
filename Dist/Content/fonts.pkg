@@ -5,6 +5,14 @@
 			"name"			: "font_shader",
 			"source"		: "Content/Engine/font.hlsl",
 
+			"excludepermutations" : [
+				"RENDER_DEFERRED",
+				"RENDER_FORWARD_PLUS",
+				"PASS_SHADOW",
+				"MESH_INSTANCED_3D",
+				"LIGHTING_DIFFUSE"
+			],
+
 			"codetypes"	: [
 				"D3D11_4_0_level_9_3"
 			],

@@ -44,6 +44,7 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 	PSY_MAKE_CLIP_SPACE_VERTEX( o.Position_, WorldPosition );
 	o.Colour_ = i.Colour_;
 	o.TexCoord0_ = i.TexCoord0_;
+	PSY_MAKE_WORLD_SPACE_NORMAL( o.Normal_.xyz, i.Normal_.xyz, i );
 	return o;
 }
 
@@ -131,6 +132,7 @@ VS_OUTPUT domainMain( PATCH_OUTPUT Input,
 PS_OUTPUT pixelMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
-	o.Colour_ = i.Colour_;
+	o.Colour_.rgb = ( i.Normal_.rgb + float3( 1.0f, 1.0f, 1.0f ) ) * 0.5f;
+	o.Colour_.a = 1.0f;
 	return o;
 }

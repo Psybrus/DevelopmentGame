@@ -19,7 +19,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaCameraComponent );
+REFLECTION_DEFINE_DERIVED( GaCameraComponent );
 
 void GaCameraComponent::StaticRegisterClass()
 {	
@@ -38,27 +38,21 @@ void GaCameraComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaCameraComponent::initialise()
+// Ctor
+GaCameraComponent::GaCameraComponent()
 {
-	Super::initialise();
-
 	CameraState_ = STATE_IDLE;
 	NextCameraState_ = STATE_IDLE;
-	CameraDistance_ = 64.0f;
+	CameraDistance_ = 16.0f;
 	CameraZoom_ = 0.0f;
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaCameraComponent::initialise( const Json::Value& Object )
+// Dtor
+//virtual
+GaCameraComponent::~GaCameraComponent()
 {
-	Super::initialise();
 
-	CameraState_ = STATE_IDLE;
-	NextCameraState_ = STATE_IDLE;
-	CameraDistance_ = 64.0f;
-	CameraZoom_ = 0.0f;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -122,6 +116,16 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 	BcMemZero( &LastMouseEvent_, sizeof( LastMouseEvent_ ) );
 }
 
+/*
+template < typename _Callable >
+void testBindCallFunc( _Callable Bind )
+{
+	using CallableParamType = typename BcFuncTraits< decltype( &_Callable::operator() ) >::param1_type;
+	using ThisCallableFunc = std::function< eEvtReturn( EvtID, const CallableParamType& ) >;
+	ThisCallableFunc CallableFunc( Bind );
+}
+*/
+
 //////////////////////////////////////////////////////////////////////////
 // onAttach
 //virtual
@@ -129,24 +133,27 @@ void GaCameraComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 
+	using namespace std::placeholders;
 
-	OsEventInputMouse::Delegate OnMouseDown = OsEventInputMouse::Delegate::bind< GaCameraComponent, &GaCameraComponent::onMouseDown >( this );
-	OsEventInputMouse::Delegate OnMouseUp = OsEventInputMouse::Delegate::bind< GaCameraComponent, &GaCameraComponent::onMouseUp >( this );
-	OsEventInputMouse::Delegate OnMouseMove = OsEventInputMouse::Delegate::bind< GaCameraComponent, &GaCameraComponent::onMouseMove >( this );
-	OsEventInputMouse::Delegate OnMouseWheel = OsEventInputMouse::Delegate::bind< GaCameraComponent, &GaCameraComponent::onMouseWheel >( this );
+	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEDOWN, this, 
+		std::bind( &GaCameraComponent::onMouseDown, this, _1, _2 ) );
 
-	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEDOWN, OnMouseDown );
-	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEUP, OnMouseUp );
-	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEMOVE, OnMouseMove );
-	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEWHEEL, OnMouseWheel );
+	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEUP, this,
+		std::bind( &GaCameraComponent::onMouseUp, this, _1, _2 ) );
 
-	OsEventInputKeyboard::Delegate OnKeyboardDown = OsEventInputKeyboard::Delegate::bind< GaCameraComponent, &GaCameraComponent::onKeyDown >( this );
-	OsEventInputKeyboard::Delegate OnKeyboardUp = OsEventInputKeyboard::Delegate::bind< GaCameraComponent, &GaCameraComponent::onKeyUp >( this );
+	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEMOVE, this,
+		std::bind( &GaCameraComponent::onMouseMove, this, _1, _2 ) );
 
-	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, OnKeyboardDown );
-	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYUP, OnKeyboardUp );
+	OsCore::pImpl()->subscribe( osEVT_INPUT_MOUSEWHEEL, this,
+		std::bind( &GaCameraComponent::onMouseWheel, this, _1, _2 ) );
 
+	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, this,
+		std::bind( &GaCameraComponent::onKeyDown, this, _1, _2 ) );
+
+	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYUP, this,
+		std::bind( &GaCameraComponent::onKeyUp, this, _1, _2 ) );
 }
+
 
 //////////////////////////////////////////////////////////////////////////
 // onDetach
@@ -160,20 +167,22 @@ void GaCameraComponent::onDetach( ScnEntityWeakRef Parent )
 
 //////////////////////////////////////////////////////////////////////////
 // onMouseDown
-eEvtReturn GaCameraComponent::onMouseDown( EvtID ID, const OsEventInputMouse& Event )
+eEvtReturn GaCameraComponent::onMouseDown( EvtID ID, const EvtBaseEvent& Event )
 {
+	const auto& MouseEvent = Event.get< OsEventInputMouse >();
+
 	if( NextCameraState_ == STATE_IDLE )
 	{
-		if( Event.ButtonCode_ == 2 )
+		if( MouseEvent.ButtonCode_ == 2 )
 		{
 			NextCameraState_ = STATE_ROTATE;
 		}
-		else if( Event.ButtonCode_ == 1 )
+		else if( MouseEvent.ButtonCode_ == 1 )
 		{
 			NextCameraState_ = STATE_PAN;
 		}
 
-		LastMouseEvent_ = Event;
+		LastMouseEvent_ = MouseEvent;
 	}
 
 	return evtRET_PASS;
@@ -181,8 +190,10 @@ eEvtReturn GaCameraComponent::onMouseDown( EvtID ID, const OsEventInputMouse& Ev
 
 //////////////////////////////////////////////////////////////////////////
 // onMouseUp
-eEvtReturn GaCameraComponent::onMouseUp( EvtID ID, const OsEventInputMouse& Event )
+eEvtReturn GaCameraComponent::onMouseUp( EvtID ID, const EvtBaseEvent& Event )
 {
+	const auto& MouseEvent = Event.get< OsEventInputMouse >();
+
 	if( NextCameraState_ != STATE_IDLE )
 	{
 		NextCameraState_ = STATE_IDLE;
@@ -193,39 +204,45 @@ eEvtReturn GaCameraComponent::onMouseUp( EvtID ID, const OsEventInputMouse& Even
 
 //////////////////////////////////////////////////////////////////////////
 // onMouseMove
-eEvtReturn GaCameraComponent::onMouseMove( EvtID ID, const OsEventInputMouse& Event )
+eEvtReturn GaCameraComponent::onMouseMove( EvtID ID, const EvtBaseEvent& Event )
 {
-	LastMouseEvent_ = Event;
+	const auto& MouseEvent = Event.get< OsEventInputMouse >();
+
+	LastMouseEvent_ = MouseEvent;
 
 	return evtRET_PASS;
 }
 //////////////////////////////////////////////////////////////////////////
 // onMouseWheel
-eEvtReturn GaCameraComponent::onMouseWheel( EvtID ID, const OsEventInputMouse& Event )
+eEvtReturn GaCameraComponent::onMouseWheel( EvtID ID, const EvtBaseEvent& Event )
 {
-	if( Event.ButtonCode_ == 3 )
+	const auto& MouseEvent = Event.get< OsEventInputMouse >();
+
+	if( MouseEvent.ButtonCode_ == 3 )
 	{
 		CameraZoom_ -= ( CameraDistance_ * CameraDistance_ ) * 0.02f;
 	}
-	else if( Event.ButtonCode_ == 4 )
+	else if( MouseEvent.ButtonCode_ == 4 )
 	{
 		CameraZoom_ += ( CameraDistance_ * CameraDistance_ ) * 0.02f;
 	}
 
 	CameraZoom_ = BcClamp( CameraZoom_, -4096.0f, 4096.0f );
 
-	LastMouseEvent_ = Event;
+	LastMouseEvent_ = MouseEvent;
 	
 	return evtRET_PASS;
 }
 
 //////////////////////////////////////////////////////////////////////////
 // onKeyDown
-eEvtReturn GaCameraComponent::onKeyDown( EvtID ID, const OsEventInputKeyboard& Event )
+eEvtReturn GaCameraComponent::onKeyDown( EvtID ID, const EvtBaseEvent& Event )
 {
-	LastKeyboardEvent_ = Event;
+	const auto& KeyboardEvent = Event.get< OsEventInputKeyboard >();
 
-	switch( Event.KeyCode_ )
+	LastKeyboardEvent_ = KeyboardEvent;
+
+	switch( KeyboardEvent.KeyCode_ )
 	{
 	case OsEventInputKeyboard::KEYCODE_LEFT:
 		CameraRotationDelta_.y( -1.0f );
@@ -246,11 +263,13 @@ eEvtReturn GaCameraComponent::onKeyDown( EvtID ID, const OsEventInputKeyboard& E
 
 //////////////////////////////////////////////////////////////////////////
 // onKeyUp
-eEvtReturn GaCameraComponent::onKeyUp( EvtID ID, const OsEventInputKeyboard& Event )
+eEvtReturn GaCameraComponent::onKeyUp( EvtID ID, const EvtBaseEvent& Event )
 {
-	LastKeyboardEvent_ = Event;
+	const auto& KeyboardEvent = Event.get< OsEventInputKeyboard >();
 
-	switch( Event.KeyCode_ )
+	LastKeyboardEvent_ = KeyboardEvent;
+
+	switch( KeyboardEvent.KeyCode_ )
 	{
 	case OsEventInputKeyboard::KEYCODE_LEFT:
 	case OsEventInputKeyboard::KEYCODE_RIGHT:

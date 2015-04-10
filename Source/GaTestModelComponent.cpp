@@ -23,21 +23,34 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-DEFINE_RESOURCE( GaTestModelComponent );
+REFLECTION_DEFINE_DERIVED( GaTestModelComponent );
 
 void GaTestModelComponent::StaticRegisterClass()
 {
-	ReRegisterClass< GaTestModelComponent, Super >()
+	ReField* Fields[] = 
+	{
+		new ReField( "Material_", &GaTestModelComponent::Material_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+
+		new ReField( "MaterialComponent_", &GaTestModelComponent::MaterialComponent_, bcRFF_TRANSIENT ),
+	};
+
+	ReRegisterClass< GaTestModelComponent, Super >( Fields )
 		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
-// initialise
-void GaTestModelComponent::initialise( const Json::Value& Object )
+// Ctor
+GaTestModelComponent::GaTestModelComponent()
 {
-	Super::initialise( Object );
 
-	Material_ = this->getPackage()->getCrossRefResource( Object[ "material" ].asUInt() );	
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Dtor
+//virtual
+GaTestModelComponent::~GaTestModelComponent()
+{
+
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -62,7 +75,7 @@ void GaTestModelComponent::onAttach( ScnEntityWeakRef Parent )
 	{
 		ScnEntitySpawnParams EntityParams = 
 		{
-			"default", "ModelEntity", BcName( "ModelEntity", Idx++ ),
+			"model_test", "ModelEntity", BcName( "ModelEntity", Idx++ ),
 			MaMat4d(),
 			getParentEntity()
 		};

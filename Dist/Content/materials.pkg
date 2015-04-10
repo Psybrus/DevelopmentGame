@@ -50,6 +50,54 @@
 
 		{
 			"type"			: "ScnMaterial",
+			"name"			: "normal_vis",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.normal_vis)",
+
+			// Textures
+			"textures"		: {
+				"aDiffuseTex"	: "$(ScnTexture:textures.default)"
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				}
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : true,
+					"depthwriteenable" : true,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : true
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
 			"name"			: "test_rt",
 
 			// Shader
@@ -207,7 +255,9 @@
 					"fillmode" : "solid",
 					"cullmode" : "none",
 					"depthclipenable" : true,
-					"antialiasedlineenable" : true
+					"antialiasedlineenable" : true,
+					"depthbias" : 1.0,
+					"slopescaleddepthbias" : 0.0
 				}
 			}
 		},

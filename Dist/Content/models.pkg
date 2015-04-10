@@ -5,7 +5,7 @@
 			"name"		: "teapot",
 			"source"	: "Content/Source/teapot/wt_teapot.obj",
 			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.default)"
+				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
 			}
 		},
 
@@ -28,6 +28,24 @@
 		},
 
 		{
+			"type"		: "ScnModel",
+			"name"		: "sphere",
+			"source"	: "Content/Source/sphere.fbx",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
+			}
+		},
+
+		{
+			"type"		: "ScnModel",
+			"name"		: "cube",
+			"source"	: "Content/Source/cube.fbx",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
+			}
+		},
+		{
+
 			"type"		: "ScnAnimation",
 			"name"		: "test_fbx_model_skinned_anim",
 			"source"	: "Content/Source/test_fbx_model_skinned.fbx"

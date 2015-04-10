@@ -1,13 +1,6 @@
 {
 
 	"resources" : [
-		{
-			"name"		:		"Sound",
-			"type"		:		"ScnSound",
-			"source"	:		"Content/Source/WinLevel.wav",
-			"isstream"	:		true
-		},
-
 		/////////////////////////////////////////////////////////////// 
 		// Entities.
 		{
@@ -36,175 +29,49 @@
 				{
 					"type"					: "GaTestSelectionComponent",
 
+					"runautomatedtest"		: false,
+					"testmaxtime"			: 0.2,
+
 					"options"				: [
-						"$(ScnEntity:this.TestLevelEntity1)",
-						"$(ScnEntity:this.TestRenderTargetEntity)",
-						"$(ScnEntity:this.TestShaderEntity)",
-						"$(ScnEntity:this.TestModelEntity)",
-						"$(ScnEntity:this.TestParticleEntity)",
-						"$(ScnEntity:this.TestFontEntity)"
+						{ 
+							"name" : "Animation test",
+							"entity" : "$(ScnEntity:animation_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Render target test",
+							"entity" : "$(ScnEntity:render_target_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Shader test",
+							"entity" : "$(ScnEntity:shader_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Model test",
+							"entity" : "$(ScnEntity:model_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Particle test",
+							"entity" : "$(ScnEntity:particle_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Font test",
+							"entity" : "$(ScnEntity:font_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Physics test",
+							"entity" : "$(ScnEntity:physics_test.TestEntity)"
+						}
 					]
 				}
 			]
 		},
 		
-		{
-			"name"		:		"TestLevelEntity1",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnFontComponent",
-					"font"					: "$(ScnFont:fonts.courier)",
-					"material"				: "$(ScnMaterial:materials.font)"
-				},
-
-				{
-					"type"					: "ScnCanvasComponent",
-					"noofvertices" 			: 8192,
-					"rendermask"			: 1
-				},
-
-				{
-					"type"					: "GaLevelComponent"
-				}
-			]
-		},
-
-		{
-			"name"		:		"TestRenderTargetEntity",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnModelComponent",
-					"name"					: "TestModel",
-					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
-					"islit"					: false,
-					"rendermask"			: 2
-				},
-
-				{
-					"type"					: "GaFullscreenQuadComponent",
-					"material"				: "$(ScnMaterial:materials.test_rt)",
-					"rendermask"			: 1
-				}
-			]
-		},
-
-		{
-			"name"		:		"TestShaderEntity",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnFontComponent",
-					"font"					: "$(ScnFont:fonts.courier)",
-					"material"				: "$(ScnMaterial:materials.font)"
-				},
-
-				{
-					"type"					: "ScnCanvasComponent",
-					"noofvertices" 			: 8192,
-					"rendermask"			: 1
-				},
-
-				{
-					"type"					: "GaTestShaderComponent",
-
-					"material"				: "$(ScnMaterial:materials.geometry_test)"
-				}
-			]
-		},
-
-		{
-			"name"		:		"TestParticleEntity",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnFontComponent",
-					"font"					: "$(ScnFont:fonts.courier)",
-					"material"				: "$(ScnMaterial:materials.font)"
-				},
-
-				{
-					"type"					: "ScnParticleSystemComponent",
-					"noofparticles"			: 10000,
-					"localspace"			: false,
-					"material"				: "$(ScnMaterial:materials.particles)"
-				},
-
-				{
-					"type"					: "ScnSoundEmitterComponent"
-				},
-
-				{
-					"type"					: "GaTestParticleComponent",
-					"sound"					: "$(ScnSound:this.Sound)"
-				}
-			]
-		},
-
-		{
-			"name"		:		"TestModelEntity",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnFontComponent",
-					"font"					: "$(ScnFont:fonts.courier)",
-					"material"				: "$(ScnMaterial:materials.font)"
-				},
-
-				{
-					"type"					: "GaTestModelComponent",
-					"material"				: "$(ScnMaterial:materials.geometry_test)"
-				}
-			]
-		},
-
-		{
-			"name"		:		"TestFontEntity",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnCanvasComponent",
-					"noofvertices" 			: 8192,
-					"rendermask"			: 1
-				},
-
-				{
-					"type"					: "ScnMaterialComponent",
-					"material"				: "$(ScnMaterial:materials.debugrender)",
-					"permutation"			: "2d"
-				},
-
-				{
-					"type"					: "ScnFontComponent",
-					"font"					: "$(ScnFont:fonts.courier)",
-					"material"				: "$(ScnMaterial:materials.font)"
-				},
-
-				{
-					"type"					: "ScnFontComponent",
-					"font"					: "$(ScnFont:fonts.courier)",
-					"material"				: "$(ScnMaterial:materials.font)"
-				},
-
-				{
-					"type"					: "ScnFontComponent",
-					"font"					: "$(ScnFont:fonts.courier)",
-					"material"				: "$(ScnMaterial:materials.font)"
-				},
-
-				{
-					"type"					: "GaTestFontComponent"
-				}
-			]
-		},
-
 		{
 			"name"		:		"CameraEntity",
 			"type"		:		"ScnEntity",
@@ -222,8 +89,8 @@
 					"height"				: 1.0,
 					"near"					: 1.0,
 					"far"					: 4000.0,
-					"hfov"					: 0.75,
-					"vfov"					: 0.0,
+					"horizontalfov"			: 0.75,
+					"verticalfov"			: 0.0,
 					"rendermask"			: 1
 				},
 
@@ -235,8 +102,8 @@
 					"height"				: 1.0,
 					"near"					: 10.0,
 					"far"					: 500.0,
-					"hfov"					: 0.75,
-					"vfov"					: 0.0,
+					"horizontalfov"			: 0.75,
+					"verticalfov"			: 0.0,
 					"rendermask"			: 2,
 					"clearcolour"			: "1.0, 1.0, 1.0, 1.0",
 					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
@@ -250,66 +117,6 @@
 					"min"					: 16.0,
 					"mid"					: 2048.0,
 					"max"					: 1000000.0
-				}
-			]
-
-		},
-
-
-		{
-			"name"		:		"AnimatedEntity",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "GaAnimationControllerComponent",
-					"name"					: "AnimationController",
-
-					"anim_idle"				: "$(ScnAnimation:ruiner.character_sword_aim)",
-					"anim_fire"				: "$(ScnAnimation:ruiner.character_walk_fullbody)",
-					"anim_reload"			: "$(ScnAnimation:ruiner.character_sword_aim)"
-				},
-
-				{
-					"type"					: "ScnModelComponent",
-					"name"					: "TestModel",
-					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
-					"islit"					: false
-				},
-
-				{
-					"type"					: "ScnAnimationComponent",
-					"name"					: "TestAnimation",
-					"target"				: "TestModel",
-
-					// Animation blend tree.
-					"tree"					: {
-						"type"				: "ScnAnimationTreeBlendNode",
-						"name"				: "Root",
-						"children"			: [
-							{
-								"type"		: "ScnAnimationTreeTrackNode",
-								"name"		: "IdleTrack_0"
-							},
-							{
-								"type"		: "ScnAnimationTreeTrackNode",
-								"name"		: "ReloadTrack_0"
-							}
-						]
-					}
-				}
-			]
-		},
-
-		{
-			"name"		:		"ModelEntity",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"type"					: "ScnModelComponent",
-					"name"					: "TestModel",
-					"model"					: "$(ScnModel:models.test_fbx_model_static)"
 				}
 			]
 		}

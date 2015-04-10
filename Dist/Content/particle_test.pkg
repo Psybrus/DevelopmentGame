@@ -1,0 +1,41 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "ScnParticleSystemComponent",
+					"noofparticles"			: 10000,
+					"islocalspace"			: false,
+					"material"				: "$(ScnMaterial:materials.particles)"
+				},
+
+				{
+					"type"					: "ScnSoundEmitterComponent"
+				},
+
+				{
+					"type"					: "GaTestParticleComponent",
+					"sound"					: "$(ScnSound:this.Sound)"
+				}
+			]
+		},
+
+		/// move to own test later.
+		{
+			"name"		:		"Sound",
+			"type"		:		"ScnSound",
+			"source"	:		"Content/Source/WinLevel.wav",
+			"isstream"	:		true
+		}
+	]
+}

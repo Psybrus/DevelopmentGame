@@ -31,10 +31,11 @@ class GaTestParticleComponent:
 	public ScnRenderableComponent
 {
 public:
-	DECLARE_RESOURCE( GaTestParticleComponent, ScnRenderableComponent );
+	REFLECTION_DECLARE_DERIVED( GaTestParticleComponent, ScnRenderableComponent );
 
-	void initialise( const Json::Value& Object );
-
+	GaTestParticleComponent();
+	virtual ~GaTestParticleComponent();
+	
 	virtual void update( BcF32 Tick );
 	
 	virtual void onAttach( ScnEntityWeakRef Parent );
