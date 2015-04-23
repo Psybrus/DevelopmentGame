@@ -1,4 +1,3 @@
-
 PsyProjectGameExe( solution().name )
 	files { "./AutoGenRegisterReflection.cpp", "./**.h", "./**.inl", "./**.cpp" }
    debugdir "../Dist"
@@ -9,6 +8,7 @@ PsyProjectGameExe( solution().name )
 	-- External includes.
 	includedirs { 
       "../Psybrus/External/jsoncpp/include", 
+      "../Psybrus/External/imgui", 
    }
 
    PsyAddEngineLinks {
@@ -33,6 +33,7 @@ PsyProjectGameExe( solution().name )
    PsyAddExternalLinks {
       "BulletPhysics",
       "freetype",
+      "imgui",
       "jsoncpp",
       "libb64",
       "png",

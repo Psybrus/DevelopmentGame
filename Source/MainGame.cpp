@@ -25,6 +25,9 @@
 #include "System/Os/OsCore.h"
 #include "System/Scene/ScnCore.h"
 
+#include "Math/MaVec2d.h"
+#include "Math/MaVec4d.h"
+
 //////////////////////////////////////////////////////////////////////////
 // GPsySetupParams
 PsySetupParams GPsySetupParams( "Development Game", psySF_GAME_DEV, 1.0f / 60.0f );	
