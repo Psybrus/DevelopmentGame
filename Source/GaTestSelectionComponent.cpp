@@ -94,7 +94,7 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 	static MaVec2d WindowPos = MaVec2d( 10.0f, 10.0f );
 	static bool ShowOpened = true;
 	ImGui::SetNextWindowPos( WindowPos );
-	if ( ImGui::Begin( "Main Menu", &ShowOpened, ImVec2( 0.0f, 0.0f ), 0.3f, 0 ) )
+	if ( ImGui::Begin( "Test Menu", &ShowOpened, ImVec2( 0.0f, 0.0f ), 0.3f, 0 ) )
 	{
 		ImGui::BeginGroup();
 

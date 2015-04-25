@@ -3,7 +3,7 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "default_shader",
-			"source"		: "Content/Engine/default.hlsl",
+			"source"		: "Content/Engine/imgui_default.hlsl",
 
 			"includepermutations" : [
 				"MESH_STATIC_2D",
@@ -29,7 +29,7 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "textured_shader",
-			"source"		: "Content/Engine/textured.hlsl",
+			"source"		: "Content/Engine/imgui_textured.hlsl",
 
 			"includepermutations" : [
 				"MESH_STATIC_2D",
