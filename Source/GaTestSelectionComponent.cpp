@@ -175,12 +175,11 @@ void GaTestSelectionComponent::LoadEntity(int Entity)
 	PSY_LOG( "Starting %s", Options_[SelectedEntry_].Name_.c_str() );
 
 	auto TemplateEntity = Options_[SelectedEntry_].Entity_;
-	ScnEntitySpawnParams SpawnEntity =
-	{
-		TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",
+	ScnEntitySpawnParams SpawnEntity(
+		"SpawnedEntity", 
+		TemplateEntity,
 		MaMat4d(),
-		nullptr
-	};
+		getParentEntity() );
 
 	PreviousSpawned_ = ScnCore::pImpl()->spawnEntity(SpawnEntity);
 	BcAssertMsg(PreviousSpawned_.isValid(), "We expect everything to have been preloaded.");
