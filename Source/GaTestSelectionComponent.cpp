@@ -16,8 +16,8 @@
 #include "System/Content/CsPackage.h"
 #include "System/Os/OsCore.h"
 
+#include "System/Debug/DsImGui.h"
 #include "System/Scene/Rendering/ScnDebugRenderComponent.h"
-#include "System/Scene/ScnImGui.h"
 #include "System/SysKernel.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -102,7 +102,7 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 		BcU32 Idx = 0;
 		for( const auto& Option : Options_ )
 		{
-			if( ImGui::Button( Option.Name_.c_str() ) )
+			if( ImGui::SmallButton( Option.Name_.c_str() ) )
 			{
 				LoadEntity( Idx );
 			}
