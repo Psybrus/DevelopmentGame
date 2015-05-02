@@ -12,7 +12,6 @@
 #include "System/Content/CsResource.h"
 #include "System/Content/CsResourceImporter.h"
 #include "System/Content/CsTypes.h"
-#include "System/Debug/DsImGuiFieldEditor.h"
 #include "System/File/FsTypes.h"
 #include "System/Renderer/RsCore.h"
 #include "System/Renderer/RsCoreImpl.h"
@@ -98,7 +97,6 @@ void AutoGenRegisterReflection()
 	CsResourceImporterAttribute::StaticRegisterClass();
 	CsResourceImporter::StaticRegisterClass();
 	CsDependency::StaticRegisterClass();
-	DsImGuiFieldEditor::StaticRegisterClass();
 	FsTimestamp::StaticRegisterClass();
 	FsStats::StaticRegisterClass();
 	RsCore::StaticRegisterClass();

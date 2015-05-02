@@ -17,7 +17,8 @@
 				{
 					"type"					: "ScnDebugRenderComponent",
 					"noofvertices"			: 65536,
-					"material"				: "$(ScnMaterial:materials.debugrender)"
+					"material"				: "$(ScnMaterial:materials.debugrender)",
+					"rendermask"			: 2
 				},
 
 				{
@@ -105,7 +106,8 @@
 					"horizontalfov"			: 0.75,
 					"verticalfov"			: 0.0,
 					"rendermask"			: 2,
-					"clearcolour"			: "1.0, 1.0, 1.0, 1.0",
+					"clearcolour"			: "1.0, 0.0, 1.0, 1.0",
+					"enablecleardepth"		: true,
 					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
 					"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"					
 				},
