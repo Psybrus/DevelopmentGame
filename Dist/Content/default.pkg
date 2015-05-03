@@ -18,7 +18,7 @@
 					"type"					: "ScnDebugRenderComponent",
 					"noofvertices"			: 65536,
 					"material"				: "$(ScnMaterial:materials.debugrender)",
-					"rendermask"			: 2
+					"rendermask"			: 3
 				},
 
 				{
@@ -88,11 +88,15 @@
 					"y"						: 0.0,
 					"width"					: 1.0,
 					"height"				: 1.0,
-					"near"					: 1.0,
-					"far"					: 4000.0,
+					"near"					: 10.0,
+					"far"					: 500.0,
 					"horizontalfov"			: 0.75,
 					"verticalfov"			: 0.0,
-					"rendermask"			: 1
+					"rendermask"			: 2,
+					"clearcolour"			: "0.0, 0.0, 0.0, 0.0",
+					"enablecleardepth"		: true,
+					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
+					"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"					
 				},
 
 				{
@@ -101,18 +105,13 @@
 					"y"						: 0.0,
 					"width"					: 1.0,
 					"height"				: 1.0,
-					"near"					: 10.0,
-					"far"					: 500.0,
+					"near"					: 1.0,
+					"far"					: 4000.0,
 					"horizontalfov"			: 0.75,
 					"verticalfov"			: 0.0,
-					"rendermask"			: 2,
-					"clearcolour"			: "1.0, 0.0, 1.0, 1.0",
-					"enablecleardepth"		: true,
-					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
-					"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"					
+					"rendermask"			: 1
 				},
-
-				{
+								{
 					"type"					: "ScnLightComponent",
 					"name"					: "Sunlight",
 
