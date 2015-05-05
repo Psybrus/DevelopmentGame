@@ -93,7 +93,7 @@
 					"horizontalfov"			: 0.75,
 					"verticalfov"			: 0.0,
 					"rendermask"			: 2,
-					"clearcolour"			: "0.0, 0.0, 0.0, 0.0",
+					"clearcolour"			: "1.0, 0.0, 1.0, 1.0",
 					"enablecleardepth"		: true,
 					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
 					"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"					
@@ -111,7 +111,63 @@
 					"verticalfov"			: 0.0,
 					"rendermask"			: 1
 				},
-								{
+
+				{
+					"type"					: "ScnPostProcessComponent",
+					"input" 				: "$(ScnTexture:pp_textures.pp_framebuffer)",
+
+					"rendermask"			: 2,
+
+					"nodes"					: [
+						{
+							"inputtextures" : {
+								"aInputTexture0" : "$(ScnTexture:pp_textures.pp_framebuffer)"
+							},
+
+							"inputsamplers" : {
+								"aInputTexture0" : {
+									"addressu" : "clamp",
+									"addressv" : "clamp",
+									"minfilter" : "linear",
+									"magfilter" : "linear"
+								}
+							},
+
+							"outputtextures" : {
+								"0" : "$(ScnTexture:pp_textures.pp_working_0)"
+							},
+
+							"shader" : "$(ScnShader:pp_shaders.pp_h_blur)",
+							"renderstate" : {}
+						},
+
+						{
+							"inputtextures" : {
+								"aInputTexture0" : "$(ScnTexture:pp_textures.pp_working_0)"
+							},
+
+							"inputsamplers" : {
+								"aInputTexture0" : {
+									"addressu" : "clamp",
+									"addressv" : "clamp",
+									"minfilter" : "linear",
+									"magfilter" : "linear"
+								}
+							},
+
+							"outputtextures" : {
+								"0" : "$(ScnTexture:pp_textures.pp_working_1)"
+							},
+
+							"shader" : "$(ScnShader:pp_shaders.pp_v_blur)",
+							"renderstate" : {}
+						}
+					],
+
+					"output" 				: "$(ScnTexture:pp_textures.pp_working_1)"
+				},
+				
+				{
 					"type"					: "ScnLightComponent",
 					"name"					: "Sunlight",
 

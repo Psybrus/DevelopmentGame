@@ -61,7 +61,16 @@ PsyProjectGameExe( solution().name )
          "ThinkGear",
       }
 
-   configuration "linux*"
+   configuration "asmjs"
+      includedirs {
+         "../Psybrus/Engine/Source/Platforms/HTML5/",
+      }
+
+      prebuildcommands {
+         "python ../../Psybrus/reflection_parse.py " .. solution().name
+      }
+
+   configuration "linux-*"
       includedirs {
          "../Psybrus/Engine/Source/Platforms/Linux/",
       }
