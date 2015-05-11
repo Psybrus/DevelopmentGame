@@ -40,9 +40,9 @@ PSY_SAMPLER_2D( InputTexture0 );
 PS_OUTPUT pixelMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
-	const float Radius = 8.0;
-	const float Offset = 1.0 / 1024.0; // TODO: Get from uniform.
-	
+
+	const float Offset = 1.0f / InputDimensions_[ 0 ].x;
+	const float Radius = Radius_;
 	float4 Colour = float4( 0.0, 0.0, 0.0, 0.0 );
 	float4 UVOffset = float4( 0.0, -Radius * Offset, 0.0, 0.0 );
 	float4 UVIncr = float4( 0.0, Offset, 0.0, 0.0 );

@@ -16,12 +16,12 @@
 			],
 
 			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
+				"D3D11_4_0"
 			],
 
 			"backendtypes" : [
 				"GLSL",
-				"GLSL_ES",
+				// TODO: "GLSL_ES",
 				"D3D11"
 			],
 
@@ -47,12 +47,12 @@
 			],
 
 			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
+				"D3D11_4_0"
 			],
 
 			"backendtypes" : [
 				"GLSL",
-				"GLSL_ES",
+				// TODO: "GLSL_ES",
 				"D3D11"
 			],
 
@@ -78,12 +78,12 @@
 			],
 
 			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
+				"D3D11_4_0"
 			],
 
 			"backendtypes" : [
 				"GLSL",
-				"GLSL_ES",
+				// TODO: "GLSL_ES",
 				"D3D11"
 			],
 

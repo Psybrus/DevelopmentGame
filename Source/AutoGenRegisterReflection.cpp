@@ -150,6 +150,7 @@ void AutoGenRegisterReflection()
 	ScnModelComponent::StaticRegisterClass();
 	ScnParticleSystemComponent::StaticRegisterClass();
 	ScnPostProcessVertex::StaticRegisterClass();
+	ScnPostProcessUniforms::StaticRegisterClass();
 	ScnPostProcessNode::StaticRegisterClass();
 	ScnPostProcessComponent::StaticRegisterClass();
 	ScnRenderableComponent::StaticRegisterClass();
@@ -159,6 +160,9 @@ void AutoGenRegisterReflection()
 	ScnShaderObjectUniformBlockData::StaticRegisterClass();
 	ScnShaderBoneUniformBlockData::StaticRegisterClass();
 	ScnShaderAlphaTestUniformBlockData::StaticRegisterClass();
+	ScnShaderPostProcessConfigData::StaticRegisterClass();
+	ScnShaderPostProcessCopyBlockData::StaticRegisterClass();
+	ScnShaderPostProcessBlurBlockData::StaticRegisterClass();
 	ScnSpriteComponent::StaticRegisterClass();
 	ScnTexture::StaticRegisterClass();
 	ScnTextureAtlas::StaticRegisterClass();
