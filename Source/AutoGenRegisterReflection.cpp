@@ -80,6 +80,7 @@
 #include "GaTestParticleComponent.h"
 #include "GaTestSelectionComponent.h"
 #include "GaTestShaderComponent.h"
+#include "GaTestSoundComponent.h"
 void AutoGenRegisterReflection()
 {
 	MaAABB::StaticRegisterClass();
@@ -190,4 +191,5 @@ void AutoGenRegisterReflection()
 	GaMenuEntry::StaticRegisterClass();
 	GaTestSelectionComponent::StaticRegisterClass();
 	GaTestShaderComponent::StaticRegisterClass();
+	GaTestSoundComponent::StaticRegisterClass();
 }

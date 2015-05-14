@@ -67,6 +67,11 @@
 						{ 
 							"name" : "Physics test",
 							"entity" : "$(ScnEntity:physics_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Sound test",
+							"entity" : "$(ScnEntity:sound_test.TestEntity)"
 						}
 					]
 				}
@@ -80,6 +85,10 @@
 			"components" : [
 				{
 					"type"					: "GaCameraComponent"
+				},
+
+				{
+					"type"					: "ScnSoundListenerComponent"
 				},
 
 				{

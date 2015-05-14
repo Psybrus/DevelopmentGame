@@ -13,16 +13,22 @@
 				},
 
 				{
-					"type"					: "ScnParticleSystemComponent",
-					"noofparticles"			: 10000,
-					"islocalspace"			: false,
-					"material"				: "$(ScnMaterial:materials.particles)"
+					"type"					: "ScnSoundEmitterComponent"
 				},
 
 				{
-					"type"					: "GaTestParticleComponent"
+					"type"					: "GaTestSoundComponent",
+					"sound"					: "$(ScnSound:this.Sound)"
 				}
 			]
+		},
+
+		/// move to own test later.
+		{
+			"name"		:		"Sound",
+			"type"		:		"ScnSound",
+			"source"	:		"Content/Source/WinLevel.wav",
+			"isstream"	:		true
 		}
 	]
 }

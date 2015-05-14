@@ -1,6 +1,6 @@
 /**************************************************************************
 *
-* File:		GaTestParticleComponent.h
+* File:		GaTestSoundComponent.h
 * Author:	Neil Richardson 
 * Ver/Date:		
 * Description:
@@ -11,8 +11,8 @@
 * 
 **************************************************************************/
 
-#ifndef __GaTestParticleComponent_H__
-#define __GaTestParticleComponent_H__
+#ifndef __GaTestSoundComponent_H__
+#define __GaTestSoundComponent_H__
 
 #include "Psybrus.h"
 #include "System/Scene/Rendering/ScnRenderableComponent.h"
@@ -23,18 +23,18 @@
 
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
-typedef ReObjectRef< class GaTestParticleComponent > GaTestParticleComponentRef;
+typedef ReObjectRef< class GaTestSoundComponent > GaTestSoundComponentRef;
 
 //////////////////////////////////////////////////////////////////////////
-// GaTestParticleComponent
-class GaTestParticleComponent:
+// GaTestSoundComponent
+class GaTestSoundComponent:
 	public ScnRenderableComponent
 {
 public:
-	REFLECTION_DECLARE_DERIVED( GaTestParticleComponent, ScnRenderableComponent );
+	REFLECTION_DECLARE_DERIVED( GaTestSoundComponent, ScnRenderableComponent );
 
-	GaTestParticleComponent();
-	virtual ~GaTestParticleComponent();
+	GaTestSoundComponent();
+	virtual ~GaTestSoundComponent();
 	
 	virtual void update( BcF32 Tick );
 	
@@ -44,7 +44,11 @@ public:
 	virtual MaAABB getAABB() const;
 
 private:
-	ScnParticleSystemComponentRef ParticleSystem_;
+	ScnSoundRef Sound_;
+	ScnSoundEmitterComponentRef SoundEmitter_;
+	
+	std::vector< BcF32 > VisFFT_;
+	std::vector< BcF32 > VisWave_;
 };
 
 #endif
