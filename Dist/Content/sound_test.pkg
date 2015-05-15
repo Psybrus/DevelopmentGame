@@ -13,7 +13,22 @@
 				},
 
 				{
-					"type"					: "ScnSoundEmitterComponent"
+					"type"					: "ScnSoundEmitterComponent",
+					"velocitymultiplier"	: 100.0,
+					"maxvelocity"			: 100.0
+				},
+
+				{
+					"type"					: "GaMovingComponent",
+					"position"				: "0.0, 0.0, 0.0",
+					"axisspeed"				: "1.0, 0.5, 0.01",
+					"axismagnitude"			: "10.0, 10.0, 10.0"
+				},
+
+				{
+					"$Class"				: "ScnModelComponent",
+					"type"					: "ScnModelComponent",
+					"model"					: "$(ScnModel:models.sphere)"
 				},
 
 				{
@@ -27,7 +42,7 @@
 		{
 			"name"		:		"Sound",
 			"type"		:		"ScnSound",
-			"source"	:		"Content/Source/WinLevel.wav",
+			"source"	:		"Content/Source/explode.sfs",
 			"isstream"	:		true
 		}
 	]

@@ -67,11 +67,11 @@ void GaTestSoundComponent::update( BcF32 Tick )
 
 	static float Ticker = 0.0f;
 	Ticker += Tick;
-	if( Ticker > 0.5f )
+	if( Ticker > 0.2f )
 	{
-		Ticker -= 0.5f;
-		//SoundEmitter_->setPitch( ( Rand.randReal() + 1.1f ) * 0.5f );
-		SoundEmitter_->play( Sound_ );
+		Ticker -= 0.2f;
+		SoundEmitter_->setPitch( ( Rand.randReal() + 2.0f ) * 0.5f );
+		SoundEmitter_->play( Sound_, true );
 	}
 
 	if( ImGui::Begin( "Test Menu" ) )
