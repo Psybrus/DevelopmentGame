@@ -22,6 +22,7 @@
 #include "System/Content/CsCore.h"
 
 #include "System/Debug/DsImGui.h"
+#include "System/Debug/DsCore.h"
 
 #include "Base/BcProfiler.h"
 #include "Base/BcRandom.h"
@@ -35,6 +36,7 @@ void GaTestSoundComponent::StaticRegisterClass()
 	ReField* Fields[] = 
 	{
 		new ReField( "Sound_", &GaTestSoundComponent::Sound_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+		new ReField( "SoundEmitter_", &GaTestSoundComponent::SoundEmitter_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
 	};
 
 	ReRegisterClass< GaTestSoundComponent, Super >( Fields )
@@ -88,6 +90,9 @@ void GaTestSoundComponent::update( BcF32 Tick )
 			ImGui::PlotLines( "Wave", VisWave_.data(), VisWave_.size(), 0, nullptr, -1.0f, 1.0f );
 		}
 		ImGui::EndGroup();
+		ImGui::Separator();
+
+		DsCore::pImpl()->drawObjectEditor( nullptr, this, getClass(), 0 );
 	}
 	ImGui::End();
 }
