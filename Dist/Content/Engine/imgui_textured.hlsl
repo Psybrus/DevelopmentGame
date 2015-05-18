@@ -1,18 +1,21 @@
 #include "Psybrus.hlsl"
 
-
 ////////////////////////////////////////////////////////////////////////
 // VS_INPUT
-#define VS_INPUT		VertexDefault
+struct VS_INPUT
+{
+	float2 Position_		: POSITION;
+	float2 TexCoord0_		: TEXCOORD0;
+	float4 Colour_			: COLOR0;
+};
 
 ////////////////////////////////////////////////////////////////////////
 // VS_OUTPUT
 struct VS_OUTPUT
 {
 	float4 Position_	: SV_POSITION;
-	float4 Normal_		: NORMAL;
+	float2 TexCoord0_	: TEXCOORD0;
 	float4 Colour_		: COLOR0;
-	float4 TexCoord0_	: TEXCOORD0;
 };
 
 ////////////////////////////////////////////////////////////////////////
@@ -22,28 +25,25 @@ struct PS_OUTPUT
 	float4 Colour_		: SV_TARGET;
 };
 
-
 ////////////////////////////////////////////////////////////////////////
 // vertexMain
 VS_OUTPUT vertexMain( VS_INPUT i )
 {
 	VS_OUTPUT o = (VS_OUTPUT)0;
-
-	float4 WorldPosition;
-	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_, i );
-	PSY_MAKE_CLIP_SPACE_VERTEX( o.Position_, WorldPosition );
-	o.Colour_ = i.Colour_;
+	o.Position_ = mul( ClipTransform_, float4( i.Position_.xy, 0.0, 1.0 ) );
 	o.TexCoord0_ = i.TexCoord0_;
-	PSY_MAKE_WORLD_SPACE_NORMAL( o.Normal_.xyzw, i.Normal_.xyzw, i );
+	o.Colour_ = i.Colour_;
 	return o;
 }
 
 ////////////////////////////////////////////////////////////////////////
 // pixelMain
+PSY_SAMPLER_2D( DiffuseTex );
+
 PS_OUTPUT pixelMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
-	o.Colour_.rgb = ( i.Normal_.rgb + float3( 1.0f, 1.0f, 1.0f ) ) * 0.5f;
-	o.Colour_.w = 1.0f;
+	float4 Colour = PSY_SAMPLE_2D( DiffuseTex, i.TexCoord0_.xy );
+	o.Colour_ = Colour * i.Colour_;
 	return o;
 }

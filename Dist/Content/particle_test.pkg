@@ -20,22 +20,9 @@
 				},
 
 				{
-					"type"					: "ScnSoundEmitterComponent"
-				},
-
-				{
-					"type"					: "GaTestParticleComponent",
-					"sound"					: "$(ScnSound:this.Sound)"
+					"type"					: "GaTestParticleComponent"
 				}
 			]
-		},
-
-		/// move to own test later.
-		{
-			"name"		:		"Sound",
-			"type"		:		"ScnSound",
-			"source"	:		"Content/Source/WinLevel.wav",
-			"isstream"	:		true
 		}
 	]
 }

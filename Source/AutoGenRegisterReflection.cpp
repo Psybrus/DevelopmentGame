@@ -52,6 +52,7 @@
 #include "System/Scene/Rendering/ScnMaterial.h"
 #include "System/Scene/Rendering/ScnModel.h"
 #include "System/Scene/Rendering/ScnParticleSystemComponent.h"
+#include "System/Scene/Rendering/ScnPostProcessComponent.h"
 #include "System/Scene/Rendering/ScnRenderableComponent.h"
 #include "System/Scene/Rendering/ScnShader.h"
 #include "System/Scene/Rendering/ScnShaderFileData.h"
@@ -75,11 +76,13 @@
 #include "GaLevelComponent.h"
 #include "GaMindwaveVisualiserComponent.h"
 #include "GaNetworkTestComponent.h"
+#include "GaMovingComponent.h"
 #include "GaTestFontComponent.h"
 #include "GaTestModelComponent.h"
 #include "GaTestParticleComponent.h"
 #include "GaTestSelectionComponent.h"
 #include "GaTestShaderComponent.h"
+#include "GaTestSoundComponent.h"
 void AutoGenRegisterReflection()
 {
 	MaAABB::StaticRegisterClass();
@@ -149,6 +152,10 @@ void AutoGenRegisterReflection()
 	ScnModel::StaticRegisterClass();
 	ScnModelComponent::StaticRegisterClass();
 	ScnParticleSystemComponent::StaticRegisterClass();
+	ScnPostProcessVertex::StaticRegisterClass();
+	ScnPostProcessUniforms::StaticRegisterClass();
+	ScnPostProcessNode::StaticRegisterClass();
+	ScnPostProcessComponent::StaticRegisterClass();
 	ScnRenderableComponent::StaticRegisterClass();
 	ScnShader::StaticRegisterClass();
 	ScnShaderViewUniformBlockData::StaticRegisterClass();
@@ -156,6 +163,9 @@ void AutoGenRegisterReflection()
 	ScnShaderObjectUniformBlockData::StaticRegisterClass();
 	ScnShaderBoneUniformBlockData::StaticRegisterClass();
 	ScnShaderAlphaTestUniformBlockData::StaticRegisterClass();
+	ScnShaderPostProcessConfigData::StaticRegisterClass();
+	ScnShaderPostProcessCopyBlockData::StaticRegisterClass();
+	ScnShaderPostProcessBlurBlockData::StaticRegisterClass();
 	ScnSpriteComponent::StaticRegisterClass();
 	ScnTexture::StaticRegisterClass();
 	ScnTextureAtlas::StaticRegisterClass();
@@ -178,10 +188,12 @@ void AutoGenRegisterReflection()
 	GaLevelComponent::StaticRegisterClass();
 	GaMindwaveVisualiserComponent::StaticRegisterClass();
 	GaNetworkTestComponent::StaticRegisterClass();
+	GaMovingComponent::StaticRegisterClass();
 	GaTestFontComponent::StaticRegisterClass();
 	GaTestModelComponent::StaticRegisterClass();
 	GaTestParticleComponent::StaticRegisterClass();
 	GaMenuEntry::StaticRegisterClass();
 	GaTestSelectionComponent::StaticRegisterClass();
 	GaTestShaderComponent::StaticRegisterClass();
+	GaTestSoundComponent::StaticRegisterClass();
 }

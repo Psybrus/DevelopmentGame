@@ -1,18 +1,19 @@
 #include "Psybrus.hlsl"
 
-
 ////////////////////////////////////////////////////////////////////////
 // VS_INPUT
-#define VS_INPUT		VertexDefault
+struct VS_INPUT
+{
+	float4 Position_		: POSITION;
+	float2 TexCoord0_		: TEXCOORD0;
+};
 
 ////////////////////////////////////////////////////////////////////////
 // VS_OUTPUT
 struct VS_OUTPUT
 {
 	float4 Position_	: SV_POSITION;
-	float4 Normal_		: NORMAL;
-	float4 Colour_		: COLOR0;
-	float4 TexCoord0_	: TEXCOORD0;
+	float2 TexCoord0_	: TEXCOORD0;
 };
 
 ////////////////////////////////////////////////////////////////////////
@@ -22,28 +23,35 @@ struct PS_OUTPUT
 	float4 Colour_		: SV_TARGET;
 };
 
-
 ////////////////////////////////////////////////////////////////////////
 // vertexMain
 VS_OUTPUT vertexMain( VS_INPUT i )
 {
 	VS_OUTPUT o = (VS_OUTPUT)0;
-
-	float4 WorldPosition;
-	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_, i );
-	PSY_MAKE_CLIP_SPACE_VERTEX( o.Position_, WorldPosition );
-	o.Colour_ = i.Colour_;
+	o.Position_ = i.Position_.xyzw;
 	o.TexCoord0_ = i.TexCoord0_;
-	PSY_MAKE_WORLD_SPACE_NORMAL( o.Normal_.xyzw, i.Normal_.xyzw, i );
 	return o;
 }
 
 ////////////////////////////////////////////////////////////////////////
 // pixelMain
+PSY_SAMPLER_2D( InputTexture0 );
+
 PS_OUTPUT pixelMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
-	o.Colour_.rgb = ( i.Normal_.rgb + float3( 1.0f, 1.0f, 1.0f ) ) * 0.5f;
-	o.Colour_.w = 1.0f;
+
+	const float Offset = 1.0f / InputDimensions_[ 0 ].x;
+	const float Radius = Radius_;
+	float4 Colour = float4( 0.0, 0.0, 0.0, 0.0 );
+	float4 UVOffset = float4( -Radius * Offset, 0.0, 0.0, 0.0 );
+	float4 UVIncr = float4( Offset, 0.0, 0.0, 0.0 );
+
+	for( float Idx = -Radius; Idx <= Radius; Idx += 1.0 )
+	{
+		Colour += PSY_SAMPLE_2D( InputTexture0, i.TexCoord0_.xy + UVOffset.xy );
+		UVOffset += UVIncr;
+	}
+	o.Colour_ = float4( ( Colour / ( Radius * 2.0 + 1.0 ) ).rgb, 1.0 );
 	return o;
 }

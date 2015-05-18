@@ -1,0 +1,97 @@
+{
+	"resources" : [
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_copy",
+			"source"		: "Content/Engine/pp_copy.hlsl",
+
+			"includepermutations" : [
+				"RENDER_POST_PROCESS",
+				"PASS_MAIN",
+				"MESH_STATIC_2D",
+				"LIGHTING_NONE"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"codetypes"	: [
+				"D3D11_4_0"
+			],
+
+			"backendtypes" : [
+				"GLSL",
+				// TODO: "GLSL_ES",
+				"D3D11"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_h_blur",
+			"source"		: "Content/Engine/pp_h_blur.hlsl",
+
+			"includepermutations" : [
+				"RENDER_POST_PROCESS",
+				"PASS_MAIN",
+				"MESH_STATIC_2D",
+				"LIGHTING_NONE"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"codetypes"	: [
+				"D3D11_4_0"
+			],
+
+			"backendtypes" : [
+				"GLSL",
+				// TODO: "GLSL_ES",
+				"D3D11"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_v_blur",
+			"source"		: "Content/Engine/pp_v_blur.hlsl",
+
+			"includepermutations" : [
+				"RENDER_POST_PROCESS",
+				"PASS_MAIN",
+				"MESH_STATIC_2D",
+				"LIGHTING_NONE"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"codetypes"	: [
+				"D3D11_4_0"
+			],
+
+			"backendtypes" : [
+				"GLSL",
+				// TODO: "GLSL_ES",
+				"D3D11"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		}
+	]
+}
+

@@ -28,12 +28,7 @@ REFLECTION_DEFINE_DERIVED( GaTestParticleComponent );
 
 void GaTestParticleComponent::StaticRegisterClass()
 {
-	ReField* Fields[] = 
-	{
-		new ReField( "Sound_", &GaTestParticleComponent::Sound_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
-	};
-
-	ReRegisterClass< GaTestParticleComponent, Super >( Fields )
+	ReRegisterClass< GaTestParticleComponent, Super >()
 		.addAttribute( new ScnComponentAttribute( 0 ) );
 }
 
@@ -60,15 +55,6 @@ void GaTestParticleComponent::update( BcF32 Tick )
 	Super::update( Tick );
 
 	static BcRandom Rand;
-
-	static float Ticker = 0.0f;
-	Ticker += Tick;
-	if( Ticker > 0.01f )
-	{
-		Ticker -= 0.01f;
-		//SoundEmitter_->setPitch( ( Rand.randReal() + 1.1f ) * 0.5f );
-		SoundEmitter_->play( Sound_ );
-	}
 
 	ScnParticle* Particle = nullptr;
 	if( ParticleSystem_->allocParticle( Particle ) )
@@ -102,7 +88,6 @@ void GaTestParticleComponent::onAttach( ScnEntityWeakRef Parent )
 	Super::onAttach( Parent );
 
 	ParticleSystem_ = Parent->getComponentAnyParentByType< ScnParticleSystemComponent >();	
-	SoundEmitter_ = Parent->getComponentAnyParentByType< ScnSoundEmitterComponent >();
 }
 
 //////////////////////////////////////////////////////////////////////////

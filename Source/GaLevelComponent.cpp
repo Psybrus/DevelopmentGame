@@ -75,21 +75,17 @@ void GaLevelComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 
-	for( const auto& LevelEntity : Entities_ )
+	for( auto& LevelEntity : Entities_ )
 	{
 		MaMat4d Transform;
 		Transform.rotation( LevelEntity.Rotation_ );
 		Transform.translation( LevelEntity.Position_ );
 
-		ScnEntitySpawnParams EntityParams = 
-		{
-			LevelEntity.Basis_->getPackage()->getName(),
-			LevelEntity.Basis_->getName(),
+		ScnEntitySpawnParams EntityParams(
 			LevelEntity.Name_,
+			LevelEntity.Basis_,
 			Transform,
-			getParentEntity(),
-			nullptr
-		};
+			getParentEntity() );
 
 		ScnCore::pImpl()->spawnEntity( EntityParams );
 	}

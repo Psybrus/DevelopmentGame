@@ -51,17 +51,11 @@ public:
 
 	virtual void onAttach( ScnEntityWeakRef Parent );
 	virtual void onDetach( ScnEntityWeakRef Parent );
-	
-	eEvtReturn onKeyPress( EvtID ID, const EvtBaseEvent& Event );
 
 private:
 	std::vector< GaMenuEntry > Options_;
 	BcU32 SelectedEntry_;
 	ScnEntityRef PreviousSpawned_;
-	ScnFontComponentRef FontComponent_;
-	ScnCanvasComponentRef Canvas_;
-
-	MaMat4d Projection_;
 
 	BcBool RunAutomatedTest_;
 	BcF32 TestMaxTime_;

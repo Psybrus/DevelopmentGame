@@ -16,6 +16,7 @@
 #include "System/Content/CsPackage.h"
 #include "System/Os/OsCore.h"
 
+#include "System/Debug/DsImGui.h"
 #include "System/Scene/Rendering/ScnDebugRenderComponent.h"
 #include "System/SysKernel.h"
 
@@ -45,9 +46,6 @@ void GaTestSelectionComponent::StaticRegisterClass()
 
 		new ReField( "SelectedEntry_", &GaTestSelectionComponent::SelectedEntry_ ),
 		new ReField( "PreviousSpawned_", &GaTestSelectionComponent::PreviousSpawned_ ),
-		new ReField( "FontComponent_", &GaTestSelectionComponent::FontComponent_ ),
-		new ReField( "Canvas_", &GaTestSelectionComponent::Canvas_ ),
-		new ReField( "Projection_", &GaTestSelectionComponent::Projection_ ),
 		new ReField( "TestTime_", &GaTestSelectionComponent::TestTime_ ),
 	};
 		
@@ -64,7 +62,6 @@ GaTestSelectionComponent::GaTestSelectionComponent():
 	TestTime_( 1.0f )
 {
 	SelectedEntry_ = 0;
-	Projection_.orthoProjection( -8.0f, 56.0f, 30.0f, -4.0f, -1.0f, 1.0f );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -94,79 +91,35 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 		}
 	}
 
-	Canvas_->clear();
-	Canvas_->pushMatrix( Projection_ );
-
-	MaMat4d TextScaleMatrix;
-	TextScaleMatrix.scale( MaVec4d( 0.04f, 0.04f, 1.0f, 1.0f ) );
-
-	FontComponent_->setAlphaTestStepping( MaVec2d( 0.4f, 0.45f ) );
-
-	Canvas_->pushMatrix( TextScaleMatrix );
-
-	MaVec2d Position( 0.0f, 0.0f );
-	MaVec2d Size;
-
-	static BcF32 GameTimeTotal = 0.0f;
-	static BcF32 FrameTimeTotal = 0.0f;
-	static BcF32 GameTimeAccum = 0.0f;
-	static BcF32 FrameTimeAccum = 0.0f;
-	static int CaptureAmount = 60;
-	static int CaptureAccum = 0;
-	GameTimeAccum += SysKernel::pImpl()->getGameThreadTime();
-	FrameTimeAccum += SysKernel::pImpl()->getFrameTime();
-	++CaptureAccum;
-	if( CaptureAccum >= CaptureAmount )
+	static MaVec2d WindowPos = MaVec2d( 10.0f, 10.0f );
+	static bool ShowOpened = true;
+	ImGui::SetNextWindowPos( WindowPos );
+	if ( ImGui::Begin( "Test Menu", &ShowOpened, ImVec2( 0.0f, 0.0f ), 0.3f, 0 ) )
 	{
-		GameTimeTotal = GameTimeAccum / BcF32( CaptureAccum );
-		FrameTimeTotal = FrameTimeAccum / BcF32( CaptureAccum );
-		GameTimeAccum = 0.0f;
-		FrameTimeAccum = 0.0f;
-		CaptureAccum = 0;
+		ImGui::BeginGroup();
+
+		// Selection menu.
+		BcU32 Idx = 0;
+		for( const auto& Option : Options_ )
+		{
+			if( ImGui::SmallButton( Option.Name_.c_str() ) )
+			{
+				LoadEntity( Idx );
+			}
+			++Idx;
+		}
+
+		ImGui::EndGroup();
 	}
+	WindowPos = ImGui::GetWindowPos();
+	ImGui::End();
 
-	BcChar PerfChars[ 128 ];
-	BcSPrintf( PerfChars, "Perf: Game: %.3f ms, Frame %.3f ms", ( GameTimeTotal * 1000.0f ), ( FrameTimeTotal * 1000.0f ) );
-
-#if 1
-	ScnFontDrawParams DrawParams = ScnFontDrawParams()
-		.setSize( 32.0f )
-		.setAlignment( ScnFontAlignment::HCENTRE | ScnFontAlignment::VCENTRE )
-		.setMargin( 8.0f );
-
-	Size = FontComponent_->drawText( 
-		Canvas_,
-		DrawParams
-			.setTextColour( RsColour::BLUE ),
-		Position, 
-		MaVec2d( 0.0f, 0.0f ),
-		PerfChars );
-	Position += MaVec2d( 0.0f, Size.y() );
-
-	for( BcU32 Idx = 0; Idx < Options_.size(); ++Idx )
-	{
-		const auto& Option( Options_[ Idx ] );
-		const auto Colour = Idx == SelectedEntry_ ? RsColour::GREEN : RsColour::GRAY;
-		Size = FontComponent_->drawText( 
-			Canvas_,
-			DrawParams
-				.setTextColour( Colour ),
-			Position, 
-			MaVec2d( 0.0f, 0.0f ),
-			Option.Name_.c_str() );
-		Position += MaVec2d( 0.0f, Size.y() );
-	}
-#endif
 	ScnDebugRenderComponent::pImpl()->drawGrid( 
 		MaVec3d( 0.0f, 0.0f, 0.0f ),
 		MaVec3d( 500.0f, 0.0f, 500.0f ),
 		1.0f,
 		10.0f,
 		0 );
-
-
-	Canvas_->popMatrix();
-	Canvas_->popMatrix();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -176,12 +129,7 @@ void GaTestSelectionComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 
-	Canvas_ = Parent->getComponentAnyParentByType< ScnCanvasComponent >();
-	FontComponent_ = Parent->getComponentAnyParentByType< ScnFontComponent >();
-
 	using namespace std::placeholders;
-	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYDOWN, this,
-		std::bind( &GaTestSelectionComponent::onKeyPress, this, _1, _2 ) );
 
 #if !PLATFORM_HTML5
 	if( DsCore::pImpl() )
@@ -211,46 +159,7 @@ void GaTestSelectionComponent::onDetach( ScnEntityWeakRef Parent )
 	}
 #endif
 
-	OsCore::pImpl()->unsubscribeAll(this);
 	Super::onDetach( Parent );
-}
-	
-//////////////////////////////////////////////////////////////////////////
-// onKeyPress
-eEvtReturn GaTestSelectionComponent::onKeyPress( EvtID ID, const EvtBaseEvent& Event )
-{
-	const auto& KeyEvent = Event.get< OsEventInputKeyboard >();
-
-	switch( KeyEvent.KeyCode_ )
-	{
-	case OsEventInputKeyboard::KEYCODE_UP:
-		if( SelectedEntry_ > 0 )
-		{
-			--SelectedEntry_;
-		}
-		else
-		{
-			SelectedEntry_ = Options_.size() - 1;
-		}
-		break;
-
-	case OsEventInputKeyboard::KEYCODE_DOWN:
-		if( SelectedEntry_ < Options_.size() - 1 )
-		{
-			++SelectedEntry_;
-		}
-		else
-		{
-			SelectedEntry_ = 0;
-		}
-		break;
-
-	case OsEventInputKeyboard::KEYCODE_RETURN:
-		LoadEntity(SelectedEntry_);
-		BcAssertMsg( PreviousSpawned_.isValid(), "We expect everythig nto have been preloaded." );
-		break;
-	}
-	return evtRET_PASS;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -266,12 +175,11 @@ void GaTestSelectionComponent::LoadEntity(int Entity)
 	PSY_LOG( "Starting %s", Options_[SelectedEntry_].Name_.c_str() );
 
 	auto TemplateEntity = Options_[SelectedEntry_].Entity_;
-	ScnEntitySpawnParams SpawnEntity =
-	{
-		TemplateEntity->getPackageName(), TemplateEntity->getName(), "SpawnedEntity",
+	ScnEntitySpawnParams SpawnEntity(
+		"SpawnedEntity", 
+		TemplateEntity,
 		MaMat4d(),
-		nullptr
-	};
+		getParentEntity() );
 
 	PreviousSpawned_ = ScnCore::pImpl()->spawnEntity(SpawnEntity);
 	BcAssertMsg(PreviousSpawned_.isValid(), "We expect everything to have been preloaded.");

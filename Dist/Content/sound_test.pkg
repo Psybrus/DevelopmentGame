@@ -1,0 +1,49 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"type"					: "ScnSoundEmitterComponent",
+					"velocitymultiplier"	: 100.0,
+					"maxvelocity"			: 100.0
+				},
+
+				{
+					"type"					: "GaMovingComponent",
+					"position"				: "0.0, 0.0, 0.0",
+					"axisspeed"				: "1.0, 0.5, 0.01",
+					"axismagnitude"			: "10.0, 10.0, 10.0"
+				},
+
+				{
+					"$Class"				: "ScnModelComponent",
+					"type"					: "ScnModelComponent",
+					"model"					: "$(ScnModel:models.sphere)"
+				},
+
+				{
+					"type"					: "GaTestSoundComponent",
+					"sound"					: "$(ScnSound:this.Sound)"
+				}
+			]
+		},
+
+		/// move to own test later.
+		{
+			"name"		:		"Sound",
+			"type"		:		"ScnSound",
+			"source"	:		"Content/Source/explode.sfs",
+			"isstream"	:		true
+		}
+	]
+}

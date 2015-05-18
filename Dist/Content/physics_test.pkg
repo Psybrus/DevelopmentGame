@@ -9,7 +9,7 @@
 				{
 					"type"					: "ScnPhysicsWorldComponent",
 					"gravity"				: "0.0, -9.8, 0.0",
-					"debugdrawworld"		: true
+					"debugdrawworld"		: false
 				},
 
 
@@ -356,6 +356,7 @@
 					"restitution"			: 0.5
 				},
 
+/* TODO: Causes valgrind to trigger.
 				{
 					"type"					: "ScnPhysicsHingeConstraintComponent",
 					"framea"				: {
@@ -365,7 +366,7 @@
 						"row3" : "0.0, 0.0, 1.0, 1.0"
 					}
 				},
-
+*/
 				{
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
