@@ -62,7 +62,7 @@ void GaFullscreenQuadComponent::StaticRegisterClass()
 	};
 		
 	ReRegisterClass< GaFullscreenQuadComponent, Super >( Fields )
-		.addAttribute( new ScnComponentAttribute( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 0 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

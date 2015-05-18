@@ -61,6 +61,7 @@
 #include "System/Scene/Rendering/ScnTextureAtlas.h"
 #include "System/Scene/Rendering/ScnViewComponent.h"
 #include "System/Scene/ScnComponent.h"
+#include "System/Scene/ScnComponentProcessor.h"
 #include "System/Scene/ScnEntity.h"
 #include "System/Scene/ScnSpatialComponent.h"
 #include "System/Scene/Sound/ScnSound.h"
@@ -75,8 +76,8 @@
 #include "GaFullscreenQuadComponent.h"
 #include "GaLevelComponent.h"
 #include "GaMindwaveVisualiserComponent.h"
-#include "GaNetworkTestComponent.h"
 #include "GaMovingComponent.h"
+#include "GaNetworkTestComponent.h"
 #include "GaTestFontComponent.h"
 #include "GaTestModelComponent.h"
 #include "GaTestParticleComponent.h"
@@ -170,8 +171,8 @@ void AutoGenRegisterReflection()
 	ScnTexture::StaticRegisterClass();
 	ScnTextureAtlas::StaticRegisterClass();
 	ScnViewComponent::StaticRegisterClass();
-	ScnComponentAttribute::StaticRegisterClass();
 	ScnComponent::StaticRegisterClass();
+	ScnComponentProcessor::StaticRegisterClass();
 	ScnEntity::StaticRegisterClass();
 	ScnSpatialComponent::StaticRegisterClass();
 	ScnSound::StaticRegisterClass();
@@ -187,8 +188,8 @@ void AutoGenRegisterReflection()
 	GaLevelEntity::StaticRegisterClass();
 	GaLevelComponent::StaticRegisterClass();
 	GaMindwaveVisualiserComponent::StaticRegisterClass();
-	GaNetworkTestComponent::StaticRegisterClass();
 	GaMovingComponent::StaticRegisterClass();
+	GaNetworkTestComponent::StaticRegisterClass();
 	GaTestFontComponent::StaticRegisterClass();
 	GaTestModelComponent::StaticRegisterClass();
 	GaTestParticleComponent::StaticRegisterClass();

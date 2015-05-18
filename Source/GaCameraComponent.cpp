@@ -34,7 +34,7 @@ void GaCameraComponent::StaticRegisterClass()
 	};
 
 	ReRegisterClass< GaCameraComponent, Super >( Fields )
-		.addAttribute( new ScnComponentAttribute( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 0 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

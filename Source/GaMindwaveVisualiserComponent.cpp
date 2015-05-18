@@ -38,7 +38,7 @@ void GaMindwaveVisualiserComponent::StaticRegisterClass()
 	*/
 
 	ReRegisterClass< GaMindwaveVisualiserComponent, Super >( )
-		.addAttribute( new ScnComponentAttribute( 1000 ) );
+		.addAttribute( new ScnComponentProcessor( 1000 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

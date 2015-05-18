@@ -62,7 +62,7 @@ void GaTestShaderComponent::StaticRegisterClass()
 	};
 		
 	ReRegisterClass< GaTestShaderComponent, Super >( Fields )
-		.addAttribute( new ScnComponentAttribute( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 0 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

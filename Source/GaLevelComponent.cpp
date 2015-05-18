@@ -42,7 +42,7 @@ void GaLevelComponent::StaticRegisterClass()
 	};
 
 	ReRegisterClass< GaLevelComponent, Super >( Fields )
-		.addAttribute( new ScnComponentAttribute( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 0 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

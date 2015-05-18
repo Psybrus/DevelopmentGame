@@ -40,7 +40,7 @@ void GaTestSoundComponent::StaticRegisterClass()
 	};
 
 	ReRegisterClass< GaTestSoundComponent, Super >( Fields )
-		.addAttribute( new ScnComponentAttribute( 1 ) );
+		.addAttribute( new ScnComponentProcessor( 1 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

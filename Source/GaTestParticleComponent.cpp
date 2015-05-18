@@ -29,7 +29,7 @@ REFLECTION_DEFINE_DERIVED( GaTestParticleComponent );
 void GaTestParticleComponent::StaticRegisterClass()
 {
 	ReRegisterClass< GaTestParticleComponent, Super >()
-		.addAttribute( new ScnComponentAttribute( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 0 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
