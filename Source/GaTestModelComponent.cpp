@@ -35,7 +35,7 @@ void GaTestModelComponent::StaticRegisterClass()
 	};
 
 	ReRegisterClass< GaTestModelComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor( 0 ) );
+		.addAttribute( new ScnComponentProcessor() );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -53,13 +53,6 @@ GaTestModelComponent::~GaTestModelComponent()
 
 }
 
-//////////////////////////////////////////////////////////////////////////
-// update
-//virtual
-void GaTestModelComponent::update( BcF32 Tick )
-{
-	Super::update( Tick );
-}
 
 //////////////////////////////////////////////////////////////////////////
 // onAttach

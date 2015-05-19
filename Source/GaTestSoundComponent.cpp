@@ -40,7 +40,10 @@ void GaTestSoundComponent::StaticRegisterClass()
 	};
 
 	ReRegisterClass< GaTestSoundComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor( 1 ) );
+		.addAttribute( new ScnComponentProcessor( 
+			{
+				ScnComponentProcessFuncEntry::Update< GaTestSoundComponent >()
+			} ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -63,8 +66,6 @@ GaTestSoundComponent::~GaTestSoundComponent()
 //virtual
 void GaTestSoundComponent::update( BcF32 Tick )
 {
-	Super::update( Tick );
-
 	static BcRandom Rand;
 
 	static float Ticker = 0.0f;

@@ -39,7 +39,10 @@ void GaMovingComponent::StaticRegisterClass()
 	};
 
 	ReRegisterClass< GaMovingComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 
+			{
+				ScnComponentProcessFuncEntry::Update< GaMovingComponent >()
+			} ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -72,8 +75,6 @@ void GaMovingComponent::update( BcF32 Tick )
 		std::cos( Timer_ * AxisSpeed_.z()) ) * AxisMagnitude_;
 	Timer_ += Tick;
 	getParentEntity()->setLocalPosition( Position + Position_ );
-
-	Super::update( Tick );
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -34,7 +34,10 @@ void GaCameraComponent::StaticRegisterClass()
 	};
 
 	ReRegisterClass< GaCameraComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 
+			{
+				ScnComponentProcessFuncEntry::PreUpdate< GaCameraComponent >()
+			} ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -60,8 +63,6 @@ GaCameraComponent::~GaCameraComponent()
 //virtual
 void GaCameraComponent::preUpdate( BcF32 Tick )
 {
-	Super::update( Tick );
-
 	// Update state.
 	switch( CameraState_ )
 	{

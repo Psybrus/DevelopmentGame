@@ -34,7 +34,6 @@ public:
 	GaFullscreenQuadComponent();
 	virtual ~GaFullscreenQuadComponent();
 
-	virtual void update( BcF32 Tick );
 	virtual void render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort );
 
 	virtual void onAttach( ScnEntityWeakRef Parent );

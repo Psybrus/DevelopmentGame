@@ -39,7 +39,10 @@ void GaTestFontComponent::StaticRegisterClass()
 	};
 
 	ReRegisterClass< GaTestFontComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 
+			{
+				ScnComponentProcessFuncEntry::Update< GaTestFontComponent >()
+			} ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -62,8 +65,6 @@ GaTestFontComponent::~GaTestFontComponent()
 //virtual
 void GaTestFontComponent::update( BcF32 Tick )
 {
-	Super::update( Tick );
-
 	OsClient* Client = OsCore::pImpl()->getClient( 0 );
 	BcF32 HalfWidth = static_cast< BcF32 >( Client->getWidth() / 2 );
 	BcF32 HalfHeight = static_cast< BcF32 >( Client->getHeight() / 2 );

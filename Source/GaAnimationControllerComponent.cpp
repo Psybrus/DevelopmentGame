@@ -38,7 +38,10 @@ void GaAnimationControllerComponent::StaticRegisterClass()
 	};
 		
 	ReRegisterClass< GaAnimationControllerComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 
+			{
+				ScnComponentProcessFuncEntry::Update< GaAnimationControllerComponent >()
+			} ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -61,8 +64,6 @@ GaAnimationControllerComponent::~GaAnimationControllerComponent()
 //virtual
 void GaAnimationControllerComponent::update( BcF32 Tick )
 {
-	Super::update( Tick );
-
 	static BcF32 Ticker = 0.0f;
 	Ticker += Tick * 0.1f;
 

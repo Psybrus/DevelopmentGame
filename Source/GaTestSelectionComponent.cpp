@@ -50,7 +50,11 @@ void GaTestSelectionComponent::StaticRegisterClass()
 	};
 		
 	ReRegisterClass< GaTestSelectionComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 
+			{
+				ScnComponentProcessFuncEntry::Update< GaTestSelectionComponent >( 
+					"Update", ScnComponentPriority::DEFAULT_UPDATE - 1 )
+			} ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -77,8 +81,6 @@ GaTestSelectionComponent::~GaTestSelectionComponent()
 //virtual
 void GaTestSelectionComponent::update( BcF32 Tick )
 {
-	Super::update( Tick );
-
 	if( RunAutomatedTest_ )
 	{
 		TestTime_ -= Tick;

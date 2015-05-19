@@ -44,7 +44,10 @@ void GaNetworkTestComponent::StaticRegisterClass()
 	};
 		
 	ReRegisterClass< GaNetworkTestComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 
+			{
+				ScnComponentProcessFuncEntry::Update< GaNetworkTestComponent >()
+			} ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -69,8 +72,6 @@ GaNetworkTestComponent::~GaNetworkTestComponent()
 //virtual
 void GaNetworkTestComponent::update( BcF32 Tick )
 {
-	Super::update( Tick );
-
 	if( IsServer_ == BcFalse )
 	{
 		static int timer = 0;

@@ -38,7 +38,7 @@ void GaMindwaveVisualiserComponent::StaticRegisterClass()
 	*/
 
 	ReRegisterClass< GaMindwaveVisualiserComponent, Super >( )
-		.addAttribute( new ScnComponentProcessor( 1000 ) );
+		.addAttribute( new ScnComponentProcessor() );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -53,15 +53,6 @@ GaMindwaveVisualiserComponent::GaMindwaveVisualiserComponent()
 //virtual
 GaMindwaveVisualiserComponent::~GaMindwaveVisualiserComponent()
 {
-
-}
-
-//////////////////////////////////////////////////////////////////////////
-// update
-//virtual
-void GaMindwaveVisualiserComponent::update( BcF32 Tick )
-{
-	Super::update( Tick );
 
 }
 

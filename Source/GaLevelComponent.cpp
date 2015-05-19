@@ -42,7 +42,7 @@ void GaLevelComponent::StaticRegisterClass()
 	};
 
 	ReRegisterClass< GaLevelComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor( 0 ) );
+		.addAttribute( new ScnComponentProcessor() );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -60,13 +60,6 @@ GaLevelComponent::~GaLevelComponent()
 
 }
 
-//////////////////////////////////////////////////////////////////////////
-// update
-//virtual
-void GaLevelComponent::update( BcF32 Tick )
-{
-	Super::update( Tick );
-}
 
 //////////////////////////////////////////////////////////////////////////
 // onAttach

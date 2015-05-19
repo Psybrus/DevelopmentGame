@@ -34,8 +34,6 @@ public:
 	GaTestModelComponent();
 	virtual ~GaTestModelComponent();
 	
-	virtual void update( BcF32 Tick );
-	
 	virtual void onAttach( ScnEntityWeakRef Parent );
 	virtual void onDetach( ScnEntityWeakRef Parent );
 	

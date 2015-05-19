@@ -44,8 +44,6 @@ public:
 	GaLevelComponent();
 	virtual ~GaLevelComponent();
 	
-	virtual void update( BcF32 Tick );
-
 	virtual void onAttach( ScnEntityWeakRef Parent );
 	
 private:

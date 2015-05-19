@@ -29,7 +29,10 @@ REFLECTION_DEFINE_DERIVED( GaTestParticleComponent );
 void GaTestParticleComponent::StaticRegisterClass()
 {
 	ReRegisterClass< GaTestParticleComponent, Super >()
-		.addAttribute( new ScnComponentProcessor( 0 ) );
+		.addAttribute( new ScnComponentProcessor( 
+			{
+				ScnComponentProcessFuncEntry::Update< GaTestParticleComponent >()
+			} ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -52,8 +55,6 @@ GaTestParticleComponent::~GaTestParticleComponent()
 //virtual
 void GaTestParticleComponent::update( BcF32 Tick )
 {
-	Super::update( Tick );
-
 	static BcRandom Rand;
 
 	ScnParticle* Particle = nullptr;
