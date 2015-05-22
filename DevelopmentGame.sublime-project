@@ -3,7 +3,130 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "."
+			"name" : "Root",
+			"path": ".",
+			"file_exclude_patterns" : [
+				"*.d", "*.a", "*.o"
+			]
+		},
+
+		{
+			"follow_symlinks": true,
+			"name" : "Source (DevelopmentGame)",
+			"path": "./Source",
+			"file_exclude_patterns" : [
+				"*.d", "*.a", "*.o"
+			]
+		},
+		{
+			"follow_symlinks": true,
+			"name" : "Source (Psybrus)",
+			"path": "./Psybrus/Engine",
+			"file_exclude_patterns" : [
+				"*.d", "*.a", "*.o"
+			]
+		},
+		{
+			"follow_symlinks": true,
+			"name" : "Source (External)",
+			"path": "./Psybrus/External",
+			"file_exclude_patterns" : [
+				"*.d", "*.a", "*.o"
+			]
+		},
+		{
+			"follow_symlinks": true,
+			"name" : "Scripts (Psybrus)",
+			"path": "./Psybrus/Scripts",
+			"file_exclude_patterns" : [
+				"*.d", "*.a", "*.o"
+			]
+		},
+		{
+			"follow_symlinks": true,
+			"name" : "Dist (DevelopmentGame)",
+			"path": "./Dist",
+			"file_exclude_patterns" : [
+				"*.d", "*.a", "*.o"
+			]
+		},
+		{
+			"follow_symlinks": true,
+			"name" : "Dist (Psybrus)",
+			"path": "./Psybrus/Dist",
+			"file_exclude_patterns" : [
+				"*.d", "*.a", "*.o"
+			]
+		}
+	],
+	
+	"settings":
+    {
+        "tab_size": 4,
+        "translate_tabs_to_spaces": false
+    },
+
+	"build_systems":
+	[
+		{
+			"name": "gmake-linux-clang",
+			"working_dir": "$project_path",
+			"cmd": [
+				"Psybrus/Tools/genie/genie-linux",
+				"--platform=x64",
+				"--toolchain=linux-clang",
+				"--boostpath=/opt/boost_1_57_0",
+				"gmake"
+			],
+			"file_regex" : "(../../[^:\n]*):([0-9]+):?([0-9]+)?",
+			"variants" : [
+				{ 
+					"name": "Build Debug",
+					"working_dir": "$project_path/Projects/gmake-linux-clang",
+					"cmd": ["make", "-j5", "config=debug"],
+				},
+				{ 
+					"name": "Build Release",
+					"working_dir": "$project_path/Projects/gmake-linux-clang",
+					"cmd": ["make", "-j5", "config=release"],
+				},
+				{ 
+					"name": "Build Production",
+					"working_dir": "$project_path/Projects/gmake-linux-clang",
+					"cmd": ["make", "-j5", "config=production"],
+				}
+			]
+		},
+
+		{
+			"name": "gmake-asmjs",
+			"working_dir": "$project_path",
+			"cmd": [
+				"Psybrus/Tools/genie/genie-linux",
+				"--toolchain=asmjs",
+				"gmake"
+			],
+			"file_regex" : "(../../[^:\n]*):([0-9]+):?([0-9]+)?",
+			"env" : {
+				"EMSCRIPTEN" : "/opt/emscripten/emscripten"
+			},
+			"variants" : [
+				{ 
+					"name": "Build Debug",
+					"working_dir": "$project_path/Projects/gmake-asmjs",
+					"cmd": ["make", "-j5", "config=debug"],
+				},
+				{ 
+					"name": "Build Release",
+					"working_dir": "$project_path/Projects/gmake-asmjs",
+					"cmd": ["make", "-j5", "config=release"],
+				},
+				{ 
+					"name": "Build Production",
+					"working_dir": "$project_path/Projects/gmake-asmjs",
+					"cmd": ["make", "-j5", "config=production"],
+				}
+			]
 		}
 	]
 }
