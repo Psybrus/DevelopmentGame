@@ -33,6 +33,7 @@
 #include "System/Scene/Import/ScnShaderImport.h"
 #include "System/Scene/Import/ScnSoundImport.h"
 #include "System/Scene/Import/ScnTextureImport.h"
+#include "System/Scene/Import/ScnTileMapImport.h"
 #include "System/Scene/Physics/ScnPhysicsBoxCollisionComponent.h"
 #include "System/Scene/Physics/ScnPhysicsCapsuleCollisionComponent.h"
 #include "System/Scene/Physics/ScnPhysicsCollisionComponent.h"
@@ -59,6 +60,7 @@
 #include "System/Scene/Rendering/ScnSpriteComponent.h"
 #include "System/Scene/Rendering/ScnTexture.h"
 #include "System/Scene/Rendering/ScnTextureAtlas.h"
+#include "System/Scene/Rendering/ScnTileMap.h"
 #include "System/Scene/Rendering/ScnViewComponent.h"
 #include "System/Scene/ScnComponent.h"
 #include "System/Scene/ScnComponentProcessor.h"
@@ -84,6 +86,7 @@
 #include "GaTestSelectionComponent.h"
 #include "GaTestShaderComponent.h"
 #include "GaTestSoundComponent.h"
+#include "GaTestSpriteComponent.h"
 void AutoGenRegisterReflection()
 {
 	MaAABB::StaticRegisterClass();
@@ -129,6 +132,7 @@ void AutoGenRegisterReflection()
 	ScnShaderImport::StaticRegisterClass();
 	ScnSoundImport::StaticRegisterClass();
 	ScnTextureImport::StaticRegisterClass();
+	ScnTileMapImport::StaticRegisterClass();
 	ScnPhysicsBoxCollisionComponent::StaticRegisterClass();
 	ScnPhysicsCapsuleCollisionComponent::StaticRegisterClass();
 	ScnPhysicsCollisionComponent::StaticRegisterClass();
@@ -167,9 +171,12 @@ void AutoGenRegisterReflection()
 	ScnShaderPostProcessConfigData::StaticRegisterClass();
 	ScnShaderPostProcessCopyBlockData::StaticRegisterClass();
 	ScnShaderPostProcessBlurBlockData::StaticRegisterClass();
+	ScnSpriteAnimation::StaticRegisterClass();
 	ScnSpriteComponent::StaticRegisterClass();
 	ScnTexture::StaticRegisterClass();
 	ScnTextureAtlas::StaticRegisterClass();
+	ScnTileMap::StaticRegisterClass();
+	ScnTileMapComponent::StaticRegisterClass();
 	ScnViewComponent::StaticRegisterClass();
 	ScnComponent::StaticRegisterClass();
 	ScnComponentProcessor::StaticRegisterClass();
@@ -197,4 +204,5 @@ void AutoGenRegisterReflection()
 	GaTestSelectionComponent::StaticRegisterClass();
 	GaTestShaderComponent::StaticRegisterClass();
 	GaTestSoundComponent::StaticRegisterClass();
+	GaTestSpriteComponent::StaticRegisterClass();
 }

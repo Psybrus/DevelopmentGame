@@ -1,0 +1,70 @@
+{
+
+	"resources" : [
+		{
+			"name" : "TestEntity",
+			"$Class" : "ScnEntity",
+			"type" : "ScnEntity",
+
+			"components" : [
+				{
+					"$Class" : "ScnCanvasComponent",
+					"type" : "ScnCanvasComponent",
+					"noofvertices" : 10000
+				},
+
+				{
+					"$Class" : "ScnMaterialComponent",
+					"type" : "ScnMaterialComponent",
+					"name" : "spritesheet",
+					
+					"material" : "$(ScnMaterial:sprite_test_data.spritesheet_material_basic)",
+					"permutation" : "2d"
+				},
+
+				{
+					"$Class" : "ScnTileMapComponent",
+					"type" : "ScnTileMapComponent",
+
+					"tilemap" : "$(ScnTileMap:sprite_test_data.hexagonal-mini)"
+				},
+
+				{
+					"$Class" : "GaTestSpriteComponent",
+					"type" : "GaTestSpriteComponent"
+				}
+
+			]
+		},
+
+		{
+			"name" : "SpriteEntity",
+			"$Class" : "ScnEntity",
+			"type" : "ScnEntity",
+
+			"components" : [
+				{
+					"$Class" : "ScnSpriteComponent",
+					"type" : "ScnSpriteComponent",
+
+					"materialname" : "spritesheet",
+					"position" : "0.0, 0.0",
+					"size" : "16.0, 16.0",
+					"colour" : "1.0, 1.0, 1.0, 1.0",
+					"index" : 0,
+					"center" : true,
+
+					"animationrate" : 6.0,
+					"animation" : "idle",
+
+					"animations" : {
+						"idle" : {
+							"next" : "idle",
+							"keys" : [ 0, 1 ,0, 2 ]
+						}
+					}
+				}
+			]
+		}
+	]
+}

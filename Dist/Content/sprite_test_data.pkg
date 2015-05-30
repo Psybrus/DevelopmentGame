@@ -1,0 +1,197 @@
+{
+
+	"resources" : [
+		{
+			"type" : "ScnTileMap",
+			"name" : "tilemap",
+
+			"source" : "Content/Source/level.tmx",
+
+			// Map of regex:ScnTexture to override images/tileset names.
+			"textures" : {
+			},
+
+			// Map of regex:ScnMaterial to use.
+			"materials" : {
+				"(.*)" : "$(ScnMaterial:this.spritesheet_material_basic)"
+			}
+		},
+
+		{
+			"type" : "ScnTileMap",
+			"name" : "hexagonal-mini",
+
+			"source" : "Content/tmx/hexagonal-mini.tmx",
+
+			// Map of regex:ScnTexture to override images/tileset names.
+			"textures" : {
+			},
+
+			// Map of regex:ScnMaterial to use.
+			"materials" : {
+				"(.*)" : "$(ScnMaterial:this.spritesheet_material_basic)"
+			}
+		},
+
+		{
+			"type" : "ScnTileMap",
+			"name" : "isometric_grass_and_water",
+
+			"source" : "Content/Source/tmx/isometric_grass_and_water.tmx",
+
+			// Map of regex:ScnTexture to override images/tileset names.
+			"textures" : {
+			},
+
+			// Map of regex:ScnMaterial to use.
+			"materials" : {
+				"(.*)" : "$(ScnMaterial:this.spritesheet_material_basic)"
+			}
+		},
+
+		{
+			"type" : "ScnTextureAtlas",
+			"name" : "spritesheet_texture",
+
+			"tileatlas"	: true,
+			"tilewidth" : 16,
+			"tileheight" : 16,
+			"format" : "R8G8B8A8",
+			"distancefield" : true,
+			"spread" : 8,
+
+			"source" : "Content/Source/sprites/spritesheet.png"
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "sprite_shaded",
+			"source"		: "Content/Engine/sprite_shaded.hlsl",
+
+			"excludepermutations" : [
+				"RENDER_DEFERRED",
+				"RENDER_FORWARD_PLUS",
+				"PASS_SHADOW",
+				"MESH_INSTANCED_3D",
+				"LIGHTING_DIFFUSE"
+			],
+
+			"codetypes"	: [
+				"D3D11_4_0_level_9_3"
+			],
+
+			"backendtypes" : [
+				"GLSL",
+				"GLSL_ES",
+				"D3D11"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "spritesheet_material_basic",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.textured)",
+
+			// Textures
+			"textures"		: {
+				"aDiffuseTex"	: "$(ScnTexture:this.spritesheet_texture)"
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "nearest",
+					"magfilter" : "nearest"
+				}
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : true,
+							"srcblend" : "srcalpha",
+							"destblend" : "invsrcalpha",
+							"blendop" : "add",
+							"srcblendalpha" : "srcalpha",
+							"destblendalpha" : "invsrcalpha",
+							"blendopalpha" : "add",
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" :false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none"
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "spritesheet_material",
+
+			// Shader
+			"shader"		: "$(ScnShader:this.sprite_shaded)",
+
+			// Textures
+			"textures"		: {
+				"aDiffuseTex"	: "$(ScnTexture:this.spritesheet_texture)"
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "nearest",
+					"magfilter" : "nearest"
+				}
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : true,
+							"srcblend" : "srcalpha",
+							"destblend" : "invsrcalpha",
+							"blendop" : "add",
+							"srcblendalpha" : "srcalpha",
+							"destblendalpha" : "invsrcalpha",
+							"blendopalpha" : "add",
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" :false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none"
+				}
+			}
+		}
+	]
+}

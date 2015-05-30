@@ -8,63 +8,14 @@
 			"file_exclude_patterns" : [
 				"*.d", "*.a", "*.o"
 			]
-		},
-
-		{
-			"follow_symlinks": true,
-			"name" : "Source (DevelopmentGame)",
-			"path": "./Source",
-			"file_exclude_patterns" : [
-				"*.d", "*.a", "*.o"
-			]
-		},
-		{
-			"follow_symlinks": true,
-			"name" : "Source (Psybrus)",
-			"path": "./Psybrus/Engine",
-			"file_exclude_patterns" : [
-				"*.d", "*.a", "*.o"
-			]
-		},
-		{
-			"follow_symlinks": true,
-			"name" : "Source (External)",
-			"path": "./Psybrus/External",
-			"file_exclude_patterns" : [
-				"*.d", "*.a", "*.o"
-			]
-		},
-		{
-			"follow_symlinks": true,
-			"name" : "Scripts (Psybrus)",
-			"path": "./Psybrus/Scripts",
-			"file_exclude_patterns" : [
-				"*.d", "*.a", "*.o"
-			]
-		},
-		{
-			"follow_symlinks": true,
-			"name" : "Dist (DevelopmentGame)",
-			"path": "./Dist",
-			"file_exclude_patterns" : [
-				"*.d", "*.a", "*.o"
-			]
-		},
-		{
-			"follow_symlinks": true,
-			"name" : "Dist (Psybrus)",
-			"path": "./Psybrus/Dist",
-			"file_exclude_patterns" : [
-				"*.d", "*.a", "*.o"
-			]
 		}
 	],
 	
 	"settings":
-    {
-        "tab_size": 4,
-        "translate_tabs_to_spaces": false
-    },
+	{
+		"tab_size": 4,
+		"translate_tabs_to_spaces": false,
+	},
 
 	"build_systems":
 	[
@@ -94,6 +45,11 @@
 					"name": "Build Production",
 					"working_dir": "$project_path/Projects/gmake-linux-clang",
 					"cmd": ["make", "-j5", "config=production"],
+				},
+				{ 
+					"name": "Clean",
+					"working_dir": "$project_path/Projects/gmake-linux-clang",
+					"cmd": ["make", "clean"],
 				}
 			]
 		},
@@ -125,6 +81,11 @@
 					"name": "Build Production",
 					"working_dir": "$project_path/Projects/gmake-asmjs",
 					"cmd": ["make", "-j5", "config=production"],
+				},
+				{ 
+					"name": "Clean",
+					"working_dir": "$project_path/Projects/gmake-asmjs",
+					"cmd": ["make", "clean"]
 				}
 			]
 		}

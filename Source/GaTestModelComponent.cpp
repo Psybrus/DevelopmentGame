@@ -68,7 +68,7 @@ void GaTestModelComponent::onAttach( ScnEntityWeakRef Parent )
 	{
 		ScnEntitySpawnParams EntityParams = 
 		{
-			"model_test", "ModelEntity", BcName( "ModelEntity", Idx++ ),
+			BcName( "ModelEntity", Idx++ ), "model_test", "ModelEntity",
 			MaMat4d(),
 			getParentEntity()
 		};
@@ -88,12 +88,4 @@ void GaTestModelComponent::onDetach( ScnEntityWeakRef Parent )
 {
 	Super::onDetach( Parent );
 
-}
-
-//////////////////////////////////////////////////////////////////////////
-// getAABB
-//virtual
-MaAABB GaTestModelComponent::getAABB() const
-{
-	return MaAABB();
 }
