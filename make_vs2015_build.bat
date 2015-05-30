@@ -1,0 +1,1 @@
+Psybrus\Tools\genie\genie.exe --toolchain=windows-vs-v140 --platform=x64  --boostpath=%BOOST_ROOT% vs2015
