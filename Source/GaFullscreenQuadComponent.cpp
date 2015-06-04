@@ -90,12 +90,12 @@ GaFullscreenQuadComponent::~GaFullscreenQuadComponent()
 class GaFullscreenQuadComponentRenderNode: public RsRenderNode
 {
 public:
-	void render()
+	void render( RsContext* Context )
 	{
 		PSY_PROFILER_SECTION( RenderRoot, "GaFullscreenQuadComponentRenderNode::render" );
-		pContext_->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
-		pContext_->setVertexDeclaration( VertexDeclaration_ );
-		pContext_->drawPrimitives( Type_, Offset_, NoofIndices_ );
+		Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
+		Context->setVertexDeclaration( VertexDeclaration_ );
+		Context->drawPrimitives( Type_, Offset_, NoofIndices_ );
 	}
 
 	RsTopologyType Type_;
