@@ -95,6 +95,7 @@ void GaNetworkTestComponent::onAttach( ScnEntityWeakRef Parent )
 	Super::onAttach( Parent );
 	const BcU16 Port = 1234;
 
+#if !PLATFORM_HTML5 && !PLATFORM_ANDROID
 	if( IsServer_ )
 	{
 		Session_ = new NsSessionImpl( NsSessionImpl::SERVER, 32, Port );
@@ -105,7 +106,8 @@ void GaNetworkTestComponent::onAttach( ScnEntityWeakRef Parent )
 		Session_ = new NsSessionImpl( NsSessionImpl::CLIENT, "127.0.0.1", Port );
 		NetworkedProxy_ = new NsEventProxy( this, Session_, 0 );
 	}
-
+#endif
+	
 	EvtPublisher::subscribe( 1, this,
 		[ this ]( EvtID ID, const EvtBaseEvent& InEvent )->eEvtReturn
 		{
