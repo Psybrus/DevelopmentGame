@@ -85,25 +85,6 @@ GaTestShaderComponent::~GaTestShaderComponent()
 
 //////////////////////////////////////////////////////////////////////////
 // render
-class GaTestShaderComponentRenderNode: public RsRenderNode
-{
-public:
-	void render( RsContext* Context )
-	{
-		PSY_PROFILER_SECTION( RenderRoot, "GaTestShaderComponentRenderNode::render" );
-		Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
-		Context->setVertexDeclaration( VertexDeclaration_ );
-		Context->drawPrimitives( Type_, Offset_, NoofIndices_ );
-	}
-
-	RsTopologyType Type_;
-	BcU32 Offset_;
-	BcU32 NoofIndices_;
-	RsBuffer* VertexBuffer_;
-	RsVertexDeclaration* VertexDeclaration_;
-};
-
-
 //virtual 
 void GaTestShaderComponent::render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort )
 {
@@ -129,18 +110,15 @@ void GaTestShaderComponent::render( class ScnViewComponent* pViewComponent, RsFr
 	// Bind material.
 	MaterialComponent_->bind( pFrame, Sort );
 
-
-	// Render primitive.
-	GaTestShaderComponentRenderNode* pRenderNode = pFrame->newObject< GaTestShaderComponentRenderNode >();
-			
-	pRenderNode->Type_ = RsTopologyType::TRIANGLE_STRIP;
-	pRenderNode->Offset_ = 0;
-	pRenderNode->NoofIndices_ = 4;
-	pRenderNode->VertexBuffer_ = VertexBuffer_;
-	pRenderNode->VertexDeclaration_ = VertexDeclaration_;
-	pRenderNode->Sort_ = Sort;
-			
-	pFrame->addRenderNode( pRenderNode );
+	// Render primitive.				
+	pFrame->queueRenderNode( Sort,
+		[ this ]( RsContext* Context )
+		{
+			PSY_PROFILER_SECTION( RenderRoot, "GaTestShaderComponentRenderNode::render" );
+			Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
+			Context->setVertexDeclaration( VertexDeclaration_ );
+			Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
+		} );
 }
 
 //////////////////////////////////////////////////////////////////////////

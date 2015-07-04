@@ -87,25 +87,6 @@ GaFullscreenQuadComponent::~GaFullscreenQuadComponent()
 
 //////////////////////////////////////////////////////////////////////////
 // render
-class GaFullscreenQuadComponentRenderNode: public RsRenderNode
-{
-public:
-	void render( RsContext* Context )
-	{
-		PSY_PROFILER_SECTION( RenderRoot, "GaFullscreenQuadComponentRenderNode::render" );
-		Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
-		Context->setVertexDeclaration( VertexDeclaration_ );
-		Context->drawPrimitives( Type_, Offset_, NoofIndices_ );
-	}
-
-	RsTopologyType Type_;
-	BcU32 Offset_;
-	BcU32 NoofIndices_;
-	RsBuffer* VertexBuffer_;
-	RsVertexDeclaration* VertexDeclaration_;
-};
-
-
 //virtual 
 void GaFullscreenQuadComponent::render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort )
 {
@@ -133,16 +114,14 @@ void GaFullscreenQuadComponent::render( class ScnViewComponent* pViewComponent, 
 
 
 	// Render primitive.
-	GaFullscreenQuadComponentRenderNode* pRenderNode = pFrame->newObject< GaFullscreenQuadComponentRenderNode >();
-			
-	pRenderNode->Type_ = RsTopologyType::TRIANGLE_STRIP;
-	pRenderNode->Offset_ = 0;
-	pRenderNode->NoofIndices_ = 4;
-	pRenderNode->VertexBuffer_ = VertexBuffer_;
-	pRenderNode->VertexDeclaration_ = VertexDeclaration_;
-	pRenderNode->Sort_ = Sort;
-			
-	pFrame->addRenderNode( pRenderNode );
+	pFrame->queueRenderNode( Sort,
+		[ this ]( RsContext* Context )
+		{
+			PSY_PROFILER_SECTION( RenderRoot, "GaFullscreenQuadComponentRenderNode::render" );
+			Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
+			Context->setVertexDeclaration( VertexDeclaration_ );
+			Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
+		} );
 }
 
 //////////////////////////////////////////////////////////////////////////

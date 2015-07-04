@@ -48,7 +48,7 @@ PsyProjectGameExe( solution().name )
       "wave",
    }
 
-   configuration { "windows-* or linux-* or osx-*" }
+   configuration { "windows-* or linux-* or osx-* or android-*" }
       PsyAddExternalLinks {
          "assimp",
          "assimp_contrib",
@@ -83,6 +83,15 @@ PsyProjectGameExe( solution().name )
    configuration "osx-*"
       includedirs {
          "../Psybrus/Engine/Source/Platforms/OSX/",
+      }
+      
+      prebuildcommands {
+         "python ../../Psybrus/reflection_parse.py " .. solution().name
+      }
+
+   configuration "android-*"
+      includedirs {
+         "../Psybrus/Engine/Source/Platforms/Android/",
       }
 
       prebuildcommands {

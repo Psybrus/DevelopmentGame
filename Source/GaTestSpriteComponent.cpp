@@ -50,7 +50,8 @@ void GaTestSpriteComponent::StaticRegisterClass()
 //////////////////////////////////////////////////////////////////////////
 // Ctor
 GaTestSpriteComponent::GaTestSpriteComponent():
-	Canvas_( nullptr )
+	Canvas_( nullptr ),
+	LightTimer_( 0.0f )
 {
 
 }
