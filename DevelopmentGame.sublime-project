@@ -55,6 +55,41 @@
 		},
 
 		{
+			"name": "gmake-osx-clang",
+			"working_dir": "$project_path",
+			"cmd": [
+				"Psybrus/Tools/genie/genie-osx",
+				"--platform=x64",
+				"--toolchain=osx-clang",
+				"--boostpath=/Users/Neilo/Dev/boost_1_57_0",
+				"gmake"
+			],
+			"file_regex" : "(../../[^:\n]*):([0-9]+):?([0-9]+)?",
+			"variants" : [
+				{ 
+					"name": "Build Debug",
+					"working_dir": "$project_path/Projects/gmake-osx-clang",
+					"cmd": ["make", "-j5", "config=debug"],
+				},
+				{ 
+					"name": "Build Release",
+					"working_dir": "$project_path/Projects/gmake-osx-clang",
+					"cmd": ["make", "-j5", "config=release"],
+				},
+				{ 
+					"name": "Build Production",
+					"working_dir": "$project_path/Projects/gmake-osx-clang",
+					"cmd": ["make", "-j5", "config=production"],
+				},
+				{ 
+					"name": "Clean",
+					"working_dir": "$project_path/Projects/gmake-osx-clang",
+					"cmd": ["make", "clean"],
+				}
+			]
+		},
+
+		{
 			"name": "gmake-asmjs",
 			"working_dir": "$project_path",
 			"cmd": [
