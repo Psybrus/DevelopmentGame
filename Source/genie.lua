@@ -48,7 +48,7 @@ PsyProjectGameExe( solution().name )
       "wave",
    }
 
-   configuration { "windows-* or linux-* or osx-* or android-*" }
+   configuration { "windows-* or linux-* or osx-*" }
       PsyAddExternalLinks {
          "assimp",
          "assimp_contrib",
