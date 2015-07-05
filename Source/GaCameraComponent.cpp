@@ -48,6 +48,10 @@ GaCameraComponent::GaCameraComponent()
 	NextCameraState_ = STATE_IDLE;
 	CameraDistance_ = 16.0f;
 	CameraZoom_ = 0.0f;
+
+#if PLATFORM_ANDROID
+	CameraRotation_ = MaVec3d( 0.1f, 0.0f, 0.0f );
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -63,6 +67,10 @@ GaCameraComponent::~GaCameraComponent()
 //virtual
 void GaCameraComponent::preUpdate( BcF32 Tick )
 {
+#if PLATFORM_ANDROID
+	CameraRotation_ += MaVec3d( 0.0f, 0.05f, 0.0f ) * Tick;
+#endif
+
 	// Update state.
 	switch( CameraState_ )
 	{

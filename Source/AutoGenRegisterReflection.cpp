@@ -2,7 +2,6 @@
 #include "Math/MaCPUVec2d.h"
 #include "Math/MaCPUVec3d.h"
 #include "Math/MaCPUVec4d.h"
-#include "Math/MaFrustum.h"
 #include "Math/MaMat3d.h"
 #include "Math/MaMat4d.h"
 #include "Math/MaPlane.h"
@@ -63,7 +62,6 @@
 #include "System/Scene/Rendering/ScnTextureAtlas.h"
 #include "System/Scene/Rendering/ScnTileMap.h"
 #include "System/Scene/Rendering/ScnViewComponent.h"
-#include "System/Scene/Rendering/ScnViewProcessor.h"
 #include "System/Scene/ScnComponent.h"
 #include "System/Scene/ScnComponentProcessor.h"
 #include "System/Scene/ScnEntity.h"
@@ -95,7 +93,6 @@ void AutoGenRegisterReflection()
 	MaCPUVec2d::StaticRegisterClass();
 	MaCPUVec3d::StaticRegisterClass();
 	MaCPUVec4d::StaticRegisterClass();
-	MaFrustum::StaticRegisterClass();
 	MaMat3d::StaticRegisterClass();
 	MaMat4d::StaticRegisterClass();
 	MaPlane::StaticRegisterClass();
@@ -181,7 +178,6 @@ void AutoGenRegisterReflection()
 	ScnTileMap::StaticRegisterClass();
 	ScnTileMapComponent::StaticRegisterClass();
 	ScnViewComponent::StaticRegisterClass();
-	ScnViewProcessor::StaticRegisterClass();
 	ScnComponent::StaticRegisterClass();
 	ScnComponentProcessor::StaticRegisterClass();
 	ScnEntity::StaticRegisterClass();
