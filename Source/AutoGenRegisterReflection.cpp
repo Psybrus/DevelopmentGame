@@ -62,7 +62,6 @@
 #include "System/Scene/Rendering/ScnTextureAtlas.h"
 #include "System/Scene/Rendering/ScnTileMap.h"
 #include "System/Scene/Rendering/ScnViewComponent.h"
-#include "System/Scene/Rendering/ScnViewProcessor.h"
 #include "System/Scene/ScnComponent.h"
 #include "System/Scene/ScnComponentProcessor.h"
 #include "System/Scene/ScnEntity.h"
@@ -179,7 +178,6 @@ void AutoGenRegisterReflection()
 	ScnTileMap::StaticRegisterClass();
 	ScnTileMapComponent::StaticRegisterClass();
 	ScnViewComponent::StaticRegisterClass();
-	ScnViewProcessor::StaticRegisterClass();
 	ScnComponent::StaticRegisterClass();
 	ScnComponentProcessor::StaticRegisterClass();
 	ScnEntity::StaticRegisterClass();
