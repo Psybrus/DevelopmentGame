@@ -37,6 +37,7 @@ PsyProjectGameExe( solution().name )
       "jsoncpp",
       "libb64",
       "png",
+      "squish",
       "SoLoud",
       "zlib",
    }
@@ -56,7 +57,6 @@ PsyProjectGameExe( solution().name )
          "hlsl2glslfork",
          "HLSLCrossCompiler",
          "glew",
-         "squish",
          "RakNet",
          "webby",
          "ThinkGear",

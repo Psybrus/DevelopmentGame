@@ -15,4 +15,3 @@ dofile ("Psybrus/Engine/genie.lua")
 
 -- Build game source.
 dofile ("./Source/genie.lua")
-
