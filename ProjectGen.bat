@@ -1,0 +1,2 @@
+Psybrus\Scripts\ProjectGen.py %*
+
