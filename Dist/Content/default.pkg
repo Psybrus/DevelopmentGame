@@ -39,11 +39,12 @@
 							"entity" : "$(ScnEntity:animation_test.TestEntity)"
 						},
 
+/*
 						{ 
 							"name" : "Render target test",
 							"entity" : "$(ScnEntity:render_target_test.TestEntity)"
 						},
-
+*/
 						{ 
 							"name" : "Shader test",
 							"entity" : "$(ScnEntity:shader_test.TestEntity)"
@@ -101,6 +102,7 @@
 					"type"					: "ScnSoundListenerComponent"
 				},
 
+/*
 				{
 					"type"					: "ScnViewComponent",
 					"x"						: 0.0,
@@ -117,7 +119,7 @@
 					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
 					"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"					
 				},
-
+*/
 				{
 					"type"					: "ScnViewComponent",
 					"x"						: 0.0,
@@ -130,7 +132,7 @@
 					"verticalfov"			: 0.0,
 					"rendermask"			: 1
 				},
-
+/*
 				{
 					"type"					: "ScnPostProcessComponent",
 					"input" 				: "$(ScnTexture:pp_textures.pp_framebuffer)",
@@ -267,6 +269,7 @@
 
 					"output" 				: "$(ScnTexture:pp_textures.pp_framebuffer)"
 				},
+*/
 				
 				{
 					"type"					: "ScnLightComponent",
