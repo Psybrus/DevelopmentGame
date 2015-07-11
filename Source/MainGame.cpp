@@ -32,26 +32,15 @@
 #include <type_traits>
 
 //////////////////////////////////////////////////////////////////////////
-// Android entry point
-#if PLATFORM_ANDROID
-#include <android_native_app_glue.h>
-
-extern void PsyAndroidMain( struct android_app* State );
-
-extern "C"
-{
-	void android_main( struct android_app* State )
-	{
-		// Make sure glue isn't stripped.
-		app_dummy();
-		PsyAndroidMain( State );
-	}
-}
-#endif
-
-//////////////////////////////////////////////////////////////////////////
 // GPsySetupParams
 PsySetupParams GPsySetupParams( "Development Game", psySF_GAME_DEV, 1.0f / 60.0f );	
+
+//////////////////////////////////////////////////////////////////////////
+// game_dummy
+void game_dummy()
+{
+	BcPrintf( "game_dummy" );
+}
 
 //////////////////////////////////////////////////////////////////////////
 // PsyGameInit
@@ -64,8 +53,6 @@ void PsyGameInit()
 // PsyLaunchGame
 void PsyLaunchGame()
 {
-	PSY_LOG( __PRETTY_FUNCTION__ );
-
 	ScnEntitySpawnParams ScreenEntityParams = 
 	{
 		"MenuEntity_0", "default", "MenuEntity",
