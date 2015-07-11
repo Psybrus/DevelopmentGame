@@ -104,7 +104,7 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 		BcU32 Idx = 0;
 		for( const auto& Option : Options_ )
 		{
-			if( ImGui::SmallButton( Option.Name_.c_str() ) )
+			if( ImGui::Button( Option.Name_.c_str() ) )
 			{
 				LoadEntity( Idx );
 			}

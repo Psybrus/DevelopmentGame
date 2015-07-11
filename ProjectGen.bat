@@ -1,2 +1,2 @@
-Psybrus\Scripts\ProjectGen.py %*
+python Psybrus\Scripts\ProjectGen.py %*
 
