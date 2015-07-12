@@ -64,8 +64,6 @@ void PsyGameInit()
 // PsyLaunchGame
 void PsyLaunchGame()
 {
-	PSY_LOG( __PRETTY_FUNCTION__ );
-
 	ScnEntitySpawnParams ScreenEntityParams = 
 	{
 		"MenuEntity_0", "default", "MenuEntity",
