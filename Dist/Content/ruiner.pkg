@@ -88,16 +88,24 @@
 
 			"source"		: "Content/Source/ruiner/character/ruinerbody01_d.png",
 
-			"@(pc,low)"		: {
-				"format"	: "DXT1"
+			"@(pc)"	: {
+				"format" : "R8G8B8A8",
+
+				"@(high)" : {
+					"format" : "DXT1"
+				}
 			},
 
-			"@(pc,high)"	: {
-				"format"	: "R8G8B8A8"
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
 			},
 
-			"@(android)"	: {
-				"format"	: "ETC1"
+			"@(html5)" : {
+				"format" : "DXT1"
 			}
 		},
 
@@ -107,18 +115,25 @@
 
 			"source"		: "Content/Source/ruiner/character/ruinerbody01_local.png",
 
-			"@(pc,low)"		: {
-				"format"	: "DXT1"
+			"@(pc)"	: {
+				"format" : "R8G8B8A8",
+
+				"@(high)" : {
+					"format" : "DXT1"
+				}
 			},
 
-			"@(pc,high)"	: {
-				"format"	: "R8G8B8A8"
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
 			},
 
-			"@(android)"	: {
-				"format"	: "ETC1"
+			"@(html5)" : {
+				"format" : "DXT1"
 			}
-
 		}
 	]
 }
