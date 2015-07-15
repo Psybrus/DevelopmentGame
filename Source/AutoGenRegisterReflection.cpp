@@ -98,6 +98,7 @@ void AutoGenRegisterReflection()
 	MaPlane::StaticRegisterClass();
 	MaQuat::StaticRegisterClass();
 	CsPackage::StaticRegisterClass();
+	CsPackageImportParams::StaticRegisterClass();
 	CsPackageDependencies::StaticRegisterClass();
 	CsRedirectorImport::StaticRegisterClass();
 	CsRedirector::StaticRegisterClass();
