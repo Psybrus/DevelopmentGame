@@ -7,6 +7,7 @@
 
 			"components" : [
 				{
+					"$Class"				: "ScnModelComponent",
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
@@ -16,6 +17,7 @@
 				},
 
 				{
+					"$Class"				: "GaFullscreenQuadComponent",
 					"type"					: "GaFullscreenQuadComponent",
 					"material"				: "$(ScnMaterial:materials.test_rt)",
 					"rendermask"			: 1

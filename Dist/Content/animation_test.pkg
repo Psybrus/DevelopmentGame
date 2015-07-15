@@ -7,18 +7,21 @@
 
 			"components" : [
 				{
+					"$Class"				: "ScnFontComponent",
 					"type"					: "ScnFontComponent",
 					"font"					: "$(ScnFont:fonts.courier)",
 					"material"				: "$(ScnMaterial:materials.font)"
 				},
 
 				{
+					"$Class"				: "ScnCanvasComponent",
 					"type"					: "ScnCanvasComponent",
 					"noofvertices" 			: 8192,
 					"rendermask"			: 1
 				},
 
 				{
+					"$Class"				: "GaLevelComponent",
 					"type"					: "GaLevelComponent",
 
 					"entities"				: [
@@ -54,6 +57,7 @@
 
 			"components" : [
 				{
+					"$Class"				: "GaAnimationControllerComponent",
 					"type"					: "GaAnimationControllerComponent",
 					"name"					: "AnimationController",
 
@@ -63,6 +67,7 @@
 				},
 
 				{
+					"$Class"				: "ScnModelComponent",
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
@@ -71,6 +76,7 @@
 				},
 
 				{
+					"$Class"				: "ScnAnimationComponent",
 					"type"					: "ScnAnimationComponent",
 					"name"					: "TestAnimation",
 					"target"				: "TestModel",

@@ -9,12 +9,14 @@
 
 			"components" : [
 				{
+					"$Class"				: "ScnFontComponent",
 					"type"					: "ScnFontComponent",
 					"font"					: "$(ScnFont:fonts.courier)",
 					"material"				: "$(ScnMaterial:materials.font)"
 				},
 
 				{
+					"$Class"				: "ScnDebugRenderComponent",
 					"type"					: "ScnDebugRenderComponent",
 					"noofvertices"			: 65536,
 					"material"				: "$(ScnMaterial:materials.debugrender)",
@@ -22,12 +24,14 @@
 				},
 
 				{
+					"$Class"				: "ScnCanvasComponent",
 					"type"					: "ScnCanvasComponent",
 					"noofvertices" 			: 8192,
 					"rendermask"			: 1
 				},
 
 				{
+					"$Class"				: "GaTestSelectionComponent",
 					"type"					: "GaTestSelectionComponent",
 
 					"runautomatedtest"		: false,
@@ -95,15 +99,18 @@
 
 			"components" : [
 				{
+					"$Class"				: "GaCameraComponent",
 					"type"					: "GaCameraComponent"
 				},
 
 				{
+					"$Class"				: "ScnSoundListenerComponent",
 					"type"					: "ScnSoundListenerComponent"
 				},
 
 /*
 				{
+					"$Class"				: "ScnViewComponent",
 					"type"					: "ScnViewComponent",
 					"x"						: 0.0,
 					"y"						: 0.0,
@@ -121,6 +128,7 @@
 				},
 */
 				{
+					"$Class"				: "ScnViewComponent",
 					"type"					: "ScnViewComponent",
 					"x"						: 0.0,
 					"y"						: 0.0,
@@ -134,6 +142,7 @@
 				},
 /*
 				{
+					"$Class"				: "ScnPostProcessComponent",
 					"type"					: "ScnPostProcessComponent",
 					"input" 				: "$(ScnTexture:pp_textures.pp_framebuffer)",
 
@@ -272,6 +281,7 @@
 */
 				
 				{
+					"$Class"				: "ScnLightComponent",
 					"type"					: "ScnLightComponent",
 					"name"					: "Sunlight",
 
