@@ -1,4 +1,11 @@
 Build/
-Dist/IntermediateContent/
+Dist/screenshot.png
+Dist/test_component.json
+Dist/imgui.ini
+Dist/*-Debug*
+Dist/Intermediate/
 Dist/PackedContent/
 /Projects/
+*.sublime-workspace
+.DS_Store
+
