@@ -3,3 +3,5 @@ PsyProjectGameLib( solution().name )
 
 
 PsyProjectGameExe( solution().name )
+
+PsyProjectImporterExe( solution().name )

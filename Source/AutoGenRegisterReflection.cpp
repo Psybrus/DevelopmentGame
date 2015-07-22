@@ -8,6 +8,7 @@
 #include "Math/MaQuat.h"
 #include "System/Content/CsPackage.h"
 #include "System/Content/CsPackageImporter.h"
+#include "System/Content/CsPlatformParams.h"
 #include "System/Content/CsRedirector.h"
 #include "System/Content/CsResource.h"
 #include "System/Content/CsResourceImporter.h"
@@ -98,8 +99,8 @@ void AutoGenRegisterReflection()
 	MaPlane::StaticRegisterClass();
 	MaQuat::StaticRegisterClass();
 	CsPackage::StaticRegisterClass();
-	CsPackageImportParams::StaticRegisterClass();
 	CsPackageDependencies::StaticRegisterClass();
+	CsPlatformParams::StaticRegisterClass();
 	CsRedirectorImport::StaticRegisterClass();
 	CsRedirector::StaticRegisterClass();
 	CsResource::StaticRegisterClass();
