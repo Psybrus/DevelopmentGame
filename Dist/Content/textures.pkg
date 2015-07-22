@@ -5,7 +5,23 @@
 			"name"			: "default",
 
 			"source"		: "EngineContent/TextureSource/default.png",
-			"spread"		: 32
+			"spread"		: 32,
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			},
+
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
 		},
 
 		{
@@ -17,28 +33,86 @@
 				"EngineContent/TextureSource/particle1.png",
 				"EngineContent/TextureSource/particle2.png",
 				"EngineContent/TextureSource/particle3.png"
-			]
+			],
+
+			"format" : "R8G8B8A8",
+
+			"@(pc)"	: {
+				"format" : "DXT5"
+			},
+
+			"@(html5)" : {
+				"format" : "DXT5"
+			}
 		},
 
 		{
 			"type"			: "ScnTexture",
 			"name"			: "test",
 
-			"source"		: "Content/Source/testtexture.png"
+			"source"		: "Content/Source/testtexture.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			},
+
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
 		},
 
 		{
 			"type"			: "ScnTexture",
 			"name"			: "suit",
 
-			"source"		: "Content/Source/undead/vestiti-capelliV.png"
+			"source"		: "Content/Source/undead/vestiti-capelliV.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			},
+
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
 		},
 
 		{
 			"type"			: "ScnTexture",
 			"name"			: "face",
 
-			"source"		: "Content/Source/undead/text_corpoV.png"
+			"source"		: "Content/Source/undead/text_corpoV.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			},
+
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
 		},
 
 		////////////////////////////////////////////////////////////////////////

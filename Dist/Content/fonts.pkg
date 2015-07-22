@@ -19,13 +19,18 @@
 
 			"backendtypes" : [
 				"GLSL",
-				"GLSL_ES",
 				"D3D11"
 			],
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
+			},
+
+			"@(android)" : {
+				"backendtypes" : [
+					"GLSL_ES"
+				]
 			}
 		},
 

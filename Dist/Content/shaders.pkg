@@ -20,14 +20,20 @@
 
 			"backendtypes" : [
 				"GLSL",
-				"GLSL_ES",
 				"D3D11"
 			],
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
+			},
+
+			"@(android)" : {
+				"backendtypes" : [
+					"GLSL_ES"
+				]
 			}
+
 		},
 
 		{
@@ -50,13 +56,18 @@
 
 			"backendtypes" : [
 				"GLSL",
-				"GLSL_ES",
 				"D3D11"
 			],
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
+			},
+
+			"@(android)" : {
+				"backendtypes" : [
+					"GLSL_ES"
+				]
 			}
 		},
 
@@ -79,13 +90,18 @@
 
 			"backendtypes" : [
 				"GLSL",
-				"GLSL_ES",
 				"D3D11"
 			],
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
+			},
+
+			"@(android)" : {
+				"backendtypes" : [
+					"GLSL_ES"
+				]
 			}
 		},
 
@@ -108,13 +124,18 @@
 
 			"backendtypes" : [
 				"GLSL",
-				"GLSL_ES",
 				"D3D11"
 			],
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
+			},
+
+			"@(android)" : {
+				"backendtypes" : [
+					"GLSL_ES"
+				]
 			}
 		},
 
@@ -138,14 +159,30 @@
 
 			"backendtypes" : [
 				"GLSL",
-				"GLSL_ES",
 				"D3D11"
 			],
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
-				//"geometry" : 	"geometryMain",
 				"pixel" :		"pixelMain"
+			},
+
+			"@(pc)" : {
+				"codetypes"	: [
+					"D3D11_4_0"
+				],
+
+				"entrypoints"		: {
+					"vertex" : 		"vertexMain",
+					"geometry" : 	"geometryMain",
+					"pixel" :		"pixelMain"
+				}
+			},
+
+			"@(android)" : {
+				"backendtypes" : [
+					"GLSL_ES"
+				]
 			}
 		}
 	]
