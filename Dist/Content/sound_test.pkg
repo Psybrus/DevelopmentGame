@@ -21,6 +21,13 @@
 				},
 
 				{
+					"$Class"				: "ScnSoundEmitterComponent",
+					"type"					: "ScnSoundEmitterComponent",
+					"velocitymultiplier"	: 100.0,
+					"maxvelocity"			: 100.0
+				},
+
+				{
 					"$Class"				: "GaMovingComponent",
 					"type"					: "GaMovingComponent",
 					"position"				: "0.0, 0.0, 0.0",
@@ -37,7 +44,8 @@
 				{
 					"$Class"				: "GaTestSoundComponent",
 					"type"					: "GaTestSoundComponent",
-					"sound"					: "$(ScnSound:this.Sound)"
+					"sound"					: "$(ScnSound:this.Sound)",
+					"music"					: "$(ScnSound:this.Music)"
 				}
 			]
 		},
@@ -47,6 +55,13 @@
 			"name"		:		"Sound",
 			"type"		:		"ScnSound",
 			"source"	:		"Content/Source/explode.sfs",
+			"isstream"	:		true
+		},
+
+		{
+			"name"		:		"Music",
+			"type"		:		"ScnSound",
+			"source"	:		"Content/Source/HecticMurderParty.ogg",
 			"isstream"	:		true
 		}
 	]

@@ -45,7 +45,9 @@ public:
 
 private:
 	ScnSoundRef Sound_;
+	ScnSoundRef Music_;
 	ScnSoundEmitterComponentRef SoundEmitter_;
+	ScnSoundEmitterComponentRef MusicEmitter_;
 	
 	std::vector< BcF32 > VisFFT_;
 	std::vector< BcF32 > VisWave_;
