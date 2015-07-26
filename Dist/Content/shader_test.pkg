@@ -7,18 +7,21 @@
 
 			"components" : [
 				{
+					"$Class"				: "ScnFontComponent",
 					"type"					: "ScnFontComponent",
 					"font"					: "$(ScnFont:fonts.courier)",
 					"material"				: "$(ScnMaterial:materials.font)"
 				},
 
 				{
+					"$Class"				: "ScnCanvasComponent",
 					"type"					: "ScnCanvasComponent",
 					"noofvertices" 			: 8192,
 					"rendermask"			: 1
 				},
 
 				{
+					"$Class"				: "GaTestShaderComponent",
 					"type"					: "GaTestShaderComponent",
 
 					"material"				: "$(ScnMaterial:materials.geometry_test)"

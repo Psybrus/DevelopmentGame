@@ -36,7 +36,9 @@ void GaTestSoundComponent::StaticRegisterClass()
 	ReField* Fields[] = 
 	{
 		new ReField( "Sound_", &GaTestSoundComponent::Sound_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+		new ReField( "Music_", &GaTestSoundComponent::Music_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
 		new ReField( "SoundEmitter_", &GaTestSoundComponent::SoundEmitter_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+		new ReField( "MusicEmitter_", &GaTestSoundComponent::MusicEmitter_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
 	};
 
 	ReRegisterClass< GaTestSoundComponent, Super >( Fields )
@@ -70,9 +72,9 @@ void GaTestSoundComponent::update( BcF32 Tick )
 
 	static float Ticker = 0.0f;
 	Ticker += Tick;
-	if( Ticker > 0.2f )
+	if( Ticker > 2.0f )
 	{
-		Ticker -= 0.2f;
+		Ticker -= 2.0f;
 		SoundEmitter_->setPitch( ( Rand.randReal() + 2.0f ) * 0.5f );
 		SoundEmitter_->play( Sound_, true );
 	}
@@ -105,7 +107,10 @@ void GaTestSoundComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 
-	SoundEmitter_ = Parent->getComponentAnyParentByType< ScnSoundEmitterComponent >();
+	SoundEmitter_ = Parent->getComponentAnyParentByType< ScnSoundEmitterComponent >( 0 );
+	MusicEmitter_ = Parent->getComponentAnyParentByType< ScnSoundEmitterComponent >( 1 );
+
+	MusicEmitter_->play( Music_, true );
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -57,44 +57,63 @@
 			"working_dir": "$project_path"
 		},
 		{
-			"name": "gmake-osx-clang",
-			"working_dir": "$project_path",
-			"cmd": [
+			"cmd":
+			[
 				"Psybrus/Tools/genie/genie-osx",
 				"--platform=x64",
 				"--toolchain=osx-clang",
 				"--boostpath=/Users/Neilo/Dev/boost_1_57_0",
 				"gmake"
 			],
-			"file_regex" : "(../../[^:\n]*):([0-9]+):?([0-9]+)?",
-			"variants" : [
-				{ 
+			"file_regex": "(../../[^:\n]*):([0-9]+):?([0-9]+)?",
+			"name": "gmake-osx-clang",
+			"variants":
+			[
+				{
+					"cmd":
+					[
+						"make",
+						"-j5",
+						"config=debug"
+					],
 					"name": "Build Debug",
-					"working_dir": "$project_path/Projects/gmake-osx-clang",
-					"cmd": ["make", "-j5", "config=debug"],
+					"working_dir": "$project_path/Projects/gmake-osx-clang"
 				},
-				{ 
+				{
+					"cmd":
+					[
+						"make",
+						"-j5",
+						"config=release"
+					],
 					"name": "Build Release",
-					"working_dir": "$project_path/Projects/gmake-osx-clang",
-					"cmd": ["make", "-j5", "config=release"],
+					"working_dir": "$project_path/Projects/gmake-osx-clang"
 				},
-				{ 
+				{
+					"cmd":
+					[
+						"make",
+						"-j5",
+						"config=production"
+					],
 					"name": "Build Production",
-					"working_dir": "$project_path/Projects/gmake-osx-clang",
-					"cmd": ["make", "-j5", "config=production"],
+					"working_dir": "$project_path/Projects/gmake-osx-clang"
 				},
-				{ 
+				{
+					"cmd":
+					[
+						"make",
+						"clean"
+					],
 					"name": "Clean",
-					"working_dir": "$project_path/Projects/gmake-osx-clang",
-					"cmd": ["make", "clean"],
+					"working_dir": "$project_path/Projects/gmake-osx-clang"
 				}
-			]
+			],
+			"working_dir": "$project_path"
 		},
-
 		{
-			"name": "gmake-asmjs",
-			"working_dir": "$project_path",
-			"cmd": [
+			"cmd":
+			[
 				"Psybrus/Tools/genie/genie-linux",
 				"--toolchain=asmjs",
 				"gmake"
@@ -161,6 +180,9 @@
 			],
 			"name": "Root",
 			"path": "."
+		},
+		{
+			"path": "/Users/Neilo/Dev/android-ndk-r10e/platforms/android-18"
 		}
 	],
 	"settings":

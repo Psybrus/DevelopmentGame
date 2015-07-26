@@ -86,14 +86,46 @@
 			"type"			: "ScnTexture",
 			"name"			: "ruinerbody01_d",
 
-			"source"		: "Content/Source/ruiner/character/ruinerbody01_d.png"
+			"source"		: "Content/Source/ruiner/character/ruinerbody01_d.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			},
+
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
 		},
 
 		{
 			"type"			: "ScnTexture",
 			"name"			: "ruinerbody01_local",
 
-			"source"		: "Content/Source/ruiner/character/ruinerbody01_local.png"
+			"source"		: "Content/Source/ruiner/character/ruinerbody01_local.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			},
+
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
 		}
 	]
 }
