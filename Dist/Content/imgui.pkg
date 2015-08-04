@@ -3,7 +3,12 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "default_shader",
-			"source"		: "Content/Engine/imgui_default.hlsl",
+
+			"sources" 		: {
+				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/imgui.hlsl",
+				"GLSL_330" : "Content/Engine/imgui.glsl",
+				"GLSL_ES_100" : "Content/Engine/imgui.glsl"
+			},
 
 			"includepermutations" : [
 				"MESH_STATIC_2D",
@@ -11,26 +16,21 @@
 				"LIGHTING_NONE"
 			],
 
-			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				"GLSL_ES",
-				"D3D11"
-			],
-
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
-				"pixel" :		"pixelMain"
+				"pixel" :		"pixelDefaultMain"
 			}
 		},
 
 		{
 			"type"			: "ScnShader",
 			"name"			: "textured_shader",
-			"source"		: "Content/Engine/imgui_textured.hlsl",
+
+			"sources" 		: {
+				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/imgui.hlsl",
+				"GLSL_330" : "Content/Engine/imgui.glsl",
+				"GLSL_ES_100" : "Content/Engine/imgui.glsl"
+			},
 
 			"includepermutations" : [
 				"MESH_STATIC_2D",
@@ -38,19 +38,9 @@
 				"LIGHTING_NONE"
 			],
 
-			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				"GLSL_ES",
-				"D3D11"
-			],
-
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
-				"pixel" :		"pixelMain"
+				"pixel" :		"pixelTexturedMain"
 			}
 		}
 	]

@@ -39,10 +39,23 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 }
 
 ////////////////////////////////////////////////////////////////////////
-// pixelMain
-PS_OUTPUT pixelMain( VS_OUTPUT i )
+// pixelDefaultMain
+PS_OUTPUT pixelDefaultMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
 	o.Colour_ = i.Colour_;
 	return o;
 }
+
+////////////////////////////////////////////////////////////////////////
+// pixelTexturedMain
+PSY_SAMPLER_2D( DiffuseTex );
+
+PS_OUTPUT pixelTexturedMain( VS_OUTPUT i )
+{
+	PS_OUTPUT o = (PS_OUTPUT)0;
+	float4 Colour = PSY_SAMPLE_2D( DiffuseTex, i.TexCoord0_.xy );
+	o.Colour_ = Colour * i.Colour_;
+	return o;
+}
+
