@@ -250,6 +250,8 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		ScnShaderPermutationFlags::RENDER_FORWARD |
 		ScnShaderPermutationFlags::LIGHTING_NONE;
 
+	const auto& Features = RsCore::pImpl()->getContext( nullptr )->getFeatures();
+
 	// Setup materials & textures.
 	if( Material1D_ )
 	{
@@ -257,26 +259,29 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 			BcName::INVALID, Material1D_, ShaderPermutation );
 
 		// Create texture.
-		Texture1D_ = new ScnTexture( 32, 1, RsTextureFormat::R8G8B8A8 );
-		auto Slice = Texture1D_->getTexture()->getSlice( 0 );
-		RsCore::pImpl()->updateTexture( 
-			Texture1D_->getTexture(),
-			Slice,
-			RsResourceUpdateFlags::ASYNC,
-			[]( RsTexture* Texture, const RsTextureLock& Lock )
-			{
-				const auto& Desc = Texture->getDesc();
-				BcU32* Data = reinterpret_cast< BcU32* >( 
-					reinterpret_cast< BcU8* >( Lock.Buffer_ ) );
-				for( BcU32 X = 0; X < Desc.Width_; ++X )
+		if( Features.Texture1D_ )
+		{
+			Texture1D_ = new ScnTexture( 32, 1, RsTextureFormat::R8G8B8A8 );
+			auto Slice = Texture1D_->getTexture()->getSlice( 0 );
+			RsCore::pImpl()->updateTexture( 
+				Texture1D_->getTexture(),
+				Slice,
+				RsResourceUpdateFlags::ASYNC,
+				[]( RsTexture* Texture, const RsTextureLock& Lock )
 				{
-					const BcU32 XDiv = X / 4;
-					*Data++ = ( ( ( XDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
-				}
-			} );
+					const auto& Desc = Texture->getDesc();
+					BcU32* Data = reinterpret_cast< BcU32* >( 
+						reinterpret_cast< BcU8* >( Lock.Buffer_ ) );
+					for( BcU32 X = 0; X < Desc.Width_; ++X )
+					{
+						const BcU32 XDiv = X / 4;
+						*Data++ = ( ( ( XDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
+					}
+				} );
 
-		// Bind.
-		MaterialComponent1D_->setTexture( "aDiffuseTex", Texture1D_ );
+			// Bind.
+			MaterialComponent1D_->setTexture( "aDiffuseTex", Texture1D_ );
+		}
 	}
 	if( Material2D_ )
 	{
@@ -284,30 +289,33 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 			BcName::INVALID, Material2D_, ShaderPermutation );
 
 		// Create texture.
-		Texture2D_ = new ScnTexture( 32, 32, 1, RsTextureFormat::R8G8B8A8 );
-		auto Slice = Texture2D_->getTexture()->getSlice( 0 );
-		RsCore::pImpl()->updateTexture( 
-			Texture2D_->getTexture(),
-			Slice,
-			RsResourceUpdateFlags::ASYNC,
-			[]( RsTexture* Texture, const RsTextureLock& Lock )
-			{
-				const auto& Desc = Texture->getDesc();
-				for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
+		if( Features.Texture2D_ )
+		{
+			Texture2D_ = new ScnTexture( 32, 32, 1, RsTextureFormat::R8G8B8A8 );
+			auto Slice = Texture2D_->getTexture()->getSlice( 0 );
+			RsCore::pImpl()->updateTexture( 
+				Texture2D_->getTexture(),
+				Slice,
+				RsResourceUpdateFlags::ASYNC,
+				[]( RsTexture* Texture, const RsTextureLock& Lock )
 				{
-					BcU32* Data = reinterpret_cast< BcU32* >( 
-						reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Y * Lock.Pitch_ );
-					for( BcU32 X = 0; X < Desc.Width_; ++X )
+					const auto& Desc = Texture->getDesc();
+					for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
 					{
-						const BcU32 XDiv = X / 4;
-						const BcU32 YDiv = Y / 4;
-						*Data++ = ( ( ( XDiv + YDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
+						BcU32* Data = reinterpret_cast< BcU32* >( 
+							reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Y * Lock.Pitch_ );
+						for( BcU32 X = 0; X < Desc.Width_; ++X )
+						{
+							const BcU32 XDiv = X / 4;
+							const BcU32 YDiv = Y / 4;
+							*Data++ = ( ( ( XDiv + YDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
+						}
 					}
-				}
-			} );
+				} );
 
-		// Bind.
-		MaterialComponent2D_->setTexture( "aDiffuseTex", Texture2D_ );
+			// Bind.
+			MaterialComponent2D_->setTexture( "aDiffuseTex", Texture2D_ );
+		}
 	}
 	if( Material3D_ )
 	{
@@ -315,36 +323,39 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 			BcName::INVALID, Material3D_, ShaderPermutation );
 
 		// Create texture.
-		Texture3D_ = new ScnTexture( 32, 32, 32, 1, RsTextureFormat::R8G8B8A8 );
-		auto Slice = Texture3D_->getTexture()->getSlice( 0 );
-		RsCore::pImpl()->updateTexture( 
-			Texture3D_->getTexture(),
-			Slice,
-			RsResourceUpdateFlags::ASYNC,
-			[]( RsTexture* Texture, const RsTextureLock& Lock )
-			{
-				const auto& Desc = Texture->getDesc();
-				for( BcU32 Z = 0; Z < Desc.Depth_; ++Z )
+		if( Features.Texture3D_ )
+		{
+			Texture3D_ = new ScnTexture( 32, 32, 32, 1, RsTextureFormat::R8G8B8A8 );
+			auto Slice = Texture3D_->getTexture()->getSlice( 0 );
+			RsCore::pImpl()->updateTexture( 
+				Texture3D_->getTexture(),
+				Slice,
+				RsResourceUpdateFlags::ASYNC,
+				[]( RsTexture* Texture, const RsTextureLock& Lock )
 				{
-					BcU32* SliceData = reinterpret_cast< BcU32* >( 
-						reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Z * Lock.SlicePitch_ );
-					for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
+					const auto& Desc = Texture->getDesc();
+					for( BcU32 Z = 0; Z < Desc.Depth_; ++Z )
 					{
-						BcU32* Data = reinterpret_cast< BcU32* >( 
-							reinterpret_cast< BcU8* >( SliceData ) + Y * Lock.Pitch_ );
-						for( BcU32 X = 0; X < Desc.Width_; ++X )
+						BcU32* SliceData = reinterpret_cast< BcU32* >( 
+							reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Z * Lock.SlicePitch_ );
+						for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
 						{
-							const BcU32 XDiv = X / 4;
-							const BcU32 YDiv = Y / 4;
-							const BcU32 ZDiv = Z / 4;
-							*Data++ = ( ( ( XDiv + YDiv + ZDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
+							BcU32* Data = reinterpret_cast< BcU32* >( 
+								reinterpret_cast< BcU8* >( SliceData ) + Y * Lock.Pitch_ );
+							for( BcU32 X = 0; X < Desc.Width_; ++X )
+							{
+								const BcU32 XDiv = X / 4;
+								const BcU32 YDiv = Y / 4;
+								const BcU32 ZDiv = Z / 4;
+								*Data++ = ( ( ( XDiv + YDiv + ZDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
+							}
 						}
 					}
-				}
-			} );
+				} );
 
-		// Bind.
-		MaterialComponent3D_->setTexture( "aDiffuseTex", Texture3D_ );
+			// Bind.
+			MaterialComponent3D_->setTexture( "aDiffuseTex", Texture3D_ );
+		}
 	}
 
 }
