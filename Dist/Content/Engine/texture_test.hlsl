@@ -51,10 +51,18 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 	VS_OUTPUT o = (VS_OUTPUT)0;
 
 	float4 WorldPosition;
+	float4 Normal;
 	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_, i );
 	PSY_MAKE_CLIP_SPACE_VERTEX( o.Position_, WorldPosition );
+	PSY_MAKE_WORLD_SPACE_NORMAL( Normal, i.Normal_, i );
 	o.Colour_ = i.Colour_;
+
+#if TEXTURE_TEST_DIMENSION == 6
+	o.TexCoord0_ = Normal;
+#else
 	o.TexCoord0_ = i.TexCoord0_ + UVWOffset_;
+#endif
+
 	return o;
 }
 
@@ -66,6 +74,8 @@ PSY_SAMPLER_1D( DiffuseTex );
 PSY_SAMPLER_2D( DiffuseTex );
 #elif TEXTURE_TEST_DIMENSION == 3
 PSY_SAMPLER_3D( DiffuseTex );
+#elif TEXTURE_TEST_DIMENSION == 6
+PSY_SAMPLER_CUBE( DiffuseTex );
 #endif
 
 PS_OUTPUT pixelMain( VS_OUTPUT i )
@@ -78,6 +88,8 @@ PS_OUTPUT pixelMain( VS_OUTPUT i )
 	Colour = PSY_SAMPLE_2D( DiffuseTex, i.TexCoord0_.xy );
 #elif TEXTURE_TEST_DIMENSION == 3
 	Colour = PSY_SAMPLE_3D( DiffuseTex, i.TexCoord0_.xyz );
+#elif TEXTURE_TEST_DIMENSION == 6
+	Colour = PSY_SAMPLE_CUBE( DiffuseTex, i.TexCoord0_.xyz );
 #endif
 	o.Colour_ = Colour * i.Colour_;
 	return o;

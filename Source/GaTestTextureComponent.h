@@ -66,13 +66,16 @@ private:
 	ScnMaterialRef Material1D_;
 	ScnMaterialRef Material2D_;
 	ScnMaterialRef Material3D_;
+	ScnMaterialRef MaterialCube_;
 	ScnMaterialComponentRef MaterialComponent1D_;
 	ScnMaterialComponentRef MaterialComponent2D_;
 	ScnMaterialComponentRef MaterialComponent3D_;
+	ScnMaterialComponentRef MaterialComponentCube_;
 
 	ScnTexture* Texture1D_;
 	ScnTexture* Texture2D_;
 	ScnTexture* Texture3D_;
+	ScnTexture* TextureCube_;
 };
 
 #endif

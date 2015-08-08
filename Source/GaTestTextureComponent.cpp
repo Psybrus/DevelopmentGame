@@ -70,6 +70,7 @@ void GaTestTextureComponent::StaticRegisterClass()
 		new ReField( "Material1D_", &GaTestTextureComponent::Material1D_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
 		new ReField( "Material2D_", &GaTestTextureComponent::Material2D_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
 		new ReField( "Material3D_", &GaTestTextureComponent::Material3D_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+		new ReField( "MaterialCube_", &GaTestTextureComponent::MaterialCube_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
 
 		new ReField( "ObjectUniformBuffer_", &GaTestTextureComponent::ObjectUniformBuffer_, bcRFF_TRANSIENT ),
 		new ReField( "TestUniformBuffer_", &GaTestTextureComponent::TestUniformBuffer_, bcRFF_TRANSIENT ),
@@ -79,9 +80,11 @@ void GaTestTextureComponent::StaticRegisterClass()
 		new ReField( "MaterialComponent1D_", &GaTestTextureComponent::MaterialComponent1D_, bcRFF_TRANSIENT ),
 		new ReField( "MaterialComponent2D_", &GaTestTextureComponent::MaterialComponent2D_, bcRFF_TRANSIENT ),
 		new ReField( "MaterialComponent3D_", &GaTestTextureComponent::MaterialComponent3D_, bcRFF_TRANSIENT ),
+		new ReField( "MaterialComponentCube_", &GaTestTextureComponent::MaterialComponentCube_, bcRFF_TRANSIENT ),
 		new ReField( "Texture1D_", &GaTestTextureComponent::Texture1D_, bcRFF_TRANSIENT ),
 		new ReField( "Texture2D_", &GaTestTextureComponent::Texture2D_, bcRFF_TRANSIENT ),
 		new ReField( "Texture3D_", &GaTestTextureComponent::Texture3D_, bcRFF_TRANSIENT ),
+		new ReField( "TextureCube_", &GaTestTextureComponent::TextureCube_, bcRFF_TRANSIENT ),
 	};
 		
 	ReRegisterClass< GaTestTextureComponent, Super >( Fields )
@@ -98,7 +101,8 @@ GaTestTextureComponent::GaTestTextureComponent():
 	VertexDeclaration_( nullptr ),
 	Texture1D_( nullptr ),
 	Texture2D_( nullptr ),
-	Texture3D_( nullptr )
+	Texture3D_( nullptr ),
+	TextureCube_( nullptr )
 {
 }
 
@@ -142,6 +146,7 @@ void GaTestTextureComponent::drawTest(
 					{
 						auto UniformBlock = reinterpret_cast< ScnShaderObjectUniformBlockData* >( Lock.Buffer_ );
 						UniformBlock->WorldTransform_ = Transform;
+						UniformBlock->NormalTransform_ = Transform;
 					} );
 
 				Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
@@ -164,9 +169,9 @@ void GaTestTextureComponent::render( class ScnViewComponent* pViewComponent, RsF
 		RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
 		{
-			auto UniformBlock = reinterpret_cast< GaTestTextureBlockData* >( Lock.Buffer_ );
 			static BcF32 Timer = 0.0f;
 			Timer += SysKernel::pImpl()->getFrameTime() * 0.05f;
+			auto UniformBlock = reinterpret_cast< GaTestTextureBlockData* >( Lock.Buffer_ );
 			UniformBlock->UVWOffset_ = MaVec4d( Timer, Timer * 0.5f, Timer * 2.0f, 0.0f );
 		} );
 
@@ -180,6 +185,12 @@ void GaTestTextureComponent::render( class ScnViewComponent* pViewComponent, RsF
 
 	Transform.translation( MaVec3d( 2.0f, 0.0f, 0.0f ) );
 	drawTest( Transform, MaterialComponent3D_, pViewComponent, pFrame, Sort );
+
+	static BcF32 Timer = 0.0f;
+	Timer += SysKernel::pImpl()->getFrameTime() * 0.25f;
+	Transform.rotation( MaVec3d( Timer, Timer * 0.25f, Timer * 0.05f ) );
+	Transform.translation( MaVec3d( 4.0f, 0.0f, 0.0f ) );
+	drawTest( Transform, MaterialComponentCube_, pViewComponent, pFrame, Sort );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -239,10 +250,10 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
 		{
 			auto Vertices = reinterpret_cast< GaVertex* >( Lock.Buffer_ );
-			*Vertices++ = GaVertex( MaVec4d( -1.0f, -1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 0.0f ) );
-			*Vertices++ = GaVertex( MaVec4d(  1.0f, -1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 0.0f ) );
-			*Vertices++ = GaVertex( MaVec4d( -1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 1.0f ) );
-			*Vertices++ = GaVertex( MaVec4d(  1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 1.0f ) );
+			*Vertices++ = GaVertex( MaVec4d( -1.0f, -1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( -1.0f, -1.0f, 1.0f,  0.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 0.0f ) );
+			*Vertices++ = GaVertex( MaVec4d(  1.0f, -1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d(  1.0f, -1.0f, 1.0f,  0.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 0.0f ) );
+			*Vertices++ = GaVertex( MaVec4d( -1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( -1.0f,  1.0f, 1.0f,  0.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 1.0f ) );
+			*Vertices++ = GaVertex( MaVec4d(  1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d(  1.0f,  1.0f, 1.0f,  0.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 1.0f ) );
 		} );
 
 	ScnShaderPermutationFlags ShaderPermutation = 
@@ -357,6 +368,63 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 			MaterialComponent3D_->setTexture( "aDiffuseTex", Texture3D_ );
 		}
 	}
+	if( MaterialCube_ )
+	{
+		MaterialComponentCube_ = Parent->attach< ScnMaterialComponent >(
+			BcName::INVALID, MaterialCube_, ShaderPermutation );
+
+		// Create texture.
+		if( Features.TextureCube_ )
+		{
+			TextureCube_ = ScnTexture::NewCube( 32, 32, 1, RsTextureFormat::R8G8B8A8 );
+			const BcU32 FaceColours[] = 
+			{
+				0xffff0000,
+				0xff00ffff,
+				0xff00ff00,
+				0xffff00ff,
+				0xff0000ff,
+				0xffffff00,
+			};
+
+			const RsTextureFace Faces[] = 
+			{
+				RsTextureFace::POSITIVE_X,
+				RsTextureFace::NEGATIVE_X,
+				RsTextureFace::POSITIVE_Y,
+				RsTextureFace::NEGATIVE_Y,
+				RsTextureFace::POSITIVE_Z,
+				RsTextureFace::NEGATIVE_Z,
+			};
+
+			for( BcU32 Face = 0; Face < 6; ++Face )
+			{
+				const BcU32 Colour = FaceColours[ Face ];
+				auto Slice = TextureCube_->getTexture()->getSlice( 0, Faces[ Face ] );
+				RsCore::pImpl()->updateTexture( 
+					TextureCube_->getTexture(),
+					Slice,
+					RsResourceUpdateFlags::ASYNC,
+					[ Colour ]( RsTexture* Texture, const RsTextureLock& Lock )
+					{
+						const auto& Desc = Texture->getDesc();
+						for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
+						{
+							BcU32* Data = reinterpret_cast< BcU32* >( 
+								reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Y * Lock.Pitch_ );
+							for( BcU32 X = 0; X < Desc.Width_; ++X )
+							{
+								const BcU32 XDiv = X / 4;
+								const BcU32 YDiv = Y / 4;
+								*Data++ = ( ( ( XDiv + YDiv ) & 1 ) == 0 ) ? Colour : 0xff000000;
+							}
+						}
+					} );
+			}
+			// Bind.
+			MaterialComponentCube_->setTexture( "aDiffuseTex", TextureCube_ );
+		}
+	}
 
 }
 	
@@ -383,6 +451,12 @@ void GaTestTextureComponent::onDetach( ScnEntityWeakRef Parent )
 	{
 		Texture3D_->markDestroy();
 		Texture3D_ = nullptr;
+	}
+
+	if(	TextureCube_ )
+	{
+		TextureCube_->markDestroy();
+		TextureCube_ = nullptr;
 	}
 
 	if( MaterialComponent1D_ )

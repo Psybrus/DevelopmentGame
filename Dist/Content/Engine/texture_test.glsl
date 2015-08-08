@@ -41,9 +41,14 @@ void vertexMain()
  	vec4 WorldPosition;
 	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, InPosition_ );
 	PSY_MAKE_CLIP_SPACE_VERTEX( gl_Position, WorldPosition );
-	VsNormal = InNormal_;
-	VsTexCoord0 = InTexCoord_ + UVWOffset_;
+	PSY_MAKE_WORLD_SPACE_NORMAL( VsNormal, InNormal_ );
 	VsColour0 = InColour_;
+
+#if TEXTURE_TEST_DIMENSION == 6 && PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
+	VsTexCoord0 = VsNormal;
+#else
+	VsTexCoord0 = InTexCoord_ + UVWOffset_;
+#endif
 }
 
 #endif
@@ -72,6 +77,8 @@ PSY_SAMPLER_1D( DiffuseTex );
 PSY_SAMPLER_2D( DiffuseTex );
 #elif TEXTURE_TEST_DIMENSION == 3 && PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
 PSY_SAMPLER_3D( DiffuseTex );
+#elif TEXTURE_TEST_DIMENSION == 6 && PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
+PSY_SAMPLER_CUBE( DiffuseTex );
 #endif
 
 void pixelMain()
@@ -83,6 +90,8 @@ void pixelMain()
 	Colour = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
 #elif TEXTURE_TEST_DIMENSION == 3 && PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
 	Colour = PSY_SAMPLE_3D( DiffuseTex, VsTexCoord0.xyz );
+#elif TEXTURE_TEST_DIMENSION == 6 && PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
+	Colour = PSY_SAMPLE_CUBE( DiffuseTex, VsTexCoord0.xyz );
 #endif
 	fragColor = Colour * VsColour0;
 }

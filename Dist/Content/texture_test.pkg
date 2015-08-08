@@ -26,7 +26,8 @@
 
 					"material1d" : "$(ScnMaterial:this.material1d)",
 					"material2d" : "$(ScnMaterial:this.material2d)",
-					"material3d" : "$(ScnMaterial:this.material3d)"
+					"material3d" : "$(ScnMaterial:this.material3d)",
+					"materialcube" : "$(ScnMaterial:this.materialcube)"
 				}
 			]
 		},
@@ -176,6 +177,55 @@
 		},
 
 		{
+			"type"			: "ScnMaterial",
+			"name"			: "materialcube",
+
+			// Shader
+			"shader"		: "$(ScnShader:this.texture_test_cube)",
+
+			// Textures
+			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"addressw" : "wrap",
+					"minfilter" : "linear",
+					"magfilter" : "linear"
+				}
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false,
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : false
+				}
+			}
+		},
+
+		{
 			"type"			: "ScnShader",
 			"name"			: "texture_test_1d",
 			"sources" 		: {
@@ -258,6 +308,39 @@
 
 			"defines"		: {
 				"TEXTURE_TEST_DIMENSION" : "3"
+			},
+
+			"excludepermutations" : [
+				"RENDER_DEFERRED",
+				"RENDER_FORWARD_PLUS",
+				"PASS_SHADOW",
+				"MESH_INSTANCED_3D",
+				"LIGHTING_DIFFUSE"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "texture_test_cube",
+			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/texture_test.hlsl",
+				"GLSL_330" : "Content/Engine/texture_test.glsl",
+				"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
+				}
+			},
+
+			"defines"		: {
+				"TEXTURE_TEST_DIMENSION" : "6"
 			},
 
 			"excludepermutations" : [
