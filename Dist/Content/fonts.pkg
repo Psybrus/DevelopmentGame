@@ -4,7 +4,7 @@
 			"type"			: "ScnShader",
 			"name"			: "font_shader",
 			"sources"		: {
-				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/font.hlsl",
+				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/font.hlsl",
 				"GLSL_330" : "Content/Engine/font.glsl",
 				"GLSL_ES_100" : "Content/Engine/font.glsl"
 			},

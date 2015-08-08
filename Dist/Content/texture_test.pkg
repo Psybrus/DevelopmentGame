@@ -179,6 +179,7 @@
 			"type"			: "ScnShader",
 			"name"			: "texture_test_1d",
 			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/texture_test.hlsl",
 				"GLSL_330" : "Content/Engine/texture_test.glsl",
 				"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
 			},
@@ -211,6 +212,7 @@
 			"type"			: "ScnShader",
 			"name"			: "texture_test_2d",
 			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/texture_test.hlsl",
 				"GLSL_330" : "Content/Engine/texture_test.glsl",
 				"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
 			},
@@ -243,6 +245,7 @@
 			"type"			: "ScnShader",
 			"name"			: "texture_test_3d",
 			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/texture_test.hlsl",
 				"GLSL_330" : "Content/Engine/texture_test.glsl",
 				"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
 			},

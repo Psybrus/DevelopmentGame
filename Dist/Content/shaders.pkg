@@ -4,7 +4,7 @@
 			"type"			: "ScnShader",
 			"name"			: "default",
 			"sources" 		: {
-				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/default.hlsl",
+				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/default.hlsl",
 				"GLSL_330" : "Content/Engine/default.glsl",
 				"GLSL_ES_100" : "Content/Engine/default.glsl"
 			},
@@ -34,7 +34,7 @@
 			"type"			: "ScnShader",
 			"name"			: "textured",
 			"sources" 		: {
-				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/textured.hlsl",
+				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/textured.hlsl",
 				"GLSL_330" : "Content/Engine/textured.glsl",
 				"GLSL_ES_100" : "Content/Engine/textured.glsl"
 			},
@@ -64,7 +64,7 @@
 			"type"			: "ScnShader",
 			"name"			: "normal_vis",
 			"sources" 		: {
-				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/normal_vis.hlsl",
+				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/normal_vis.hlsl",
 				"GLSL_330" : "Content/Engine/normal_vis.glsl",
 				"GLSL_ES_100" : "Content/Engine/normal_vis.glsl"
 			},
@@ -94,7 +94,7 @@
 			"type"			: "ScnShader",
 			"name"			: "fullscreen",
 			"sources" 		: {
-				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/fullscreen.hlsl",
+				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/fullscreen.hlsl",
 				"GLSL_330" : "Content/Engine/fullscreen.glsl",
 				"GLSL_ES_100" : "Content/Engine/fullscreen.glsl"
 			},

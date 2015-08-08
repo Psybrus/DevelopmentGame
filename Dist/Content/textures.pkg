@@ -130,7 +130,7 @@
 		{
 			"type" : "ScnTexture",
 			"name" : "test_dst",
-			"depthstenciltarget" : true,
+			"depthstenciltarget" : false,
 			"width" : 256,
 			"height" : 256,
 			"texturetype" : "tex2d",
