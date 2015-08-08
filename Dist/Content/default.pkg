@@ -75,13 +75,13 @@
 						{
 							"name" : "Sound test",
 							"entity" : "$(ScnEntity:sound_test.TestEntity)"
-						}
-/*
+						},
+
 						{ 
 							"name" : "Network test",
 							"entity" : "$(ScnEntity:network_test.TestEntity)"
-						},
-
+						}
+/*
 						{
 							"name" : "Sprite test",
 							"entity" : "$(ScnEntity:sprite_test.TestEntity)"
