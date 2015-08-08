@@ -3,7 +3,17 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "font_shader",
-			"source"		: "Content/Engine/font.hlsl",
+			"sources"		: {
+				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/font.hlsl",
+				"GLSL_330" : "Content/Engine/font.glsl",
+				"GLSL_ES_100" : "Content/Engine/font.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/font.glsl"
+				}
+			},
 
 			"excludepermutations" : [
 				"RENDER_DEFERRED",
@@ -13,24 +23,9 @@
 				"LIGHTING_DIFFUSE"
 			],
 
-			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				"D3D11"
-			],
-
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
-			},
-
-			"@(android)" : {
-				"backendtypes" : [
-					"GLSL_ES"
-				]
 			}
 		},
 

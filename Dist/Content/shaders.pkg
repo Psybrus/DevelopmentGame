@@ -3,7 +3,17 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "default",
-			"source"		: "Content/Engine/default.hlsl",
+			"sources" 		: {
+				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/default.hlsl",
+				"GLSL_330" : "Content/Engine/default.glsl",
+				"GLSL_ES_100" : "Content/Engine/default.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/default.glsl"
+				}
+			},
 
 			"includepermutations" : [
 				"RENDER_FORWARD",
@@ -14,102 +24,86 @@
 			"excludepermutations" : [
 			],
 
-			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				"GLSL_ES",
-				"D3D11"
-			],
-
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
-			},
-
-			"@(android)" : {
-				"backendtypes" : [
-					"GLSL_ES"
-				]
-			}
-
-		},
-
-		{
-			"type"			: "ScnShader",
-			"name"			: "normal_vis",
-			"source"		: "Content/Engine/normal_vis.hlsl",
-
-			"includepermutations" : [
-				"RENDER_FORWARD",
-				"PASS_MAIN",
-				"LIGHTING_NONE"
-			],
-
-			"excludepermutations" : [ 
-			],
-
-			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				"D3D11"
-			],
-
-			"entrypoints"		: {
-				"vertex" : 		"vertexMain",
-				"pixel" :		"pixelMain"
-			},
-
-			"@(android)" : {
-				"backendtypes" : [
-					"GLSL_ES"
-				]
 			}
 		},
 
 		{
 			"type"			: "ScnShader",
 			"name"			: "textured",
-			"source"		: "Content/Engine/textured.hlsl",
+			"sources" 		: {
+				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/textured.hlsl",
+				"GLSL_330" : "Content/Engine/textured.glsl",
+				"GLSL_ES_100" : "Content/Engine/textured.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/textured.glsl"
+				}
+			},
+
+			"includepermutations" : [
+				"RENDER_FORWARD",
+				"PASS_MAIN",
+				"LIGHTING_NONE"
+			],
 
 			"excludepermutations" : [
-				"RENDER_DEFERRED",
-				"RENDER_FORWARD_PLUS",
-				"PASS_SHADOW",
-				"MESH_INSTANCED_3D",
-				"LIGHTING_DIFFUSE"
-			],
-
-			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				"D3D11"
 			],
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "normal_vis",
+			"sources" 		: {
+				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/normal_vis.hlsl",
+				"GLSL_330" : "Content/Engine/normal_vis.glsl",
+				"GLSL_ES_100" : "Content/Engine/normal_vis.glsl"
 			},
 
 			"@(android)" : {
-				"backendtypes" : [
-					"GLSL_ES"
-				]
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/normal_vis.glsl"
+				}
+			},
+
+			"includepermutations" : [
+				"RENDER_FORWARD",
+				"PASS_MAIN",
+				"LIGHTING_NONE"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
 			}
 		},
 
 		{
 			"type"			: "ScnShader",
 			"name"			: "fullscreen",
-			"source"		: "Content/Engine/fullscreen.hlsl",
+			"sources" 		: {
+				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/fullscreen.hlsl",
+				"GLSL_330" : "Content/Engine/fullscreen.glsl",
+				"GLSL_ES_100" : "Content/Engine/fullscreen.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/fullscreen.glsl"
+				}
+			},
 
 			"excludepermutations" : [
 				"RENDER_DEFERRED",
@@ -119,32 +113,26 @@
 				"LIGHTING_DIFFUSE"
 			],
 
-			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				"D3D11"
-			],
-
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
-			},
-
-			"@(android)" : {
-				"backendtypes" : [
-					"GLSL_ES"
-				]
 			}
 		},
-
 
 		{
 			"type"			: "ScnShader",
 			"name"			: "geometry_test",
-			"source"		: "Content/Engine/geometry_test.hlsl",
+			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/geometry_test.hlsl",
+				"GLSL_330" : "Content/Engine/geometry_test.glsl",
+				"GLSL_ES_100" : "Content/Engine/geometry_test.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/geometry_test.glsl"
+				}
+			},
 
 			"excludepermutations" : [
 				"RENDER_DEFERRED",
@@ -154,37 +142,19 @@
 				"LIGHTING_DIFFUSE"
 			],
 
-			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				"D3D11"
-			],
-
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
+				// "geometry" :	"geometryMain",
 				"pixel" :		"pixelMain"
 			},
 
-			"@(pc)" : {
-				"codetypes"	: [
-					"D3D11_4_0"
-				],
-
+			"@(android)" : {
 				"entrypoints"		: {
 					"vertex" : 		"vertexMain",
-					"geometry" : 	"geometryMain",
 					"pixel" :		"pixelMain"
 				}
-			},
-
-			"@(android)" : {
-				"backendtypes" : [
-					"GLSL_ES"
-				]
 			}
+
 		}
 	]
 }

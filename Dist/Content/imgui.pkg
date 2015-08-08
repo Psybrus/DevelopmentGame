@@ -10,6 +10,12 @@
 				"GLSL_ES_100" : "Content/Engine/imgui.glsl"
 			},
 
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/imgui.glsl"
+				}
+			},
+
 			"includepermutations" : [
 				"MESH_STATIC_2D",
 				"PASS_MAIN",
@@ -30,6 +36,12 @@
 				"D3D11_4_0_LEVEL_9_0" : "Content/Engine/imgui.hlsl",
 				"GLSL_330" : "Content/Engine/imgui.glsl",
 				"GLSL_ES_100" : "Content/Engine/imgui.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/imgui.glsl"
+				}
 			},
 
 			"includepermutations" : [
