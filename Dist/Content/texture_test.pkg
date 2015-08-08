@@ -46,7 +46,6 @@
 			"samplers"		: {
 				"aDiffuseTex"	: {
 					"addressu" : "wrap",
-					"addressv" : "wrap",
 					"minfilter" : "linear",
 					"magfilter" : "linear"
 				}
@@ -143,8 +142,9 @@
 				"aDiffuseTex"	: {
 					"addressu" : "wrap",
 					"addressv" : "wrap",
+					"addressw" : "wrap",
 					"minfilter" : "linear",
-					"magfilter" : "linearq"
+					"magfilter" : "linear"
 				}
 			},
 
