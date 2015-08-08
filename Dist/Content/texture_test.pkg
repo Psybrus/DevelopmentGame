@@ -1,0 +1,75 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"$Class"				: "ScnFontComponent",
+					"type"					: "ScnFontComponent",
+					"font"					: "$(ScnFont:fonts.courier)",
+					"material"				: "$(ScnMaterial:materials.font)"
+				},
+
+				{
+					"$Class"				: "ScnCanvasComponent",
+					"type"					: "ScnCanvasComponent",
+					"noofvertices" 			: 8192,
+					"rendermask"			: 1
+				},
+
+				{
+					"$Class" : "GaTestTextureComponent",
+					"type" : "GaTestTextureComponent",
+
+					"material2d" : "$(ScnMaterial:this.material1d)"
+				}
+			]
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "material1d",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.geometry_test)",
+
+			// Textures
+			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false,
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : false
+				}
+			}
+		}
+
+	]
+}
