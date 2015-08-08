@@ -19,6 +19,8 @@
 #include "System/Content/CsPackage.h"
 #include "System/Content/CsCore.h"
 
+#include "System/SysKernel.h"
+
 #include "Base/BcProfiler.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -42,6 +44,20 @@ struct GaVertex
 	MaVec4d Colour_;
 	MaVec2d TexCoord_;
 };
+
+//////////////////////////////////////////////////////////////////////////
+// GaTestTextureBlockData
+REFLECTION_DEFINE_BASIC( GaTestTextureBlockData );
+
+void GaTestTextureBlockData::StaticRegisterClass()
+{
+	ReField* Fields[] = 
+	{
+		new ReField( "ColourTransform_", &GaTestTextureBlockData::UVWOffset_ ),
+	};
+
+	ReRegisterClass< GaTestTextureBlockData >( Fields );
+}
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
@@ -94,6 +110,48 @@ GaTestTextureComponent::~GaTestTextureComponent()
 }
 
 //////////////////////////////////////////////////////////////////////////
+// drawTest
+void GaTestTextureComponent::drawTest(
+		const MaMat4d& Transform, ScnMaterialComponent* Material,
+		class ScnViewComponent* pViewComponent, RsFrame* pFrame, 
+		RsRenderSort Sort )
+{
+	if( Material )
+	{
+		// Set parameters.
+		Material->setObjectUniformBlock( ObjectUniformBuffer_ );
+		Material->setUniformBlock( "GaTestTextureBlockData", TestUniformBuffer_ );
+		
+		// Set material components for view.
+		pViewComponent->setMaterialParameters( Material );
+				
+		// Bind material.
+		Material->bind( pFrame, Sort );
+
+		// Render primitive.				
+		pFrame->queueRenderNode( Sort,
+			[ this, Transform ]( RsContext* Context )
+			{
+				PSY_PROFILER_SECTION( RenderRoot, "GaTestTextureComponentRenderNode::render" );
+
+				Context->updateBuffer( 
+					ObjectUniformBuffer_,
+					0, sizeof( ScnShaderObjectUniformBlockData ),
+					RsResourceUpdateFlags::ASYNC,
+					[ Transform ]( RsBuffer* Buffer, const RsBufferLock& Lock )
+					{
+						auto UniformBlock = reinterpret_cast< ScnShaderObjectUniformBlockData* >( Lock.Buffer_ );
+						UniformBlock->WorldTransform_ = Transform;
+					} );
+
+				Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
+				Context->setVertexDeclaration( VertexDeclaration_ );
+				Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
+			} );
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////
 // render
 //virtual 
 void GaTestTextureComponent::render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort )
@@ -101,36 +159,27 @@ void GaTestTextureComponent::render( class ScnViewComponent* pViewComponent, RsF
 	Super::render( pViewComponent, pFrame, Sort );
 
 	RsCore::pImpl()->updateBuffer( 
-		ObjectUniformBuffer_,
-		0, sizeof( ScnShaderObjectUniformBlockData ),
+		TestUniformBuffer_,
+		0, sizeof( GaTestTextureBlockData ),
 		RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
 		{
-			auto UniformBlock = reinterpret_cast< ScnShaderObjectUniformBlockData* >( Lock.Buffer_ );
-			UniformBlock->WorldTransform_ = MaMat4d();
+			auto UniformBlock = reinterpret_cast< GaTestTextureBlockData* >( Lock.Buffer_ );
+			static BcF32 Timer = 0.0f;
+			Timer += SysKernel::pImpl()->getFrameTime() * 0.05f;
+			UniformBlock->UVWOffset_ = MaVec4d( Timer, Timer * 0.5f, Timer * 2.0f, 0.0f );
 		} );
 
-	if( MaterialComponent2D_ )
-	{
-		// Set parameters.
-		MaterialComponent2D_->setObjectUniformBlock( ObjectUniformBuffer_ );
-				
-		// Set material components for view.
-		pViewComponent->setMaterialParameters( MaterialComponent2D_ );
-				
-		// Bind material.
-		MaterialComponent2D_->bind( pFrame, Sort );
+	MaMat4d Transform;
 
-		// Render primitive.				
-		pFrame->queueRenderNode( Sort,
-			[ this ]( RsContext* Context )
-			{
-				PSY_PROFILER_SECTION( RenderRoot, "GaTestTextureComponentRenderNode::render" );
-				Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
-				Context->setVertexDeclaration( VertexDeclaration_ );
-				Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
-			} );
-	}
+	Transform.translation( MaVec3d( -2.0f, 0.0f, 0.0f ) );
+	drawTest( Transform, MaterialComponent1D_, pViewComponent, pFrame, Sort );
+
+	Transform.translation( MaVec3d( 0.0f, 0.0f, 0.0f ) );
+	drawTest( Transform, MaterialComponent2D_, pViewComponent, pFrame, Sort );
+
+	Transform.translation( MaVec3d( 2.0f, 0.0f, 0.0f ) );
+	drawTest( Transform, MaterialComponent3D_, pViewComponent, pFrame, Sort );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -146,6 +195,13 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 			RsBufferType::UNIFORM,
 			RsResourceCreationFlags::STREAM,
 			sizeof( ScnShaderObjectUniformBlockData ) ) );
+
+
+	TestUniformBuffer_ = RsCore::pImpl()->createBuffer( 
+		RsBufferDesc(
+			RsBufferType::UNIFORM,
+			RsResourceCreationFlags::STREAM,
+			sizeof( GaTestTextureBlockData ) ) );
 
 	BcU32 IndexBufferSize = sizeof( BcU16 ) * 4;
 	IndexBuffer_ = RsCore::pImpl()->createBuffer(
@@ -200,24 +256,95 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		MaterialComponent1D_ = Parent->attach< ScnMaterialComponent >(
 			BcName::INVALID, Material1D_, ShaderPermutation );
 
-		//Can't just new, need to also set name and stuff.
-		//Texture1D_ = new ScnTexture( 32, 1, RsTextureFormat::R8G8B8A8 );
+		// Create texture.
+		Texture1D_ = new ScnTexture( 32, 1, RsTextureFormat::R8G8B8A8 );
+		auto Slice = Texture1D_->getTexture()->getSlice( 0 );
+		RsCore::pImpl()->updateTexture( 
+			Texture1D_->getTexture(),
+			Slice,
+			RsResourceUpdateFlags::ASYNC,
+			[]( RsTexture* Texture, const RsTextureLock& Lock )
+			{
+				const auto& Desc = Texture->getDesc();
+				BcU32* Data = reinterpret_cast< BcU32* >( 
+					reinterpret_cast< BcU8* >( Lock.Buffer_ ) );
+				for( BcU32 X = 0; X < Desc.Width_; ++X )
+				{
+					const BcU32 XDiv = X / 4;
+					*Data++ = ( ( ( XDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
+				}
+			} );
+
+		// Bind.
+		MaterialComponent1D_->setTexture( "aDiffuseTex", Texture1D_ );
 	}
 	if( Material2D_ )
 	{
 		MaterialComponent2D_ = Parent->attach< ScnMaterialComponent >(
 			BcName::INVALID, Material2D_, ShaderPermutation );
 
-		//Can't just new, need to also set name and stuff.
+		// Create texture.
 		Texture2D_ = new ScnTexture( 32, 32, 1, RsTextureFormat::R8G8B8A8 );
+		auto Slice = Texture2D_->getTexture()->getSlice( 0 );
+		RsCore::pImpl()->updateTexture( 
+			Texture2D_->getTexture(),
+			Slice,
+			RsResourceUpdateFlags::ASYNC,
+			[]( RsTexture* Texture, const RsTextureLock& Lock )
+			{
+				const auto& Desc = Texture->getDesc();
+				for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
+				{
+					BcU32* Data = reinterpret_cast< BcU32* >( 
+						reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Y * Lock.Pitch_ );
+					for( BcU32 X = 0; X < Desc.Width_; ++X )
+					{
+						const BcU32 XDiv = X / 4;
+						const BcU32 YDiv = Y / 4;
+						*Data++ = ( ( ( XDiv + YDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
+					}
+				}
+			} );
+
+		// Bind.
+		MaterialComponent2D_->setTexture( "aDiffuseTex", Texture2D_ );
 	}
 	if( Material3D_ )
 	{
 		MaterialComponent3D_ = Parent->attach< ScnMaterialComponent >(
 			BcName::INVALID, Material3D_, ShaderPermutation );
 
-		//Can't just new, need to also set name and stuff.
-		//Texture3D_ = new ScnTexture( 32, 32, 32, 1, RsTextureFormat::R8G8B8A8 );
+		// Create texture.
+		Texture3D_ = new ScnTexture( 32, 32, 32, 1, RsTextureFormat::R8G8B8A8 );
+		auto Slice = Texture3D_->getTexture()->getSlice( 0 );
+		RsCore::pImpl()->updateTexture( 
+			Texture3D_->getTexture(),
+			Slice,
+			RsResourceUpdateFlags::ASYNC,
+			[]( RsTexture* Texture, const RsTextureLock& Lock )
+			{
+				const auto& Desc = Texture->getDesc();
+				for( BcU32 Z = 0; Z < Desc.Depth_; ++Z )
+				{
+					BcU32* SliceData = reinterpret_cast< BcU32* >( 
+						reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Z * Lock.SlicePitch_ );
+					for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
+					{
+						BcU32* Data = reinterpret_cast< BcU32* >( 
+							reinterpret_cast< BcU8* >( SliceData ) + Y * Lock.Pitch_ );
+						for( BcU32 X = 0; X < Desc.Width_; ++X )
+						{
+							const BcU32 XDiv = X / 4;
+							const BcU32 YDiv = Y / 4;
+							const BcU32 ZDiv = Z / 4;
+							*Data++ = ( ( ( XDiv + YDiv + ZDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
+						}
+					}
+				}
+			} );
+
+		// Bind.
+		MaterialComponent3D_->setTexture( "aDiffuseTex", Texture3D_ );
 	}
 
 }
@@ -269,6 +396,7 @@ void GaTestTextureComponent::onDetach( ScnEntityWeakRef Parent )
 	RsCore::pImpl()->destroyResource( VertexBuffer_ );
 	RsCore::pImpl()->destroyResource( IndexBuffer_ );
 	RsCore::pImpl()->destroyResource( ObjectUniformBuffer_ );
+	RsCore::pImpl()->destroyResource( TestUniformBuffer_ );
 }
 
 //////////////////////////////////////////////////////////////////////////

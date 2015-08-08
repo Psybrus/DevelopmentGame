@@ -24,6 +24,16 @@
 typedef ReObjectRef< class GaTestTextureComponent > GaTestTextureComponentRef;
 
 //////////////////////////////////////////////////////////////////////////
+// GaTestTextureBlockData
+struct GaTestTextureBlockData
+{
+	REFLECTION_DECLARE_BASIC( GaTestTextureBlockData );
+	GaTestTextureBlockData(){};
+
+	MaVec4d UVWOffset_;
+};
+
+//////////////////////////////////////////////////////////////////////////
 // GaTestTextureComponent
 class GaTestTextureComponent:
 	public ScnRenderableComponent
@@ -33,6 +43,11 @@ public:
 
 	GaTestTextureComponent();
 	virtual ~GaTestTextureComponent();
+
+	void drawTest( 
+		const MaMat4d& Transform, ScnMaterialComponent* Material,
+		class ScnViewComponent* pViewComponent, RsFrame* pFrame, 
+		RsRenderSort Sort );
 	
 	virtual void render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort );
 

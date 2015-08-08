@@ -24,7 +24,9 @@
 					"$Class" : "GaTestTextureComponent",
 					"type" : "GaTestTextureComponent",
 
-					"material2d" : "$(ScnMaterial:this.material1d)"
+					"material1d" : "$(ScnMaterial:this.material1d)",
+					"material2d" : "$(ScnMaterial:this.material2d)",
+					"material3d" : "$(ScnMaterial:this.material3d)"
 				}
 			]
 		},
@@ -34,7 +36,7 @@
 			"name"			: "material1d",
 
 			// Shader
-			"shader"		: "$(ScnShader:shaders.geometry_test)",
+			"shader"		: "$(ScnShader:this.texture_test_1d)",
 
 			// Textures
 			"textures"		: {
@@ -42,6 +44,12 @@
 
 			// Samplers
 			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear",
+					"magfilter" : "linear"
+				}
 			},
 
 			// New render state.
@@ -69,7 +77,198 @@
 					"antialiasedlineenable" : false
 				}
 			}
-		}
+		},
 
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "material2d",
+
+			// Shader
+			"shader"		: "$(ScnShader:this.texture_test_2d)",
+
+			// Textures
+			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear",
+					"magfilter" : "linear"
+				}
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false,
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : false
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "material3d",
+
+			// Shader
+			"shader"		: "$(ScnShader:this.texture_test_3d)",
+
+			// Textures
+			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear",
+					"magfilter" : "linearq"
+				}
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false,
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : false
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "texture_test_1d",
+			"sources" 		: {
+				"GLSL_330" : "Content/Engine/texture_test.glsl",
+				"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
+				}
+			},
+
+			"defines"		: {
+				"TEXTURE_TEST_DIMENSION" : "1"
+			},
+
+			"excludepermutations" : [
+				"RENDER_DEFERRED",
+				"RENDER_FORWARD_PLUS",
+				"PASS_SHADOW",
+				"MESH_INSTANCED_3D",
+				"LIGHTING_DIFFUSE"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "texture_test_2d",
+			"sources" 		: {
+				"GLSL_330" : "Content/Engine/texture_test.glsl",
+				"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
+				}
+			},
+
+			"defines"		: {
+				"TEXTURE_TEST_DIMENSION" : "2"
+			},
+
+			"excludepermutations" : [
+				"RENDER_DEFERRED",
+				"RENDER_FORWARD_PLUS",
+				"PASS_SHADOW",
+				"MESH_INSTANCED_3D",
+				"LIGHTING_DIFFUSE"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "texture_test_3d",
+			"sources" 		: {
+				"GLSL_330" : "Content/Engine/texture_test.glsl",
+				"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/texture_test.glsl"
+				}
+			},
+
+			"defines"		: {
+				"TEXTURE_TEST_DIMENSION" : "3"
+			},
+
+			"excludepermutations" : [
+				"RENDER_DEFERRED",
+				"RENDER_FORWARD_PLUS",
+				"PASS_SHADOW",
+				"MESH_INSTANCED_3D",
+				"LIGHTING_DIFFUSE"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		}
 	]
 }

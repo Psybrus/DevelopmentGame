@@ -208,5 +208,6 @@ void AutoGenRegisterReflection()
 	GaTestShaderComponent::StaticRegisterClass();
 	GaTestSoundComponent::StaticRegisterClass();
 	GaTestSpriteComponent::StaticRegisterClass();
+	GaTestTextureBlockData::StaticRegisterClass();
 	GaTestTextureComponent::StaticRegisterClass();
 }
