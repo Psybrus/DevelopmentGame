@@ -1,7 +1,7 @@
 #include <Psybrus.glsl>
 
 ////////////////////////////////////////////////////////////////////////
-// ScnShaderPostProcessBlurBlockData
+// GaTestTextureBlockData
 BEGIN_CBUFFER( GaTestTextureBlockData )
 	ENTRY( GaTestTextureBlockData, vec4, UVWOffset_ ) 
 END_CBUFFER

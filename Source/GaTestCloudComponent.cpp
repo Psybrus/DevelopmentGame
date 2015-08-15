@@ -1,6 +1,6 @@
 /**************************************************************************
 *
-* File:		GaTestTextureComponent.cpp
+* File:		GaTestCloudComponent.cpp
 * Author:	Neil Richardson 
 * Ver/Date:	
 * Description:
@@ -11,13 +11,15 @@
 * 
 **************************************************************************/
 
-#include "GaTestTextureComponent.h"
+#include "GaTestCloudComponent.h"
 
 #include "System/Scene/Rendering/ScnShaderFileData.h"
 #include "System/Scene/Rendering/ScnViewComponent.h"
 
 #include "System/Content/CsPackage.h"
 #include "System/Content/CsCore.h"
+
+#include "System/Debug/DsCore.h"
 
 #include "System/SysKernel.h"
 
@@ -47,75 +49,77 @@ struct GaVertex
 
 //////////////////////////////////////////////////////////////////////////
 // GaTestTextureBlockData
-REFLECTION_DEFINE_BASIC( GaTestTextureBlockData );
+REFLECTION_DEFINE_BASIC( GaTestCloudBlockData );
 
-void GaTestTextureBlockData::StaticRegisterClass()
+void GaTestCloudBlockData::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
-		new ReField( "UVWOffset_", &GaTestTextureBlockData::UVWOffset_ ),
+		new ReField( "CloudTimer_", &GaTestCloudBlockData::CloudTimer_ ),
+		new ReField( "CloudScale_", &GaTestCloudBlockData::CloudScale_ ),
+		new ReField( "CloudThreshold_", &GaTestCloudBlockData::CloudThreshold_ ),
+		new ReField( "CloudPadding0_", &GaTestCloudBlockData::CloudPadding0_ ),
+		new ReField( "CloudPadding1_", &GaTestCloudBlockData::CloudPadding1_ ),
+		new ReField( "CloudPadding2_", &GaTestCloudBlockData::CloudPadding2_ ),
 	};
 
-	ReRegisterClass< GaTestTextureBlockData >( Fields );
+	ReRegisterClass< GaTestCloudBlockData >( Fields );
 }
 
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
-REFLECTION_DEFINE_DERIVED( GaTestTextureComponent );
+REFLECTION_DEFINE_DERIVED( GaTestCloudComponent );
 
-void GaTestTextureComponent::StaticRegisterClass()
+void GaTestCloudComponent::StaticRegisterClass()
 {
 	ReField* Fields[] = 
 	{
-		new ReField( "Material1D_", &GaTestTextureComponent::Material1D_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
-		new ReField( "Material2D_", &GaTestTextureComponent::Material2D_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
-		new ReField( "Material3D_", &GaTestTextureComponent::Material3D_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
-		new ReField( "MaterialCube_", &GaTestTextureComponent::MaterialCube_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
+		new ReField( "Material3D_", &GaTestCloudComponent::Material3D_, bcRFF_SHALLOW_COPY | bcRFF_IMPORTER ),
 
-		new ReField( "ObjectUniformBuffer_", &GaTestTextureComponent::ObjectUniformBuffer_, bcRFF_TRANSIENT ),
-		new ReField( "TestUniformBuffer_", &GaTestTextureComponent::TestUniformBuffer_, bcRFF_TRANSIENT ),
-		new ReField( "IndexBuffer_", &GaTestTextureComponent::IndexBuffer_, bcRFF_TRANSIENT ),
-		new ReField( "VertexBuffer_", &GaTestTextureComponent::VertexBuffer_, bcRFF_TRANSIENT ),
-		new ReField( "VertexDeclaration_", &GaTestTextureComponent::VertexDeclaration_, bcRFF_TRANSIENT ),
-		new ReField( "MaterialComponent1D_", &GaTestTextureComponent::MaterialComponent1D_, bcRFF_TRANSIENT ),
-		new ReField( "MaterialComponent2D_", &GaTestTextureComponent::MaterialComponent2D_, bcRFF_TRANSIENT ),
-		new ReField( "MaterialComponent3D_", &GaTestTextureComponent::MaterialComponent3D_, bcRFF_TRANSIENT ),
-		new ReField( "MaterialComponentCube_", &GaTestTextureComponent::MaterialComponentCube_, bcRFF_TRANSIENT ),
-		new ReField( "Texture1D_", &GaTestTextureComponent::Texture1D_, bcRFF_TRANSIENT ),
-		new ReField( "Texture2D_", &GaTestTextureComponent::Texture2D_, bcRFF_TRANSIENT ),
-		new ReField( "Texture3D_", &GaTestTextureComponent::Texture3D_, bcRFF_TRANSIENT ),
-		new ReField( "TextureCube_", &GaTestTextureComponent::TextureCube_, bcRFF_TRANSIENT ),
+		new ReField( "ObjectUniformBuffer_", &GaTestCloudComponent::ObjectUniformBuffer_, bcRFF_TRANSIENT ),
+		new ReField( "TestUniformBuffer_", &GaTestCloudComponent::TestUniformBuffer_, bcRFF_TRANSIENT ),
+		new ReField( "IndexBuffer_", &GaTestCloudComponent::IndexBuffer_, bcRFF_TRANSIENT ),
+		new ReField( "VertexBuffer_", &GaTestCloudComponent::VertexBuffer_, bcRFF_TRANSIENT ),
+		new ReField( "VertexDeclaration_", &GaTestCloudComponent::VertexDeclaration_, bcRFF_TRANSIENT ),
+		new ReField( "MaterialComponent3D_", &GaTestCloudComponent::MaterialComponent3D_, bcRFF_TRANSIENT ),
+		new ReField( "Texture3D_", &GaTestCloudComponent::Texture3D_, bcRFF_TRANSIENT ),
+
+		new ReField( "TestUniformBlock_", &GaTestCloudComponent::TestUniformBlock_, bcRFF_NONE ),
 	};
 		
-	ReRegisterClass< GaTestTextureComponent, Super >( Fields )
-		.addAttribute( new ScnComponentProcessor() );
+	ReRegisterClass< GaTestCloudComponent, Super >( Fields )
+	// Add editor.
+		.addAttribute( 
+		new DsImGuiFieldEditor( 
+			[]( DsImGuiFieldEditor* ThisFieldEditor, std::string Name, void* Object, const ReClass* Class, ReFieldFlags Flags )
+			{
+				GaTestCloudComponent* Component = reinterpret_cast< GaTestCloudComponent* >( Object );
+				DsCore::pImpl()->drawObjectEditor( ThisFieldEditor, &Component->TestUniformBlock_, GaTestCloudBlockData::StaticGetClass(), Flags );
+			} ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
 // Ctor
-GaTestTextureComponent::GaTestTextureComponent():
+GaTestCloudComponent::GaTestCloudComponent():
 	ObjectUniformBuffer_( nullptr ),
 	TestUniformBuffer_( nullptr ),
 	IndexBuffer_( nullptr ),
 	VertexBuffer_( nullptr ),
 	VertexDeclaration_( nullptr ),
-	Texture1D_( nullptr ),
-	Texture2D_( nullptr ),
-	Texture3D_( nullptr ),
-	TextureCube_( nullptr )
+	Texture3D_( nullptr )
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 // Dtor
 //virtual
-GaTestTextureComponent::~GaTestTextureComponent()
+GaTestCloudComponent::~GaTestCloudComponent()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////
 // drawTest
-void GaTestTextureComponent::drawTest(
+void GaTestCloudComponent::drawTest(
 		const MaMat4d& Transform, ScnMaterialComponent* Material,
 		class ScnViewComponent* pViewComponent, RsFrame* pFrame, 
 		RsRenderSort Sort )
@@ -124,7 +128,7 @@ void GaTestTextureComponent::drawTest(
 	{
 		// Set parameters.
 		Material->setObjectUniformBlock( ObjectUniformBuffer_ );
-		Material->setUniformBlock( "GaTestTextureBlockData", TestUniformBuffer_ );
+		Material->setUniformBlock( "GaTestCloudBlockData", TestUniformBuffer_ );
 		
 		// Set material components for view.
 		pViewComponent->setMaterialParameters( Material );
@@ -136,7 +140,7 @@ void GaTestTextureComponent::drawTest(
 		pFrame->queueRenderNode( Sort,
 			[ this, Transform ]( RsContext* Context )
 			{
-				PSY_PROFILER_SECTION( RenderRoot, "GaTestTextureComponentRenderNode::render" );
+				PSY_PROFILER_SECTION( RenderRoot, "GaTestCloudComponentRenderNode::render" );
 
 				Context->updateBuffer( 
 					ObjectUniformBuffer_,
@@ -159,48 +163,61 @@ void GaTestTextureComponent::drawTest(
 //////////////////////////////////////////////////////////////////////////
 // render
 //virtual 
-void GaTestTextureComponent::render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort )
+void GaTestCloudComponent::render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort )
 {
 	Super::render( pViewComponent, pFrame, Sort );
 
+	if( ImGui::Begin( "Test Menu" ) )
+	{
+		ImGui::Separator();
+		ImGui::BeginGroup();
+
+		ImGui::SliderFloat( "Cloud Threshold", &TestUniformBlock_.CloudThreshold_, 0.0f, 1.0f );
+		float Scale[3] = { TestUniformBlock_.CloudScale_.x(), TestUniformBlock_.CloudScale_.y(), TestUniformBlock_.CloudScale_.z() };
+		if( ImGui::SliderFloat3( "Cloud Scale", Scale, 1.0f, 64.0f ) )
+		{
+			TestUniformBlock_.CloudScale_.x( Scale[ 0 ] );
+			TestUniformBlock_.CloudScale_.y( Scale[ 1 ] );
+			TestUniformBlock_.CloudScale_.z( Scale[ 2 ] );
+		}
+
+		ImGui::EndGroup();
+		ImGui::Separator();
+
+		DsCore::pImpl()->drawObjectEditor( nullptr, this, getClass(), 0 );
+	}
+	ImGui::End();
+
+
 	RsCore::pImpl()->updateBuffer( 
 		TestUniformBuffer_,
-		0, sizeof( GaTestTextureBlockData ),
+		0, sizeof( GaTestCloudBlockData ),
 		RsResourceUpdateFlags::ASYNC,
-		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
+		[ this ]( RsBuffer* Buffer, const RsBufferLock& Lock )
 		{
-			static BcF32 Timer = 0.0f;
-			Timer += SysKernel::pImpl()->getFrameTime() * 0.05f;
-			auto UniformBlock = reinterpret_cast< GaTestTextureBlockData* >( Lock.Buffer_ );
-			UniformBlock->UVWOffset_ = MaVec4d( Timer, Timer * 0.5f, Timer * 2.0f, 0.0f );
+			auto UniformBlock = reinterpret_cast< GaTestCloudBlockData* >( Lock.Buffer_ );
+
+			auto Accum = SysKernel::pImpl()->getFrameTime();
+
+			TestUniformBlock_.CloudTimer_ += MaVec4d( Accum, Accum * 2.0f, Accum * 0.5f, Accum * 0.25f );
+
+			*UniformBlock = TestUniformBlock_;
 		} );
 
 	MaMat4d Transform;
-
-	Transform.translation( MaVec3d( -2.0f, 0.0f, 0.0f ) );
-	drawTest( Transform, MaterialComponent1D_, pViewComponent, pFrame, Sort );
-
-	Transform.translation( MaVec3d( 0.0f, 0.0f, 0.0f ) );
-	drawTest( Transform, MaterialComponent2D_, pViewComponent, pFrame, Sort );
-
-	Transform.translation( MaVec3d( 2.0f, 0.0f, 0.0f ) );
 	drawTest( Transform, MaterialComponent3D_, pViewComponent, pFrame, Sort );
-
-	static BcF32 Timer = 0.0f;
-	Timer += SysKernel::pImpl()->getFrameTime() * 0.25f;
-	Transform.rotation( MaVec3d( Timer, Timer * 0.25f, Timer * 0.05f ) );
-	Transform.translation( MaVec3d( 4.0f, 0.0f, 0.0f ) );
-	drawTest( Transform, MaterialComponentCube_, pViewComponent, pFrame, Sort );
 }
 
 //////////////////////////////////////////////////////////////////////////
 // onAttach
 //virtual
-void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
+void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 
-
+	TestUniformBlock_.CloudTimer_ = MaVec4d( 0.0f, 0.0f, 0.0f, 0.0f );
+	TestUniformBlock_.CloudScale_ = MaVec4d( 32.0f, 32.0f, 32.0f, 0.0f );
+	TestUniformBlock_.CloudThreshold_ = 0.0f;
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
 			RsBufferType::UNIFORM,
@@ -212,7 +229,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		RsBufferDesc(
 			RsBufferType::UNIFORM,
 			RsResourceCreationFlags::STREAM,
-			sizeof( GaTestTextureBlockData ) ) );
+			sizeof( GaTestCloudBlockData ) ) );
 
 	BcU32 IndexBufferSize = sizeof( BcU16 ) * 4;
 	IndexBuffer_ = RsCore::pImpl()->createBuffer(
@@ -263,71 +280,6 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 
 	const auto& Features = RsCore::pImpl()->getContext( nullptr )->getFeatures();
 
-	// Setup materials & textures.
-	if( Material1D_ )
-	{
-		MaterialComponent1D_ = Parent->attach< ScnMaterialComponent >(
-			BcName::INVALID, Material1D_, ShaderPermutation );
-
-		// Create texture.
-		if( Features.Texture1D_ )
-		{
-			Texture1D_ = ScnTexture::New1D( 32, 1, RsTextureFormat::R8G8B8A8 );
-			auto Slice = Texture1D_->getTexture()->getSlice( 0 );
-			RsCore::pImpl()->updateTexture( 
-				Texture1D_->getTexture(),
-				Slice,
-				RsResourceUpdateFlags::ASYNC,
-				[]( RsTexture* Texture, const RsTextureLock& Lock )
-				{
-					const auto& Desc = Texture->getDesc();
-					BcU32* Data = reinterpret_cast< BcU32* >( 
-						reinterpret_cast< BcU8* >( Lock.Buffer_ ) );
-					for( BcU32 X = 0; X < Desc.Width_; ++X )
-					{
-						const BcU32 XDiv = X / 4;
-						*Data++ = ( ( ( XDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
-					}
-				} );
-
-			// Bind.
-			MaterialComponent1D_->setTexture( "aDiffuseTex", Texture1D_ );
-		}
-	}
-	if( Material2D_ )
-	{
-		MaterialComponent2D_ = Parent->attach< ScnMaterialComponent >(
-			BcName::INVALID, Material2D_, ShaderPermutation );
-
-		// Create texture.
-		if( Features.Texture2D_ )
-		{
-			Texture2D_ = ScnTexture::New2D( 32, 32, 1, RsTextureFormat::R8G8B8A8 );
-			auto Slice = Texture2D_->getTexture()->getSlice( 0 );
-			RsCore::pImpl()->updateTexture( 
-				Texture2D_->getTexture(),
-				Slice,
-				RsResourceUpdateFlags::ASYNC,
-				[]( RsTexture* Texture, const RsTextureLock& Lock )
-				{
-					const auto& Desc = Texture->getDesc();
-					for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
-					{
-						BcU32* Data = reinterpret_cast< BcU32* >( 
-							reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Y * Lock.Pitch_ );
-						for( BcU32 X = 0; X < Desc.Width_; ++X )
-						{
-							const BcU32 XDiv = X / 4;
-							const BcU32 YDiv = Y / 4;
-							*Data++ = ( ( ( XDiv + YDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
-						}
-					}
-				} );
-
-			// Bind.
-			MaterialComponent2D_->setTexture( "aDiffuseTex", Texture2D_ );
-		}
-	}
 	if( Material3D_ )
 	{
 		MaterialComponent3D_ = Parent->attach< ScnMaterialComponent >(
@@ -368,107 +320,20 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 			MaterialComponent3D_->setTexture( "aDiffuseTex", Texture3D_ );
 		}
 	}
-	if( MaterialCube_ )
-	{
-		MaterialComponentCube_ = Parent->attach< ScnMaterialComponent >(
-			BcName::INVALID, MaterialCube_, ShaderPermutation );
-
-		// Create texture.
-		if( Features.TextureCube_ )
-		{
-			TextureCube_ = ScnTexture::NewCube( 32, 32, 1, RsTextureFormat::R8G8B8A8 );
-			const BcU32 FaceColours[] = 
-			{
-				0xffff0000,
-				0xff00ffff,
-				0xff00ff00,
-				0xffff00ff,
-				0xff0000ff,
-				0xffffff00,
-			};
-
-			const RsTextureFace Faces[] = 
-			{
-				RsTextureFace::POSITIVE_X,
-				RsTextureFace::NEGATIVE_X,
-				RsTextureFace::POSITIVE_Y,
-				RsTextureFace::NEGATIVE_Y,
-				RsTextureFace::POSITIVE_Z,
-				RsTextureFace::NEGATIVE_Z,
-			};
-
-			for( BcU32 Face = 0; Face < 6; ++Face )
-			{
-				const BcU32 Colour = FaceColours[ Face ];
-				auto Slice = TextureCube_->getTexture()->getSlice( 0, Faces[ Face ] );
-				RsCore::pImpl()->updateTexture( 
-					TextureCube_->getTexture(),
-					Slice,
-					RsResourceUpdateFlags::ASYNC,
-					[ Colour ]( RsTexture* Texture, const RsTextureLock& Lock )
-					{
-						const auto& Desc = Texture->getDesc();
-						for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
-						{
-							BcU32* Data = reinterpret_cast< BcU32* >( 
-								reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Y * Lock.Pitch_ );
-							for( BcU32 X = 0; X < Desc.Width_; ++X )
-							{
-								const BcU32 XDiv = X / 4;
-								const BcU32 YDiv = Y / 4;
-								*Data++ = ( ( ( XDiv + YDiv ) & 1 ) == 0 ) ? Colour : 0xff000000;
-							}
-						}
-					} );
-			}
-			// Bind.
-			MaterialComponentCube_->setTexture( "aDiffuseTex", TextureCube_ );
-		}
-	}
 
 }
 	
 //////////////////////////////////////////////////////////////////////////
 // onDetach
 //virtual
-void GaTestTextureComponent::onDetach( ScnEntityWeakRef Parent )
+void GaTestCloudComponent::onDetach( ScnEntityWeakRef Parent )
 {
 	Super::onDetach( Parent );
-
-	if(	Texture1D_ )
-	{
-		Texture1D_->markDestroy();
-		Texture1D_ = nullptr;
-	}
-
-	if(	Texture2D_ )
-	{
-		Texture2D_->markDestroy();
-		Texture2D_ = nullptr;
-	}
 
 	if(	Texture3D_ )
 	{
 		Texture3D_->markDestroy();
 		Texture3D_ = nullptr;
-	}
-
-	if(	TextureCube_ )
-	{
-		TextureCube_->markDestroy();
-		TextureCube_ = nullptr;
-	}
-
-	if( MaterialComponent1D_ )
-	{
-		Parent->detach( MaterialComponent1D_ );
-		MaterialComponent1D_ = nullptr;
-	}
-
-	if( MaterialComponent2D_ )
-	{
-		Parent->detach( MaterialComponent2D_ );
-		MaterialComponent2D_ = nullptr;
 	}
 
 	if( MaterialComponent3D_ )
@@ -487,7 +352,7 @@ void GaTestTextureComponent::onDetach( ScnEntityWeakRef Parent )
 //////////////////////////////////////////////////////////////////////////
 // getAABB
 //virtual
-MaAABB GaTestTextureComponent::getAABB() const
+MaAABB GaTestCloudComponent::getAABB() const
 {
 	return MaAABB();
 }
