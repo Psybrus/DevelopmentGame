@@ -117,44 +117,6 @@
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
 			}
-		},
-
-		{
-			"type"			: "ScnShader",
-			"name"			: "geometry_test",
-			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/geometry_test.hlsl",
-				"GLSL_330" : "Content/Engine/geometry_test.glsl",
-				"GLSL_ES_100" : "Content/Engine/geometry_test.glsl"
-			},
-
-			"@(android)" : {
-				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/geometry_test.glsl"
-				}
-			},
-
-			"excludepermutations" : [
-				"RENDER_DEFERRED",
-				"RENDER_FORWARD_PLUS",
-				"PASS_SHADOW",
-				"MESH_INSTANCED_3D",
-				"LIGHTING_DIFFUSE"
-			],
-
-			"entrypoints"		: {
-				"vertex" : 		"vertexMain",
-				// "geometry" :	"geometryMain",
-				"pixel" :		"pixelMain"
-			},
-
-			"@(android)" : {
-				"entrypoints"		: {
-					"vertex" : 		"vertexMain",
-					"pixel" :		"pixelMain"
-				}
-			}
-
 		}
 	]
 }

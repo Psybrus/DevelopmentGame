@@ -1,0 +1,100 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"$Class"				: "GaTestShaderComponent",
+					"type"					: "GaTestShaderComponent",
+
+					"material" : "$(ScnMaterial:this.material)"
+				}
+			]
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "material",
+
+			// Shader
+			"shader"		: "$(ScnShader:this.volume_test)",
+
+			// Textures
+			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"addressw" : "wrap",
+					"minfilter" : "linear",
+					"magfilter" : "linear"
+				}
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : true,
+							"srcblend" : "srcalpha",
+							"destblend" : "one",
+							"blendop" : "add",
+							"srcblendalpha" : "srcalpha",
+							"destblendalpha" : "one",
+							"blendopalpha" : "add",
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : false
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "volume_test",
+			"sources" 		: {
+				//"D3D11_4_0" : "Content/Engine/volume_test.hlsl",
+				"GLSL_ES_100" : "Content/Engine/volume_test.glsl",
+				"GLSL_330" : "Content/Engine/volume_test.glsl"
+			},
+
+			"defines"		: {
+				"MAX_ITERATIONS" : "256"
+			},
+
+			"excludepermutations" : [
+				"RENDER_DEFERRED",
+				"RENDER_FORWARD_PLUS",
+				"PASS_SHADOW",
+				"MESH_INSTANCED_3D",
+				"LIGHTING_DIFFUSE"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		}
+	]
+}

@@ -7,26 +7,91 @@
 
 			"components" : [
 				{
-					"$Class"				: "ScnFontComponent",
-					"type"					: "ScnFontComponent",
-					"font"					: "$(ScnFont:fonts.courier)",
-					"material"				: "$(ScnMaterial:materials.font)"
-				},
-
-				{
-					"$Class"				: "ScnCanvasComponent",
-					"type"					: "ScnCanvasComponent",
-					"noofvertices" 			: 8192,
-					"rendermask"			: 1
-				},
-
-				{
 					"$Class"				: "GaTestShaderComponent",
 					"type"					: "GaTestShaderComponent",
 
-					"material"				: "$(ScnMaterial:materials.geometry_test)"
+					"material"				: "$(ScnMaterial:this.material)"
 				}
 			]
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "geometry_test",
+			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/geometry_test.hlsl",
+				"GLSL_330" : "Content/Engine/geometry_test.glsl",
+				"GLSL_ES_100" : "Content/Engine/geometry_test.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/geometry_test.glsl"
+				}
+			},
+
+			"excludepermutations" : [
+				"RENDER_DEFERRED",
+				"RENDER_FORWARD_PLUS",
+				"PASS_SHADOW",
+				"MESH_INSTANCED_3D",
+				"LIGHTING_DIFFUSE"
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				// "geometry" :	"geometryMain",
+				"pixel" :		"pixelMain"
+			},
+
+			"@(android)" : {
+				"entrypoints"		: {
+					"vertex" : 		"vertexMain",
+					"pixel" :		"pixelMain"
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "material",
+
+			// Shader
+			"shader"		: "$(ScnShader:this.geometry_test)",
+
+			// Textures
+			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false,
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "wireframe",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : false
+				}
+			}
 		}
 	]
 }

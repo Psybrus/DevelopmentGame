@@ -505,49 +505,6 @@
 					"antialiasedlineenable" : true
 				}
 			}
-		},
-
-		{
-			"type"			: "ScnMaterial",
-			"name"			: "geometry_test",
-
-			// Shader
-			"shader"		: "$(ScnShader:shaders.geometry_test)",
-
-			// Textures
-			"textures"		: {
-			},
-
-			// Samplers
-			"samplers"		: {
-			},
-
-			// New render state.
-			"renderstate" : {
-				"blendstate" : {
-					"rendertarget" : [
-						{
-							"enable" : false,
-							"writemask" : 15
-						}
-					]
-				},
-
-				"depthstencilstate" : {
-					"depthtestenable" : false,
-					"depthwriteenable" : false,
-					"depthfunc" : "lessequal",
-					"stencilenable" : false
-				},
-
-				"rasteriserstate" : {
-					"fillmode" : "wireframe",
-					"cullmode" : "none",
-					"depthclipenable" : true,
-					"antialiasedlineenable" : false
-				}
-			}
 		}
-
 	]
 }
