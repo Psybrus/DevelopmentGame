@@ -27,6 +27,7 @@ void GaCameraComponent::StaticRegisterClass()
 	{
 		new ReField( "CameraTarget_",		&GaCameraComponent::CameraTarget_ ),
 		new ReField( "CameraRotation_",		&GaCameraComponent::CameraRotation_ ),
+		new ReField( "CameraWalk_",			&GaCameraComponent::CameraWalk_ ),
 		new ReField( "CameraDistance_",		&GaCameraComponent::CameraDistance_ ),
 		new ReField( "CameraZoom_",			&GaCameraComponent::CameraZoom_ ),
 		new ReField( "CameraState_",		&GaCameraComponent::CameraState_ ),
@@ -52,6 +53,7 @@ GaCameraComponent::GaCameraComponent()
 #if PLATFORM_ANDROID
 	CameraRotation_ = MaVec3d( 0.1f, 0.0f, 0.0f );
 #endif
+	CameraWalk_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -107,12 +109,17 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 	CameraDistance_ = BcClamp( CameraDistance_, 1.0f, 4096.0f );
 	CameraZoom_ = 0.0f;
 
-	MaMat4d Matrix;
-	MaVec3d ViewDistance = MaVec3d( 0.0f, 0.0f, CameraDistance_ );
+	BcF32 WalkSpeed = 8.0f;
 	MaMat4d CameraRotationMatrix = getCameraRotationMatrix();
+	MaVec3d OffsetVector = -CameraWalk_ * CameraRotationMatrix;
+	CameraTarget_ += OffsetVector * Tick * WalkSpeed;
+
+
+	MaVec3d ViewDistance = MaVec3d( 0.0f, 0.0f, CameraDistance_ );
 	ViewDistance = ViewDistance * CameraRotationMatrix;
 	MaVec3d ViewFromPosition = CameraTarget_ + ViewDistance;
 
+	MaMat4d Matrix;
 	Matrix.lookAt( ViewFromPosition, CameraTarget_, MaVec3d( CameraRotationMatrix.row1().x(), CameraRotationMatrix.row1().y(), CameraRotationMatrix.row1().z() ) );
 	Matrix.inverse();
 	//Matrix.rotation( MaVec3d( BcPIDIV2 - ( BcPI / 16.0f ), 0.0f, 0.0f ) );
@@ -255,6 +262,19 @@ eEvtReturn GaCameraComponent::onKeyDown( EvtID ID, const EvtBaseEvent& Event )
 	case OsEventInputKeyboard::KEYCODE_DOWN:
 		CameraRotationDelta_.x(  1.0f );
 		break;
+	case 'W':
+		CameraWalk_.z( 1.0f );
+		break;
+	case 'S':
+		CameraWalk_.z( -1.0f );
+		break;
+	case 'A':
+		CameraWalk_.x( -1.0f );
+		break;
+	case 'D':
+		CameraWalk_.x( 1.0f );
+		break;
+
 	}
 
 	return evtRET_PASS;
@@ -277,6 +297,14 @@ eEvtReturn GaCameraComponent::onKeyUp( EvtID ID, const EvtBaseEvent& Event )
 	case OsEventInputKeyboard::KEYCODE_UP:
 	case OsEventInputKeyboard::KEYCODE_DOWN:
 		CameraRotationDelta_.x( 0.0f );
+		break;
+	case 'W':
+	case 'S':
+		CameraWalk_.z( 0.0f );
+		break;
+	case 'A':
+	case 'D':
+		CameraWalk_.x( 0.0f );
 		break;
 	}
 

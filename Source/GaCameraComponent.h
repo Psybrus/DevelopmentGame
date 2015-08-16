@@ -52,6 +52,7 @@ public:
 private:
 	MaVec3d CameraTarget_;
 	MaVec3d CameraRotation_;
+	MaVec3d CameraWalk_;
 	BcF32 CameraDistance_;
 	BcF32 CameraZoom_;
 
