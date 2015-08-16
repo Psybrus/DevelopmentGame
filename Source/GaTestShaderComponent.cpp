@@ -86,9 +86,9 @@ GaTestShaderComponent::~GaTestShaderComponent()
 //////////////////////////////////////////////////////////////////////////
 // render
 //virtual 
-void GaTestShaderComponent::render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort )
+void GaTestShaderComponent::render( ScnRenderContext & RenderContext )
 {
-	Super::render( pViewComponent, pFrame, Sort );
+	Super::render( RenderContext );
 
 	RsCore::pImpl()->updateBuffer( 
 		ObjectUniformBuffer_,
@@ -105,13 +105,13 @@ void GaTestShaderComponent::render( class ScnViewComponent* pViewComponent, RsFr
 	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_ );
 			
 	// Set material components for view.
-	pViewComponent->setMaterialParameters( MaterialComponent_ );
+	RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
 			
 	// Bind material.
-	MaterialComponent_->bind( pFrame, Sort );
+	MaterialComponent_->bind( RenderContext.pFrame_, RenderContext.Sort_ );
 
 	// Render primitive.				
-	pFrame->queueRenderNode( Sort,
+	RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
 		[ this ]( RsContext* Context )
 		{
 			PSY_PROFILER_SECTION( RenderRoot, "GaTestShaderComponentRenderNode::render" );

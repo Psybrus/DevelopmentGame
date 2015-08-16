@@ -117,8 +117,7 @@ GaTestTextureComponent::~GaTestTextureComponent()
 // drawTest
 void GaTestTextureComponent::drawTest(
 		const MaMat4d& Transform, ScnMaterialComponent* Material,
-		class ScnViewComponent* pViewComponent, RsFrame* pFrame, 
-		RsRenderSort Sort )
+		ScnRenderContext & RenderContext )
 {
 	if( Material )
 	{
@@ -127,13 +126,13 @@ void GaTestTextureComponent::drawTest(
 		Material->setUniformBlock( "GaTestTextureBlockData", TestUniformBuffer_ );
 		
 		// Set material components for view.
-		pViewComponent->setMaterialParameters( Material );
+		RenderContext.pViewComponent_->setMaterialParameters( Material );
 				
 		// Bind material.
-		Material->bind( pFrame, Sort );
+		Material->bind( RenderContext.pFrame_, RenderContext.Sort_ );
 
-		// Render primitive.				
-		pFrame->queueRenderNode( Sort,
+		// Render primitive.
+		RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
 			[ this, Transform ]( RsContext* Context )
 			{
 				PSY_PROFILER_SECTION( RenderRoot, "GaTestTextureComponentRenderNode::render" );
@@ -159,9 +158,9 @@ void GaTestTextureComponent::drawTest(
 //////////////////////////////////////////////////////////////////////////
 // render
 //virtual 
-void GaTestTextureComponent::render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort )
+void GaTestTextureComponent::render( ScnRenderContext & RenderContext )
 {
-	Super::render( pViewComponent, pFrame, Sort );
+	Super::render( RenderContext );
 
 	RsCore::pImpl()->updateBuffer( 
 		TestUniformBuffer_,
@@ -178,19 +177,19 @@ void GaTestTextureComponent::render( class ScnViewComponent* pViewComponent, RsF
 	MaMat4d Transform;
 
 	Transform.translation( MaVec3d( -2.0f, 0.0f, 0.0f ) );
-	drawTest( Transform, MaterialComponent1D_, pViewComponent, pFrame, Sort );
+	drawTest( Transform, MaterialComponent1D_, RenderContext );
 
 	Transform.translation( MaVec3d( 0.0f, 0.0f, 0.0f ) );
-	drawTest( Transform, MaterialComponent2D_, pViewComponent, pFrame, Sort );
+	drawTest( Transform, MaterialComponent2D_, RenderContext );
 
 	Transform.translation( MaVec3d( 2.0f, 0.0f, 0.0f ) );
-	drawTest( Transform, MaterialComponent3D_, pViewComponent, pFrame, Sort );
+	drawTest( Transform, MaterialComponent3D_, RenderContext );
 
 	static BcF32 Timer = 0.0f;
 	Timer += SysKernel::pImpl()->getFrameTime() * 0.25f;
 	Transform.rotation( MaVec3d( Timer, Timer * 0.25f, Timer * 0.05f ) );
 	Transform.translation( MaVec3d( 4.0f, 0.0f, 0.0f ) );
-	drawTest( Transform, MaterialComponentCube_, pViewComponent, pFrame, Sort );
+	drawTest( Transform, MaterialComponentCube_, RenderContext );
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -88,9 +88,9 @@ GaFullscreenQuadComponent::~GaFullscreenQuadComponent()
 //////////////////////////////////////////////////////////////////////////
 // render
 //virtual 
-void GaFullscreenQuadComponent::render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort )
+void GaFullscreenQuadComponent::render( ScnRenderContext & RenderContext )
 {
-	Super::render( pViewComponent, pFrame, Sort );
+	Super::render( RenderContext );
 
 	RsCore::pImpl()->updateBuffer( 
 		ObjectUniformBuffer_,
@@ -107,14 +107,14 @@ void GaFullscreenQuadComponent::render( class ScnViewComponent* pViewComponent, 
 	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_ );
 			
 	// Set material components for view.
-	pViewComponent->setMaterialParameters( MaterialComponent_ );
+	RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
 	
 	// Bind material.
-	MaterialComponent_->bind( pFrame, Sort );
+	MaterialComponent_->bind( RenderContext.pFrame_, RenderContext.Sort_ );
 
 
 	// Render primitive.
-	pFrame->queueRenderNode( Sort,
+	RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
 		[ this ]( RsContext* Context )
 		{
 			PSY_PROFILER_SECTION( RenderRoot, "GaFullscreenQuadComponentRenderNode::render" );

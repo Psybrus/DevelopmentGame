@@ -34,7 +34,7 @@ public:
 	GaTestShaderComponent();
 	virtual ~GaTestShaderComponent();
 	
-	virtual void render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort );
+	virtual void render( ScnRenderContext & RenderContext );
 
 	virtual void onAttach( ScnEntityWeakRef Parent );
 	virtual void onDetach( ScnEntityWeakRef Parent );

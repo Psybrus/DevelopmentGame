@@ -58,10 +58,9 @@ public:
 
 	void drawTest( 
 		const MaMat4d& Transform, ScnMaterialComponent* Material,
-		class ScnViewComponent* pViewComponent, RsFrame* pFrame, 
-		RsRenderSort Sort );
+		ScnRenderContext & RenderContext );
 	
-	virtual void render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort );
+	virtual void render( ScnRenderContext & RenderContext );
 
 	virtual void onAttach( ScnEntityWeakRef Parent );
 	virtual void onDetach( ScnEntityWeakRef Parent );

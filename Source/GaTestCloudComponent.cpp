@@ -123,8 +123,7 @@ GaTestCloudComponent::~GaTestCloudComponent()
 // drawTest
 void GaTestCloudComponent::drawTest(
 		const MaMat4d& Transform, ScnMaterialComponent* Material,
-		class ScnViewComponent* pViewComponent, RsFrame* pFrame, 
-		RsRenderSort Sort )
+		ScnRenderContext & RenderContext )
 {
 	if( Material )
 	{
@@ -133,13 +132,13 @@ void GaTestCloudComponent::drawTest(
 		Material->setUniformBlock( "GaTestCloudBlockData", TestUniformBuffer_ );
 		
 		// Set material components for view.
-		pViewComponent->setMaterialParameters( Material );
+		RenderContext.pViewComponent_->setMaterialParameters( Material );
 				
 		// Bind material.
-		Material->bind( pFrame, Sort );
+		Material->bind( RenderContext.pFrame_, RenderContext.Sort_ );
 
 		// Render primitive.				
-		pFrame->queueRenderNode( Sort,
+		RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
 			[ this, Transform ]( RsContext* Context )
 			{
 				PSY_PROFILER_SECTION( RenderRoot, "GaTestCloudComponentRenderNode::render" );
@@ -165,9 +164,9 @@ void GaTestCloudComponent::drawTest(
 //////////////////////////////////////////////////////////////////////////
 // render
 //virtual 
-void GaTestCloudComponent::render( class ScnViewComponent* pViewComponent, RsFrame* pFrame, RsRenderSort Sort )
+void GaTestCloudComponent::render( ScnRenderContext & RenderContext )
 {
-	Super::render( pViewComponent, pFrame, Sort );
+	Super::render( RenderContext );
 
 	if( ImGui::Begin( "Test Menu" ) )
 	{
@@ -207,7 +206,7 @@ void GaTestCloudComponent::render( class ScnViewComponent* pViewComponent, RsFra
 		} );
 
 	MaMat4d Transform;
-	drawTest( Transform, MaterialComponent3D_, pViewComponent, pFrame, Sort );
+	drawTest( Transform, MaterialComponent3D_, RenderContext );
 }
 
 //////////////////////////////////////////////////////////////////////////
