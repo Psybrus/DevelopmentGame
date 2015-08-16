@@ -217,8 +217,8 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 	Super::onAttach( Parent );
 
 	TestUniformBlock_.CloudTimer_ = MaVec4d( 0.0f, 0.0f, 0.0f, 0.0f );
-	TestUniformBlock_.CloudScale_ = MaVec4d( 64.0f, 64.0f, 64.0f, 0.0f );
-	TestUniformBlock_.CloudThreshold_ = 0.5f;
+	TestUniformBlock_.CloudScale_ = MaVec4d( 32.0f, 32.0f, 32.0f, 0.0f );
+	TestUniformBlock_.CloudThreshold_ = 4.0f;
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
 			RsBufferType::UNIFORM,
