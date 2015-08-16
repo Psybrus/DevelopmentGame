@@ -85,27 +85,6 @@ float sdBox( vec3 Position, vec3 Bounds )
 }
 
 //////////////////////////////////////////////////////////////////////////
-// sdCloud
-float cosNoise( float3 Position )
-{
-	float Ret = 0.0;
-	float Mul = 1.0;
-	float Freq = 0.2;
-	for( int Idx = 0; Idx < 4; ++Idx )
-	{
-		Ret += ( cos( Position.x * Freq ) * Mul + sin( Position.y * Freq ) * Mul + cos( ( Position.z + 0.2 ) * Freq ) * Mul ) / 3.0;
-		Mul *= 0.5;
-		Freq *= 2.0;
-	}
-	return Ret;
-}
-
-float sdCloud( vec3 Position )
-{
-	return cosNoise( Position + vec3( CloudTimer_.y, 0.0, 0.0 ) ); 
-}
-
-//////////////////////////////////////////////////////////////////////////
 // map
 float map( vec3 Position )
 {
@@ -145,8 +124,8 @@ PSY_SAMPLER_3D( CloudTex );
 
 float sampleCloud( vec3 Position )
 {
-	float4 CloudSample = PSY_SAMPLE_3D( CloudTex, Position.xzy / CloudScale_.xyz );
-
+	vec3 SamplePosition = ( Position.xzy / ( CloudScale_.xyz * 2.0 ) ) + 0.5;
+	float4 CloudSample = PSY_SAMPLE_3D( CloudTex, SamplePosition + vec3( CloudTimer_.w, 0.0, 0.0 ) );
 	return max( 0.0, CloudSample.x );
 }
 
@@ -160,6 +139,31 @@ vec3 calcNormal( vec3 Position )
 		sampleCloud( Position - Offset.zxy ) - sampleCloud( Position + Offset.zxy ),
 		sampleCloud( Position - Offset.yzx ) - sampleCloud( Position + Offset.yzx ) );
 	return normalize( Normal );
+}
+
+//////////////////////////////////////////////////////////////////////////
+// calcOcclusion
+float calcOcclusion( vec3 Position )
+{
+	vec3 Offset = vec3( 0.01, 0.0, 0.0 );
+	vec3 Offsets[ 6 ];
+	Offsets[ 0 ] = -Offset.xyz;
+	Offsets[ 1 ] = Offset.xyz;
+	Offsets[ 2 ] = -Offset.zxy;
+	Offsets[ 3 ] = Offset.zxy;
+	Offsets[ 4 ] = -Offset.yzx;
+	Offsets[ 5 ] = Offset.yzx;
+
+	float Occlusion = 0.0;
+	for( int Idx = 0; Idx < 6; ++Idx )
+	{
+		if( sampleCloud( Position + Offsets[ Idx ] ) > CloudThreshold_ )
+		{
+			Occlusion += 1.0 / 6.0;
+		}
+	}
+
+	return Occlusion;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -178,12 +182,12 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 		float Density = 0.1;
 
 		// Step fast until we hit a cloud, then refine by halving the step size.
-		float Precision = 0.001;
-		float StepSize = 1.0;
+		float Precision = 0.01;
+		float StepSize = 0.1;
 		float Tmin = 1.0;
 		float Tmax = 1000.0;
 		int MaxSteps = 256;
-		int RefinementSteps = 8;
+		int RefinementSteps = 4;
 		int NoofRefinements = 0;
 		float T = Tmin;
 		float Dist = -1.0;
@@ -196,6 +200,15 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 			{
 				break;
 			}
+#if 0
+			if( Dist < -0.5 )
+			{
+				Colour.xyz = vec3( 1.0, 1.0, 1.0 ) * ( ( 0.5 * sampleCloud( SamplePosition ) + 0.5 ) / CloudThreshold_ );
+				Colour.w = 1.0;
+				break;
+			}
+			T += StepSize;
+#else
 			if( sampleCloud( SamplePosition ) > CloudThreshold_ )
 			{
 				if( NoofRefinements < RefinementSteps )
@@ -206,8 +219,11 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 				}
 				else
 				{
-					Colour.xyz = 0.5 * calcNormal( SamplePosition ) + 0.5;
+					Colour.xyz = vec3( 1.0, 1.0, 1.0 );// * ( 1.0 - calcOcclusion( SamplePosition ) );
 					Colour.w = 1.0;
+
+					// TODO: Perform more work for this pixel for better quality cloud.
+
 					break;
 				}
 			}
@@ -215,6 +231,7 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 			{
 				T += StepSize;
 			}
+#endif
 		}
 
 

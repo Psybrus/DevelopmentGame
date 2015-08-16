@@ -173,7 +173,7 @@ void GaTestCloudComponent::render( ScnRenderContext & RenderContext )
 		ImGui::Separator();
 		ImGui::BeginGroup();
 
-		ImGui::SliderFloat( "Cloud Threshold", &TestUniformBlock_.CloudThreshold_, 0.0f, 4.0f );
+		ImGui::SliderFloat( "Cloud Threshold", &TestUniformBlock_.CloudThreshold_, 0.1f, 4.0f );
 		float Scale[3] = { TestUniformBlock_.CloudScale_.x(), TestUniformBlock_.CloudScale_.y(), TestUniformBlock_.CloudScale_.z() };
 		if( ImGui::SliderFloat3( "Cloud Scale", Scale, 32.0f, 256.0f ) )
 		{
@@ -217,8 +217,8 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 	Super::onAttach( Parent );
 
 	TestUniformBlock_.CloudTimer_ = MaVec4d( 0.0f, 0.0f, 0.0f, 0.0f );
-	TestUniformBlock_.CloudScale_ = MaVec4d( 32.0f, 32.0f, 32.0f, 0.0f );
-	TestUniformBlock_.CloudThreshold_ = 4.0f;
+	TestUniformBlock_.CloudScale_ = MaVec4d( 8.0f, 8.0f, 8.0f, 0.0f );
+	TestUniformBlock_.CloudThreshold_ = 0.8f;
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
 			RsBufferType::UNIFORM,
@@ -297,7 +297,10 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 				RsResourceUpdateFlags::ASYNC,
 				[]( RsTexture* Texture, const RsTextureLock& Lock )
 				{
-					BcRandom Noise;
+					BcRandom Rand( 0x1750fec7 );
+					BcRandom NoiseX( Rand.rand() );
+					BcRandom NoiseY( Rand.rand() );
+					BcRandom NoiseZ( Rand.rand() );
 					const auto& Desc = Texture->getDesc();
 					for( BcU32 Z = 0; Z < Desc.Depth_; ++Z )
 					{
@@ -309,35 +312,23 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 								reinterpret_cast< BcU8* >( SliceData ) + Y * Lock.Pitch_ );
 							for( BcU32 X = 0; X < Desc.Width_; ++X )
 							{
-								const BcU32 XDiv = X / 4;
-								const BcU32 YDiv = Y / 4;
-								const BcU32 ZDiv = Z / 4;
-								
-								BcF32 XVal = 0.0f;
-								BcF32 YVal = 0.0f;
-								BcF32 ZVal = 0.0f;
-								BcF32 XOff = 0.0f;
-								BcF32 YOff = 4.0f;
-								BcF32 ZOff = 8.0f;
-								BcF32 Freq = 0.25f;
+								BcF32 Val = 0.0f;
+								BcF32 Freq = 1.0f / Desc.Width_;
 								BcF32 Mul = 0.5f;
-								for( BcU32 Idx = 0; Idx < 4; ++Idx )
+								MaVec3d SamplingPos( X, Y, Z );
+								for( BcU32 Idx = 0; Idx < 8; ++Idx )
 								{
-									XVal += ( Noise.interpolatedNoise( ( X + XOff ) * Freq, Desc.Width_ ) + 1.0f ) * Mul;
-									YVal += ( Noise.interpolatedNoise( ( Y + YOff ) * Freq, Desc.Width_ ) + 1.0f ) * Mul;
-									ZVal += ( Noise.interpolatedNoise( ( Z + ZOff ) * Freq, Desc.Width_ ) + 1.0f ) * Mul;
-									Mul *= 0.6f;
+									Val += Mul * 
+										( 0.5f * sin( SamplingPos.x() * Freq * BcPI ) + 0.5f ) * 
+										( 0.5f * cos( SamplingPos.y() * Freq * BcPI ) + 0.5f ) *
+										( 0.5f * -sin( SamplingPos.z() * Freq * BcPI ) + 0.5f );
+									Mul *= 0.9f;
 									Freq *= 2.0f;
-									XOff *= 8.0f;
-									YOff *= 16.0f;
-									ZOff *= 32.0f;
+									MaMat4d Rot;
+									Rot.rotation( MaVec3d( 0.4f, 0.2f, 1.0f ) );
+									SamplingPos = SamplingPos * Rot;
 								}
-#if 1
-
-								*Data++ = BcF32ToHalf( XVal + YVal + ZVal );
-#else
-								*Data++ = ( ( ( XDiv + YDiv + ZDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
-#endif
+								*Data++ = BcF32ToHalf( Val );
 							}
 						}
 					}
