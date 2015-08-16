@@ -23,7 +23,9 @@
 
 #include "System/SysKernel.h"
 
+#include "Base/BcHalf.h"
 #include "Base/BcProfiler.h"
+#include "Base/BcRandom.h"
 
 //////////////////////////////////////////////////////////////////////////
 // GaVertex
@@ -172,9 +174,9 @@ void GaTestCloudComponent::render( class ScnViewComponent* pViewComponent, RsFra
 		ImGui::Separator();
 		ImGui::BeginGroup();
 
-		ImGui::SliderFloat( "Cloud Threshold", &TestUniformBlock_.CloudThreshold_, 0.0f, 1.0f );
+		ImGui::SliderFloat( "Cloud Threshold", &TestUniformBlock_.CloudThreshold_, 0.0f, 4.0f );
 		float Scale[3] = { TestUniformBlock_.CloudScale_.x(), TestUniformBlock_.CloudScale_.y(), TestUniformBlock_.CloudScale_.z() };
-		if( ImGui::SliderFloat3( "Cloud Scale", Scale, 1.0f, 64.0f ) )
+		if( ImGui::SliderFloat3( "Cloud Scale", Scale, 32.0f, 256.0f ) )
 		{
 			TestUniformBlock_.CloudScale_.x( Scale[ 0 ] );
 			TestUniformBlock_.CloudScale_.y( Scale[ 1 ] );
@@ -216,8 +218,8 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 	Super::onAttach( Parent );
 
 	TestUniformBlock_.CloudTimer_ = MaVec4d( 0.0f, 0.0f, 0.0f, 0.0f );
-	TestUniformBlock_.CloudScale_ = MaVec4d( 32.0f, 32.0f, 32.0f, 0.0f );
-	TestUniformBlock_.CloudThreshold_ = 0.0f;
+	TestUniformBlock_.CloudScale_ = MaVec4d( 64.0f, 64.0f, 64.0f, 0.0f );
+	TestUniformBlock_.CloudThreshold_ = 0.5f;
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
 			RsBufferType::UNIFORM,
@@ -288,7 +290,7 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.Texture3D_ )
 		{
-			Texture3D_ = ScnTexture::New3D( 32, 32, 32, 1, RsTextureFormat::R8G8B8A8 );
+			Texture3D_ = ScnTexture::New3D( 64, 64, 64, 1, RsTextureFormat::R16F );
 			auto Slice = Texture3D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture3D_->getTexture(),
@@ -296,28 +298,54 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 				RsResourceUpdateFlags::ASYNC,
 				[]( RsTexture* Texture, const RsTextureLock& Lock )
 				{
+					BcRandom Noise;
 					const auto& Desc = Texture->getDesc();
 					for( BcU32 Z = 0; Z < Desc.Depth_; ++Z )
 					{
-						BcU32* SliceData = reinterpret_cast< BcU32* >( 
+						BcU16* SliceData = reinterpret_cast< BcU16* >( 
 							reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Z * Lock.SlicePitch_ );
 						for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
 						{
-							BcU32* Data = reinterpret_cast< BcU32* >( 
+							BcU16* Data = reinterpret_cast< BcU16* >( 
 								reinterpret_cast< BcU8* >( SliceData ) + Y * Lock.Pitch_ );
 							for( BcU32 X = 0; X < Desc.Width_; ++X )
 							{
 								const BcU32 XDiv = X / 4;
 								const BcU32 YDiv = Y / 4;
 								const BcU32 ZDiv = Z / 4;
+								
+								BcF32 XVal = 0.0f;
+								BcF32 YVal = 0.0f;
+								BcF32 ZVal = 0.0f;
+								BcF32 XOff = 0.0f;
+								BcF32 YOff = 4.0f;
+								BcF32 ZOff = 8.0f;
+								BcF32 Freq = 0.25f;
+								BcF32 Mul = 0.5f;
+								for( BcU32 Idx = 0; Idx < 4; ++Idx )
+								{
+									XVal += ( Noise.interpolatedNoise( ( X + XOff ) * Freq, Desc.Width_ ) + 1.0f ) * Mul;
+									YVal += ( Noise.interpolatedNoise( ( Y + YOff ) * Freq, Desc.Width_ ) + 1.0f ) * Mul;
+									ZVal += ( Noise.interpolatedNoise( ( Z + ZOff ) * Freq, Desc.Width_ ) + 1.0f ) * Mul;
+									Mul *= 0.6f;
+									Freq *= 2.0f;
+									XOff *= 8.0f;
+									YOff *= 16.0f;
+									ZOff *= 32.0f;
+								}
+#if 1
+
+								*Data++ = BcF32ToHalf( XVal + YVal + ZVal );
+#else
 								*Data++ = ( ( ( XDiv + YDiv + ZDiv ) & 1 ) == 0 ) ? 0xffffffff : 0xff000000;
+#endif
 							}
 						}
 					}
 				} );
 
 			// Bind.
-			MaterialComponent3D_->setTexture( "aDiffuseTex", Texture3D_ );
+			MaterialComponent3D_->setTexture( "aCloudTex", Texture3D_ );
 		}
 	}
 

@@ -141,9 +141,13 @@ vec2 rayMarch( vec3 RayPos, vec3 RayDir )
 
 //////////////////////////////////////////////////////////////////////////
 // sampleCloud
+PSY_SAMPLER_3D( CloudTex );
+
 float sampleCloud( vec3 Position )
 {
-	return max( 0.0, sdCloud( Position ) );
+	float4 CloudSample = PSY_SAMPLE_3D( CloudTex, Position.xzy / CloudScale_.xyz );
+
+	return max( 0.0, CloudSample.x );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -173,29 +177,44 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 		vec4 Colour = vec4( 1.0, 1.0, 1.0, 0.0 );
 		float Density = 0.1;
 
-		// March to opposite side of volume, accumulate alpha.
+		// Step fast until we hit a cloud, then refine by halving the step size.
 		float Precision = 0.001;
-		float StepSize = 0.5;
+		float StepSize = 1.0;
 		float Tmin = 1.0;
 		float Tmax = 1000.0;
 		int MaxSteps = 256;
+		int RefinementSteps = 8;
+		int NoofRefinements = 0;
 		float T = Tmin;
 		float Dist = -1.0;
 		for( int Idx = 0; Idx < MaxSteps; ++Idx )
 		{
 			vec3 SamplePosition = Position + RayDir * T;
 			Dist = map( SamplePosition );
+
 			if( Dist > Precision || T > Tmax )
 			{
 				break;
 			}
 			if( sampleCloud( SamplePosition ) > CloudThreshold_ )
 			{
-				Colour.xyz = 0.5 * calcNormal( SamplePosition ) + 0.5;
-				Colour.w = 1.0;
-				break;
+				if( NoofRefinements < RefinementSteps )
+				{
+					T -= StepSize;
+					StepSize *= 0.5;
+					NoofRefinements++;
+				}
+				else
+				{
+					Colour.xyz = 0.5 * calcNormal( SamplePosition ) + 0.5;
+					Colour.w = 1.0;
+					break;
+				}
 			}
-			T += StepSize;
+			else
+			{
+				T += StepSize;
+			}
 		}
 
 

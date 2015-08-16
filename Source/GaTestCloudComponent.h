@@ -30,9 +30,16 @@ struct GaTestCloudBlockData
 	REFLECTION_DECLARE_BASIC( GaTestCloudBlockData );
 	GaTestCloudBlockData(){};
 
+	/// Used to animate clouds.
 	MaVec4d CloudTimer_;
+
+	/// Scale at which to render clouds.
 	MaVec4d CloudScale_;
+
+	/// Threshold for hard edge of clouds.
 	BcF32 CloudThreshold_;
+
+	// Padding for 16 byte alignment.
 	BcF32 CloudPadding0_;
 	BcF32 CloudPadding1_;
 	BcF32 CloudPadding2_;
