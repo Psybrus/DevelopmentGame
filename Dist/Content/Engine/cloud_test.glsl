@@ -120,12 +120,18 @@ vec2 rayMarch( vec3 RayPos, vec3 RayDir )
 
 //////////////////////////////////////////////////////////////////////////
 // sampleCloud
+#if PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
 PSY_SAMPLER_3D( CloudTex );
+#endif
 
 float sampleCloud( vec3 Position )
 {
 	vec3 SamplePosition = ( Position.xzy / ( CloudScale_.xyz * 2.0 ) ) + 0.5;
-	float4 CloudSample = PSY_SAMPLE_3D( CloudTex, SamplePosition + vec3( CloudTimer_.w, 0.0, 0.0 ) );
+#if PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
+	vec4 CloudSample = PSY_SAMPLE_3D( CloudTex, SamplePosition + vec3( CloudTimer_.w, 0.0, 0.0 ) );
+#else
+	vec4 CloudSample = vec4( 0.0, 0.0, 0.0, 0.0 );
+#endif
 	return max( 0.0, CloudSample.x );
 }
 

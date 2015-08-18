@@ -57,6 +57,7 @@
 							"entity" : "$(ScnEntity:texture_test.TestEntity)"
 						},
 
+/*
 						{ 
 							"name" : "Volume test",
 							"entity" : "$(ScnEntity:volume_test.TestEntity)"
@@ -66,7 +67,7 @@
 							"name" : "Cloud test",
 							"entity" : "$(ScnEntity:cloud_test.TestEntity)"
 						},
-
+*/
 						{ 
 							"name" : "Model test",
 							"entity" : "$(ScnEntity:model_test.TestEntity)"
