@@ -4,6 +4,22 @@
 		{
 			"cmd":
 			[
+				"DevelopmentGameImporter-vs2013-windows-vs-v120-Debug.exe"
+			],
+			"name": "Import packages (vs2013)",
+			"working_dir": "$project_path/Dist",
+		},
+		{
+			"cmd":
+			[
+				"DevelopmentGameImporter-vs2015-windows-vs-v140-Debug.exe"
+			],
+			"name": "Import packages (vs2015)",
+			"working_dir": "$project_path/Dist",
+		},
+		{
+			"cmd":
+			[
 				"Psybrus/Tools/genie/genie-linux",
 				"--platform=x64",
 				"--toolchain=linux-clang",
