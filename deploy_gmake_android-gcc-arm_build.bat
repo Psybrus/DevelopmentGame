@@ -7,6 +7,6 @@ call python ../../../Psybrus/Scripts/CopyPackedContent.py
 adb uninstall com.psybrus.DevelopmentGame
 call ant debug install
 
-cd ..\..
+cd ..\..\..
 
 pause
