@@ -1,0 +1,100 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"$Class"				: "GaMovingComponent",
+					"type"					: "GaMovingComponent",
+					"position"				: "0.0, 0.0, 0.0",
+					"axisspeed"				: "2.0, 1.0, 0.2",
+					"axismagnitude"			: "10.0, 10.0, 10.0"
+				},
+
+				{
+					"$Class"				: "GaTrailComponent",
+					"type"					: "GaTrailComponent",
+					"material"				: "$(ScnMaterial:this.material)",
+					"width"					: 1.0,
+					"maxlength"				: 30.0,
+					"segmentdistance"		: 1.0
+				}
+			]
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "shader",
+			"sources" 		: {
+				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/trail.hlsl",
+				"GLSL_330" : "Content/Engine/trail.glsl",
+				"GLSL_ES_100" : "Content/Engine/trail.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/trail.glsl"
+				}
+			},
+
+			"includepermutations" : [
+				"RENDER_FORWARD",
+				"PASS_MAIN",
+				"LIGHTING_NONE"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "material",
+
+			// Shader
+			"shader"		: "$(ScnShader:this.shader)",
+
+			// Textures
+			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false,
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "wireframe",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : true
+				}
+			}
+		}
+	]
+}

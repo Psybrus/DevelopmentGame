@@ -69,6 +69,11 @@
 						},
 */
 						{ 
+							"name" : "Trail test",
+							"entity" : "$(ScnEntity:trail_test.TestEntity)"
+						},
+
+						{ 
 							"name" : "Model test",
 							"entity" : "$(ScnEntity:model_test.TestEntity)"
 						},
