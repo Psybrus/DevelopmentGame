@@ -90,6 +90,7 @@
 #include "GaTestSoundComponent.h"
 #include "GaTestSpriteComponent.h"
 #include "GaTestTextureComponent.h"
+#include "GaTrailComponent.h"
 void AutoGenRegisterReflection()
 {
 	MaAABB::StaticRegisterClass();
@@ -213,4 +214,5 @@ void AutoGenRegisterReflection()
 	GaTestSpriteComponent::StaticRegisterClass();
 	GaTestTextureBlockData::StaticRegisterClass();
 	GaTestTextureComponent::StaticRegisterClass();
+	GaTrailComponent::StaticRegisterClass();
 }
