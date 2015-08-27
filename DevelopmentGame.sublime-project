@@ -20,6 +20,14 @@
 		{
 			"cmd":
 			[
+				"./DevelopmentGameImporter-gmake-osx-clang-Debug"
+			],
+			"name": "Import packages (osx)",
+			"working_dir": "$project_path/Dist"
+		},
+		{
+			"cmd":
+			[
 				"Psybrus/Tools/genie/genie-linux",
 				"--platform=x64",
 				"--toolchain=linux-clang",
