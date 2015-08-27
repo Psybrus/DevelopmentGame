@@ -89,7 +89,7 @@
 				},
 
 				"rasteriserstate" : {
-					"fillmode" : "wireframe",
+					"fillmode" : "solid",
 					"cullmode" : "none",
 					"depthclipenable" : true,
 					"antialiasedlineenable" : true

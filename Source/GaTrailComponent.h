@@ -14,9 +14,16 @@ typedef ReObjectRef< class GaTrailComponent > GaTrailComponentRef;
 // GaTrailVertex
 struct GaTrailVertex
 {
+	/// Centre position of trail.
 	MaVec4d Position_;
+
+	/// Normal of trail.
 	MaVec4d Normal_;
-	MaVec4d TexCoord_;
+
+	/// xy = Texcoord, z = Offset, w = Width
+	MaVec4d TexCoord_; 
+
+	/// Colour.
 	RsColour Colour_;
 };
 

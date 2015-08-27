@@ -14,12 +14,13 @@ VS_OUT( float4, VsTexCoord0 );
 
 void vertexMain()
 {
-	float Offset = InTexCoord_.x * 2.0 - 1.0;
- 	float3 WorldPosition = InPosition_.xyz;
-	float3 CrossZ = normalize( cross( transpose( ViewTransform_ )[ 2 ].xyz, InNormal_.xyz ) );
-	WorldPosition = WorldPosition + CrossZ * Offset;
-	gl_Position = mul( ClipTransform_, float4( WorldPosition, 1.0 ) );
+	float Offset = ( InTexCoord_.z * InTexCoord_.w ) * 0.5f;
+	float3 WorldPosition = InPosition_.xyz;
+	float3 ViewNormal = normalize( float3( mul( ViewTransform_, InNormal_ ).xy, 0.0001 ) );
+	float3 CrossZ = cross( ViewNormal, float3( 0.0, 0.0, 1.0 ) );
+	float4 ViewPosition = mul( ViewTransform_, float4( WorldPosition, 1.0 ) );
 
+	VsPosition = mul( ProjectionTransform_, ViewPosition + float4( CrossZ * Offset, 0.0 ) );
 	VsTexCoord0 = InTexCoord_;
 	VsColour0 = InColour_;
 }

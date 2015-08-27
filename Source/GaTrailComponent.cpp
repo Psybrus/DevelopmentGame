@@ -224,13 +224,13 @@ void GaTrailComponent::updateTrails( const ScnComponentList& Components )
 					MaVec3d Normal = Difference.normal();
 					Vertices->Position_ = MaVec4d( PrevMatrix.translation(), 1.0f );
 					Vertices->Normal_ = MaVec4d( Normal, 0.0f );
-					Vertices->TexCoord_ = MaVec4d( 0.0f, TexCoordU, 0.0f, 0.0f );
+					Vertices->TexCoord_ = MaVec4d( 0.0f, TexCoordU, -1.0f, Component->Width_ );
 					Vertices->Colour_ = RsColour::WHITE;
 					++Vertices;
 
 					Vertices->Position_ = MaVec4d( PrevMatrix.translation(), 1.0f );
 					Vertices->Normal_ = MaVec4d( Normal, 0.0f );
-					Vertices->TexCoord_ = MaVec4d( 1.0f, TexCoordU, 0.0f, 0.0f );
+					Vertices->TexCoord_ = MaVec4d( 1.0f, TexCoordU, 1.0f, Component->Width_ );
 					Vertices->Colour_ = RsColour::WHITE;
 					++Vertices;
 
@@ -248,13 +248,13 @@ void GaTrailComponent::updateTrails( const ScnComponentList& Components )
 					MaVec3d Normal = Difference.normal();
 					Vertices->Position_ = MaVec4d( CurrMatrix.translation(), 1.0f );
 					Vertices->Normal_ = MaVec4d( Normal, 0.0f );
-					Vertices->TexCoord_ = MaVec4d( 0.0f, TexCoordU, 0.0f, 0.0f );
+					Vertices->TexCoord_ = MaVec4d( 0.0f, TexCoordU, -1.0f, Component->Width_ );
 					Vertices->Colour_ = RsColour::WHITE;
 					++Vertices;
 
 					Vertices->Position_ = MaVec4d( CurrMatrix.translation(), 1.0f );
 					Vertices->Normal_ = MaVec4d( Normal, 0.0f );
-					Vertices->TexCoord_ = MaVec4d( 1.0f, TexCoordU, 0.0f, 0.0f );
+					Vertices->TexCoord_ = MaVec4d( 1.0f, TexCoordU, 1.0f, Component->Width_ );
 					Vertices->Colour_ = RsColour::WHITE;
 					++Vertices;
 
