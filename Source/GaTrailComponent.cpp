@@ -39,10 +39,6 @@ void GaTrailComponent::StaticRegisterClass()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// Statics
-SysFence GaTrailComponent::UpdateFence_( 0 );
-
-//////////////////////////////////////////////////////////////////////////
 // Ctor
 GaTrailComponent::GaTrailComponent():
 	Material_( nullptr ),
@@ -110,12 +106,9 @@ void GaTrailComponent::onDetach( ScnEntityWeakRef Parent )
 	Super::onDetach( Parent );
 
 	UpdateFence_.wait();
+	RenderFence_.wait();
 
 	Parent->detach( MaterialComponent_ );
-
-	VertexDeclaration_.reset();
-	VertexBuffer_.reset();
-	UniformBuffer_.reset();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -139,6 +132,7 @@ void GaTrailComponent::render( ScnRenderContext & RenderContext )
 
 		RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
 		MaterialComponent_->bind( RenderContext.pFrame_, Sort );
+		RenderFence_.increment();
 		RenderContext.pFrame_->queueRenderNode( Sort,
 			[ this ]( RsContext* Context )
 			{
@@ -146,6 +140,7 @@ void GaTrailComponent::render( ScnRenderContext & RenderContext )
 				Context->setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaTrailVertex ) );
 				Context->setVertexDeclaration( VertexDeclaration_.get() );
 				Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, NoofIndices );
+				RenderFence_.decrement();
 			} );
 	}
 }
@@ -192,7 +187,8 @@ void GaTrailComponent::updateTrails( const ScnComponentList& Components )
 		if( Component->TrailHistory_.size() > 1 )
 		{
 			// Update fence.
-			UpdateFence_.increment();
+			Component->UpdateFence_.increment();
+			Component->UpdateFence_.increment();
 
 			// Bake uniform buffer.
 			RsCore::pImpl()->updateBuffer( 
@@ -205,6 +201,7 @@ void GaTrailComponent::updateTrails( const ScnComponentList& Components )
 					Component->ObjectUniforms_.NormalTransform_.identity();
 
 					BcMemCopy( Lock.Buffer_, &Component->ObjectUniforms_, sizeof( Component->ObjectUniforms_ ) );
+					Component->UpdateFence_.decrement();
 				} );
 
 			// Bake new vertex buffer.
@@ -268,7 +265,7 @@ void GaTrailComponent::updateTrails( const ScnComponentList& Components )
 
 					BcAssert( (BcU8*)Vertices <= (BcU8*)Lock.Buffer_ + Buffer->getDesc().SizeBytes_ );
 
-					UpdateFence_.decrement();
+					Component->UpdateFence_.decrement();
 				} );
 		}
 	}

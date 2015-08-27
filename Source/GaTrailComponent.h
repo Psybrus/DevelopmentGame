@@ -67,8 +67,8 @@ private:
 	RsBufferUPtr UniformBuffer_;
 	ScnShaderObjectUniformBlockData	ObjectUniforms_;
 
-
-	static SysFence UpdateFence_;
+	SysFence RenderFence_;
+	SysFence UpdateFence_;
 };
 
 #endif
