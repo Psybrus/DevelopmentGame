@@ -20,7 +20,7 @@
 					"material"				: "$(ScnMaterial:this.material)",
 					"width"					: 1.0,
 					"maxlength"				: 30.0,
-					"segmentdistance"		: 1.0
+					"segmentdistance"		: 0.1
 				}
 			]
 		},

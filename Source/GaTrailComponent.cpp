@@ -76,10 +76,6 @@ void GaTrailComponent::onAttach( ScnEntityWeakRef Parent )
 	MaxTrailHistory_ = static_cast< size_t >( std::ceilf( MaxLength_ / SegmentDistance_ ) ) + 1;
 	TrailHistory_.reserve( MaxTrailHistory_ );
 
-	// Cache world matrix.
-	TrailHistory_.push_back( Parent->getWorldMatrix() );
-	TrailHistory_.push_back( Parent->getWorldMatrix() );
-
 	size_t NoofVertices = MaxTrailHistory_ * 2;
 
 	VertexDeclaration_.reset( RsCore::pImpl()->createVertexDeclaration(
@@ -134,21 +130,24 @@ MaAABB GaTrailComponent::getAABB() const
 // render
 void GaTrailComponent::render( ScnRenderContext & RenderContext )
 {
-	UpdateFence_.wait();
+	if( TrailHistory_.size() > 1 )
+	{
+		UpdateFence_.wait();
 
-	RsRenderSort Sort = RenderContext.Sort_;
-	Sort.Layer_ = 15;
+		RsRenderSort Sort = RenderContext.Sort_;
+		Sort.Layer_ = 15;
 
-	RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
-	MaterialComponent_->bind( RenderContext.pFrame_, Sort );
-	RenderContext.pFrame_->queueRenderNode( Sort,
-		[ this ]( RsContext* Context )
-		{
-			const BcU32 NoofIndices = static_cast< BcU32 >( TrailHistory_.size() * 2 );
-			Context->setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaTrailVertex ) );
-			Context->setVertexDeclaration( VertexDeclaration_.get() );
-			Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, NoofIndices );
-		} );
+		RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
+		MaterialComponent_->bind( RenderContext.pFrame_, Sort );
+		RenderContext.pFrame_->queueRenderNode( Sort,
+			[ this ]( RsContext* Context )
+			{
+				const BcU32 NoofIndices = static_cast< BcU32 >( TrailHistory_.size() * 2 );
+				Context->setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaTrailVertex ) );
+				Context->setVertexDeclaration( VertexDeclaration_.get() );
+				Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, NoofIndices );
+			} );
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -162,108 +161,115 @@ void GaTrailComponent::updateTrails( const ScnComponentList& Components )
 	{
 		BcAssert( InComponent->isTypeOf< GaTrailComponent >() );
 		auto* Component = static_cast< GaTrailComponent* >( InComponent.get() );
-		BcAssert( Component->TrailHistory_.size() >= 2 );
 
 		// Set current, and grab last for comparison.
+		BcF32 DistanceMoved = 0.0f;
 		const auto& ThisWorldMatrix = Component->getParentEntity()->getWorldMatrix();
-		auto& CurrWorldMatrix = Component->TrailHistory_[ Component->TrailHistory_.size() - 1 ];
-		BcF32 DistanceMoved = ( CurrWorldMatrix.translation() - ThisWorldMatrix.translation() ).magnitude();
-
-		CurrWorldMatrix = ThisWorldMatrix;
+		if( Component->TrailHistory_.size() > 0 )
+		{
+			auto& CurrWorldMatrix = Component->TrailHistory_[ Component->TrailHistory_.size() - 1 ];
+			DistanceMoved = ( CurrWorldMatrix.translation() - ThisWorldMatrix.translation() ).magnitude();
+			CurrWorldMatrix = ThisWorldMatrix;
+		}
 
 		// Calculate distance moved from previous segment created.
 		Component->DistanceMoved_ += DistanceMoved;
 
 		// Add a new segment.
 		// TODO: Move first element towards second when approaching end of trail.
-		if( Component->DistanceMoved_ > Component->SegmentDistance_ )
+		if( Component->DistanceMoved_ > Component->SegmentDistance_ ||
+			Component->TrailHistory_.size() == 0 )
 		{
 			if( Component->TrailHistory_.size() == Component->MaxTrailHistory_ )
 			{
 				Component->TrailHistory_.erase( Component->TrailHistory_.begin() );
 			}
-			Component->TrailHistory_.push_back( CurrWorldMatrix );
+
+			Component->TrailHistory_.push_back( ThisWorldMatrix );
 			Component->DistanceMoved_ -= Component->SegmentDistance_;
 		}
 		
-		// Update fence.
-		UpdateFence_.increment();
+		if( Component->TrailHistory_.size() > 1 )
+		{
+			// Update fence.
+			UpdateFence_.increment();
 
-		// Bake uniform buffer.
-		RsCore::pImpl()->updateBuffer( 
-			Component->UniformBuffer_.get(),
-			0, sizeof( Component->ObjectUniforms_ ),
-			RsResourceUpdateFlags::ASYNC,
-			[ Component ]( RsBuffer* Buffer, const RsBufferLock& Lock )
-			{
-				Component->ObjectUniforms_.WorldTransform_.identity();
-				Component->ObjectUniforms_.NormalTransform_.identity();
-
-				BcMemCopy( Lock.Buffer_, &Component->ObjectUniforms_, sizeof( Component->ObjectUniforms_ ) );
-			} );
-
-		// Bake new vertex buffer.
-		// TODO: Partial update perhaps?
-		RsCore::pImpl()->updateBuffer(
-			Component->VertexBuffer_.get(), 
-			0, Component->VertexBuffer_->getDesc().SizeBytes_, 
-			RsResourceUpdateFlags::ASYNC, 
-			[ Component ]( RsBuffer* Buffer, RsBufferLock Lock )
-			{
-				auto Vertices = static_cast< GaTrailVertex* >( Lock.Buffer_ );
-
-				BcF32 TexCoordU( 0.0f );
-
-				// Add first 2 vertices.
+			// Bake uniform buffer.
+			RsCore::pImpl()->updateBuffer( 
+				Component->UniformBuffer_.get(),
+				0, sizeof( Component->ObjectUniforms_ ),
+				RsResourceUpdateFlags::ASYNC,
+				[ Component ]( RsBuffer* Buffer, const RsBufferLock& Lock )
 				{
-					const auto& PrevMatrix = Component->TrailHistory_[ 0 ];
-					const auto& CurrMatrix = Component->TrailHistory_[ 1 ];
+					Component->ObjectUniforms_.WorldTransform_.identity();
+					Component->ObjectUniforms_.NormalTransform_.identity();
 
-					MaVec3d Difference = ( CurrMatrix.translation() - PrevMatrix.translation() );
-					BcF32 Distance = Difference.magnitude();
-					MaVec3d Normal = Difference.normal();
-					Vertices->Position_ = MaVec4d( PrevMatrix.translation(), 1.0f );
-					Vertices->Normal_ = MaVec4d( Normal, 0.0f );
-					Vertices->TexCoord_ = MaVec4d( 0.0f, TexCoordU, -1.0f, Component->Width_ );
-					Vertices->Colour_ = RsColour::WHITE;
-					++Vertices;
+					BcMemCopy( Lock.Buffer_, &Component->ObjectUniforms_, sizeof( Component->ObjectUniforms_ ) );
+				} );
 
-					Vertices->Position_ = MaVec4d( PrevMatrix.translation(), 1.0f );
-					Vertices->Normal_ = MaVec4d( Normal, 0.0f );
-					Vertices->TexCoord_ = MaVec4d( 1.0f, TexCoordU, 1.0f, Component->Width_ );
-					Vertices->Colour_ = RsColour::WHITE;
-					++Vertices;
-
-					TexCoordU += Distance;
-				}
-
-				// Add remaining vertices.
-				for( size_t Idx = 1; Idx < Component->TrailHistory_.size(); ++Idx )
+			// Bake new vertex buffer.
+			// TODO: Partial update perhaps?
+			RsCore::pImpl()->updateBuffer(
+				Component->VertexBuffer_.get(), 
+				0, Component->VertexBuffer_->getDesc().SizeBytes_, 
+				RsResourceUpdateFlags::ASYNC, 
+				[ Component ]( RsBuffer* Buffer, RsBufferLock Lock )
 				{
-					const auto& PrevMatrix = Component->TrailHistory_[ Idx - 1 ];
-					const auto& CurrMatrix = Component->TrailHistory_[ Idx ];
+					auto Vertices = static_cast< GaTrailVertex* >( Lock.Buffer_ );
 
-					MaVec3d Difference = ( CurrMatrix.translation() - PrevMatrix.translation() );
-					BcF32 Distance = Difference.magnitude();
-					MaVec3d Normal = Difference.normal();
-					Vertices->Position_ = MaVec4d( CurrMatrix.translation(), 1.0f );
-					Vertices->Normal_ = MaVec4d( Normal, 0.0f );
-					Vertices->TexCoord_ = MaVec4d( 0.0f, TexCoordU, -1.0f, Component->Width_ );
-					Vertices->Colour_ = RsColour::WHITE;
-					++Vertices;
+					BcF32 TexCoordU( 0.0f );
 
-					Vertices->Position_ = MaVec4d( CurrMatrix.translation(), 1.0f );
-					Vertices->Normal_ = MaVec4d( Normal, 0.0f );
-					Vertices->TexCoord_ = MaVec4d( 1.0f, TexCoordU, 1.0f, Component->Width_ );
-					Vertices->Colour_ = RsColour::WHITE;
-					++Vertices;
+					// Add first 2 vertices.
+					{
+						const auto& PrevMatrix = Component->TrailHistory_[ 0 ];
+						const auto& CurrMatrix = Component->TrailHistory_[ 1 ];
 
-					TexCoordU += Distance;
-				}
+						MaVec3d Difference = ( CurrMatrix.translation() - PrevMatrix.translation() );
+						BcF32 Distance = Difference.magnitude();
+						MaVec3d Normal = Difference.normal();
+						Vertices->Position_ = MaVec4d( PrevMatrix.translation(), 1.0f );
+						Vertices->Normal_ = MaVec4d( Normal, 0.0f );
+						Vertices->TexCoord_ = MaVec4d( 0.0f, TexCoordU, -1.0f, Component->Width_ );
+						Vertices->Colour_ = RsColour::WHITE;
+						++Vertices;
 
-				BcAssert( (BcU8*)Vertices <= (BcU8*)Lock.Buffer_ + Buffer->getDesc().SizeBytes_ );
+						Vertices->Position_ = MaVec4d( PrevMatrix.translation(), 1.0f );
+						Vertices->Normal_ = MaVec4d( Normal, 0.0f );
+						Vertices->TexCoord_ = MaVec4d( 1.0f, TexCoordU, 1.0f, Component->Width_ );
+						Vertices->Colour_ = RsColour::WHITE;
+						++Vertices;
 
-				UpdateFence_.decrement();
-			} );
+						TexCoordU += Distance;
+					}
+
+					// Add remaining vertices.
+					for( size_t Idx = 1; Idx < Component->TrailHistory_.size(); ++Idx )
+					{
+						const auto& PrevMatrix = Component->TrailHistory_[ Idx - 1 ];
+						const auto& CurrMatrix = Component->TrailHistory_[ Idx ];
+
+						MaVec3d Difference = ( CurrMatrix.translation() - PrevMatrix.translation() );
+						BcF32 Distance = Difference.magnitude();
+						MaVec3d Normal = Difference.normal();
+						Vertices->Position_ = MaVec4d( CurrMatrix.translation(), 1.0f );
+						Vertices->Normal_ = MaVec4d( Normal, 0.0f );
+						Vertices->TexCoord_ = MaVec4d( 0.0f, TexCoordU, -1.0f, Component->Width_ );
+						Vertices->Colour_ = RsColour::WHITE;
+						++Vertices;
+
+						Vertices->Position_ = MaVec4d( CurrMatrix.translation(), 1.0f );
+						Vertices->Normal_ = MaVec4d( Normal, 0.0f );
+						Vertices->TexCoord_ = MaVec4d( 1.0f, TexCoordU, 1.0f, Component->Width_ );
+						Vertices->Colour_ = RsColour::WHITE;
+						++Vertices;
+
+						TexCoordU += Distance;
+					}
+
+					BcAssert( (BcU8*)Vertices <= (BcU8*)Lock.Buffer_ + Buffer->getDesc().SizeBytes_ );
+
+					UpdateFence_.decrement();
+				} );
+		}
 	}
 }
