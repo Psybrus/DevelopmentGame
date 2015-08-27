@@ -228,14 +228,15 @@ eEvtReturn GaCameraComponent::onMouseMove( EvtID ID, const EvtBaseEvent& Event )
 
 	return evtRET_PASS;
 }
+
 //////////////////////////////////////////////////////////////////////////
 // onMouseWheel
 eEvtReturn GaCameraComponent::onMouseWheel( EvtID ID, const EvtBaseEvent& Event )
 {
 	const auto& MouseEvent = Event.get< OsEventInputMouseWheel >();
 
-	CameraZoom_ += ( CameraDistance_ * CameraDistance_ ) * -0.1f * MouseEvent.ScrollY_;
-	CameraZoom_ = BcClamp( CameraZoom_, -4096.0f, 4096.0f );
+	CameraZoom_ += ( CameraDistance_ * CameraDistance_ ) * -0.01f * MouseEvent.ScrollY_;
+	CameraZoom_ = BcClamp( CameraZoom_, -1024.0f, 1024.0f );
 	
 	return evtRET_PASS;
 }
