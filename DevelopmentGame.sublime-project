@@ -7,7 +7,7 @@
 				"DevelopmentGameImporter-vs2013-windows-vs-v120-Debug.exe"
 			],
 			"name": "Import packages (vs2013)",
-			"working_dir": "$project_path/Dist",
+			"working_dir": "$project_path/Dist"
 		},
 		{
 			"cmd":
@@ -15,7 +15,7 @@
 				"DevelopmentGameImporter-vs2015-windows-vs-v140-Debug.exe"
 			],
 			"name": "Import packages (vs2015)",
-			"working_dir": "$project_path/Dist",
+			"working_dir": "$project_path/Dist"
 		},
 		{
 			"cmd":
@@ -198,7 +198,10 @@
 			"path": "."
 		},
 		{
-			"path": "/Users/Neilo/Dev/android-ndk-r10e/platforms/android-18"
+			"path": "C:\\Dev\\genie"
+		},
+		{
+			"path": "C:\\Dev\\Android\\android-ndk-r10e\\platforms\\android-18\\arch-arm"
 		}
 	],
 	"settings":
