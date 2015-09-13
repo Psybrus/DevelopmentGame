@@ -3,7 +3,11 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "pp_copy",
-			"source"		: "Content/Engine/pp_copy.hlsl",
+			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/pp_copy.hlsl",
+				"GLSL_330" : "Content/Engine/pp_copy.glsl",
+				"GLSL_ES_100" : "Content/Engine/pp_copy.glsl"
+			},
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
@@ -13,16 +17,6 @@
 			],
 
 			"excludepermutations" : [
-			],
-
-			"codetypes"	: [
-				"D3D11_4_0"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				// TODO: "GLSL_ES",
-				"D3D11"
 			],
 
 			"entrypoints"		: {
@@ -34,7 +28,11 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "pp_h_blur",
-			"source"		: "Content/Engine/pp_h_blur.hlsl",
+			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/pp_h_blur.hlsl",
+				"GLSL_330" : "Content/Engine/pp_h_blur.glsl",
+				"GLSL_ES_100" : "Content/Engine/pp_h_blur.glsl"
+			},
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
@@ -44,16 +42,6 @@
 			],
 
 			"excludepermutations" : [
-			],
-
-			"codetypes"	: [
-				"D3D11_4_0"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				// TODO: "GLSL_ES",
-				"D3D11"
 			],
 
 			"entrypoints"		: {
@@ -65,7 +53,11 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "pp_v_blur",
-			"source"		: "Content/Engine/pp_v_blur.hlsl",
+			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/pp_v_blur.hlsl",
+				"GLSL_330" : "Content/Engine/pp_v_blur.glsl",
+				"GLSL_ES_100" : "Content/Engine/pp_v_blur.glsl"
+			},
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
@@ -75,16 +67,6 @@
 			],
 
 			"excludepermutations" : [
-			],
-
-			"codetypes"	: [
-				"D3D11_4_0"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				// TODO: "GLSL_ES",
-				"D3D11"
 			],
 
 			"entrypoints"		: {

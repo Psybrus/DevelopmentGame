@@ -56,7 +56,6 @@
 							"name" : "Texture test",
 							"entity" : "$(ScnEntity:texture_test.TestEntity)"
 						},
-
 /*
 						{ 
 							"name" : "Volume test",
@@ -76,6 +75,11 @@
 						{ 
 							"name" : "Model test",
 							"entity" : "$(ScnEntity:model_test.TestEntity)"
+						},
+
+						{ 
+							"name" : "Sponza test",
+							"entity" : "$(ScnEntity:sponza_test.TestEntity)"
 						},
 
 						{ 
@@ -142,8 +146,8 @@
 					"rendermask"			: 2,
 					"clearcolour"			: "1.0, 0.0, 1.0, 1.0",
 					"enablecleardepth"		: true,
-					"rendertarget"			: "$(ScnTexture:textures.test_rt)",
-					"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"					
+					"rendertarget"			: "$(ScnTexture:textures.test_rt)"
+					//"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"					
 				},
 
 				{

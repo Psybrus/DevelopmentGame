@@ -75,7 +75,7 @@
 
 				"rasteriserstate" : {
 					"fillmode" : "solid",
-					"cullmode" : "none",
+					"cullmode" : "ccw",
 					"depthclipenable" : true,
 					"antialiasedlineenable" : true
 				}

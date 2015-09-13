@@ -1,0 +1,36 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"$Class"	: 		"ScnEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"$Class"	:		"ScnEntity",
+					"type"		:		"ScnEntity",
+					"name"		:		"TestModelEntity",
+					"components" : [
+						{
+							"$Class"				: "ScnModelComponent",
+							"type"					: "ScnModelComponent",
+							"model"					: "$(ScnModel:this.sponza)",
+							"scale"					: "0.001, 0.001, 0.001"
+						}
+					]
+				}
+
+			]
+		},
+
+		{
+			"type"		: "ScnModel",
+			"name"		: "sponza",
+			"source"	: "Content/Source/sponza/sponza.fbx",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
+			}
+		}
+	]
+}

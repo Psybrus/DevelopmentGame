@@ -1,17 +1,15 @@
 
 -- Run psybrus scripts.
-psybrusSDK = "Psybrus"
 dofile( "Psybrus/Scripts/Psybrus.lua" )
-
 
 -- Solution.
 PsySolutionGame( "DevelopmentGame" )
 
 -- Build externals.
-dofile ("Psybrus/External/genie.lua")
+dofile( "Psybrus/External/genie.lua" )
 
 -- Build engine.
-dofile ("Psybrus/Engine/genie.lua")
+dofile( "Psybrus/Engine/genie.lua" )
 
 -- Build game source.
-dofile ("./Source/genie.lua")
+dofile( "./Source/genie.lua" )
