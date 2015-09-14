@@ -4,31 +4,23 @@
 		{
 			"cmd":
 			[
-				"DevelopmentGameImporter-vs2013-windows-vs-v120-Debug.exe"
+				"Importer-Debug.exe"
 			],
-			"name": "Import packages (vs2013)",
+			"name": "Import packages (windows)",
 			"working_dir": "$project_path/Dist"
 		},
 		{
 			"cmd":
 			[
-				"DevelopmentGameImporter-vs2015-windows-vs-v140-Debug.exe"
+				"./Importer-Debug"
 			],
-			"name": "Import packages (vs2015)",
+			"name": "Import packages (*nix)",
 			"working_dir": "$project_path/Dist"
 		},
 		{
 			"cmd":
 			[
-				"./DevelopmentGameImporter-gmake-osx-clang-Debug"
-			],
-			"name": "Import packages (osx)",
-			"working_dir": "$project_path/Dist"
-		},
-		{
-			"cmd":
-			[
-				"Psybrus/Tools/genie/genie-linux",
+				"Psybrus/Tools/genie/linux/genie",
 				"--platform=x64",
 				"--toolchain=linux-clang",
 				"--boostpath=/opt/boost_1_57_0",
@@ -83,7 +75,7 @@
 		{
 			"cmd":
 			[
-				"Psybrus/Tools/genie/genie-osx",
+				"Psybrus/Tools/genie/darwin/genie",
 				"--platform=x64",
 				"--toolchain=osx-clang",
 				"--boostpath=/Users/Neilo/Dev/boost_1_57_0",
@@ -138,7 +130,7 @@
 		{
 			"cmd":
 			[
-				"Psybrus/Tools/genie/genie-linux",
+				"Psybrus/Tools/genie/linux/genie",
 				"--toolchain=asmjs",
 				"gmake"
 			],
