@@ -1,5 +1,6 @@
 PsyProjectGameLib( solution().name )
-	files { "./AutoGenRegisterReflection.cpp", "./**.h", "./**.inl", "./**.cpp" }
+	files { "./**.h", "./**.inl", "./**.cpp" }
+	files { "./AutoGenRegisterReflection.cpp" }
 
 
 PsyProjectGameExe( solution().name )
