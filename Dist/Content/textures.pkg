@@ -69,52 +69,6 @@
 			}
 		},
 
-		{
-			"type"			: "ScnTexture",
-			"name"			: "suit",
-
-			"source"		: "Content/Source/undead/vestiti-capelliV.png",
-
-			"@(pc)"	: {
-				"format" : "DXT1"
-			},
-
-			"@(android)" : {
-				"format" : "ETC1",
-
-				"@(tegra)" : {
-					"format" : "DXT1"
-				}
-			},
-
-			"@(html5)" : {
-				"format" : "DXT1"
-			}
-		},
-
-		{
-			"type"			: "ScnTexture",
-			"name"			: "face",
-
-			"source"		: "Content/Source/undead/text_corpoV.png",
-
-			"@(pc)"	: {
-				"format" : "DXT1"
-			},
-
-			"@(android)" : {
-				"format" : "ETC1",
-
-				"@(tegra)" : {
-					"format" : "DXT1"
-				}
-			},
-
-			"@(html5)" : {
-				"format" : "DXT1"
-			}
-		},
-
 		////////////////////////////////////////////////////////////////////////
 		// Render target + depth stencil target
 		{
@@ -126,19 +80,5 @@
 			"texturetype" : "tex2d",
 			"format" : "R8G8B8A8"
 		}
-
-/*
-		,
-
-		{
-			"type" : "ScnTexture",
-			"name" : "test_dst",
-			"depthstenciltarget" : true,
-			"width" : -2,
-			"height" : -2,
-			"texturetype" : "tex2d",
-			"format" : "D24S8"
-		}
-*/
 	]
 }

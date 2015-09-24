@@ -30,6 +30,12 @@
 			"source"	: "Content/Source/sponza/sponza.fbx",
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"normal" : "BYTE_NORM",
+				"texcoord" : "FLOAT32"
 			}
 		}
 	]

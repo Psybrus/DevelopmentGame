@@ -6,6 +6,12 @@
 			"source"	: "Content/Source/teapot/wt_teapot.obj",
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"normal" : "BYTE_NORM",
+				"texcoord" : "FLOAT32"
 			}
 		},
 
@@ -15,6 +21,12 @@
 			"source"	: "Content/Source/test_fbx_model_static.fbx",
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.default)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"normal" : "BYTE_NORM",
+				"texcoord" : "FLOAT32"
 			}
 		},
 
@@ -24,7 +36,13 @@
 			"source"	: "Content/Source/test_fbx_model_skinned.fbx",
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.default)"
-			}
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"normal" : "BYTE_NORM",
+				"texcoord" : "FLOAT32"
+			}			
 		},
 
 		{
@@ -33,6 +51,12 @@
 			"source"	: "Content/Source/sphere.fbx",
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"normal" : "BYTE_NORM",
+				"texcoord" : "FLOAT32"
 			}
 		},
 
@@ -42,6 +66,12 @@
 			"source"	: "Content/Source/cube.fbx",
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"normal" : "BYTE_NORM",
+				"texcoord" : "FLOAT32"
 			}
 		},
 		{
