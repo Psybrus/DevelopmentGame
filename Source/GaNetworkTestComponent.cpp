@@ -95,7 +95,7 @@ void GaNetworkTestComponent::onAttach( ScnEntityWeakRef Parent )
 	Super::onAttach( Parent );
 	const BcU16 Port = 1234;
 
-#if !PLATFORM_HTML5
+#if !PLATFORM_HTML5 && !PLATFORM_WINPHONE
 	if( IsServer_ )
 	{
 		Session_ = new NsSessionImpl( NsSessionImpl::SERVER, 32, Port );

@@ -148,6 +148,7 @@ void GaTestSpriteComponent::setCanvasProjection( const ScnComponentList& Compone
 		TestComponent->Canvas_->clear();
 		TestComponent->Canvas_->pushMatrix( Projection );
 
+#if 0 // TODO: Replace RsLight.
 		// Light.
 		TestComponent->LightTimer_ += SysKernel::pImpl()->getFrameTime();
 
@@ -164,7 +165,7 @@ void GaTestSpriteComponent::setCanvasProjection( const ScnComponentList& Compone
 		TestComponent->LightUniformBlock_.LightAmbientColour_[ 0 ] = RsColour( 0.5f, 0.5f, 0.5f, 1.0f );
 		TestComponent->LightUniformBlock_.LightDiffuseColour_[ 0 ] = RsColour( 2.0f, 0.0f, 0.0f, 1.0f );
 		TestComponent->LightUniformBlock_.LightAttn_[ 0 ] = MaVec4d( Light.AttnC_, Light.AttnL_, Light.AttnQ_, 0.0 );
-
+#endif
 
 		RsCore::pImpl()->updateBuffer(
 			TestComponent->LightUniformBuffer_.get(),
