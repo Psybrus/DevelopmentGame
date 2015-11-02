@@ -15,7 +15,8 @@
 						{
 							"$Class"				: "ScnModelComponent",
 							"type"					: "ScnModelComponent",
-							"model"					: "$(ScnModel:models.test_fbx_model_static)"
+							"model"					: "$(ScnModel:models.bunny)",
+							"scale"					: "32.0, 32.0, 32.0"
 						}
 					]
 				}

@@ -17,6 +17,21 @@
 
 		{
 			"type"		: "ScnModel",
+			"name"		: "bunny",
+			"source"	: "Content/Source/bunny.obj",
+			"materials" : {
+				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"normal" : "BYTE_NORM",
+				"texcoord" : "FLOAT32"
+			}
+		},
+
+		{
+			"type"		: "ScnModel",
 			"name"		: "test_fbx_model_static",
 			"source"	: "Content/Source/test_fbx_model_static.fbx",
 			"materials" : {

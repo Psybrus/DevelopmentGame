@@ -192,8 +192,8 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 		float StepSize = 0.1;
 		float Tmin = 1.0;
 		float Tmax = 1000.0;
-		int MaxSteps = 256;
-		int RefinementSteps = 4;
+		int MaxSteps = 1024;
+		int RefinementSteps = 8;
 		int NoofRefinements = 0;
 		float T = Tmin;
 		float Dist = -1.0;
@@ -225,7 +225,7 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 				}
 				else
 				{
-					Colour.xyz = vec3( 1.0, 1.0, 1.0 );// * ( 1.0 - calcOcclusion( SamplePosition ) );
+					Colour.xyz = calcNormal( SamplePosition ) + 1.0 * 0.5;// * ( 1.0 - calcOcclusion( SamplePosition ) );
 					Colour.w = 1.0;
 
 					// TODO: Perform more work for this pixel for better quality cloud.
