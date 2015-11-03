@@ -1,0 +1,78 @@
+{
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"$Class"				: "GaTestComputeComponent",
+					"type"					: "GaTestComputeComponent",
+
+					"computeshader"			: "$(ScnShader:this.compute_shader)",
+					"material"				: "$(ScnMaterial:this.material)"
+				}
+			]
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "compute_shader",
+			"usepermutations" : false,
+
+			"sources" 		: {
+				"GLSL_430" : "Content/Engine/compute.glsl",
+				"D3D11_5_0" : "Content/Engine/compute.hlsl"
+			},
+
+			"entrypoints"		: {
+				"compute" : "main"
+			}
+		},
+
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "material",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.default)",
+
+			// Textures
+			"textures"		: {
+			},
+
+			// Samplers
+			"samplers"		: {
+			},
+
+			// New render state.
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false,
+							"writemask" : 15
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : false,
+					"depthwriteenable" : false,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "wireframe",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : false
+				}
+			}
+		}
+
+	]
+}
+

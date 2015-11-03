@@ -53,6 +53,11 @@
 						},
 
 						{ 
+							"name" : "Compute test",
+							"entity" : "$(ScnEntity:compute_test.TestEntity)"
+						},
+
+						{ 
 							"name" : "Texture test",
 							"entity" : "$(ScnEntity:texture_test.TestEntity)"
 						},
