@@ -173,13 +173,13 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 	BcU32 VertexBufferSize = 4 * sizeof( GaVertex );
 	VertexBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
-			RsBufferType::VERTEX,
+			RsResourceBindFlags::VERTEX_BUFFER | RsResourceBindFlags::UNORDERED_ACCESS,
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ) );
 
 	ComputeOutputBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
-			RsBufferType::VERTEX,
+			RsResourceBindFlags::VERTEX_BUFFER | RsResourceBindFlags::UNORDERED_ACCESS,
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ) );
 
