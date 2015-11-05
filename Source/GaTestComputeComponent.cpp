@@ -116,6 +116,8 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 		[
 			ComputeProgram = ComputeShader_->getProgram( ScnShaderPermutationFlags::NONE ),
 			ComputeOutputBuffer = ComputeOutputBuffer_,
+			ComputeOutputTextures = ComputeOutputTextures_,
+			ComputeTextureIdx = ComputeTextureIdx_,
 			VertexBuffer = VertexBuffer_,
 			VertexDeclaration = VertexDeclaration_
 		]
@@ -126,8 +128,34 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 			if( Features.ComputeShaders_ )
 			{
 				RsDispatchBindings Bindings;
-				Bindings.Buffers_[ ComputeProgram->findShaderResourceSlot( "iBuffer", RsShaderResourceType::BUFFER ) ] = VertexBuffer;
-				Bindings.Buffers_[ ComputeProgram->findShaderResourceSlot( "oBuffer", RsShaderResourceType::BUFFER ) ] = ComputeOutputBuffer;
+				BcU32 iBufferSlot = ComputeProgram->findShaderResourceSlot( "iBuffer" );
+				BcU32 oBufferSlot = ComputeProgram->findUnorderedAccessSlot( "oBuffer" );
+				BcU32 iTextureSlot = ComputeProgram->findShaderResourceSlot( "iTexture" );
+				BcU32 oTextureSlot = ComputeProgram->findUnorderedAccessSlot( "oTexture" );
+				if( iBufferSlot != BcErrorCode )
+				{
+					Bindings.ShaderResourceSlots_[ iBufferSlot ].Type_ = RsShaderResourceType::BUFFER;
+					Bindings.ShaderResourceSlots_[ iBufferSlot ].Buffer_ = VertexBuffer;
+				}
+
+				if( iTextureSlot != BcErrorCode )
+				{
+					Bindings.ShaderResourceSlots_[ iTextureSlot ].Type_ = RsShaderResourceType::TEXTURE;
+					Bindings.ShaderResourceSlots_[ iTextureSlot ].Texture_ = ComputeOutputTextures[ ComputeTextureIdx ]->getTexture();
+				}
+
+				if( oBufferSlot != BcErrorCode )
+				{
+					Bindings.UnorderedAccessSlots_[ oBufferSlot ].Type_ = RsUnorderedAccessType::BUFFER;
+					Bindings.UnorderedAccessSlots_[ oBufferSlot ].Buffer_ = ComputeOutputBuffer;
+				}
+
+				if( oTextureSlot != BcErrorCode )
+				{
+					Bindings.UnorderedAccessSlots_[ oTextureSlot ].Type_ = RsUnorderedAccessType::TEXTURE;
+					Bindings.UnorderedAccessSlots_[ oTextureSlot ].Texture_ = ComputeOutputTextures[ 1 - ComputeTextureIdx ]->getTexture();
+				}
+
 				Context->dispatchCompute( ComputeProgram, Bindings, 4, 1, 1 );
 				Context->setVertexBuffer( 0, ComputeOutputBuffer, sizeof( GaVertex ) );
 			}
@@ -139,6 +167,7 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 			Context->setVertexDeclaration( VertexDeclaration );
 			Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 		} );
+	ComputeTextureIdx_ = 1 - ComputeTextureIdx_;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -173,7 +202,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 	BcU32 VertexBufferSize = 4 * sizeof( GaVertex );
 	VertexBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
-			RsResourceBindFlags::VERTEX_BUFFER | RsResourceBindFlags::UNORDERED_ACCESS,
+			RsResourceBindFlags::VERTEX_BUFFER | RsResourceBindFlags::SHADER_RESOURCE,
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ) );
 
@@ -182,6 +211,18 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 			RsResourceBindFlags::VERTEX_BUFFER | RsResourceBindFlags::UNORDERED_ACCESS,
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ) );
+
+	for( auto& ComputeOutputTexture : ComputeOutputTextures_ )
+	{ 
+		ComputeOutputTexture = ScnTexture::New( 
+			RsTextureDesc( 
+				RsTextureType::TEX2D, 
+				RsResourceCreationFlags::STATIC, 
+				RsResourceBindFlags::SHADER_RESOURCE | RsResourceBindFlags::UNORDERED_ACCESS,
+				RsTextureFormat::R8G8B8A8,
+				1,
+				4, 4, 1 ) );
+	}
 
 	VertexDeclaration_ = RsCore::pImpl()->createVertexDeclaration( RsVertexDeclarationDesc( 5 )
 		.addElement( RsVertexElement( 0,  0, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::POSITION, 0 ) )
@@ -230,6 +271,18 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 void GaTestComputeComponent::onDetach( ScnEntityWeakRef Parent )
 {
 	Super::onDetach( Parent );
+
+	if(	ComputeOutputTextures_[0] )
+	{
+		ComputeOutputTextures_[0]->markDestroy();
+		ComputeOutputTextures_[0] = nullptr;
+	}
+
+	if(	ComputeOutputTextures_[1] )
+	{
+		ComputeOutputTextures_[1]->markDestroy();
+		ComputeOutputTextures_[1] = nullptr;
+	}
 
 	Parent->detach( MaterialComponent_ );
 	MaterialComponent_ = nullptr;
