@@ -20,14 +20,14 @@ layout(std430) readonly buffer iBuffer
 	vertex Input[];
 } In;
 
-layout(r16f) readonly coherent uniform image2D iTexture;
+layout(r32f) readonly uniform image2D iTexture;
 
 layout(std430) writeonly buffer oBuffer
 {
 	vertex Ouput[];
 } Out;
 
-layout(r16f) writeonly coherent uniform image2D oTexture;
+layout(r32f) uniform image2D oTexture;
 
 
 void main()
@@ -40,8 +40,17 @@ void main()
 	Out.Ouput[invocationIndex].Colour_ = In.Input[invocationIndex].Colour_;
 	Out.Ouput[invocationIndex].TexCoord_ = In.Input[invocationIndex].TexCoord_;
 #endif
+	ivec2 id = ivec2(gl_GlobalInvocationID.xy);
 
 
-	float texel = imageLoad(iTexture, ivec2(int(gl_GlobalInvocationID.x + 1) % imageSize(iTexture).x, int(gl_GlobalInvocationID.y))).x;
-	imageStore(oTexture, ivec2(int(gl_GlobalInvocationID.x), int(gl_GlobalInvocationID.y)), texel.xxxx);
+	float texel = 
+		imageLoad( iTexture, id + ivec2(-1, 0 ) ).x +
+		imageLoad( iTexture, id + ivec2( 1, 0 ) ).x +
+		imageLoad( iTexture, id + ivec2( 0, 1 ) ).x + 
+		imageLoad( iTexture, id + ivec2( 0,-1 ) ).x;
+	texel = texel * 0.5;
+	texel -= imageLoad( oTexture, id ).x;
+	texel = ( texel - ( texel * 0.0001 ) ) * 1.0;
+
+	imageStore(oTexture, id, (texel.xxxx));
 }
