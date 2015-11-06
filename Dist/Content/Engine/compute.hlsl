@@ -29,6 +29,13 @@ void main (uint3 id : SV_DispatchThreadID)
 	int width;
 	int height;
 	iTexture.GetDimensions( width, height );
-	float texel = iTexture[ int2( int(id.x + 1) % width, int(id.y) ) ];
-	oTexture[int2(int(id.x), int(id.y))] = texel;
+	float texel = 
+		iTexture[ id + int2( 1, 0 ) ] +
+		iTexture[ id + int2(-1, 0 ) ] +
+		iTexture[ id + int2( 0, 1 ) ] +
+		iTexture[ id + int2( 0,-1 ) ];
+	texel = texel * 0.5;
+	texel -= oTexture[ id.xy ].x;
+	texel = ( texel - ( texel * 0.0001 ) ) * 1.0;
+	oTexture[id.xy] = texel;
 } 

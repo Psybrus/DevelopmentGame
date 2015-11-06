@@ -150,7 +150,7 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 
 				if( oBufferSlot != BcErrorCode )
 				{
-					Bindings.setUnorderedAccessView( oBufferSlot,  ComputeOutputBuffer );
+					Bindings.setUnorderedAccessView( oBufferSlot, ComputeOutputBuffer );
 				}
 
 				if( oTextureSlot != BcErrorCode )
@@ -216,14 +216,15 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ) );
 
+	BcBool RandomTex = BcTrue;
 	for( auto& ComputeOutputTexture : ComputeOutputTextures_ )
-	{ 
+	{
 		ComputeOutputTexture = ScnTexture::New( 
 			RsTextureDesc( 
 				RsTextureType::TEX2D, 
 				RsResourceCreationFlags::STATIC, 
 				RsResourceBindFlags::SHADER_RESOURCE | RsResourceBindFlags::UNORDERED_ACCESS,
-				RsTextureFormat::R16F,
+				RsTextureFormat::R32F,
 				1,
 				512, 512, 1 ) );
 
@@ -231,18 +232,25 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 			ComputeOutputTexture->getTexture(),
 			ComputeOutputTexture->getTexture()->getSlice(),
 			RsResourceUpdateFlags::ASYNC,
-			[]( RsTexture* Texture, const RsTextureLock& Lock )
+			[ RandomTex ]( RsTexture* Texture, const RsTextureLock& Lock )
 			{
 				const auto& Desc = Texture->getDesc();
 				for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
 				{
-					BcU16* Data = reinterpret_cast< BcU16* >( 
+					BcF32* Data = reinterpret_cast< BcF32* >( 
 						reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Y * Lock.Pitch_ );
 					for( BcU32 X = 0; X < Desc.Width_; ++X )
 					{
-						if( BcRandom::Global.randRealRange( 0.0f, 1.0f ) > 0.95f )
+						if( RandomTex && BcRandom::Global.randRealRange( 0.0f, 1.0f ) > 0.99f )
 						{
-							*Data++ = BcF32ToHalf( 1.0f );
+							if( BcRandom::Global.randRealRange( 0.0f, 1.0f ) >= 0.5f )
+							{
+								*Data++ = ( 1.0f );
+							}
+							else
+							{
+								*Data++ = ( -1.0f );
+							}
 						}
 						else
 						{
@@ -251,6 +259,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 					}
 				}
 			} );
+		RandomTex = BcFalse;
 	}
 
 	VertexDeclaration_ = RsCore::pImpl()->createVertexDeclaration( RsVertexDeclarationDesc( 5 )
