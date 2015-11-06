@@ -10,12 +10,13 @@ struct vertex
 ByteAddressBuffer iBuffer;
 RWByteAddressBuffer oBuffer;
 
-Texture2D<uint4> iTexture;
-RWTexture2D<uint4> oTexture;
+Texture2D<float> iTexture;
+RWTexture2D<float> oTexture;
 
 [numthreads(1,1,1)]
 void main (uint3 id : SV_DispatchThreadID)
 {
+#if 0
 	uint invocationIndex = id.x;
 	uint address = invocationIndex * 80;
 	oBuffer.Store4(address, iBuffer.Load4(address)); address += 16;
@@ -23,13 +24,11 @@ void main (uint3 id : SV_DispatchThreadID)
 	oBuffer.Store4(address, iBuffer.Load4(address)); address += 16;
 	oBuffer.Store4(address, iBuffer.Load4(address)); address += 16;
 	oBuffer.Store4(address, iBuffer.Load4(address));
+#endif
 
-	int2 Coord = int2(0, 0);
-	for(int i = 0; i < 4; ++i)
-	{	
-		for(int j = 0; j < 4; ++j)	
-		{
-			oTexture[int2(i, j)] = uint4(255, 0, 0, 255);
-		}
-	}
+	int width;
+	int height;
+	iTexture.GetDimensions( width, height );
+	float texel = iTexture[ int2( int(id.x + 1) % width, int(id.y) ) ];
+	oTexture[int2(int(id.x), int(id.y))] = texel;
 } 

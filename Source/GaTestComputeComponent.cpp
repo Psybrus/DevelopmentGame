@@ -19,6 +19,8 @@
 #include "System/Content/CsPackage.h"
 #include "System/Content/CsCore.h"
 
+#include "Base/BcRandom.h"
+#include "Base/BcHalf.h"
 #include "Base/BcProfiler.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -104,6 +106,9 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 
 	// Set skinning parameters.
 	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_ );
+	
+	// Set texture.
+	MaterialComponent_->setTexture( "aDiffuseTex", ComputeOutputTextures_[ ComputeTextureIdx_ ] );
 			
 	// Set material components for view.
 	RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
@@ -127,37 +132,36 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 			auto& Features = Context->getFeatures();
 			if( Features.ComputeShaders_ )
 			{
-				RsDispatchBindings Bindings;
+				RsComputeBindings Bindings;
 				BcU32 iBufferSlot = ComputeProgram->findShaderResourceSlot( "iBuffer" );
 				BcU32 oBufferSlot = ComputeProgram->findUnorderedAccessSlot( "oBuffer" );
 				BcU32 iTextureSlot = ComputeProgram->findShaderResourceSlot( "iTexture" );
 				BcU32 oTextureSlot = ComputeProgram->findUnorderedAccessSlot( "oTexture" );
+
 				if( iBufferSlot != BcErrorCode )
 				{
-					Bindings.ShaderResourceSlots_[ iBufferSlot ].Type_ = RsShaderResourceType::BUFFER;
-					Bindings.ShaderResourceSlots_[ iBufferSlot ].Buffer_ = VertexBuffer;
+					Bindings.setShaderResourceView( iBufferSlot, VertexBuffer );
 				}
 
 				if( iTextureSlot != BcErrorCode )
 				{
-					Bindings.ShaderResourceSlots_[ iTextureSlot ].Type_ = RsShaderResourceType::TEXTURE;
-					Bindings.ShaderResourceSlots_[ iTextureSlot ].Texture_ = ComputeOutputTextures[ ComputeTextureIdx ]->getTexture();
+					Bindings.setShaderResourceView( iTextureSlot, ComputeOutputTextures[ ComputeTextureIdx ]->getTexture() );
 				}
 
 				if( oBufferSlot != BcErrorCode )
 				{
-					Bindings.UnorderedAccessSlots_[ oBufferSlot ].Type_ = RsUnorderedAccessType::BUFFER;
-					Bindings.UnorderedAccessSlots_[ oBufferSlot ].Buffer_ = ComputeOutputBuffer;
+					Bindings.setUnorderedAccessView( oBufferSlot,  ComputeOutputBuffer );
 				}
 
 				if( oTextureSlot != BcErrorCode )
 				{
-					Bindings.UnorderedAccessSlots_[ oTextureSlot ].Type_ = RsUnorderedAccessType::TEXTURE;
-					Bindings.UnorderedAccessSlots_[ oTextureSlot ].Texture_ = ComputeOutputTextures[ 1 - ComputeTextureIdx ]->getTexture();
+					Bindings.setUnorderedAccessView( oTextureSlot, ComputeOutputTextures[ 1 - ComputeTextureIdx ]->getTexture() );
 				}
 
-				Context->dispatchCompute( ComputeProgram, Bindings, 4, 1, 1 );
-				Context->setVertexBuffer( 0, ComputeOutputBuffer, sizeof( GaVertex ) );
+				const auto& texDesc = ComputeOutputTextures[ 1 - ComputeTextureIdx ]->getTexture()->getDesc();
+
+				Context->dispatchCompute( ComputeProgram, Bindings, texDesc.Width_, texDesc.Height_, 1 );
+				Context->setVertexBuffer( 0, VertexBuffer, sizeof( GaVertex ) );
 			}
 			else
 			{
@@ -199,7 +203,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 			Indices[ 3 ] = 3;
 		} );
 
-	BcU32 VertexBufferSize = 4 * sizeof( GaVertex );
+		BcU32 VertexBufferSize = 4 * sizeof( GaVertex );
 	VertexBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
 			RsResourceBindFlags::VERTEX_BUFFER | RsResourceBindFlags::SHADER_RESOURCE,
@@ -219,9 +223,34 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 				RsTextureType::TEX2D, 
 				RsResourceCreationFlags::STATIC, 
 				RsResourceBindFlags::SHADER_RESOURCE | RsResourceBindFlags::UNORDERED_ACCESS,
-				RsTextureFormat::R8G8B8A8,
+				RsTextureFormat::R16F,
 				1,
-				4, 4, 1 ) );
+				512, 512, 1 ) );
+
+		RsCore::pImpl()->updateTexture( 
+			ComputeOutputTexture->getTexture(),
+			ComputeOutputTexture->getTexture()->getSlice(),
+			RsResourceUpdateFlags::ASYNC,
+			[]( RsTexture* Texture, const RsTextureLock& Lock )
+			{
+				const auto& Desc = Texture->getDesc();
+				for( BcU32 Y = 0; Y < Desc.Height_; ++Y )
+				{
+					BcU16* Data = reinterpret_cast< BcU16* >( 
+						reinterpret_cast< BcU8* >( Lock.Buffer_ ) + Y * Lock.Pitch_ );
+					for( BcU32 X = 0; X < Desc.Width_; ++X )
+					{
+						if( BcRandom::Global.randRealRange( 0.0f, 1.0f ) > 0.95f )
+						{
+							*Data++ = BcF32ToHalf( 1.0f );
+						}
+						else
+						{
+							*Data++ = BcF32ToHalf( 0.0f );
+						}
+					}
+				}
+			} );
 	}
 
 	VertexDeclaration_ = RsCore::pImpl()->createVertexDeclaration( RsVertexDeclarationDesc( 5 )

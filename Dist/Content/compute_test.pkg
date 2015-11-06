@@ -36,14 +36,20 @@
 			"name"			: "material",
 
 			// Shader
-			"shader"		: "$(ScnShader:shaders.default)",
-
-			// Textures
-			"textures"		: {
-			},
+			"shader"		: "$(ScnShader:shaders.textured)",
 
 			// Samplers
 			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "nearest",
+					"magfilter" : "nearest"
+				}
+			},
+
+			// Textures
+			"textures"		: {
 			},
 
 			// New render state.
@@ -65,7 +71,7 @@
 				},
 
 				"rasteriserstate" : {
-					"fillmode" : "wireframe",
+					"fillmode" : "solid",
 					"cullmode" : "none",
 					"depthclipenable" : true,
 					"antialiasedlineenable" : false
