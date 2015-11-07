@@ -132,7 +132,7 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 			auto& Features = Context->getFeatures();
 			if( Features.ComputeShaders_ )
 			{
-				RsComputeBindings Bindings;
+				RsComputeBindingDesc Bindings;
 				BcU32 iBufferSlot = ComputeProgram->findShaderResourceSlot( "iBuffer" );
 				BcU32 oBufferSlot = ComputeProgram->findUnorderedAccessSlot( "oBuffer" );
 				BcU32 iTextureSlot = ComputeProgram->findShaderResourceSlot( "iTexture" );
