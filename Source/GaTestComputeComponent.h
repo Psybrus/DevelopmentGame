@@ -51,7 +51,7 @@ private:
 	ScnShaderRef ComputeShader_;
 	class RsBuffer* ComputeOutputBuffer_;
 
-	std::array< class ScnTexture*, 2 > ComputeOutputTextures_ = { nullptr, nullptr };
+	std::array< class ScnTexture*, 2 > ComputeOutputTextures_;
 	BcU32 ComputeTextureIdx_ = 0;
 	std::array< RsProgramBindingUPtr, 2 > ProgramBindings_;
 

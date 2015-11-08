@@ -75,7 +75,8 @@ GaTestComputeComponent::GaTestComputeComponent():
 	TestUniformBuffer_( nullptr ),
 	IndexBuffer_( nullptr ),
 	VertexBuffer_( nullptr ),
-	VertexDeclaration_( nullptr )
+	VertexDeclaration_( nullptr ),
+	ComputeOutputTextures_( { nullptr, nullptr } )
 {
 }
 
