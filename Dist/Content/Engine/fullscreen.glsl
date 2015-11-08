@@ -47,7 +47,7 @@ PSY_SAMPLER_2D( DepthTex );
 void pixelMain()
 {
 	vec4 Colour = PSY_SAMPLE_2D( ColourTex, VsTexCoord0.xy );
-	float Depth = PSY_SAMPLE_2D( DepthTex, VsTexCoord0.xy ).x;
+	//float Depth = PSY_SAMPLE_2D( DepthTex, VsTexCoord0.xy ).x;
 	fragColor = Colour; //float4( Depth, Depth, Depth, 1.0 ) * i.Colour_;
 }
 

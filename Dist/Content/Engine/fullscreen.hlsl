@@ -106,7 +106,7 @@ PS_OUTPUT pixelMain( GS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
 	float4 Colour = PSY_SAMPLE_2D( ColourTex, i.TexCoord0_.xy );
-	float Depth = PSY_SAMPLE_2D( DepthTex, i.TexCoord0_.xy ).x;
+	//float Depth = PSY_SAMPLE_2D( DepthTex, i.TexCoord0_.xy ).x;
 	o.Colour_ = Colour; //float4( Depth, Depth, Depth, 1.0 ) * i.Colour_;
 	return o;
 }
