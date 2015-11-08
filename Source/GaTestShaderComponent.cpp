@@ -112,11 +112,15 @@ void GaTestShaderComponent::render( ScnRenderContext & RenderContext )
 
 	// Render primitive.				
 	RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
-		[ this ]( RsContext* Context )
+		[
+			VertexBuffer = VertexBuffer_,
+			VertexDeclaration = VertexDeclaration_
+		]
+		( RsContext* Context )
 		{
 			PSY_PROFILER_SECTION( RenderRoot, "GaTestShaderComponentRenderNode::render" );
-			Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
-			Context->setVertexDeclaration( VertexDeclaration_ );
+			Context->setVertexBuffer( 0, VertexBuffer, sizeof( GaVertex ) );
+			Context->setVertexDeclaration( VertexDeclaration );
 			Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 		} );
 }

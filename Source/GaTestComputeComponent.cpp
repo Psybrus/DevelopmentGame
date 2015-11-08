@@ -117,14 +117,17 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 	MaterialComponent_->bind( RenderContext.pFrame_, RenderContext.Sort_ );
 
 	// Render primitive.				
+	const auto& TexDesc = ComputeOutputTextures_[ ComputeTextureIdx_ ]->getTexture()->getDesc();
+	
 	RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
 		[
-			ComputeProgram = ComputeShader_->getProgram( ScnShaderPermutationFlags::NONE ),
+			ProgramBinding = ProgramBindings_[ ComputeTextureIdx_ ].get(),
 			ComputeOutputBuffer = ComputeOutputBuffer_,
 			ComputeOutputTextures = ComputeOutputTextures_,
 			ComputeTextureIdx = ComputeTextureIdx_,
 			VertexBuffer = VertexBuffer_,
-			VertexDeclaration = VertexDeclaration_
+			VertexDeclaration = VertexDeclaration_,
+			TexDesc
 		]
 		( RsContext* Context )
 		{
@@ -132,35 +135,7 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 			auto& Features = Context->getFeatures();
 			if( Features.ComputeShaders_ )
 			{
-				RsProgramBindingDesc Bindings;
-				BcU32 iBufferSlot = ComputeProgram->findShaderResourceSlot( "iBuffer" );
-				BcU32 oBufferSlot = ComputeProgram->findUnorderedAccessSlot( "oBuffer" );
-				BcU32 iTextureSlot = ComputeProgram->findShaderResourceSlot( "iTexture" );
-				BcU32 oTextureSlot = ComputeProgram->findUnorderedAccessSlot( "oTexture" );
-
-				if( iBufferSlot != BcErrorCode )
-				{
-					Bindings.setShaderResourceView( iBufferSlot, VertexBuffer );
-				}
-
-				if( iTextureSlot != BcErrorCode )
-				{
-					Bindings.setShaderResourceView( iTextureSlot, ComputeOutputTextures[ ComputeTextureIdx ]->getTexture() );
-				}
-
-				if( oBufferSlot != BcErrorCode )
-				{
-					Bindings.setUnorderedAccessView( oBufferSlot, ComputeOutputBuffer );
-				}
-
-				if( oTextureSlot != BcErrorCode )
-				{
-					Bindings.setUnorderedAccessView( oTextureSlot, ComputeOutputTextures[ 1 - ComputeTextureIdx ]->getTexture() );
-				}
-
-				const auto& texDesc = ComputeOutputTextures[ 1 - ComputeTextureIdx ]->getTexture()->getDesc();
-
-				Context->dispatchCompute( ComputeProgram, Bindings, texDesc.Width_, texDesc.Height_, 1 );
+				Context->dispatchCompute( ProgramBinding, TexDesc.Width_, TexDesc.Height_, 1 );
 				Context->setVertexBuffer( 0, VertexBuffer, sizeof( GaVertex ) );
 			}
 			else
@@ -180,8 +155,7 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
-
-
+	
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
 			RsBufferType::UNIFORM,
@@ -268,6 +242,46 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 		.addElement( RsVertexElement( 0, 32, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::TANGENT, 0 ) )
 		.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::COLOUR, 0 ) )
 		.addElement( RsVertexElement( 0, 64, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ) );
+
+	// Create program bindings.
+	auto& Features = RsCore::pImpl()->getContext( nullptr )->getFeatures();
+	if( Features.ComputeShaders_ )
+	{
+		for( auto& ProgramBindings : ProgramBindings_ )
+		{
+			RsProgramBindingDesc ProgramBindingDesc;
+			RsProgram* ComputeProgram = ComputeShader_->getProgram( ScnShaderPermutationFlags::NONE );
+			BcU32 BufferInputSlot = ComputeProgram->findShaderResourceSlot( "iBuffer" );
+			BcU32 BufferOutputSlot = ComputeProgram->findUnorderedAccessSlot( "oBuffer" );
+			BcU32 TextureInputSlot = ComputeProgram->findShaderResourceSlot( "iTexture" );
+			BcU32 TextureOutputSlot = ComputeProgram->findUnorderedAccessSlot( "oTexture" );
+
+			if( BufferInputSlot != BcErrorCode )
+			{
+				ProgramBindingDesc.setShaderResourceView( BufferInputSlot, VertexBuffer_ );
+			}
+
+			if( TextureInputSlot != BcErrorCode )
+			{
+				ProgramBindingDesc.setShaderResourceView( TextureInputSlot, ComputeOutputTextures_[ ComputeTextureIdx_ ]->getTexture() );
+			}
+
+			if( BufferOutputSlot != BcErrorCode )
+			{
+				ProgramBindingDesc.setUnorderedAccessView( BufferOutputSlot, ComputeOutputBuffer_ );
+			}
+
+			if( TextureOutputSlot != BcErrorCode )
+			{
+				ProgramBindingDesc.setUnorderedAccessView( TextureOutputSlot, ComputeOutputTextures_[ 1 - ComputeTextureIdx_ ]->getTexture() );
+			}
+
+			ProgramBindings = RsCore::pImpl()->createProgramBinding( ComputeProgram, ProgramBindingDesc, *ComputeShader_->getName() );
+
+			// Flip input textures.
+			ComputeTextureIdx_ = 1 - ComputeTextureIdx_;
+		}
+	}
 
 	RsCore::pImpl()->updateBuffer( 
 		VertexBuffer_,

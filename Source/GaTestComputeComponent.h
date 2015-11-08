@@ -53,6 +53,7 @@ private:
 
 	std::array< class ScnTexture*, 2 > ComputeOutputTextures_ = { nullptr, nullptr };
 	BcU32 ComputeTextureIdx_ = 0;
+	std::array< RsProgramBindingUPtr, 2 > ProgramBindings_;
 
 	ScnMaterialRef Material_;
 	ScnMaterialComponentRef MaterialComponent_;
