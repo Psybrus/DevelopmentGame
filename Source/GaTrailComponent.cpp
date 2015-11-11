@@ -74,24 +74,29 @@ void GaTrailComponent::onAttach( ScnEntityWeakRef Parent )
 
 	size_t NoofVertices = MaxTrailHistory_ * 2;
 
-	VertexDeclaration_.reset( RsCore::pImpl()->createVertexDeclaration(
+	VertexDeclaration_ = RsCore::pImpl()->createVertexDeclaration(
 		RsVertexDeclarationDesc( 4 )
 			.addElement( RsVertexElement( 0, 0, 4, RsVertexDataType::FLOAT32, RsVertexUsage::POSITION, 0 ) )
 			.addElement( RsVertexElement( 0, 16, 4, RsVertexDataType::FLOAT32, RsVertexUsage::NORMAL, 0 ) )
 			.addElement( RsVertexElement( 0, 32, 4, RsVertexDataType::FLOAT32, RsVertexUsage::TEXCOORD, 0 ) )
-			.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32, RsVertexUsage::COLOUR, 0 ) ) ) );
+			.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32, RsVertexUsage::COLOUR, 0 ) ) );
 
-	VertexBuffer_.reset( RsCore::pImpl()->createBuffer(
+	VertexBuffer_ = RsCore::pImpl()->createBuffer(
 		RsBufferDesc( 
 			RsBufferType::VERTEX,
 			RsResourceCreationFlags::DYNAMIC,
-			NoofVertices * sizeof( GaTrailVertex ) ) ) );
+			NoofVertices * sizeof( GaTrailVertex ) ) );
 
-	UniformBuffer_.reset( RsCore::pImpl()->createBuffer( 
+	RsGeometryBindingDesc GeometryBindingDesc;
+	GeometryBindingDesc.setVertexDeclaration( VertexDeclaration_.get() );
+	GeometryBindingDesc.setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaTrailVertex ) );
+	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName() );
+
+	UniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
 			RsBufferType::UNIFORM,
 			RsResourceCreationFlags::STREAM,
-			sizeof( ObjectUniforms_ ) ) ) );
+			sizeof( ObjectUniforms_ ) ) );
 
 	MaterialComponent_ = Parent->attach< ScnMaterialComponent >( 
 		BcName::INVALID, Material_, 
@@ -106,7 +111,6 @@ void GaTrailComponent::onDetach( ScnEntityWeakRef Parent )
 	Super::onDetach( Parent );
 
 	UpdateFence_.wait();
-	RenderFence_.wait();
 
 	Parent->detach( MaterialComponent_ );
 }
@@ -132,15 +136,22 @@ void GaTrailComponent::render( ScnRenderContext & RenderContext )
 
 		RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
 		MaterialComponent_->bind( RenderContext.pFrame_, Sort );
-		RenderFence_.increment();
 		RenderContext.pFrame_->queueRenderNode( Sort,
-			[ this ]( RsContext* Context )
+			[ 
+				GeometryBinding = GeometryBinding_.get(),
+				ProgramBinding = MaterialComponent_->getProgramBinding(),
+				RenderState = MaterialComponent_->getRenderState(),
+				FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
+				NoofIndices = static_cast< BcU32 >( TrailHistory_.size() * 2 )
+			]
+			( RsContext* Context )
 			{
-				const BcU32 NoofIndices = static_cast< BcU32 >( TrailHistory_.size() * 2 );
-				Context->setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaTrailVertex ) );
-				Context->setVertexDeclaration( VertexDeclaration_.get() );
-				Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, NoofIndices );
-				RenderFence_.decrement();
+				Context->drawPrimitives( 
+					GeometryBinding,
+					ProgramBinding,
+					RenderState,
+					FrameBuffer,
+					RsTopologyType::TRIANGLE_STRIP, 0, NoofIndices );
 			} );
 	}
 }

@@ -116,29 +116,35 @@ GaTestTextureComponent::~GaTestTextureComponent()
 //////////////////////////////////////////////////////////////////////////
 // drawTest
 void GaTestTextureComponent::drawTest(
-		const MaMat4d& Transform, ScnMaterialComponent* Material,
+		const MaMat4d& Transform, 
+		ScnMaterialComponent* Material,
 		ScnRenderContext & RenderContext )
 {
 	if( Material )
 	{
 		// Set parameters.
-		Material->setObjectUniformBlock( ObjectUniformBuffer_ );
-		Material->setUniformBlock( "GaTestTextureBlockData", TestUniformBuffer_ );
+		Material->setObjectUniformBlock( ObjectUniformBuffer_.get() );
+		Material->setUniformBlock( "GaTestTextureBlockData", TestUniformBuffer_.get() );
 		
 		// Set material components for view.
 		RenderContext.pViewComponent_->setMaterialParameters( Material );
 				
-		// Bind material.
-		Material->bind( RenderContext.pFrame_, RenderContext.Sort_ );
-
 		// Render primitive.
 		RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
-			[ this, Transform ]( RsContext* Context )
+			[
+				ObjectUniformBuffer = ObjectUniformBuffer_.get(),
+				GeometryBinding = GeometryBinding_.get(),
+				ProgramBinding = Material->getProgramBinding(),
+				RenderState = Material->getRenderState(),
+				FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
+				Transform 
+			]
+			( RsContext* Context )
 			{
 				PSY_PROFILER_SECTION( RenderRoot, "GaTestTextureComponentRenderNode::render" );
 
 				Context->updateBuffer( 
-					ObjectUniformBuffer_,
+					ObjectUniformBuffer,
 					0, sizeof( ScnShaderObjectUniformBlockData ),
 					RsResourceUpdateFlags::ASYNC,
 					[ Transform ]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -148,9 +154,12 @@ void GaTestTextureComponent::drawTest(
 						UniformBlock->NormalTransform_ = Transform;
 					} );
 
-				Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
-				Context->setVertexDeclaration( VertexDeclaration_ );
-				Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
+				Context->drawPrimitives( 
+					GeometryBinding,
+					ProgramBinding,
+					RenderState,
+					FrameBuffer,
+					RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 			} );
 	}
 }
@@ -163,7 +172,7 @@ void GaTestTextureComponent::render( ScnRenderContext & RenderContext )
 	Super::render( RenderContext );
 
 	RsCore::pImpl()->updateBuffer( 
-		TestUniformBuffer_,
+		TestUniformBuffer_.get(),
 		0, sizeof( GaTestTextureBlockData ),
 		RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -218,7 +227,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ) );
 
 	RsCore::pImpl()->updateBuffer( 
-		IndexBuffer_, 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
+		IndexBuffer_.get(), 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& BufferLock )
 		{
 			BcU16* Indices = reinterpret_cast< BcU16* >( BufferLock.Buffer_ );
@@ -243,7 +252,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		.addElement( RsVertexElement( 0, 64, 2, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ) );
 
 	RsCore::pImpl()->updateBuffer( 
-		VertexBuffer_,
+		VertexBuffer_.get(),
 		0, VertexBufferSize,
 		RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -254,6 +263,12 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 			*Vertices++ = GaVertex( MaVec4d( -1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( -1.0f,  1.0f, 1.0f,  0.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 1.0f ) );
 			*Vertices++ = GaVertex( MaVec4d(  1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d(  1.0f,  1.0f, 1.0f,  0.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 1.0f ) );
 		} );
+
+	RsGeometryBindingDesc GeometryBindingDesc;
+	GeometryBindingDesc.setVertexDeclaration( VertexDeclaration_.get() );
+	GeometryBindingDesc.setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaVertex ) );
+	GeometryBindingDesc.setIndexBuffer( IndexBuffer_.get() );
+	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName() );
 
 	ScnShaderPermutationFlags ShaderPermutation = 
 		ScnShaderPermutationFlags::MESH_STATIC_3D |
@@ -475,12 +490,6 @@ void GaTestTextureComponent::onDetach( ScnEntityWeakRef Parent )
 		Parent->detach( MaterialComponent3D_ );
 		MaterialComponent3D_ = nullptr;
 	}
-
-	RsCore::pImpl()->destroyResource( VertexDeclaration_ );
-	RsCore::pImpl()->destroyResource( VertexBuffer_ );
-	RsCore::pImpl()->destroyResource( IndexBuffer_ );
-	RsCore::pImpl()->destroyResource( ObjectUniformBuffer_ );
-	RsCore::pImpl()->destroyResource( TestUniformBuffer_ );
 }
 
 //////////////////////////////////////////////////////////////////////////

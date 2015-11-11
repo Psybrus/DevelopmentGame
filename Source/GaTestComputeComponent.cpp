@@ -71,13 +71,14 @@ void GaTestComputeComponent::StaticRegisterClass()
 //////////////////////////////////////////////////////////////////////////
 // Ctor
 GaTestComputeComponent::GaTestComputeComponent():
-	ObjectUniformBuffer_( nullptr ),
-	TestUniformBuffer_( nullptr ),
-	IndexBuffer_( nullptr ),
-	VertexBuffer_( nullptr ),
-	VertexDeclaration_( nullptr ),
-	ComputeOutputTextures_( { nullptr, nullptr } )
+	ObjectUniformBuffer_(),
+	TestUniformBuffer_(),
+	IndexBuffer_(),
+	VertexBuffer_(),
+	VertexDeclaration_(),
+	ComputeOutputTextures_( {} )
 {
+
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -95,7 +96,7 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 	Super::render( RenderContext );
 
 	RsCore::pImpl()->updateBuffer( 
-		ObjectUniformBuffer_,
+		ObjectUniformBuffer_.get(),
 		0, sizeof( ScnShaderObjectUniformBlockData ),
 		RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -106,7 +107,7 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 
 
 	// Set skinning parameters.
-	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_ );
+	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_.get() );
 	
 	// Set texture.
 	MaterialComponent_->setTexture( "aDiffuseTex", ComputeOutputTextures_[ ComputeTextureIdx_ ] );
@@ -115,20 +116,22 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 	RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
 			
 	// Bind material.
-	MaterialComponent_->bind( RenderContext.pFrame_, RenderContext.Sort_ );
+	MaterialComponent_->bind( RenderContext.pFrame_, RenderContext.Sort_, BcTrue );
 
 	// Render primitive.				
 	const auto& TexDesc = ComputeOutputTextures_[ ComputeTextureIdx_ ]->getTexture()->getDesc();
 	
 	RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
 		[
-			ProgramBinding = ProgramBindings_[ ComputeTextureIdx_ ].get(),
-			ComputeOutputBuffer = ComputeOutputBuffer_,
+			TexDesc,
+			ComputeProgramBinding = ComputeProgramBindings_[ ComputeTextureIdx_ ].get(),
+			ComputeOutputBuffer = ComputeOutputBuffer_.get(),
 			ComputeOutputTextures = ComputeOutputTextures_,
 			ComputeTextureIdx = ComputeTextureIdx_,
-			VertexBuffer = VertexBuffer_,
-			VertexDeclaration = VertexDeclaration_,
-			TexDesc
+			GeometryBinding = GeometryBinding_.get(),
+			DrawProgramBinding = MaterialComponent_->getProgramBinding(),
+			RenderState = MaterialComponent_->getRenderState(),
+			FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer()
 		]
 		( RsContext* Context )
 		{
@@ -136,16 +139,15 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 			auto& Features = Context->getFeatures();
 			if( Features.ComputeShaders_ )
 			{
-				Context->dispatchCompute( ProgramBinding, TexDesc.Width_, TexDesc.Height_, 1 );
-				Context->setVertexBuffer( 0, VertexBuffer, sizeof( GaVertex ) );
-			}
-			else
-			{
-				Context->setVertexBuffer( 0, VertexBuffer, sizeof( GaVertex ) );
+				Context->dispatchCompute( ComputeProgramBinding, TexDesc.Width_, TexDesc.Height_, 1 );
 			}
 
-			Context->setVertexDeclaration( VertexDeclaration );
-			Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
+			Context->drawPrimitives(
+				GeometryBinding,
+				DrawProgramBinding,
+				RenderState,
+				FrameBuffer,
+				RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 		} );
 	ComputeTextureIdx_ = 1 - ComputeTextureIdx_;
 }
@@ -168,7 +170,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ) );
 
 	RsCore::pImpl()->updateBuffer( 
-		IndexBuffer_, 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
+		IndexBuffer_.get(), 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& BufferLock )
 		{
 			BcU16* Indices = reinterpret_cast< BcU16* >( BufferLock.Buffer_ );
@@ -243,12 +245,18 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 		.addElement( RsVertexElement( 0, 32, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::TANGENT, 0 ) )
 		.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::COLOUR, 0 ) )
 		.addElement( RsVertexElement( 0, 64, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ) );
+	
+	RsGeometryBindingDesc GeometryBindingDesc;
+	GeometryBindingDesc.setIndexBuffer( IndexBuffer_.get() );
+	GeometryBindingDesc.setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaVertex ) );
+	GeometryBindingDesc.setVertexDeclaration( VertexDeclaration_.get() );
+	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName() );
 
 	// Create program bindings.
 	auto& Features = RsCore::pImpl()->getContext( nullptr )->getFeatures();
 	if( Features.ComputeShaders_ )
 	{
-		for( auto& ProgramBindings : ProgramBindings_ )
+		for( auto& ComputeProgramBindings : ComputeProgramBindings_ )
 		{
 			RsProgramBindingDesc ProgramBindingDesc;
 			RsProgram* ComputeProgram = ComputeShader_->getProgram( ScnShaderPermutationFlags::NONE );
@@ -259,7 +267,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 
 			if( BufferInputSlot != BcErrorCode )
 			{
-				ProgramBindingDesc.setShaderResourceView( BufferInputSlot, VertexBuffer_ );
+				ProgramBindingDesc.setShaderResourceView( BufferInputSlot, VertexBuffer_.get() );
 			}
 
 			if( TextureInputSlot != BcErrorCode )
@@ -269,7 +277,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 
 			if( BufferOutputSlot != BcErrorCode )
 			{
-				ProgramBindingDesc.setUnorderedAccessView( BufferOutputSlot, ComputeOutputBuffer_ );
+				ProgramBindingDesc.setUnorderedAccessView( BufferOutputSlot, ComputeOutputBuffer_.get() );
 			}
 
 			if( TextureOutputSlot != BcErrorCode )
@@ -277,7 +285,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 				ProgramBindingDesc.setUnorderedAccessView( TextureOutputSlot, ComputeOutputTextures_[ 1 - ComputeTextureIdx_ ]->getTexture() );
 			}
 
-			ProgramBindings = RsCore::pImpl()->createProgramBinding( ComputeProgram, ProgramBindingDesc, *ComputeShader_->getName() );
+			ComputeProgramBindings = RsCore::pImpl()->createProgramBinding( ComputeProgram, ProgramBindingDesc, *ComputeShader_->getName() );
 
 			// Flip input textures.
 			ComputeTextureIdx_ = 1 - ComputeTextureIdx_;
@@ -285,7 +293,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 	}
 
 	RsCore::pImpl()->updateBuffer( 
-		VertexBuffer_,
+		VertexBuffer_.get(),
 		0, VertexBufferSize,
 		RsResourceUpdateFlags::ASYNC,
 		[ VertexBufferSize ]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -299,7 +307,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 		} );
 
 	RsCore::pImpl()->updateBuffer( 
-		ComputeOutputBuffer_,
+		ComputeOutputBuffer_.get(),
 		0, VertexBufferSize,
 		RsResourceUpdateFlags::ASYNC,
 		[ VertexBufferSize ]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -340,11 +348,11 @@ void GaTestComputeComponent::onDetach( ScnEntityWeakRef Parent )
 	Parent->detach( MaterialComponent_ );
 	MaterialComponent_ = nullptr;
 
-	RsCore::pImpl()->destroyResource( VertexDeclaration_ );
-	RsCore::pImpl()->destroyResource( ComputeOutputBuffer_ );
-	RsCore::pImpl()->destroyResource( VertexBuffer_ );
-	RsCore::pImpl()->destroyResource( IndexBuffer_ );
-	RsCore::pImpl()->destroyResource( ObjectUniformBuffer_ );
+	VertexDeclaration_.reset();
+	ComputeOutputBuffer_.reset();
+	VertexBuffer_.reset();
+	IndexBuffer_.reset();
+	ObjectUniformBuffer_.reset();
 }
 
 //////////////////////////////////////////////////////////////////////////

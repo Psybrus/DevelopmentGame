@@ -65,9 +65,9 @@ private:
 	RsVertexDeclarationUPtr VertexDeclaration_;
 	RsBufferUPtr VertexBuffer_;
 	RsBufferUPtr UniformBuffer_;
+	RsGeometryBindingUPtr GeometryBinding_;
 	ScnShaderObjectUniformBlockData	ObjectUniforms_;
 
-	SysFence RenderFence_;
 	SysFence UpdateFence_;
 };
 

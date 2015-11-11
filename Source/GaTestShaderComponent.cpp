@@ -91,7 +91,7 @@ void GaTestShaderComponent::render( ScnRenderContext & RenderContext )
 	Super::render( RenderContext );
 
 	RsCore::pImpl()->updateBuffer( 
-		ObjectUniformBuffer_,
+		ObjectUniformBuffer_.get(),
 		0, sizeof( ScnShaderObjectUniformBlockData ),
 		RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -102,26 +102,28 @@ void GaTestShaderComponent::render( ScnRenderContext & RenderContext )
 
 
 	// Set skinning parameters.
-	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_ );
+	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_.get() );
 			
 	// Set material components for view.
 	RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
-			
-	// Bind material.
-	MaterialComponent_->bind( RenderContext.pFrame_, RenderContext.Sort_ );
-
+	
 	// Render primitive.				
 	RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
 		[
-			VertexBuffer = VertexBuffer_,
-			VertexDeclaration = VertexDeclaration_
+			GeometryBinding = GeometryBinding_.get(),
+			ProgramBinding = MaterialComponent_->getProgramBinding(),
+			RenderState = MaterialComponent_->getRenderState(),
+			FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer()
 		]
 		( RsContext* Context )
 		{
-			PSY_PROFILER_SECTION( RenderRoot, "GaTestShaderComponentRenderNode::render" );
-			Context->setVertexBuffer( 0, VertexBuffer, sizeof( GaVertex ) );
-			Context->setVertexDeclaration( VertexDeclaration );
-			Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
+			PSY_PROFILE_FUNCTION;
+			Context->drawPrimitives( 
+				GeometryBinding,
+				ProgramBinding,
+				RenderState,
+				FrameBuffer,
+				RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 		} );
 }
 
@@ -144,7 +146,7 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ) );
 
 	RsCore::pImpl()->updateBuffer( 
-		IndexBuffer_, 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
+		IndexBuffer_.get(), 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& BufferLock )
 		{
 			BcU16* Indices = reinterpret_cast< BcU16* >( BufferLock.Buffer_ );
@@ -169,7 +171,7 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 		.addElement( RsVertexElement( 0, 64, 2, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ) );
 
 	RsCore::pImpl()->updateBuffer( 
-		VertexBuffer_,
+		VertexBuffer_.get(),
 		0, VertexBufferSize,
 		RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -180,6 +182,11 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 			*Vertices++ = GaVertex( MaVec4d( -1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 0.0f, 1.0f ) );
 			*Vertices++ = GaVertex( MaVec4d(  1.0f,  1.0f,  0.0f,  1.0f ) * 10.0f, MaVec4d( 0.0f, 0.0f, 1.0f,  1.0f ), MaVec4d( 1.0f, 0.0f, 0.0f,  1.0f ), MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f ), MaVec2d( 1.0f, 1.0f ) );
 		} );
+
+	RsGeometryBindingDesc GeometryBindingDesc;
+	GeometryBindingDesc.setVertexDeclaration( VertexDeclaration_.get() );
+	GeometryBindingDesc.setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaVertex ) );
+	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName() );
 
 	ScnShaderPermutationFlags ShaderPermutation = 
 		ScnShaderPermutationFlags::MESH_STATIC_3D |
@@ -200,11 +207,6 @@ void GaTestShaderComponent::onDetach( ScnEntityWeakRef Parent )
 
 	Parent->detach( MaterialComponent_ );
 	MaterialComponent_ = nullptr;
-
-	RsCore::pImpl()->destroyResource( VertexDeclaration_ );
-	RsCore::pImpl()->destroyResource( VertexBuffer_ );
-	RsCore::pImpl()->destroyResource( IndexBuffer_ );
-	RsCore::pImpl()->destroyResource( ObjectUniformBuffer_ );
 }
 
 //////////////////////////////////////////////////////////////////////////

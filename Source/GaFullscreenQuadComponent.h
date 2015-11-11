@@ -15,6 +15,7 @@
 #define __GaFullscreenQuadComponent_H__
 
 #include "Psybrus.h"
+#include "System/Renderer/RsUniquePointers.h"
 #include "System/Scene/Rendering/ScnRenderableComponent.h"
 
 #include "System/Scene/Rendering/ScnMaterial.h"
@@ -42,11 +43,12 @@ public:
 	virtual MaAABB getAABB() const;
 
 private:
-	class RsBuffer* ObjectUniformBuffer_;
-	class RsBuffer* TestUniformBuffer_;
-	class RsBuffer* IndexBuffer_;
-	class RsBuffer* VertexBuffer_;
-	class RsVertexDeclaration* VertexDeclaration_;
+	RsBufferUPtr ObjectUniformBuffer_;
+	RsBufferUPtr TestUniformBuffer_;
+	RsBufferUPtr IndexBuffer_;
+	RsBufferUPtr VertexBuffer_;
+	RsVertexDeclarationUPtr VertexDeclaration_;
+	RsGeometryBindingUPtr GeometryBinding_;
 
 	ScnMaterialRef Material_;
 	ScnMaterialComponentRef MaterialComponent_;

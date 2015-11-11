@@ -15,6 +15,7 @@
 #define __GaTestTextureComponent_H__
 
 #include "Psybrus.h"
+#include "System/Renderer/RsUniquePointers.h"
 #include "System/Scene/Rendering/ScnRenderableComponent.h"
 
 #include "System/Scene/Rendering/ScnMaterial.h"
@@ -56,11 +57,13 @@ public:
 	virtual MaAABB getAABB() const;
 
 private:
-	class RsBuffer* ObjectUniformBuffer_;
-	class RsBuffer* TestUniformBuffer_;
-	class RsBuffer* IndexBuffer_;
-	class RsBuffer* VertexBuffer_;
-	class RsVertexDeclaration* VertexDeclaration_;
+	RsVertexDeclarationUPtr VertexDeclaration_;
+	RsBufferUPtr IndexBuffer_;
+	RsBufferUPtr VertexBuffer_;
+	RsGeometryBindingUPtr GeometryBinding_;
+
+	RsBufferUPtr ObjectUniformBuffer_;
+	RsBufferUPtr TestUniformBuffer_;
 
 	ScnMaterialRef Material1D_;
 	ScnMaterialRef Material2D_;

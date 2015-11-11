@@ -128,8 +128,8 @@ void GaTestCloudComponent::drawTest(
 	if( Material )
 	{
 		// Set parameters.
-		Material->setObjectUniformBlock( ObjectUniformBuffer_ );
-		Material->setUniformBlock( "GaTestCloudBlockData", TestUniformBuffer_ );
+		Material->setObjectUniformBlock( ObjectUniformBuffer_.get() );
+		Material->setUniformBlock( "GaTestCloudBlockData", TestUniformBuffer_.get() );
 		
 		// Set material components for view.
 		RenderContext.pViewComponent_->setMaterialParameters( Material );
@@ -138,25 +138,33 @@ void GaTestCloudComponent::drawTest(
 		Material->bind( RenderContext.pFrame_, RenderContext.Sort_ );
 
 		// Render primitive.				
-		RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
-			[ this, Transform ]( RsContext* Context )
+		RsCore::pImpl()->updateBuffer(
+			ObjectUniformBuffer_.get(),
+			0, sizeof( ScnShaderObjectUniformBlockData ),
+			RsResourceUpdateFlags::ASYNC,
+			[ Transform ]( RsBuffer* Buffer, const RsBufferLock& Lock )
 			{
-				PSY_PROFILER_SECTION( RenderRoot, "GaTestCloudComponentRenderNode::render" );
+				auto UniformBlock = reinterpret_cast< ScnShaderObjectUniformBlockData* >( Lock.Buffer_ );
+				UniformBlock->WorldTransform_ = Transform;
+				UniformBlock->NormalTransform_ = Transform;
+			} );
 
-				Context->updateBuffer( 
-					ObjectUniformBuffer_,
-					0, sizeof( ScnShaderObjectUniformBlockData ),
-					RsResourceUpdateFlags::ASYNC,
-					[ Transform ]( RsBuffer* Buffer, const RsBufferLock& Lock )
-					{
-						auto UniformBlock = reinterpret_cast< ScnShaderObjectUniformBlockData* >( Lock.Buffer_ );
-						UniformBlock->WorldTransform_ = Transform;
-						UniformBlock->NormalTransform_ = Transform;
-					} );
-
-				Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
-				Context->setVertexDeclaration( VertexDeclaration_ );
-				Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
+		RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
+			[
+				GeometryBinding = GeometryBinding_.get(),
+				ProgramBinding = Material->getProgramBinding(),
+				RenderState = Material->getRenderState(),
+				FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer()
+			]
+			( RsContext* Context )
+			{
+				PSY_PROFILE_FUNCTION;
+				Context->drawPrimitives( 
+					GeometryBinding,
+					ProgramBinding,
+					RenderState,
+					FrameBuffer,
+					RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 			} );
 	}
 }
@@ -191,7 +199,7 @@ void GaTestCloudComponent::render( ScnRenderContext & RenderContext )
 
 
 	RsCore::pImpl()->updateBuffer( 
-		TestUniformBuffer_,
+		TestUniformBuffer_.get(),
 		0, sizeof( GaTestCloudBlockData ),
 		RsResourceUpdateFlags::ASYNC,
 		[ this ]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -237,7 +245,7 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ) );
 
 	RsCore::pImpl()->updateBuffer( 
-		IndexBuffer_, 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
+		IndexBuffer_.get(), 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& BufferLock )
 		{
 			BcU16* Indices = reinterpret_cast< BcU16* >( BufferLock.Buffer_ );
@@ -262,7 +270,7 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 		.addElement( RsVertexElement( 0, 64, 2, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ) );
 
 	RsCore::pImpl()->updateBuffer( 
-		VertexBuffer_,
+		VertexBuffer_.get(),
 		0, VertexBufferSize,
 		RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -278,6 +286,13 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 		ScnShaderPermutationFlags::MESH_STATIC_3D |
 		ScnShaderPermutationFlags::RENDER_FORWARD |
 		ScnShaderPermutationFlags::LIGHTING_NONE;
+
+	RsGeometryBindingDesc GeometryBindingDesc;
+	GeometryBindingDesc.setVertexDeclaration( VertexDeclaration_.get() );
+	GeometryBindingDesc.setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaVertex ) );
+	GeometryBindingDesc.setIndexBuffer( IndexBuffer_.get() );
+	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName() );
+
 
 	const auto& Features = RsCore::pImpl()->getContext( nullptr )->getFeatures();
 
@@ -359,12 +374,6 @@ void GaTestCloudComponent::onDetach( ScnEntityWeakRef Parent )
 		Parent->detach( MaterialComponent3D_ );
 		MaterialComponent3D_ = nullptr;
 	}
-
-	RsCore::pImpl()->destroyResource( VertexDeclaration_ );
-	RsCore::pImpl()->destroyResource( VertexBuffer_ );
-	RsCore::pImpl()->destroyResource( IndexBuffer_ );
-	RsCore::pImpl()->destroyResource( ObjectUniformBuffer_ );
-	RsCore::pImpl()->destroyResource( TestUniformBuffer_ );
 }
 
 //////////////////////////////////////////////////////////////////////////

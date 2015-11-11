@@ -93,7 +93,7 @@ void GaFullscreenQuadComponent::render( ScnRenderContext & RenderContext )
 	Super::render( RenderContext );
 
 	RsCore::pImpl()->updateBuffer( 
-		ObjectUniformBuffer_,
+		ObjectUniformBuffer_.get(),
 		0, sizeof( ScnShaderObjectUniformBlockData ),
 		RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -104,23 +104,28 @@ void GaFullscreenQuadComponent::render( ScnRenderContext & RenderContext )
 
 
 	// Set skinning parameters.
-	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_ );
+	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_.get() );
 			
 	// Set material components for view.
 	RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
 	
-	// Bind material.
-	MaterialComponent_->bind( RenderContext.pFrame_, RenderContext.Sort_ );
-
-
 	// Render primitive.
 	RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
-		[ this ]( RsContext* Context )
+		[ 
+			GeometryBinding = GeometryBinding_.get(),
+			ProgramBinding = MaterialComponent_->getProgramBinding(),
+			RenderState = MaterialComponent_->getRenderState(),
+			FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer()
+		]
+		( RsContext* Context )
 		{
-			PSY_PROFILER_SECTION( RenderRoot, "GaFullscreenQuadComponentRenderNode::render" );
-			Context->setVertexBuffer( 0, VertexBuffer_, sizeof( GaVertex ) );
-			Context->setVertexDeclaration( VertexDeclaration_ );
-			Context->drawPrimitives( RsTopologyType::TRIANGLE_STRIP, 0, 4 );
+			PSY_PROFILE_FUNCTION;
+			Context->drawPrimitives( 
+				GeometryBinding,
+				ProgramBinding,
+				RenderState,
+				FrameBuffer,
+				RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 		} );
 }
 
@@ -143,7 +148,7 @@ void GaFullscreenQuadComponent::onAttach( ScnEntityWeakRef Parent )
 		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ) );
 
 	RsCore::pImpl()->updateBuffer( 
-		IndexBuffer_, 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
+		IndexBuffer_.get(), 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
 		[]( RsBuffer* Buffer, const RsBufferLock& BufferLock )
 		{
 			BcU16* Indices = reinterpret_cast< BcU16* >( BufferLock.Buffer_ );
@@ -170,7 +175,7 @@ void GaFullscreenQuadComponent::onAttach( ScnEntityWeakRef Parent )
 	const auto& Features = RsCore::pImpl()->getContext( 0 )->getFeatures();
 	const auto RTOrigin = Features.RTOrigin_;
 	RsCore::pImpl()->updateBuffer( 
-		VertexBuffer_,
+		VertexBuffer_.get(),
 		0, VertexBufferSize,
 		RsResourceUpdateFlags::ASYNC,
 		[ RTOrigin ]( RsBuffer* Buffer, const RsBufferLock& Lock )
@@ -194,6 +199,12 @@ void GaFullscreenQuadComponent::onAttach( ScnEntityWeakRef Parent )
 			}
 		} );
 
+	RsGeometryBindingDesc GeometryBindingDesc;
+	GeometryBindingDesc.setVertexDeclaration( VertexDeclaration_.get() );
+	GeometryBindingDesc.setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaVertex ) );
+	GeometryBindingDesc.setIndexBuffer( IndexBuffer_.get() );
+	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName() );
+
 	ScnShaderPermutationFlags ShaderPermutation = 
 		ScnShaderPermutationFlags::MESH_STATIC_3D |
 		ScnShaderPermutationFlags::RENDER_FORWARD |
@@ -213,11 +224,6 @@ void GaFullscreenQuadComponent::onDetach( ScnEntityWeakRef Parent )
 
 	Parent->detach( MaterialComponent_ );
 	MaterialComponent_ = nullptr;
-
-	RsCore::pImpl()->destroyResource( VertexDeclaration_ );
-	RsCore::pImpl()->destroyResource( VertexBuffer_ );
-	RsCore::pImpl()->destroyResource( IndexBuffer_ );
-	RsCore::pImpl()->destroyResource( ObjectUniformBuffer_ );
 }
 
 //////////////////////////////////////////////////////////////////////////
