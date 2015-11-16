@@ -137,6 +137,7 @@ void GaTestTextureComponent::drawTest(
 				ProgramBinding = Material->getProgramBinding(),
 				RenderState = Material->getRenderState(),
 				FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
+				Viewport = RenderContext.pViewComponent_->getViewport(),
 				Transform 
 			]
 			( RsContext* Context )
@@ -159,6 +160,8 @@ void GaTestTextureComponent::drawTest(
 					ProgramBinding,
 					RenderState,
 					FrameBuffer,
+					&Viewport,
+					nullptr,
 					RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 			} );
 	}

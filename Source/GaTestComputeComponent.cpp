@@ -131,7 +131,8 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 			GeometryBinding = GeometryBinding_.get(),
 			DrawProgramBinding = MaterialComponent_->getProgramBinding(),
 			RenderState = MaterialComponent_->getRenderState(),
-			FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer()
+			FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
+			Viewport = RenderContext.pViewComponent_->getViewport()
 		]
 		( RsContext* Context )
 		{
@@ -147,6 +148,8 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 				DrawProgramBinding,
 				RenderState,
 				FrameBuffer,
+				&Viewport,
+				nullptr,
 				RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 		} );
 	ComputeTextureIdx_ = 1 - ComputeTextureIdx_;
@@ -332,6 +335,12 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 void GaTestComputeComponent::onDetach( ScnEntityWeakRef Parent )
 {
 	Super::onDetach( Parent );
+
+	GeometryBinding_.reset();
+	for( auto& ComputeProgramBindings : ComputeProgramBindings_ )
+	{
+		ComputeProgramBindings.reset();
+	}
 
 	if(	ComputeOutputTextures_[0] )
 	{

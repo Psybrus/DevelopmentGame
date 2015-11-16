@@ -154,7 +154,8 @@ void GaTestCloudComponent::drawTest(
 				GeometryBinding = GeometryBinding_.get(),
 				ProgramBinding = Material->getProgramBinding(),
 				RenderState = Material->getRenderState(),
-				FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer()
+				FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
+				Viewport = RenderContext.pViewComponent_->getViewport()
 			]
 			( RsContext* Context )
 			{
@@ -164,6 +165,8 @@ void GaTestCloudComponent::drawTest(
 					ProgramBinding,
 					RenderState,
 					FrameBuffer,
+					&Viewport,
+					nullptr,
 					RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 			} );
 	}

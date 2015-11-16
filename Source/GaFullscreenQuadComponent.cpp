@@ -115,7 +115,8 @@ void GaFullscreenQuadComponent::render( ScnRenderContext & RenderContext )
 			GeometryBinding = GeometryBinding_.get(),
 			ProgramBinding = MaterialComponent_->getProgramBinding(),
 			RenderState = MaterialComponent_->getRenderState(),
-			FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer()
+			FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
+			Viewport = RenderContext.pViewComponent_->getViewport()
 		]
 		( RsContext* Context )
 		{
@@ -125,6 +126,8 @@ void GaFullscreenQuadComponent::render( ScnRenderContext & RenderContext )
 				ProgramBinding,
 				RenderState,
 				FrameBuffer,
+				&Viewport,
+				nullptr,
 				RsTopologyType::TRIANGLE_STRIP, 0, 4 );
 		} );
 }
