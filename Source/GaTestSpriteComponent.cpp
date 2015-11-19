@@ -94,7 +94,8 @@ void GaTestSpriteComponent::onAttach( ScnEntityWeakRef Parent )
 		RsBufferDesc( 
 			RsBufferType::UNIFORM, 
 			RsResourceCreationFlags::STREAM, 
-			sizeof( LightUniformBlock_ ) ) );
+			sizeof( LightUniformBlock_ ) ),
+		getFullName().c_str() );
 
 	// Setup buffer for lighting.
 	auto MaterialComponent = getParentEntity()->getComponentAnyParentByType< ScnMaterialComponent >();

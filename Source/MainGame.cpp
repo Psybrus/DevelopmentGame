@@ -26,15 +26,6 @@ void PsyGameInit()
 // PsyLaunchGame
 void PsyLaunchGame()
 {
-	ScnEntitySpawnParams ScreenEntityParams = 
-	{
-		"MenuEntity_0", "default", "MenuEntity",
-		MaMat4d(),
-		nullptr
-	};
-
-	ScnCore::pImpl()->spawnEntity( ScreenEntityParams );
-
 	ScnEntitySpawnParams CameraEntityParams = 
 	{
 		"CameraEntity_0", "default", "CameraEntity",
@@ -43,4 +34,13 @@ void PsyLaunchGame()
 	};
 
 	ScnCore::pImpl()->spawnEntity( CameraEntityParams );
+
+	ScnEntitySpawnParams ScreenEntityParams = 
+	{
+		"MenuEntity_0", "default", "MenuEntity",
+		MaMat4d(),
+		nullptr
+	};
+
+	ScnCore::pImpl()->spawnEntity( ScreenEntityParams );
 }

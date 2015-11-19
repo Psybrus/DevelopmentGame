@@ -234,18 +234,21 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 		RsBufferDesc(
 			RsBufferType::UNIFORM,
 			RsResourceCreationFlags::STREAM,
-			sizeof( ScnShaderObjectUniformBlockData ) ) );
+			sizeof( ScnShaderObjectUniformBlockData ) ),
+		getFullName().c_str() );
 
 
 	TestUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
 			RsBufferType::UNIFORM,
 			RsResourceCreationFlags::STREAM,
-			sizeof( GaTestCloudBlockData ) ) );
+			sizeof( GaTestCloudBlockData ) ),
+		getFullName().c_str() );
 
 	BcU32 IndexBufferSize = sizeof( BcU16 ) * 4;
 	IndexBuffer_ = RsCore::pImpl()->createBuffer(
-		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ) );
+		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ),
+		getFullName().c_str() );
 
 	RsCore::pImpl()->updateBuffer( 
 		IndexBuffer_.get(), 0, IndexBufferSize, RsResourceUpdateFlags::ASYNC,
@@ -263,14 +266,16 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 		RsBufferDesc( 
 			RsBufferType::VERTEX,
 			RsResourceCreationFlags::STATIC,
-			VertexBufferSize ) );
+			VertexBufferSize ),
+		getFullName().c_str() );
 
 	VertexDeclaration_ = RsCore::pImpl()->createVertexDeclaration( RsVertexDeclarationDesc( 5 )
 		.addElement( RsVertexElement( 0,  0, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::POSITION, 0 ) )
 		.addElement( RsVertexElement( 0, 16, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::NORMAL, 0 ) )
 		.addElement( RsVertexElement( 0, 32, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::TANGENT, 0 ) )
 		.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32,    RsVertexUsage::COLOUR, 0 ) )
-		.addElement( RsVertexElement( 0, 64, 2, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ) );
+		.addElement( RsVertexElement( 0, 64, 2, RsVertexDataType::FLOAT32,    RsVertexUsage::TEXCOORD, 0 ) ),
+		getFullName().c_str() );
 
 	RsCore::pImpl()->updateBuffer( 
 		VertexBuffer_.get(),
@@ -294,7 +299,7 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 	GeometryBindingDesc.setVertexDeclaration( VertexDeclaration_.get() );
 	GeometryBindingDesc.setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaVertex ) );
 	GeometryBindingDesc.setIndexBuffer( IndexBuffer_.get() );
-	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName() );
+	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName().c_str() );
 
 
 	const auto& Features = RsCore::pImpl()->getContext( nullptr )->getFeatures();

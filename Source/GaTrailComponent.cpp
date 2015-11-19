@@ -79,24 +79,27 @@ void GaTrailComponent::onAttach( ScnEntityWeakRef Parent )
 			.addElement( RsVertexElement( 0, 0, 4, RsVertexDataType::FLOAT32, RsVertexUsage::POSITION, 0 ) )
 			.addElement( RsVertexElement( 0, 16, 4, RsVertexDataType::FLOAT32, RsVertexUsage::NORMAL, 0 ) )
 			.addElement( RsVertexElement( 0, 32, 4, RsVertexDataType::FLOAT32, RsVertexUsage::TEXCOORD, 0 ) )
-			.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32, RsVertexUsage::COLOUR, 0 ) ) );
+			.addElement( RsVertexElement( 0, 48, 4, RsVertexDataType::FLOAT32, RsVertexUsage::COLOUR, 0 ) ),
+		getFullName().c_str() );
 
 	VertexBuffer_ = RsCore::pImpl()->createBuffer(
 		RsBufferDesc( 
 			RsBufferType::VERTEX,
 			RsResourceCreationFlags::DYNAMIC,
-			NoofVertices * sizeof( GaTrailVertex ) ) );
+			NoofVertices * sizeof( GaTrailVertex ) ),
+		getFullName().c_str() );
 
 	RsGeometryBindingDesc GeometryBindingDesc;
 	GeometryBindingDesc.setVertexDeclaration( VertexDeclaration_.get() );
 	GeometryBindingDesc.setVertexBuffer( 0, VertexBuffer_.get(), sizeof( GaTrailVertex ) );
-	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName() );
+	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName().c_str() );
 
 	UniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
 			RsBufferType::UNIFORM,
 			RsResourceCreationFlags::STREAM,
-			sizeof( ObjectUniforms_ ) ) );
+			sizeof( ObjectUniforms_ ) ),
+		getFullName().c_str() );
 
 	MaterialComponent_ = Parent->attach< ScnMaterialComponent >( 
 		BcName::INVALID, Material_, 
