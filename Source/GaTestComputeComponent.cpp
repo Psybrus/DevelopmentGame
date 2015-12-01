@@ -162,6 +162,8 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 {
 	Super::onAttach( Parent );
 	
+	auto& Features = RsCore::pImpl()->getContext( nullptr )->getFeatures();
+
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
 			RsBufferType::UNIFORM,
@@ -201,6 +203,26 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 		getFullName().c_str() );
 
 	BcBool RandomTex = BcTrue;
+	RsTextureFormat TextureFormats[] = 
+	{
+		RsTextureFormat::R32F,
+		RsTextureFormat::R16FG16F,
+		RsTextureFormat::R8G8B8A8,
+	};
+	auto TextureFormat = TextureFormats[0];
+	for( auto Format : TextureFormats )
+	{
+		if( Features.TextureFormat_[ (int)Format ] )
+		{
+			PSY_LOG( "INFO: Using texture format %u.", (int)Format );
+			TextureFormat = Format;
+			break;
+		}
+		else
+		{
+			PSY_LOG( "WARNING: Texture format %u not supported.", (int)Format );
+		}
+	}
 	for( auto& ComputeOutputTexture : ComputeOutputTextures_ )
 	{
 		ComputeOutputTexture = ScnTexture::New( 
@@ -208,7 +230,7 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 				RsTextureType::TEX2D, 
 				RsResourceCreationFlags::STATIC, 
 				RsResourceBindFlags::SHADER_RESOURCE | RsResourceBindFlags::UNORDERED_ACCESS,
-				RsTextureFormat::R32F,
+				TextureFormat,
 				1,
 				512, 512, 1 ) );
 
@@ -260,7 +282,6 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 	GeometryBinding_ = RsCore::pImpl()->createGeometryBinding( GeometryBindingDesc, getFullName().c_str() );
 
 	// Create program bindings.
-	auto& Features = RsCore::pImpl()->getContext( nullptr )->getFeatures();
 	if( Features.ComputeShaders_ )
 	{
 		for( auto& ComputeProgramBindings : ComputeProgramBindings_ )
