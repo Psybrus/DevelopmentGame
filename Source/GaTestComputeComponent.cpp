@@ -232,7 +232,8 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 				RsResourceBindFlags::SHADER_RESOURCE | RsResourceBindFlags::UNORDERED_ACCESS,
 				TextureFormat,
 				1,
-				512, 512, 1 ) );
+				512, 512, 1 ),
+			getFullName().c_str() );
 
 		RsCore::pImpl()->updateTexture( 
 			ComputeOutputTexture->getTexture(),
