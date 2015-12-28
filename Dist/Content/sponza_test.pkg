@@ -28,14 +28,242 @@
 			"type"		: "ScnModel",
 			"name"		: "sponza",
 			"source"	: "Content/Source/sponza/sponza.fbx",
-			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
-			},
+
+			"materials": [
+				{
+					"regex" : "(.*)", 
+					"templatematerial" : {
+						"$Class"		: "ScnMaterialImport",
+						"shader"		: "$(ScnShader:shaders.textured)",
+
+						"renderstate" : {
+							"blendstate" : {
+								"rendertarget" : [
+									{
+										"enable" : false
+									}
+								]
+							},
+
+							"depthstencilstate" : {
+								"depthtestenable" : true,
+								"depthwriteenable" : true,
+								"depthfunc" : "lessequal",
+								"stencilenable" : false
+							},
+
+							"rasteriserstate" : {
+								"fillmode" : "solid",
+								"cullmode" : "ccw",
+								"depthclipenable" : true,
+								"antialiasedlineenable" : true
+							}
+						}
+					}
+				},
+
+				{
+					"regex" : "Material__57",
+					"material" : "$(ScnMaterial:this.Material__57)"
+				},
+
+				{
+					"regex" : "leaf",
+					"material" : "$(ScnMaterial:this.leaf)"
+				}
+			],
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
 				"normal" : "BYTE_NORM",
 				"texcoord" : "FLOAT32"
+			}
+		},
+
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "Material__57",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.textured_mask)",
+
+			// Textures
+			"textures"		: {
+				"aDiffuseTex"	: "$(ScnTexture:this.vase_plant)",
+				"aOpacityTex"	: "$(ScnTexture:this.vase_plant_mask)"
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aOpacityTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				}
+			},
+
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : true,
+					"depthwriteenable" : true,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : true
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
+			"name"			: "leaf",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.textured_mask)",
+
+			// Textures
+			"textures"		: {
+				"aDiffuseTex"	: "$(ScnTexture:this.sponza_thorn_diff)",
+				"aOpacityTex"	: "$(ScnTexture:this.sponza_thorn_mask)"
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aOpacityTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				}
+			},
+
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : true,
+					"depthwriteenable" : true,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : true
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "vase_plant",
+
+			"source"		: "Content/Source/sponza/textures/vase_plant.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "vase_plant_mask",
+
+			"source"		: "Content/Source/sponza/textures/vase_plant_mask.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "sponza_thorn_diff",
+
+			"source"		: "Content/Source/sponza/textures/sponza_thorn_diff.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "sponza_thorn_mask",
+
+			"source"		: "Content/Source/sponza/textures/sponza_thorn_mask.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
 			}
 		}
 	]

@@ -157,6 +157,7 @@ void AutoGenRegisterReflection()
 	ScnFontImport::StaticRegisterClass();
 	ScnMaterialImport::StaticRegisterClass();
 	ScnModelVertexFormat::StaticRegisterClass();
+	ScnModelMaterialDesc::StaticRegisterClass();
 	ScnModelImport::StaticRegisterClass();
 	ScnShaderImport::StaticRegisterClass();
 	ScnSoundImport::StaticRegisterClass();

@@ -4,9 +4,12 @@
 			"type"		: "ScnModel",
 			"name"		: "character_jacketmale",
 			"source"	: "Content/Source/ruiner/character/jacketmale.md5mesh",
-			"materials" : {
-				"(.*)" :	"$(ScnMaterial:this.ruinerbody01)"
-			}
+			"materials" : [
+				{
+					"regex" : "(.*)",
+					"material" : "$(ScnMaterial:this.ruinerbody01)"
+				}
+			]
 		},
 
 		{

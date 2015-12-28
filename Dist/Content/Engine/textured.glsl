@@ -50,13 +50,29 @@ out float4 fragColor;
 #endif
 
 //////////////////////////////////////////////////////////////////////////
-// pixelMain
+// Samplers
 PSY_SAMPLER_2D( DiffuseTex );
+PSY_SAMPLER_2D( OpacityTex );
 
+//////////////////////////////////////////////////////////////////////////
+// pixelMain
 void pixelMain()
 {
 	vec4 Colour = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
 	fragColor = Colour * VsColour0;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// pixelMainMask
+void pixelMainMask()
+{
+	vec4 Opacity = PSY_SAMPLE_2D( OpacityTex, VsTexCoord0.xy );
+	if( Opacity.x < 0.5 )
+	{
+		discard;
+	}
+	vec4 Colour = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
+	fragColor = Colour.xyzw * Opacity.x * VsColour0;
 }
 
 #endif

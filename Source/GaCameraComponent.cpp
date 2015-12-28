@@ -252,10 +252,10 @@ eEvtReturn GaCameraComponent::onKeyDown( EvtID ID, const EvtBaseEvent& Event )
 	switch( KeyboardEvent.KeyCode_ )
 	{
 	case OsEventInputKeyboard::KEYCODE_LEFT:
-		CameraRotationDelta_.y( -1.0f );
+		CameraRotationDelta_.y(  1.0f );
 		break;
 	case OsEventInputKeyboard::KEYCODE_RIGHT:
-		CameraRotationDelta_.y(  1.0f );
+		CameraRotationDelta_.y( -1.0f );
 		break;
 	case OsEventInputKeyboard::KEYCODE_UP:
 		CameraRotationDelta_.x( -1.0f );

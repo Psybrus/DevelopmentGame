@@ -26,6 +26,7 @@ void PsyGameInit()
 // PsyLaunchGame
 void PsyLaunchGame()
 {
+#if 1
 	ScnEntitySpawnParams CameraEntityParams = 
 	{
 		"CameraEntity_0", "default", "CameraEntity",
@@ -43,4 +44,5 @@ void PsyLaunchGame()
 	};
 
 	ScnCore::pImpl()->spawnEntity( ScreenEntityParams );
+#endif
 }

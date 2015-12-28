@@ -137,6 +137,7 @@ void GaTrailComponent::render( ScnRenderContext & RenderContext )
 		RsRenderSort Sort = RenderContext.Sort_;
 		Sort.Layer_ = 15;
 
+#if 1
 		RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
 		MaterialComponent_->bind( RenderContext.pFrame_, Sort );
 		RenderContext.pFrame_->queueRenderNode( Sort,
@@ -159,6 +160,7 @@ void GaTrailComponent::render( ScnRenderContext & RenderContext )
 					nullptr,
 					RsTopologyType::TRIANGLE_STRIP, 0, NoofIndices );
 			} );
+#endif
 	}
 }
 
@@ -203,11 +205,9 @@ void GaTrailComponent::updateTrails( const ScnComponentList& Components )
 		
 		if( Component->TrailHistory_.size() > 1 )
 		{
-			// Update fence.
-			Component->UpdateFence_.increment();
-			Component->UpdateFence_.increment();
-
+#if 1
 			// Bake uniform buffer.
+			Component->UpdateFence_.increment();
 			RsCore::pImpl()->updateBuffer( 
 				Component->UniformBuffer_.get(),
 				0, sizeof( Component->ObjectUniforms_ ),
@@ -220,9 +220,11 @@ void GaTrailComponent::updateTrails( const ScnComponentList& Components )
 					BcMemCopy( Lock.Buffer_, &Component->ObjectUniforms_, sizeof( Component->ObjectUniforms_ ) );
 					Component->UpdateFence_.decrement();
 				} );
-
+#endif
+#if 1
 			// Bake new vertex buffer.
 			// TODO: Partial update perhaps?
+			Component->UpdateFence_.increment();
 			RsCore::pImpl()->updateBuffer(
 				Component->VertexBuffer_.get(), 
 				0, Component->VertexBuffer_->getDesc().SizeBytes_, 
@@ -284,6 +286,7 @@ void GaTrailComponent::updateTrails( const ScnComponentList& Components )
 
 					Component->UpdateFence_.decrement();
 				} );
+#endif
 		}
 	}
 }

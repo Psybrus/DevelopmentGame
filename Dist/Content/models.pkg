@@ -4,9 +4,12 @@
 			"type"		: "ScnModel",
 			"name"		: "teapot",
 			"source"	: "Content/Source/teapot/wt_teapot.obj",
-			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
-			},
+			"materials" : [
+				{
+					"regex" : "(.*)",
+					"material" : "$(ScnMaterial:materials.normal_vis)"
+				}
+			],
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
@@ -19,9 +22,12 @@
 			"type"		: "ScnModel",
 			"name"		: "bunny",
 			"source"	: "Content/Source/bunny.obj",
-			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
-			},
+			"materials" : [
+				{
+					"regex" : "(.*)",
+					"material" : "$(ScnMaterial:materials.normal_vis)"
+				}
+			],
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
@@ -34,9 +40,12 @@
 			"type"		: "ScnModel",
 			"name"		: "test_fbx_model_static",
 			"source"	: "Content/Source/test_fbx_model_static.fbx",
-			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.default)"
-			},
+			"materials" : [
+				{
+					"regex" : "(.*)",
+					"material" : "$(ScnMaterial:materials.default)"
+				}
+			],
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
@@ -49,9 +58,12 @@
 			"type"		: "ScnModel",
 			"name"		: "test_fbx_model_skinned",
 			"source"	: "Content/Source/test_fbx_model_skinned.fbx",
-			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.default)"
-			},
+			"materials" : [
+				{
+					"regex" : "(.*)",
+					"material" : "$(ScnMaterial:materials.default)"
+				}
+			],
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
@@ -64,9 +76,12 @@
 			"type"		: "ScnModel",
 			"name"		: "sphere",
 			"source"	: "Content/Source/sphere.fbx",
-			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
-			},
+			"materials" : [
+				{
+					"regex" : "(.*)",
+					"material" : "$(ScnMaterial:materials.normal_vis)"
+				}
+			],
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
@@ -79,9 +94,12 @@
 			"type"		: "ScnModel",
 			"name"		: "cube",
 			"source"	: "Content/Source/cube.fbx",
-			"materials" : {
-				"(.*)" : 			"$(ScnMaterial:materials.normal_vis)"
-			},
+			"materials" : [
+				{
+					"regex" : "(.*)",
+					"material" : "$(ScnMaterial:materials.normal_vis)"	
+				}
+			],
 
 			"vertexformat" : {
 				"position" : "FLOAT32",

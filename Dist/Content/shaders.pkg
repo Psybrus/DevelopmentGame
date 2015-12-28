@@ -62,6 +62,36 @@
 
 		{
 			"type"			: "ScnShader",
+			"name"			: "textured_mask",
+			"sources" 		: {
+				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/textured.hlsl",
+				"GLSL_330" : "Content/Engine/textured.glsl",
+				"GLSL_ES_100" : "Content/Engine/textured.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/textured.glsl"
+				}
+			},
+
+			"includepermutations" : [
+				"RENDER_FORWARD",
+				"PASS_MAIN",
+				"LIGHTING_NONE"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMainMask"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
 			"name"			: "normal_vis",
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/normal_vis.hlsl",

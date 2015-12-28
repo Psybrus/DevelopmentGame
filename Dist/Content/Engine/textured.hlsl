@@ -34,10 +34,13 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 	return o;
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Samplers
+PSY_SAMPLER_2D( DiffuseTex );
+PSY_SAMPLER_2D( OpacityTex );
+
 ////////////////////////////////////////////////////////////////////////
 // pixelMain
-PSY_SAMPLER_2D( DiffuseTex );
-
 PS_OUTPUT pixelMain( VS_OUTPUT i )
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
@@ -45,3 +48,16 @@ PS_OUTPUT pixelMain( VS_OUTPUT i )
 	o.Colour_ = Colour * i.Colour_;
 	return o;
 }
+
+////////////////////////////////////////////////////////////////////////
+// pixelMainMask
+PS_OUTPUT pixelMainMask( VS_OUTPUT i )
+{
+	PS_OUTPUT o = (PS_OUTPUT)0;
+	float4 Opacity = PSY_SAMPLE_2D( OpacityTex, i.TexCoord0_.xy );
+	clip( Opacity.r < 0.1 ? -1.0 : 1.0);
+	float4 Colour = PSY_SAMPLE_2D( DiffuseTex, i.TexCoord0_.xy );
+	o.Colour_ = Colour * i.Colour_;
+	return o;
+}
+
