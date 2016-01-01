@@ -61,14 +61,6 @@ void vertexMain()
 PS_IN( vec3, VsRayPos );
 PS_IN( vec3, VsRayDir );
 
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_330
-out float4 fragColor;
-#endif
-
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_ES_100
-#define fragColor gl_FragData[0]
-#endif
-
 //////////////////////////////////////////////////////////////////////////
 // sdSphere
 float sdSphere( vec3 Position, float Radius )
@@ -251,7 +243,7 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 // pixelMain
 void pixelMain()
 {
-	fragColor = render( VsRayPos, normalize( VsRayDir ) );
+	fragColour[0] = render( VsRayPos, normalize( VsRayDir ) );
 }
 
 #endif // PIXEL_SHADER

@@ -21,6 +21,7 @@ VS_IN( vec4, InVertexOffset_, TANGENT );
 #endif
 
 VS_OUT( vec4, VsColour0 );
+VS_OUT( vec4, VsNormal );
 VS_OUT( vec4, VsTexCoord0 );
 
 void vertexMain()
@@ -39,21 +40,14 @@ void vertexMain()
 #if PIXEL_SHADER
 
 PS_IN( vec4, VsColour0 );
+PS_IN( vec4, VsNormal );
 PS_IN( vec4, VsTexCoord0 );
-
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_330
-out float4 fragColor;
-#endif
-
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_ES_100
-#define fragColor gl_FragData[0]
-#endif
 
 //////////////////////////////////////////////////////////////////////////
 // pixelMain
 void pixelMain()
 {
-	fragColor = VsColour0;
+	writeFrag( fragColour, VsColour0, VsNormal.xyz );
 }
 
 #endif

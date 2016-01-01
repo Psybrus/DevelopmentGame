@@ -96,19 +96,11 @@ PS_IN( vec4, GsColour0 );
 PS_IN( vec4, GsNormal );
 PS_IN( vec4, GsTexCoord0 );
 
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_330
-out float4 fragColor;
-#endif
-
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_ES_100
-#define fragColor gl_FragData[0]
-#endif
-
 //////////////////////////////////////////////////////////////////////////
 // pixelMain
 void pixelMain()
 {
-	fragColor = GsColour0;
+	fragColour[0] = GsColour0;
 }
 
 #endif

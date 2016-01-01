@@ -41,14 +41,6 @@ void vertexMain()
 PS_IN( vec4, VsColour0 );
 PS_IN( vec4, VsTexCoord0 );
 
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_330
-out float4 fragColour;
-#endif
-
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_ES_100
-#define fragColour gl_FragData[0]
-#endif
-
 //////////////////////////////////////////////////////////////////////////
 // pixelMain
 PSY_SAMPLER_2D( DiffuseTex );
@@ -57,7 +49,7 @@ void pixelMain()
 {
 	vec4 TextColour = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
 	float TextFactor = smoothstep( TextSettings_.x, TextSettings_.y, TextColour.a );
-	fragColour = float4( TextColour_.xyz, TextFactor * TextColour_.w ) * VsColour0;
+	fragColour[0] = float4( TextColour_.xyz, TextFactor * TextColour_.w ) * VsColour0;
 }
 
 #endif

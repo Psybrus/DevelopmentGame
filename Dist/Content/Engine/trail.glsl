@@ -10,6 +10,7 @@ VS_IN( float4, InTexCoord_, TEXCOORD0 );
 VS_IN( float4, InColour_, COLOUR0 );
 
 VS_OUT( float4, VsColour0 );
+VS_OUT( float4, VsNormal );
 VS_OUT( float4, VsTexCoord0 );
 
 void vertexMain()
@@ -23,6 +24,7 @@ void vertexMain()
 	VsPosition = mul( ProjectionTransform_, ViewPosition + float4( CrossZ * Offset, 0.0 ) );
 	VsTexCoord0 = InTexCoord_;
 	VsColour0 = InColour_;
+	VsNormal = vec4( ViewNormal, 0.0 );
 }
 
 #endif
@@ -32,6 +34,7 @@ void vertexMain()
 #if PIXEL_SHADER
 
 PS_IN( float4, VsColour0 );
+PS_IN( float4, VsNormal );
 PS_IN( float4, VsTexCoord0 );
 
 #if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_330
@@ -46,7 +49,7 @@ out float4 fragColor;
 // pixelMain
 void pixelMain()
 {
-	fragColor = VsColour0;
+	writeFrag( fragColour, VsColour0, VsNormal.xyz );
 }
 
 #endif

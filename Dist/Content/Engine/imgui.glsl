@@ -27,19 +27,11 @@ void vertexMain()
 PS_IN( vec4, VsColour0 );
 PS_IN( vec4, VsTexCoord0 );
 
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_330
-out float4 fragColor;
-#endif
-
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_ES_100
-#define fragColor gl_FragData[0]
-#endif
-
 //////////////////////////////////////////////////////////////////////////
 // pixelDefaultMain
 void pixelDefaultMain()
 {
-	fragColor = VsColour0;
+	fragColour[0] = VsColour0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -49,7 +41,7 @@ PSY_SAMPLER_2D( DiffuseTex );
 void pixelTexturedMain()
 {
 	vec4 Colour = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
-	fragColor = Colour * VsColour0;
+	fragColour[0] = Colour * VsColour0;
 }
 
 #endif
