@@ -4,185 +4,79 @@
 		{
 			"cmd":
 			[
-				"Importer-Debug.exe"
+				"./Build.sh",
+				"--toolset",
+				"osx-clang",
+				"--config",
+				"debug"
 			],
-			"name": "Import packages (windows)",
-			"working_dir": "$project_path/Dist"
+			"name": "Build - Debug",
+			"windows":
+			{
+				"cmd":
+				[
+					"Build.bat",
+					"--toolset",
+					"windows-vs-v140",
+					"--config",
+					"debug"
+				]
+			},
+			"working_dir": "$project_path"
+		},
+		{
+			"cmd":
+			[
+				"./Build.sh",
+				"--toolset",
+				"osx-clang",
+				"--config",
+				"debug"
+			],
+			"name": "Build - Release",
+			"windows":
+			{
+				"cmd":
+				[
+					"Build.bat",
+					"--toolset",
+					"windows-vs-v140",
+					"--config",
+					"debug"
+				]
+			},
+			"working_dir": "$project_path"
 		},
 		{
 			"cmd":
 			[
 				"./Importer-Debug"
 			],
-			"name": "Import packages (*nix)",
+			"name": "Import packages",
+			"windows":
+			{
+				"cmd":
+				[
+					"Importer-Debug.exe"
+				]
+			},
 			"working_dir": "$project_path/Dist"
 		},
 		{
 			"cmd":
 			[
-				"Psybrus/Tools/genie/linux/genie",
-				"--platform=x64",
-				"--toolchain=linux-clang",
-				"--boostpath=/opt/boost_1_57_0",
-				"gmake"
+				"open",
+				"DevelopmentGame-Debug.app"
 			],
-			"file_regex": "(../../[^:\n]*):([0-9]+):?([0-9]+)?",
-			"name": "gmake-linux-clang",
-			"variants":
-			[
-				{
-					"cmd":
-					[
-						"make",
-						"-j5",
-						"config=debug"
-					],
-					"name": "Build Debug",
-					"working_dir": "$project_path/Projects/gmake-linux-clang"
-				},
-				{
-					"cmd":
-					[
-						"make",
-						"-j5",
-						"config=release"
-					],
-					"name": "Build Release",
-					"working_dir": "$project_path/Projects/gmake-linux-clang"
-				},
-				{
-					"cmd":
-					[
-						"make",
-						"-j5",
-						"config=production"
-					],
-					"name": "Build Production",
-					"working_dir": "$project_path/Projects/gmake-linux-clang"
-				},
-				{
-					"cmd":
-					[
-						"make",
-						"clean"
-					],
-					"name": "Clean",
-					"working_dir": "$project_path/Projects/gmake-linux-clang"
-				}
-			],
-			"working_dir": "$project_path"
-		},
-		{
-			"cmd":
-			[
-				"Psybrus/Tools/genie/darwin/genie",
-				"--platform=x64",
-				"--toolchain=osx-clang",
-				"--boostpath=/Users/Neilo/Dev/boost_1_57_0",
-				"gmake"
-			],
-			"file_regex": "(../../[^:\n]*):([0-9]+):?([0-9]+)?",
-			"name": "gmake-osx-clang",
-			"variants":
-			[
-				{
-					"cmd":
-					[
-						"make",
-						"-j5",
-						"config=debug"
-					],
-					"name": "Build Debug",
-					"working_dir": "$project_path/Projects/gmake-osx-clang"
-				},
-				{
-					"cmd":
-					[
-						"make",
-						"-j5",
-						"config=release"
-					],
-					"name": "Build Release",
-					"working_dir": "$project_path/Projects/gmake-osx-clang"
-				},
-				{
-					"cmd":
-					[
-						"make",
-						"-j5",
-						"config=production"
-					],
-					"name": "Build Production",
-					"working_dir": "$project_path/Projects/gmake-osx-clang"
-				},
-				{
-					"cmd":
-					[
-						"make",
-						"clean"
-					],
-					"name": "Clean",
-					"working_dir": "$project_path/Projects/gmake-osx-clang"
-				}
-			],
-			"working_dir": "$project_path"
-		},
-		{
-			"cmd":
-			[
-				"Psybrus/Tools/genie/linux/genie",
-				"--toolchain=asmjs",
-				"gmake"
-			],
-			"env":
+			"name": "Launch Game",
+			"windows":
 			{
-				"EMSCRIPTEN": "/opt/emscripten/emscripten"
+				"cmd":
+				[
+					"DevelopmentGame-Debug.exe"
+				]
 			},
-			"file_regex": "(../../[^:\n]*):([0-9]+):?([0-9]+)?",
-			"name": "gmake-asmjs",
-			"variants":
-			[
-				{
-					"cmd":
-					[
-						"make",
-						"-j5",
-						"config=debug"
-					],
-					"name": "Build Debug",
-					"working_dir": "$project_path/Projects/gmake-asmjs"
-				},
-				{
-					"cmd":
-					[
-						"make",
-						"-j5",
-						"config=release"
-					],
-					"name": "Build Release",
-					"working_dir": "$project_path/Projects/gmake-asmjs"
-				},
-				{
-					"cmd":
-					[
-						"make",
-						"-j5",
-						"config=production"
-					],
-					"name": "Build Production",
-					"working_dir": "$project_path/Projects/gmake-asmjs"
-				},
-				{
-					"cmd":
-					[
-						"make",
-						"clean"
-					],
-					"name": "Clean",
-					"working_dir": "$project_path/Projects/gmake-asmjs"
-				}
-			],
-			"working_dir": "$project_path"
+			"working_dir": "$project_path/Dist"
 		}
 	],
 	"folders":
@@ -202,6 +96,9 @@
 		},
 		{
 			"path": "C:\\Dev\\Android\\android-ndk-r10e\\platforms\\android-18\\arch-arm"
+		},
+		{
+			"path": "C:\\VulkanSDK\\0.10.1"
 		}
 	],
 	"settings":
