@@ -139,6 +139,6 @@
 			"height" : 0,
 			"texturetype" : "tex2d",
 			"format" : "R16FG16FB16FA16F"
-		},
+		}
 	]
 }

@@ -17,7 +17,8 @@
 
 			"includepermutations" : [
 				"RENDER_FORWARD",
-				"PASS_MAIN",
+				"PASS_OPAQUE",
+				"PASS_TRANSPARENT",
 				"LIGHTING_NONE"
 			],
 
@@ -48,7 +49,8 @@
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
-				"PASS_MAIN",
+				"PASS_OPAQUE",
+				"PASS_TRANSPARENT",
 				"LIGHTING_NONE"
 			],
 
@@ -79,7 +81,8 @@
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
-				"PASS_MAIN",
+				"PASS_OPAQUE",
+				"PASS_TRANSPARENT",
 				"LIGHTING_NONE"
 			],
 
@@ -110,7 +113,8 @@
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
-				"PASS_MAIN",
+				"PASS_OPAQUE",
+				"PASS_TRANSPARENT",
 				"LIGHTING_NONE"
 			],
 

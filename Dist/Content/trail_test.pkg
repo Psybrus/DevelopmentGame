@@ -42,7 +42,7 @@
 
 			"includepermutations" : [
 				"RENDER_FORWARD",
-				"PASS_MAIN",
+				"PASS_OPAQUE",
 				"LIGHTING_NONE"
 			],
 

@@ -11,7 +11,7 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_MAIN",
+				"PASS_TRANSPARENT",
 				"MESH_STATIC_2D",
 				"LIGHTING_NONE"
 			],
@@ -36,7 +36,7 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_MAIN",
+				"PASS_TRANSPARENT",
 				"MESH_STATIC_2D",
 				"LIGHTING_NONE"
 			],
@@ -61,7 +61,7 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_MAIN",
+				"PASS_TRANSPARENT",
 				"MESH_STATIC_2D",
 				"LIGHTING_NONE"
 			],

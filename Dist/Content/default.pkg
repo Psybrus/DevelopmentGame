@@ -19,14 +19,16 @@
 					"type"					: "ScnDebugRenderComponent",
 					"noofvertices"			: 65536,
 					"material"				: "$(ScnMaterial:materials.debugrender)",
-					"rendermask"			: 3
+					"rendermask"			: 3,
+					"istransparent"			: true
 				},
 
 				{
 					"$Class"				: "ScnCanvasComponent",
 					"type"					: "ScnCanvasComponent",
 					"noofvertices" 			: 8192,
-					"rendermask"			: 1
+					"rendermask"			: 1,
+					"istransparent"			: true
 				},
 
 				{
@@ -140,6 +142,7 @@
 				{
 					"$Class"				: "ScnViewComponent",
 					"type"					: "ScnViewComponent",
+					"name"					: "view_forward_test_rt",
 					"x"						: 0.0,
 					"y"						: 0.0,
 					"width"					: 1.0,
@@ -151,6 +154,8 @@
 					"rendermask"			: 2,
 					"clearcolour"			: "1.0, 0.0, 1.0, 1.0",
 					"enablecleardepth"		: true,
+					"renderpermutation"		: "RENDER_FORWARD",
+					"passpermutations"		: "PASS_OPAQUE|PASS_TRANSPARENT",
 					"rendertarget"			: "$(ScnTexture:textures.test_rt)"
 					//"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"					
 				},
@@ -158,21 +163,7 @@
 				{
 					"$Class"				: "ScnViewComponent",
 					"type"					: "ScnViewComponent",
-					"x"						: 0.0,
-					"y"						: 0.0,
-					"width"					: 1.0,
-					"height"				: 1.0,
-					"near"					: 1.0,
-					"far"					: 4000.0,
-					"horizontalfov"			: 0.75,
-					"verticalfov"			: 0.0,
-					"rendermask"			: 1,
-					"renderpermutation"		: "RENDER_FORWARD"
-				},
-				
-				{
-					"$Class"				: "ScnViewComponent",
-					"type"					: "ScnViewComponent",
+					"name"					: "view_deferred_gbuffer",
 					"x"						: 0.0,
 					"y"						: 0.0,
 					"width"					: 1.0,
@@ -185,6 +176,7 @@
 					"clearcolour"			: "0.0, 0.0, 0.0, 0.0",
 					"enablecleardepth"		: true,
 					"renderpermutation"		: "RENDER_DEFERRED",
+					"passpermutations"		: "PASS_OPAQUE",
 					"rendertarget"			: [
 						"$(ScnTexture:textures.gbuffer_albedo)",
 						"$(ScnTexture:textures.gbuffer_normal)",
@@ -192,6 +184,45 @@
 						"$(ScnTexture:textures.gbuffer_3)"
 					],
 					"depthstenciltarget"	: "$(ScnTexture:textures.gbuffer_depth)"
+				},
+
+				{
+					"$Class"				: "ScnViewComponent",
+					"type"					: "ScnViewComponent",
+					"name"					: "view_deferred_resolve",
+					"x"						: 0.0,
+					"y"						: 0.0,
+					"width"					: 1.0,
+					"height"				: 1.0,
+					"near"					: 1.0,
+					"far"					: 4000.0,
+					"horizontalfov"			: 0.75,
+					"verticalfov"			: 0.0,
+					"rendermask"			: 1,
+					"clearcolour"			: "0.0, 0.0, 0.0, 0.0",
+					"enablecleardepth"		: true,
+					"renderpermutation"		: "RENDER_DEFERRED",
+					"passpermutations"		: "PASS_TRANSPARENT",
+					"rendertarget"			: [
+						"$(ScnTexture:textures.gbuffer_resolve)"
+					],
+					"depthstenciltarget"	: "$(ScnTexture:textures.gbuffer_depth)"
+				},
+
+				{
+					"$Class"				: "ScnViewComponent",
+					"type"					: "ScnViewComponent",
+					"name"					: "view_forward",
+					"x"						: 0.0,
+					"y"						: 0.0,
+					"width"					: 1.0,
+					"height"				: 1.0,
+					"near"					: 1.0,
+					"far"					: 4000.0,
+					"horizontalfov"			: 0.75,
+					"verticalfov"			: 0.0,
+					"rendermask"			: 1,
+					"renderpermutation"		: "RENDER_FORWARD"
 				},
 
 				{

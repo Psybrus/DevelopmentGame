@@ -10,7 +10,8 @@
 					"$Class" : "GaTestCloudComponent",
 					"type" : "GaTestCloudComponent",
 
-					"material3d" : "$(ScnMaterial:this.cloud_material)"
+					"material3d" : "$(ScnMaterial:this.cloud_material)",
+					"istransparent" : true
 				}
 			]
 		},

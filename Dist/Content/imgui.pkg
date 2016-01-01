@@ -20,7 +20,7 @@
 
 			"includepermutations" : [
 				"MESH_STATIC_2D",
-				"PASS_MAIN",
+				"PASS_TRANSPARENT",
 				"LIGHTING_NONE"
 			],
 
@@ -48,7 +48,7 @@
 
 			"includepermutations" : [
 				"MESH_STATIC_2D",
-				"PASS_MAIN",
+				"PASS_TRANSPARENT",
 				"LIGHTING_NONE"
 			],
 
