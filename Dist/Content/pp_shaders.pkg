@@ -73,7 +73,32 @@
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
 			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_deferred_resolve",
+			"sources" 		: {
+				"GLSL_330" : "Content/Engine/pp_deferred_resolve.glsl",
+				"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.glsl"
+			},
+
+			"includepermutations" : [
+				"RENDER_POST_PROCESS",
+				"PASS_TRANSPARENT",
+				"MESH_STATIC_2D",
+				"LIGHTING_NONE"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
 		}
+
 	]
 }
 

@@ -187,6 +187,52 @@
 				},
 
 				{
+					"$Class"				: "ScnPostProcessComponent",
+					"type"					: "ScnPostProcessComponent",
+					"rendermask"			: 1,
+					"istransparent"			: true,
+
+					"nodes"					: [
+						// Upsample back to framebuffer.
+						{
+							"inputtextures" : {
+								"aAlbedoTex" : "$(ScnTexture:textures.gbuffer_albedo)",
+								"aNormalTex" : "$(ScnTexture:textures.gbuffer_normal)",
+								"aDepthTex" : "$(ScnTexture:textures.gbuffer_depth)"
+							},
+
+							"inputsamplers" : {
+								"aAlbedoTex" : {
+									"addressu" : "clamp",
+									"addressv" : "clamp",
+									"minfilter" : "nearest",
+									"magfilter" : "nearest"
+								},
+								"aNormalTex" : {
+									"addressu" : "clamp",
+									"addressv" : "clamp",
+									"minfilter" : "nearest",
+									"magfilter" : "nearest"
+								},
+								"aDepthTex" : {
+									"addressu" : "clamp",
+									"addressv" : "clamp",
+									"minfilter" : "nearest",
+									"magfilter" : "nearest"
+								}
+							},
+
+							"outputtextures" : {
+								"0" : "$(ScnTexture:textures.gbuffer_resolve)"
+							},
+
+							"shader" : "$(ScnShader:pp_shaders.pp_deferred_resolve)",
+							"renderstate" : {}
+						}
+					]
+				},
+
+				{
 					"$Class"				: "ScnViewComponent",
 					"type"					: "ScnViewComponent",
 					"name"					: "view_deferred_resolve",
@@ -200,7 +246,7 @@
 					"verticalfov"			: 0.0,
 					"rendermask"			: 1,
 					"clearcolour"			: "0.0, 0.0, 0.0, 0.0",
-					"enablecleardepth"		: true,
+					"enablecleardepth"		: false,
 					"renderpermutation"		: "RENDER_DEFERRED",
 					"passpermutations"		: "PASS_TRANSPARENT",
 					"rendertarget"			: [
