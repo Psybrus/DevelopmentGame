@@ -186,8 +186,8 @@
 					"enablecleardepth"		: true,
 					"renderpermutation"		: "RENDER_DEFERRED",
 					"rendertarget"			: [
-						"$(ScnTexture:textures.gbuffer_0)",
-						"$(ScnTexture:textures.gbuffer_1)",
+						"$(ScnTexture:textures.gbuffer_albedo)",
+						"$(ScnTexture:textures.gbuffer_normal)",
 						"$(ScnTexture:textures.gbuffer_2)",
 						"$(ScnTexture:textures.gbuffer_3)"
 					],

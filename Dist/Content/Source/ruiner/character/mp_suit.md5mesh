@@ -1,5 +1,5 @@
 MD5Version 10
-commandline "mesh models/characters/male_npc/cycles/tweakedplayermoves/makemesh.mb -dest models/md5/characters/npcs_as_player/mp_suit.md5mesh -game Doom -prefix MP_ -keep Lknee Rknee Lhand Lhand1 Rhand Rhand1 Body2 Body SPINNER PISTOL_ATTACHER SHOTGUN_ATTACHER MGATTACHER pgATTACHER NADE_ATTACHER CHAINSAW_ATTACHER RL_ATTACHER FL_ATTACHER BFG_ATTACHER CHAINGUN_ATTACHER PDA_ATTACHER SOUL_ATTACHER loneckadjust headcontrol neckcontrol loneckcontrol eyecontrol jawcontrol jawadjust Jaw -parent Body2 Body -parent Hips Body2 -parent SPINNER Body2 -parent Waist SPINNER -parent PISTOL_ATTACHER Rhand1 -parent SHOTGUN_ATTACHER Rhand1 -parent MGATTACHER Rhand1 -parent pgATTACHER Rhand1 -parent NADE_ATTACHER Rhand1 -parent CHAINSAW_ATTACHER Rhand1 -parent RL_ATTACHER Lhand1 -parent FL_ATTACHER Rhand1 -parent BFG_ATTACHER Rhand1 -parent CHAINGUN_ATTACHER Rhand -parent headcontrol neckcontrol -parent neckcontrol loneckcontrol -parent loneckcontrol Shoulders -parent PDA_ATTACHER Rhand -parent SOUL_ATTACHER Rhand -keepmesh suitmesh -keepmesh head_skullmesh -keepmesh skeletonmesh -keepmesh head_bfx1mesh -keepmesh head_bfx2mesh -keepmesh head_bfx3mesh -keepmesh head_bfx4mesh -keepmesh head_bfxflamemesh -keepmesh head_bfxmodelmesh -keepmesh head_stumpmesh -keepmesh berserkbodyfxmesh"
+commandline ""
 
 numJoints 75
 numMeshes 11
