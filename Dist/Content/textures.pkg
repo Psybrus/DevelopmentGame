@@ -79,6 +79,56 @@
 			"height" : -2,
 			"texturetype" : "tex2d",
 			"format" : "R8G8B8A8"
+		},
+
+		{
+			"type" : "ScnTexture",
+			"name" : "gbuffer_0",
+			"rendertarget" : true,
+			"width" : 0,
+			"height" : 0,
+			"texturetype" : "tex2d",
+			"format" : "R8G8B8A8"
+		},
+
+		{
+			"type" : "ScnTexture",
+			"name" : "gbuffer_1",
+			"rendertarget" : true,
+			"width" : 0,
+			"height" : 0,
+			"texturetype" : "tex2d",
+			"format" : "R8G8B8A8"
+		},
+
+		{
+			"type" : "ScnTexture",
+			"name" : "gbuffer_2",
+			"rendertarget" : true,
+			"width" : 0,
+			"height" : 0,
+			"texturetype" : "tex2d",
+			"format" : "R8G8B8A8"
+		},
+
+		{
+			"type" : "ScnTexture",
+			"name" : "gbuffer_3",
+			"rendertarget" : true,
+			"width" : 0,
+			"height" : 0,
+			"texturetype" : "tex2d",
+			"format" : "R8G8B8A8"
+		},
+
+		{
+			"type" : "ScnTexture",
+			"name" : "gbuffer_depth",
+			"depthstenciltarget" : true,
+			"width" : 0,
+			"height" : 0,
+			"texturetype" : "tex2d",
+			"format" : "D24S8"
 		}
 	]
 }

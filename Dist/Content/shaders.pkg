@@ -47,6 +47,7 @@
 
 			"includepermutations" : [
 				"RENDER_FORWARD",
+				"RENDER_DEFERRED",
 				"PASS_MAIN",
 				"LIGHTING_NONE"
 			],
@@ -77,6 +78,7 @@
 
 			"includepermutations" : [
 				"RENDER_FORWARD",
+				"RENDER_DEFERRED",
 				"PASS_MAIN",
 				"LIGHTING_NONE"
 			],
@@ -107,6 +109,7 @@
 
 			"includepermutations" : [
 				"RENDER_FORWARD",
+				"RENDER_DEFERRED",
 				"PASS_MAIN",
 				"LIGHTING_NONE"
 			],
@@ -136,7 +139,6 @@
 			},
 
 			"excludepermutations" : [
-				"RENDER_DEFERRED",
 				"RENDER_FORWARD_PLUS",
 				"PASS_SHADOW",
 				"MESH_INSTANCED_3D",

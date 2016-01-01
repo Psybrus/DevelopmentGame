@@ -166,9 +166,34 @@
 					"far"					: 4000.0,
 					"horizontalfov"			: 0.75,
 					"verticalfov"			: 0.0,
-					"rendermask"			: 1
+					"rendermask"			: 1,
+					"renderpermutation"		: "RENDER_FORWARD"
 				},
 				
+				{
+					"$Class"				: "ScnViewComponent",
+					"type"					: "ScnViewComponent",
+					"x"						: 0.0,
+					"y"						: 0.0,
+					"width"					: 1.0,
+					"height"				: 1.0,
+					"near"					: 1.0,
+					"far"					: 4000.0,
+					"horizontalfov"			: 0.75,
+					"verticalfov"			: 0.0,
+					"rendermask"			: 1,
+					"clearcolour"			: "0.0, 0.0, 0.0, 0.0",
+					"enablecleardepth"		: true,
+					"renderpermutation"		: "RENDER_DEFERRED",
+					"rendertarget"			: [
+						"$(ScnTexture:textures.gbuffer_0)",
+						"$(ScnTexture:textures.gbuffer_1)",
+						"$(ScnTexture:textures.gbuffer_2)",
+						"$(ScnTexture:textures.gbuffer_3)"
+					],
+					"depthstenciltarget"	: "$(ScnTexture:textures.gbuffer_depth)"
+				},
+
 				{
 					"$Class"				: "ScnLightComponent",
 					"type"					: "ScnLightComponent",
