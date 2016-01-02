@@ -13,6 +13,7 @@
 
 #include "GaCameraComponent.h"
 
+#include "System/Debug/DsImGui.h"
 #include "System/Os/OsCore.h"
 
 #include "Base/BcMath.h"
@@ -32,6 +33,7 @@ void GaCameraComponent::StaticRegisterClass()
 		new ReField( "CameraZoom_",			&GaCameraComponent::CameraZoom_ ),
 		new ReField( "CameraState_",		&GaCameraComponent::CameraState_ ),
 		new ReField( "NextCameraState_",	&GaCameraComponent::NextCameraState_ ),
+		new ReField( "Renderers_",			&GaCameraComponent::Renderers_, bcRFF_IMPORTER | bcRFF_SHALLOW_COPY ),
 	};
 
 	ReRegisterClass< GaCameraComponent, Super >( Fields )
@@ -130,17 +132,43 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 
 	// clear event.
 	BcMemZero( &LastMouseEvent_, sizeof( LastMouseEvent_ ) );
-}
 
-/*
-template < typename _Callable >
-void testBindCallFunc( _Callable Bind )
-{
-	using CallableParamType = typename BcFuncTraits< decltype( &_Callable::operator() ) >::param1_type;
-	using ThisCallableFunc = std::function< eEvtReturn( EvtID, const CallableParamType& ) >;
-	ThisCallableFunc CallableFunc( Bind );
+	if ( ImGui::Begin( "Test Menu" ) )
+	{
+		ImGui::BeginGroup();
+
+		std::array< char, 4096 > ComboBuffer = { 0 };
+		size_t ComboPosition = 0;
+		for( auto Renderer : Renderers_ )
+		{
+			auto RendererName = (*Renderer->getPackageName()) + "/" + Renderer->getFullName();
+			BcStrCopy( &ComboBuffer[ ComboPosition ], ComboBuffer.size() - ComboPosition, RendererName.c_str() );
+			ComboPosition += RendererName.size() + 1;
+		}
+
+		int CurrentItem = SelectedRenderer_;
+		if( ImGui::Combo( "Renderer", &CurrentItem, ComboBuffer.data() ) )
+		{
+			SelectedRenderer_ = CurrentItem;
+		}
+		ImGui::EndGroup();
+	}
+	ImGui::End();
+
+	if( Renderers_.size() > 0 && ( SpawnedRenderer_ == nullptr || SpawnedRenderer_->getBasis() != Renderers_[ SelectedRenderer_ ] ) )
+	{
+		if( SpawnedRenderer_ )
+		{
+			ScnCore::pImpl()->removeEntity( SpawnedRenderer_ );
+		}
+		ScnEntitySpawnParams SpawnEntity(
+			"Renderer",
+			Renderers_[ SelectedRenderer_ ],
+			MaMat4d(),
+			getParentEntity() );
+		SpawnedRenderer_ = ScnCore::pImpl()->spawnEntity( SpawnEntity );
+	}
 }
-*/
 
 //////////////////////////////////////////////////////////////////////////
 // onAttach
@@ -306,6 +334,9 @@ eEvtReturn GaCameraComponent::onKeyUp( EvtID ID, const EvtBaseEvent& Event )
 	case 'A':
 	case 'D':
 		CameraWalk_.x( 0.0f );
+		break;
+	case OsEventInputKeyboard::KEYCODE_F4:
+		SelectedRenderer_ = ( SelectedRenderer_ + 1 ) % Renderers_.size();
 		break;
 	}
 

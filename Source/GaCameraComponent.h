@@ -69,6 +69,10 @@ private:
 	CameraState NextCameraState_;
 	OsEventInputMouse LastMouseEvent_;
 	OsEventInputKeyboard LastKeyboardEvent_;
+
+	int SelectedRenderer_ = 0;
+	std::vector< ScnEntityRef > Renderers_;
+	ScnEntityRef SpawnedRenderer_;
 };
 
 #endif

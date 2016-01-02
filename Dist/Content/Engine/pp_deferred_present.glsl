@@ -23,14 +23,12 @@ void vertexMain()
 
 PS_IN( vec4, VsTexCoord0 );
 
-PSY_SAMPLER_2D( AlbedoTex );
-PSY_SAMPLER_2D( NormalTex );
-PSY_SAMPLER_2D( DepthTex );
+PSY_SAMPLER_2D( ResolveTex );
 
 void pixelMain()
 {
-	vec4 Colour = PSY_SAMPLE_2D( AlbedoTex, VsTexCoord0.xy );
-	fragColour[0] = gammaToLinear( vec4( Colour.xyz, 1.0 ) );
+	vec4 Colour = PSY_SAMPLE_2D( ResolveTex, VsTexCoord0.xy );
+	fragColour[0] = linearToGamma( vec4( Colour.xyz, 1.0 ) );
 }
 
 #endif

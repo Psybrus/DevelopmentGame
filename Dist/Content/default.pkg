@@ -42,11 +42,12 @@
 							"entity" : "$(ScnEntity:animation_test.TestEntity)"
 						},
 
+/*
 						{ 
 							"name" : "Render target test",
 							"entity" : "$(ScnEntity:render_target_test.TestEntity)"
 						},
-
+*/
 						{ 
 							"name" : "Shader test",
 							"entity" : "$(ScnEntity:shader_test.TestEntity)"
@@ -129,146 +130,17 @@
 			"components" : [
 				{
 					"$Class"				: "GaCameraComponent",
-					"type"					: "GaCameraComponent"
+					"type"					: "GaCameraComponent",
+
+					"renderers"	: [
+						"$(ScnEntity:deferred_renderer.Renderer)",
+						"$(ScnEntity:forward_renderer.Renderer)"
+					]
 				},
 
 				{
 					"$Class"				: "ScnSoundListenerComponent",
 					"type"					: "ScnSoundListenerComponent"
-				},
-
-				{
-					"$Class"				: "ScnViewComponent",
-					"type"					: "ScnViewComponent",
-					"name"					: "view_forward_test_rt",
-					"x"						: 0.0,
-					"y"						: 0.0,
-					"width"					: 1.0,
-					"height"				: 1.0,
-					"near"					: 1.0,
-					"far"					: 4000.0,
-					"horizontalfov"			: 0.75,
-					"verticalfov"			: 0.0,
-					"rendermask"			: 2,
-					"clearcolour"			: "1.0, 0.0, 1.0, 1.0",
-					"enablecleardepth"		: true,
-					"renderpermutation"		: "RENDER_FORWARD",
-					"passes"				: "OPAQUE|TRANSPARENT|OVERLAY",
-					"rendertarget"			: "$(ScnTexture:textures.test_rt)"
-					//"depthstenciltarget"	: "$(ScnTexture:textures.test_dst)"					
-				},
-
-				{
-					"$Class"				: "ScnViewComponent",
-					"type"					: "ScnViewComponent",
-					"name"					: "view_deferred_gbuffer",
-					"x"						: 0.0,
-					"y"						: 0.0,
-					"width"					: 1.0,
-					"height"				: 1.0,
-					"near"					: 1.0,
-					"far"					: 4000.0,
-					"horizontalfov"			: 0.75,
-					"verticalfov"			: 0.0,
-					"rendermask"			: 1,
-					"clearcolour"			: "0.0, 0.0, 0.0, 0.0",
-					"enablecleardepth"		: true,
-					"renderpermutation"		: "RENDER_DEFERRED",
-					"passes"				: "OPAQUE",
-					"rendertarget"			: [
-						"$(ScnTexture:textures.gbuffer_albedo)",
-						"$(ScnTexture:textures.gbuffer_normal)",
-						"$(ScnTexture:textures.gbuffer_2)",
-						"$(ScnTexture:textures.gbuffer_3)"
-					],
-					"depthstenciltarget"	: "$(ScnTexture:textures.gbuffer_depth)"
-				},
-
-				{
-					"$Class"				: "ScnPostProcessComponent",
-					"type"					: "ScnPostProcessComponent",
-					"rendermask"			: 1,
-					"renderpermutations"	: "RENDER_DEFERRED",
-					"passes"				: "TRANSPARENT",
-
-					"nodes"					: [
-						// Upsample back to framebuffer.
-						{
-							"inputtextures" : {
-								"aAlbedoTex" : "$(ScnTexture:textures.gbuffer_albedo)",
-								"aNormalTex" : "$(ScnTexture:textures.gbuffer_normal)",
-								"aDepthTex" : "$(ScnTexture:textures.gbuffer_depth)"
-							},
-
-							"inputsamplers" : {
-								"aAlbedoTex" : {
-									"addressu" : "clamp",
-									"addressv" : "clamp",
-									"minfilter" : "nearest",
-									"magfilter" : "nearest"
-								},
-								"aNormalTex" : {
-									"addressu" : "clamp",
-									"addressv" : "clamp",
-									"minfilter" : "nearest",
-									"magfilter" : "nearest"
-								},
-								"aDepthTex" : {
-									"addressu" : "clamp",
-									"addressv" : "clamp",
-									"minfilter" : "nearest",
-									"magfilter" : "nearest"
-								}
-							},
-
-							"outputtextures" : {
-								"0" : "$(ScnTexture:textures.gbuffer_resolve)"
-							},
-
-							"shader" : "$(ScnShader:pp_shaders.pp_deferred_resolve)",
-							"renderstate" : {}
-						}
-					]
-				},
-
-				{
-					"$Class"				: "ScnViewComponent",
-					"type"					: "ScnViewComponent",
-					"name"					: "view_deferred_resolve",
-					"x"						: 0.0,
-					"y"						: 0.0,
-					"width"					: 1.0,
-					"height"				: 1.0,
-					"near"					: 1.0,
-					"far"					: 4000.0,
-					"horizontalfov"			: 0.75,
-					"verticalfov"			: 0.0,
-					"rendermask"			: 1,
-					"clearcolour"			: "0.0, 0.0, 0.0, 0.0",
-					"enablecleardepth"		: false,
-					"renderpermutation"		: "RENDER_DEFERRED",
-					"passes"				: "TRANSPARENT|OVERLAY",
-					"rendertarget"			: [
-						"$(ScnTexture:textures.gbuffer_resolve)"
-					],
-					"depthstenciltarget"	: "$(ScnTexture:textures.gbuffer_depth)"
-				},
-
-				{
-					"$Class"				: "ScnViewComponent",
-					"type"					: "ScnViewComponent",
-					"name"					: "view_forward",
-					"x"						: 0.0,
-					"y"						: 0.0,
-					"width"					: 1.0,
-					"height"				: 1.0,
-					"near"					: 1.0,
-					"far"					: 4000.0,
-					"horizontalfov"			: 0.75,
-					"verticalfov"			: 0.0,
-					"rendermask"			: 1,
-					"renderpermutation"		: "RENDER_FORWARD",
-					"passes"				: "OPAQUE|TRANSPARENT|OVERLAY"
 				},
 
 				{

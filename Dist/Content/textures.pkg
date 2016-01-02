@@ -79,66 +79,6 @@
 			"height" : -2,
 			"texturetype" : "tex2d",
 			"format" : "R8G8B8A8"
-		},
-
-		{
-			"type" : "ScnTexture",
-			"name" : "gbuffer_albedo",
-			"rendertarget" : true,
-			"width" : 0,
-			"height" : 0,
-			"texturetype" : "tex2d",
-			"format" : "R8G8B8A8"
-		},
-
-		{
-			"type" : "ScnTexture",
-			"name" : "gbuffer_normal",
-			"rendertarget" : true,
-			"width" : 0,
-			"height" : 0,
-			"texturetype" : "tex2d",
-			"format" : "R10G10B10A2"
-		},
-
-		{
-			"type" : "ScnTexture",
-			"name" : "gbuffer_2",
-			"rendertarget" : true,
-			"width" : 0,
-			"height" : 0,
-			"texturetype" : "tex2d",
-			"format" : "R8G8B8A8"
-		},
-
-		{
-			"type" : "ScnTexture",
-			"name" : "gbuffer_3",
-			"rendertarget" : true,
-			"width" : 0,
-			"height" : 0,
-			"texturetype" : "tex2d",
-			"format" : "R8G8B8A8"
-		},
-
-		{
-			"type" : "ScnTexture",
-			"name" : "gbuffer_depth",
-			"depthstenciltarget" : true,
-			"width" : 0,
-			"height" : 0,
-			"texturetype" : "tex2d",
-			"format" : "D24S8"
-		},
-
-		{
-			"type" : "ScnTexture",
-			"name" : "gbuffer_resolve",
-			"rendertarget" : true,
-			"width" : 0,
-			"height" : 0,
-			"texturetype" : "tex2d",
-			"format" : "R16FG16FB16FA16F"
 		}
 	]
 }

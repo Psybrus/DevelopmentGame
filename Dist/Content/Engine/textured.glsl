@@ -1,6 +1,12 @@
 #include <Psybrus.glsl>
 
 //////////////////////////////////////////////////////////////////////////
+// If rendering particles + in deferred, enable soft clipping.
+#if defined( PERM_MESH_PARTICLE_3D ) && defined ( PERM_RENDER_DEFERRED )
+#define SOFT_CLIPPING
+#endif
+
+//////////////////////////////////////////////////////////////////////////
 // Vertex shader
 #if VERTEX_SHADER
 
@@ -50,13 +56,30 @@ PSY_SAMPLER_2D( DiffuseTex );
 PSY_SAMPLER_2D( SpecularTex );
 PSY_SAMPLER_2D( OpacityTex );
 
+#if defined( SOFT_CLIPPING )
+PSY_SAMPLER_2D( DepthTex );
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 // pixelMain
 void pixelMain()
 {
 	vec4 Diffuse = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
+	Diffuse *= VsColour0;
 
-	writeFrag( fragColour, Diffuse * VsColour0, VsNormal.xyz );
+#if defined( SOFT_CLIPPING )
+	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, vec2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );
+	float SrcDepth = linearDepth( gl_FragCoord.z, NearFar_.x, NearFar_.y );
+	float DiffDepth = clamp( ( DstDepth - SrcDepth ) / 1.0, 0.0, 1.0 );
+	Diffuse.w *= DiffDepth;
+
+#  if defined ( PERM_RENDER_DEFERRED )
+	// If we're doing soft clipping for deferred it means we're no longer rendering to the gbuffer, so we need to go linear.
+	Diffuse = gammaToLinear( Diffuse );
+#  endif
+#endif
+
+	writeFrag( fragColour, Diffuse, VsNormal.xyz );
 }
 
 //////////////////////////////////////////////////////////////////////////

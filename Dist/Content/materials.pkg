@@ -256,12 +256,19 @@
 
 			// Textures
 			"textures"		: {
-				"aDiffuseTex"	: "$(ScnTexture:textures.particles)"
+				"aDiffuseTex"	: "$(ScnTexture:textures.particles)",
+				"aDepthTex" : "$(ScnTexture:deferred_renderer.gbuffer_depth)"
 			},
 
 			// Samplers
 			"samplers"		: {
 				"aDiffuseTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+				"aDepthTex"	: {
 					"addressu" : "wrap",
 					"addressv" : "wrap",
 					"minfilter" : "linear_mipmap_linear",
