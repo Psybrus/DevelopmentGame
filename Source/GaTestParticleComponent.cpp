@@ -99,11 +99,3 @@ void GaTestParticleComponent::onDetach( ScnEntityWeakRef Parent )
 	Super::onDetach( Parent );
 
 }
-
-//////////////////////////////////////////////////////////////////////////
-// getAABB
-//virtual
-MaAABB GaTestParticleComponent::getAABB() const
-{
-	return MaAABB();
-}

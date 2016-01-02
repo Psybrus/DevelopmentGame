@@ -278,7 +278,7 @@
 							"srcblend" : "srcalpha",
 							"destblend" : "one",
 							"blendop" : "add",
-							"srcblendalpha" : "srcalpha",
+							"srcblendalpha" : "one",
 							"destblendalpha" : "one",
 							"blendopalpha" : "add",
 							"writemask" : 15
@@ -332,8 +332,8 @@
 							"srcblend" : "srcalpha",
 							"destblend" : "invsrcalpha",
 							"blendop" : "add",
-							"srcblendalpha" : "srcalpha",
-							"destblendalpha" : "invsrcalpha",
+							"srcblendalpha" : "one",
+							"destblendalpha" : "one",
 							"blendopalpha" : "add",
 							"writemask" : 15
 						}

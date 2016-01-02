@@ -15,7 +15,7 @@
 #define __GaTestParticleComponent_H__
 
 #include "Psybrus.h"
-#include "System/Scene/Rendering/ScnRenderableComponent.h"
+#include "System/Scene/ScnComponent.h"
 
 #include "System/Scene/Rendering/ScnParticleSystemComponent.h"
 #include "System/Scene/Sound/ScnSound.h"
@@ -28,10 +28,10 @@ typedef ReObjectRef< class GaTestParticleComponent > GaTestParticleComponentRef;
 //////////////////////////////////////////////////////////////////////////
 // GaTestParticleComponent
 class GaTestParticleComponent:
-	public ScnRenderableComponent
+	public ScnComponent
 {
 public:
-	REFLECTION_DECLARE_DERIVED( GaTestParticleComponent, ScnRenderableComponent );
+	REFLECTION_DECLARE_DERIVED( GaTestParticleComponent, ScnComponent );
 
 	GaTestParticleComponent();
 	virtual ~GaTestParticleComponent();
@@ -41,8 +41,6 @@ public:
 	virtual void onAttach( ScnEntityWeakRef Parent );
 	virtual void onDetach( ScnEntityWeakRef Parent );
 	
-	virtual MaAABB getAABB() const;
-
 private:
 	ScnParticleSystemComponentRef ParticleSystem_;
 };

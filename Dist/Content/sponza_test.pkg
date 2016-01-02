@@ -17,6 +17,19 @@
 							"type"					: "ScnModelComponent",
 							"model"					: "$(ScnModel:this.sponza)",
 							"scale"					: "0.001, 0.001, 0.001"
+						},
+
+						{
+							"$Class"				: "ScnParticleSystemComponent",
+							"type"					: "ScnParticleSystemComponent",
+							"noofparticles"			: 10000,
+							"islocalspace"			: false,
+							"material"				: "$(ScnMaterial:materials.particles)"
+						},
+
+						{
+							"$Class"				: "GaTestParticleComponent",
+							"type"					: "GaTestParticleComponent"
 						}
 					]
 				}
