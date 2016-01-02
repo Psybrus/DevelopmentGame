@@ -42,6 +42,7 @@
 
 			"includepermutations" : [
 				"RENDER_FORWARD",
+				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
 				"LIGHTING_NONE"
 			],

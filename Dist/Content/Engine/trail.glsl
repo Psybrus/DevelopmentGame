@@ -37,19 +37,11 @@ PS_IN( float4, VsColour0 );
 PS_IN( float4, VsNormal );
 PS_IN( float4, VsTexCoord0 );
 
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_330
-out float4 fragColor;
-#endif
-
-#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_ES_100
-#define fragColor gl_FragData[0]
-#endif
-
 //////////////////////////////////////////////////////////////////////////
 // pixelMain
 void pixelMain()
 {
-	writeFrag( fragColour, VsColour0, VsNormal.xyz );
+	writeFrag( fragColour, VsColour0, VsNormal.xyz, float3( 0.0, 0.0, 0.0 ) );
 }
 
 #endif

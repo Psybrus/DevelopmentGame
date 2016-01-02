@@ -245,7 +245,6 @@
 			},
 
 			"excludepermutations" : [
-				"RENDER_DEFERRED",
 				"RENDER_FORWARD_PLUS",
 				"PASS_SHADOW",
 				"MESH_INSTANCED_3D",
@@ -278,7 +277,6 @@
 			},
 
 			"excludepermutations" : [
-				"RENDER_DEFERRED",
 				"RENDER_FORWARD_PLUS",
 				"PASS_SHADOW",
 				"MESH_INSTANCED_3D",
@@ -311,7 +309,6 @@
 			},
 
 			"excludepermutations" : [
-				"RENDER_DEFERRED",
 				"RENDER_FORWARD_PLUS",
 				"PASS_SHADOW",
 				"MESH_INSTANCED_3D",
@@ -344,7 +341,6 @@
 			},
 
 			"excludepermutations" : [
-				"RENDER_DEFERRED",
 				"RENDER_FORWARD_PLUS",
 				"PASS_SHADOW",
 				"MESH_INSTANCED_3D",

@@ -90,7 +90,9 @@
 						{
 							"inputtextures" : {
 								"aAlbedoTex" : "$(ScnTexture:this.gbuffer_albedo)",
+								"aMaterialTex" : "$(ScnTexture:this.gbuffer_material)",
 								"aNormalTex" : "$(ScnTexture:this.gbuffer_normal)",
+								"aVelocityTex" : "$(ScnTexture:this.gbuffer_velocity)",
 								"aDepthTex" : "$(ScnTexture:this.gbuffer_depth)"
 							},
 
@@ -101,7 +103,19 @@
 									"minfilter" : "nearest",
 									"magfilter" : "nearest"
 								},
+								"aMaterialTex" : {
+									"addressu" : "clamp",
+									"addressv" : "clamp",
+									"minfilter" : "nearest",
+									"magfilter" : "nearest"
+								},
 								"aNormalTex" : {
+									"addressu" : "clamp",
+									"addressv" : "clamp",
+									"minfilter" : "nearest",
+									"magfilter" : "nearest"
+								},
+								"aVelocityTex" : {
 									"addressu" : "clamp",
 									"addressv" : "clamp",
 									"minfilter" : "nearest",
@@ -185,7 +199,7 @@
 			"width" : 0,
 			"height" : 0,
 			"texturetype" : "tex2d",
-			"format" : "R10G10B10A2"
+			"format" : "R8G8B8A8"
 		},
 
 		{
@@ -195,7 +209,7 @@
 			"width" : 0,
 			"height" : 0,
 			"texturetype" : "tex2d",
-			"format" : "R16FG16F"
+			"format" : "R8G8B8A8"
 		},
 
 		{

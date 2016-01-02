@@ -70,6 +70,106 @@
 		},
 
 		////////////////////////////////////////////////////////////////////////
+		// Default textures.
+		{
+			"type"			: "ScnTexture",
+			"name"			: "black",
+
+			"source"		: "Content/Source/Textures/black.png",
+			"format" : "DXT1",
+			"@(android)"	: {
+				"format" : "ETC1"
+			},
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "white",
+
+			"source"		: "Content/Source/Textures/white.png",
+			"format" : "DXT1",
+			"@(android)"	: {
+				"format" : "ETC1"
+			},
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "red",
+
+			"source"		: "Content/Source/Textures/red.png",
+			"format" : "DXT1",
+			"@(android)"	: {
+				"format" : "ETC1"
+			},
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "green",
+
+			"source"		: "Content/Source/Textures/green.png",
+			"format" : "DXT1",
+			"@(android)"	: {
+				"format" : "ETC1"
+			},
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "blue",
+
+			"source"		: "Content/Source/Textures/blue.png",
+			"format" : "DXT1",
+			"@(android)"	: {
+				"format" : "ETC1"
+			},
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "transparent",
+
+			"source"		: "Content/Source/Textures/transparent.png",
+			"format" : "DXT3",
+			"@(android)"	: {
+				"format" : "R8G8B8A8"
+			},
+			"@(html5)" : {
+				"format" : "DXT3"
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "normal",
+
+			"source"		: "Content/Source/Textures/normal.png",
+			"format" : "DXT1",
+			"@(android)"	: {
+				"format" : "ETC1"
+			},
+			"@(html5)" : {
+				"format" : "DXT1"
+			}
+		},
+
+		////////////////////////////////////////////////////////////////////////
 		// Render target + depth stencil target
 		{
 			"type" : "ScnTexture",

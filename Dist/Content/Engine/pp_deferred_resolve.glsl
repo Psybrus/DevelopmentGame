@@ -24,13 +24,19 @@ void vertexMain()
 PS_IN( vec4, VsTexCoord0 );
 
 PSY_SAMPLER_2D( AlbedoTex );
+PSY_SAMPLER_2D( MaterialTex );
 PSY_SAMPLER_2D( NormalTex );
+PSY_SAMPLER_2D( VelocityTex );
 PSY_SAMPLER_2D( DepthTex );
 
 void pixelMain()
 {
-	vec4 Colour = PSY_SAMPLE_2D( AlbedoTex, VsTexCoord0.xy );
-	fragColour[0] = gammaToLinear( vec4( Colour.xyz, 1.0 ) );
+	vec4 Albedo  = PSY_SAMPLE_2D( AlbedoTex, VsTexCoord0.xy );
+	vec4 Material  = PSY_SAMPLE_2D( MaterialTex, VsTexCoord0.xy );
+	vec4 Normal  = PSY_SAMPLE_2D( NormalTex, VsTexCoord0.xy );
+	vec4 Velocity  = PSY_SAMPLE_2D( DepthTex, VsTexCoord0.xy );
+
+	fragColour[0] = gammaToLinear( vec4( Albedo.xyz, 1.0 ) );
 }
 
 #endif

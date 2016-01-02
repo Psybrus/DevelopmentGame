@@ -16,7 +16,7 @@
 							"$Class"				: "ScnModelComponent",
 							"type"					: "ScnModelComponent",
 							"model"					: "$(ScnModel:this.sponza)",
-							"scale"					: "0.001, 0.001, 0.001"
+							"scale"					: "0.1, 0.1, 0.1"
 						},
 
 						{
@@ -40,14 +40,14 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "sponza",
-			"source"	: "Content/Source/sponza/sponza.fbx",
+			"source"	: "Content/Source/crytek-sponza/sponza.obj",
 
 			"materials": [
 				{
 					"regex" : "(.*)", 
 					"templatematerial" : {
 						"$Class"		: "ScnMaterialImport",
-						"shader"		: "$(ScnShader:shaders.textured)",
+						"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
 
 						"renderstate" : {
 							"blendstate" : {
@@ -76,6 +76,11 @@
 				},
 
 				{
+					"regex" : "chain",
+					"material" : "$(ScnMaterial:this.chain)"
+				},
+
+				{
 					"regex" : "Material__57",
 					"material" : "$(ScnMaterial:this.Material__57)"
 				},
@@ -89,27 +94,123 @@
 			"vertexformat" : {
 				"position" : "FLOAT32",
 				"normal" : "BYTE_NORM",
-				"texcoord" : "FLOAT32"
+				"texcoord" : "FLOAT32",
+				"tangent" : "FLOAT32",
+				"binormal" : "FLOAT32"
+			},
+
+			"defaulttextures" : {
+				"aDiffuseTex" : "$(ScnTexture:textures.white)",
+				"aNormalTex" : "$(ScnTexture:textures.normal)",
+				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			}
 		},
 
 
 		{
 			"type"			: "ScnMaterial",
+			"name"			: "chain",
+
+			// Shader
+			"shader"		: "$(ScnShader:shaders.textured_normal_mapped_mask)",
+
+			// Textures
+			"textures"		: {
+				"aDiffuseTex"	: "$(ScnTexture:this.chain_texture)",
+				"aNormalTex"	: "$(ScnTexture:this.chain_texture_ddn)",
+				"aSpecularTex"	: "$(ScnTexture:textures.white)",
+				"aOpacityTex"	: "$(ScnTexture:this.chain_texture_mask)"
+			},
+
+			// Samplers
+			"samplers"		: {
+				"aDiffuseTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aNormalTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aSpecularTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aOpacityTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				}
+			},
+
+			"renderstate" : {
+				"blendstate" : {
+					"rendertarget" : [
+						{
+							"enable" : false
+						}
+					]
+				},
+
+				"depthstencilstate" : {
+					"depthtestenable" : true,
+					"depthwriteenable" : true,
+					"depthfunc" : "lessequal",
+					"stencilenable" : false
+				},
+
+				"rasteriserstate" : {
+					"fillmode" : "solid",
+					"cullmode" : "none",
+					"depthclipenable" : true,
+					"antialiasedlineenable" : true
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnMaterial",
 			"name"			: "Material__57",
 
 			// Shader
-			"shader"		: "$(ScnShader:shaders.textured_mask)",
+			"shader"		: "$(ScnShader:shaders.textured_normal_mapped_mask)",
 
 			// Textures
 			"textures"		: {
 				"aDiffuseTex"	: "$(ScnTexture:this.vase_plant)",
+				"aNormalTex"	: "$(ScnTexture:textures.normal)",
+				"aSpecularTex"	: "$(ScnTexture:this.vase_plant_spec)",
 				"aOpacityTex"	: "$(ScnTexture:this.vase_plant_mask)"
 			},
 
 			// Samplers
 			"samplers"		: {
 				"aDiffuseTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aNormalTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aSpecularTex"	: {
 					"addressu" : "clamp",
 					"addressv" : "clamp",
 					"minfilter" : "linear_mipmap_linear",
@@ -154,17 +255,33 @@
 			"name"			: "leaf",
 
 			// Shader
-			"shader"		: "$(ScnShader:shaders.textured_mask)",
+			"shader"		: "$(ScnShader:shaders.textured_normal_mapped_mask)",
 
 			// Textures
 			"textures"		: {
 				"aDiffuseTex"	: "$(ScnTexture:this.sponza_thorn_diff)",
+				"aNormalTex"	: "$(ScnTexture:this.sponza_thorn_ddn)",
+				"aSpecularTex"	: "$(ScnTexture:this.sponza_thorn_spec)",
 				"aOpacityTex"	: "$(ScnTexture:this.sponza_thorn_mask)"
 			},
 
 			// Samplers
 			"samplers"		: {
 				"aDiffuseTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aNormalTex"	: {
+					"addressu" : "clamp",
+					"addressv" : "clamp",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aSpecularTex"	: {
 					"addressu" : "clamp",
 					"addressv" : "clamp",
 					"minfilter" : "linear_mipmap_linear",
@@ -225,6 +342,82 @@
 
 		{
 			"type"			: "ScnTexture",
+			"name"			: "chain_texture",
+
+			"source"		: "Content/Source/sponza/textures/chain_texture.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			}
+		},
+		
+		{
+			"type"			: "ScnTexture",
+			"name"			: "chain_texture_mask",
+
+			"source"		: "Content/Source/sponza/textures/chain_texture_mask.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			}
+		},
+		
+		{
+			"type"			: "ScnTexture",
+			"name"			: "chain_texture_ddn",
+
+			"source"		: "Content/Source/sponza/textures/chain_texture_ddn.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			}
+		},
+	
+		{
+			"type"			: "ScnTexture",
+			"name"			: "vase_plant_spec",
+
+			"source"		: "Content/Source/sponza/textures/vase_plant_spec.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
 			"name"			: "vase_plant_mask",
 
 			"source"		: "Content/Source/sponza/textures/vase_plant_mask.png",
@@ -261,6 +454,43 @@
 			}
 		},
 
+		{
+			"type"			: "ScnTexture",
+			"name"			: "sponza_thorn_ddn",
+
+			"source"		: "Content/Source/sponza/textures/sponza_thorn_ddn.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			}
+		},
+
+		{
+			"type"			: "ScnTexture",
+			"name"			: "sponza_thorn_spec",
+
+			"source"		: "Content/Source/sponza/textures/sponza_thorn_spec.png",
+
+			"@(pc)"	: {
+				"format" : "DXT1"
+			},
+
+			"@(android)" : {
+				"format" : "ETC1",
+
+				"@(tegra)" : {
+					"format" : "DXT1"
+				}
+			}
+		},
 		{
 			"type"			: "ScnTexture",
 			"name"			: "sponza_thorn_mask",

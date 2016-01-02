@@ -35,7 +35,7 @@
 			"name"			: "ruinerbody01",
 
 			// Shader
-			"shader"		: "$(ScnShader:shaders.textured)",
+			"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
 
 			// Samplers
 			"samplers"		: {
@@ -56,7 +56,8 @@
 			// Textures
 			"textures"		: {
 				"aDiffuseTex"	: "$(ScnTexture:this.ruinerbody01_d)",
-				"aNormalTex"	: "$(ScnTexture:this.ruinerbody01_local)"
+				"aNormalTex"	: "$(ScnTexture:this.ruinerbody01_local)",
+				"aSpecularTex"	: "$(ScnTexture:textures.white)"
 			},
 
 			// New render state.
