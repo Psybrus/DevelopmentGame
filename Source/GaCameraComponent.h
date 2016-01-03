@@ -34,10 +34,10 @@ public:
 	GaCameraComponent();
 	virtual ~GaCameraComponent();
 
-	virtual void preUpdate( BcF32 Tick );
+	void preUpdate( BcF32 Tick );
 
-	virtual void onAttach( ScnEntityWeakRef Parent );
-	virtual void onDetach( ScnEntityWeakRef Parent );
+	void onAttach( ScnEntityWeakRef Parent ) override;
+	void onDetach( ScnEntityWeakRef Parent ) override;
 
 	eEvtReturn onMouseDown( EvtID ID, const EvtBaseEvent& Event );
 	eEvtReturn onMouseUp( EvtID ID, const EvtBaseEvent& Event );

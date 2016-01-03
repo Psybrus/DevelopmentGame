@@ -32,12 +32,12 @@ public:
 	GaMovingComponent();
 	virtual ~GaMovingComponent();
 	
-	virtual void update( BcF32 Tick );
+	void update( BcF32 Tick );
 	
-	virtual void onAttach( ScnEntityWeakRef Parent );
-	virtual void onDetach( ScnEntityWeakRef Parent );
+	void onAttach( ScnEntityWeakRef Parent ) override;
+	void onDetach( ScnEntityWeakRef Parent ) override;
 	
-	virtual MaAABB getAABB() const;
+	MaAABB getAABB() const;
 
 private:
 	MaVec3d Position_;

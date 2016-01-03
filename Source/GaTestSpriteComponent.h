@@ -34,8 +34,8 @@ public:
 	GaTestSpriteComponent();
 	virtual ~GaTestSpriteComponent();
 	
-	virtual void onAttach( ScnEntityWeakRef Parent );
-	virtual void onDetach( ScnEntityWeakRef Parent );
+	void onAttach( ScnEntityWeakRef Parent ) override;
+	void onDetach( ScnEntityWeakRef Parent ) override;
 	
 private:
 	static void setCanvasProjection( const ScnComponentList& Components );

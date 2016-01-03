@@ -34,8 +34,8 @@ public:
 	GaTestModelComponent();
 	virtual ~GaTestModelComponent();
 	
-	virtual void onAttach( ScnEntityWeakRef Parent );
-	virtual void onDetach( ScnEntityWeakRef Parent );
+	void onAttach( ScnEntityWeakRef Parent ) override;
+	void onDetach( ScnEntityWeakRef Parent ) override;
 	
 private:
 	ScnMaterialRef Material_;

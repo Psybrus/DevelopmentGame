@@ -44,7 +44,7 @@ public:
 	GaLevelComponent();
 	virtual ~GaLevelComponent();
 	
-	virtual void onAttach( ScnEntityWeakRef Parent );
+	void onAttach( ScnEntityWeakRef Parent ) override;
 	
 private:
 	std::vector< GaLevelEntity > Entities_;

@@ -35,12 +35,12 @@ public:
 	GaFullscreenQuadComponent();
 	virtual ~GaFullscreenQuadComponent();
 
-	virtual void render( ScnRenderContext & RenderContext );
+	void render( ScnRenderContext & RenderContext ) override;
 
-	virtual void onAttach( ScnEntityWeakRef Parent );
-	virtual void onDetach( ScnEntityWeakRef Parent );
+	void onAttach( ScnEntityWeakRef Parent ) override;
+	void onDetach( ScnEntityWeakRef Parent ) override;
 	
-	virtual MaAABB getAABB() const;
+	MaAABB getAABB() const override;
 
 private:
 	RsBufferUPtr ObjectUniformBuffer_;

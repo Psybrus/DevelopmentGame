@@ -34,9 +34,9 @@ public:
 	GaAnimationControllerComponent();
 	virtual ~GaAnimationControllerComponent();
 	
-	virtual void update( BcF32 Tick );
+	void update( BcF32 Tick );
 
-	virtual void onAttach( ScnEntityWeakRef Parent );
+	void onAttach( ScnEntityWeakRef Parent ) override;
 	
 private:
 	ScnAnimationRef AnimIdle_;

@@ -36,8 +36,8 @@ public:
 	GaMindwaveVisualiserComponent();
 	virtual ~GaMindwaveVisualiserComponent();
 	
-	virtual void onAttach( ScnEntityWeakRef Parent );
-	virtual void onDetach( ScnEntityWeakRef Parent );
+	void onAttach( ScnEntityWeakRef Parent ) override;
+	void onDetach( ScnEntityWeakRef Parent ) override;
 	
 	eEvtReturn onMindwaveData( EvtID ID, const EvtBaseEvent& Event );
 	eEvtReturn onMindwaveEEGPower( EvtID ID, const EvtBaseEvent& Event );

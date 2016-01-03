@@ -36,10 +36,10 @@ public:
 	GaTestParticleComponent();
 	virtual ~GaTestParticleComponent();
 	
-	virtual void update( BcF32 Tick );
+	void update( BcF32 Tick );
 	
-	virtual void onAttach( ScnEntityWeakRef Parent );
-	virtual void onDetach( ScnEntityWeakRef Parent );
+	void onAttach( ScnEntityWeakRef Parent ) override;
+	void onDetach( ScnEntityWeakRef Parent ) override;
 	
 private:
 	ScnParticleSystemComponentRef ParticleSystem_;
