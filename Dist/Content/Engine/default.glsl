@@ -31,6 +31,7 @@ void vertexMain()
 	PSY_MAKE_CLIP_SPACE_VERTEX( gl_Position, WorldPosition );
 	VsTexCoord0 = InTexCoord_;
 	VsColour0 = InColour_;
+	VsNormal = InNormal_;
 }
 
 #endif
