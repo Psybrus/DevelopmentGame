@@ -26,7 +26,7 @@ void PsyGameInit()
 // PsyLaunchGame
 void PsyLaunchGame()
 {
-#if 1
+#if 0
 	ScnEntitySpawnParams CameraEntityParams = 
 	{
 		"CameraEntity_0", "default", "CameraEntity",
