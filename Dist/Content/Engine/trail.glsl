@@ -15,7 +15,7 @@ VS_OUT( float4, VsTexCoord0 );
 
 void vertexMain()
 {
-	float Offset = ( InTexCoord_.z * InTexCoord_.w ) * 0.5f;
+	float Offset = ( InTexCoord_.z * InTexCoord_.w ) * 0.5;
 	float3 WorldPosition = InPosition_.xyz;
 	float3 ViewNormal = normalize( float3( mul( ViewTransform_, InNormal_ ).xy, 0.0001 ) );
 	float3 CrossZ = cross( ViewNormal, float3( 0.0, 0.0, 1.0 ) );

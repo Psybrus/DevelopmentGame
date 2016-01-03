@@ -27,7 +27,7 @@ PSY_SAMPLER_2D( InputTexture0 );
 
 void pixelMain()
 {
-	float Offset = 1.0f / InputDimensions_[ 0 ].x;
+	float Offset = 1.0 / InputDimensions_[ 0 ].x;
 	float Radius = Radius_;
 	float MaxRadius = 8.0;
 	float4 Colour = float4( 0.0, 0.0, 0.0, 0.0 );

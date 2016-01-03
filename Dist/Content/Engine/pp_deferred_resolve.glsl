@@ -50,7 +50,7 @@ void pixelMain()
 	float TotalLight = min( AmbientLight + DiffuseLight, 1.0 );
 
 	float Facing = NdotL > 0.0 ? 1.0 : 0.0;
-	float Specular = ( Facing * pow( max( NdotH, 0 ), 1 ) ) * 0.2;
+	float Specular = ( Facing * pow( max( NdotH, 0.0 ), 1.0 ) ) * 0.2;
 
 	outputFrag[0] = gammaToLinear( vec4( ( Albedo.xyz * ( AmbientLight + DiffuseLight ) ) + ( Material.xyz * Specular ), 1.0 ) );
 }

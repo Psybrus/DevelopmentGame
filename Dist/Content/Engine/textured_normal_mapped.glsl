@@ -93,7 +93,7 @@ void getMaterial( out vec4 Diffuse, out vec4 Normal, out vec4 Specular )
 #endif
 
 	Normal = PSY_SAMPLE_2D( NormalTex, VsTexCoord0.xy );
-	Normal.xyz = Normal.xyz * 2.0f - 1.0f;
+	Normal.xyz = Normal.xyz * 2.0 - 1.0;
 	Normal.xyz = mul( TBN, Normal.xyz );
 
 	Diffuse = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
