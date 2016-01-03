@@ -206,11 +206,12 @@
 				}
 			},
 
-			"excludepermutations" : [
-				"RENDER_FORWARD_PLUS",
-				"PASS_SHADOW",
-				"MESH_INSTANCED_3D",
-				"LIGHTING_DIFFUSE"
+			"includepermutations" : [
+				"MESH_STATIC_2D",
+				"RENDER_POST_PROCESS",
+				"PASS_OPAQUE",
+				"PASS_TRANSPARENT",
+				"LIGHTING_NONE"
 			],
 
 			"entrypoints"		: {

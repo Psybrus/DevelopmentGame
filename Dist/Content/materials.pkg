@@ -105,7 +105,7 @@
 
 			// Textures
 			"textures"		: {
-				"aDiffuseTex"	: "$(ScnTexture:textures.default)"
+				"aDiffuseTex"	: "$(ScnTexture:textures.white)"
 			},
 
 			// Samplers

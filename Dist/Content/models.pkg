@@ -7,7 +7,7 @@
 			"materials" : [
 				{
 					"regex" : "(.*)",
-					"material" : "$(ScnMaterial:materials.normal_vis)"
+					"material" : "$(ScnMaterial:materials.textured)"
 				}
 			],
 
@@ -25,7 +25,7 @@
 			"materials" : [
 				{
 					"regex" : "(.*)",
-					"material" : "$(ScnMaterial:materials.normal_vis)"
+					"material" : "$(ScnMaterial:materials.textured)"
 				}
 			],
 
@@ -79,7 +79,7 @@
 			"materials" : [
 				{
 					"regex" : "(.*)",
-					"material" : "$(ScnMaterial:materials.normal_vis)"
+					"material" : "$(ScnMaterial:materials.textured)"
 				}
 			],
 
@@ -97,7 +97,7 @@
 			"materials" : [
 				{
 					"regex" : "(.*)",
-					"material" : "$(ScnMaterial:materials.normal_vis)"	
+					"material" : "$(ScnMaterial:materials.textured)"	
 				}
 			],
 

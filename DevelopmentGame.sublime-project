@@ -50,14 +50,14 @@
 		{
 			"cmd":
 			[
-				"./Importer-Debug"
+				"./Importer-Release"
 			],
 			"name": "Import packages",
 			"windows":
 			{
 				"cmd":
 				[
-					"Importer-Debug.exe"
+					"Importer-Release.exe"
 				]
 			},
 			"working_dir": "$project_path/Dist"

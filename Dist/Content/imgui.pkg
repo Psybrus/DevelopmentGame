@@ -4,7 +4,7 @@
 			"type"			: "ScnShader",
 			"name"			: "default_shader",
 
-			"testshite" : "$(ScnShader:compute_test.compute_shader)",
+			"testshite" : "$(ScnShader:shaders.default)",
 
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/imgui.hlsl",

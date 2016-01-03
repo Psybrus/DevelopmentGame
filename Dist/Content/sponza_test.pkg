@@ -325,7 +325,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "vase_plant",
 
-			"source"		: "Content/Source/sponza/textures/vase_plant.png",
+			"source"		: "Content/Source/crytek-sponza/textures/vase_plant.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
@@ -344,7 +344,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "chain_texture",
 
-			"source"		: "Content/Source/sponza/textures/chain_texture.png",
+			"source"		: "Content/Source/crytek-sponza/textures/chain_texture.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
@@ -363,7 +363,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "chain_texture_mask",
 
-			"source"		: "Content/Source/sponza/textures/chain_texture_mask.png",
+			"source"		: "Content/Source/crytek-sponza/textures/chain_texture_mask.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
@@ -382,7 +382,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "chain_texture_ddn",
 
-			"source"		: "Content/Source/sponza/textures/chain_texture_ddn.png",
+			"source"		: "Content/Source/crytek-sponza/textures/chain_texture_ddn.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
@@ -401,7 +401,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "vase_plant_spec",
 
-			"source"		: "Content/Source/sponza/textures/vase_plant_spec.png",
+			"source"		: "Content/Source/crytek-sponza/textures/vase_plant_spec.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
@@ -420,7 +420,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "vase_plant_mask",
 
-			"source"		: "Content/Source/sponza/textures/vase_plant_mask.png",
+			"source"		: "Content/Source/crytek-sponza/textures/vase_plant_mask.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
@@ -439,7 +439,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "sponza_thorn_diff",
 
-			"source"		: "Content/Source/sponza/textures/sponza_thorn_diff.png",
+			"source"		: "Content/Source/crytek-sponza/textures/sponza_thorn_diff.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
@@ -458,7 +458,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "sponza_thorn_ddn",
 
-			"source"		: "Content/Source/sponza/textures/sponza_thorn_ddn.png",
+			"source"		: "Content/Source/crytek-sponza/textures/sponza_thorn_ddn.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
@@ -477,7 +477,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "sponza_thorn_spec",
 
-			"source"		: "Content/Source/sponza/textures/sponza_thorn_spec.png",
+			"source"		: "Content/Source/crytek-sponza/textures/sponza_thorn_spec.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
@@ -495,7 +495,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "sponza_thorn_mask",
 
-			"source"		: "Content/Source/sponza/textures/sponza_thorn_mask.png",
+			"source"		: "Content/Source/crytek-sponza/textures/sponza_thorn_mask.png",
 
 			"@(pc)"	: {
 				"format" : "DXT1"
