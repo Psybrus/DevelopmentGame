@@ -27,7 +27,7 @@ PSY_SAMPLER_2D( InputTexture0 );
 
 void pixelMain()
 {
-	fragColour[0] = PSY_SAMPLE_2D( InputTexture0, VsTexCoord0.xy );
+	outputFrag[0] = PSY_SAMPLE_2D( InputTexture0, VsTexCoord0.xy );
 }
 
 #endif

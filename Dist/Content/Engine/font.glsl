@@ -49,7 +49,7 @@ void pixelMain()
 {
 	vec4 TextColour = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
 	float TextFactor = smoothstep( TextSettings_.x, TextSettings_.y, TextColour.a );
-	fragColour[0] = float4( TextColour_.xyz, TextFactor * TextColour_.w ) * VsColour0;
+	outputFrag[0] = float4( TextColour_.xyz, TextFactor * TextColour_.w ) * VsColour0;
 }
 
 #endif

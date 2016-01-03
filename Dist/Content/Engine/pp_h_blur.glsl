@@ -42,7 +42,7 @@ void pixelMain()
 			UVOffset += UVIncr;
 		}
 	}
-	fragColour[0] = float4( ( Colour / ( Radius * 2.0 + 1.0 ) ).rgb, 1.0 );
+	outputFrag[0] = float4( ( Colour / ( Radius * 2.0 + 1.0 ) ).rgb, 1.0 );
 }
 
 #endif

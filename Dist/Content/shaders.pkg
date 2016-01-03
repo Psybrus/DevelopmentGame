@@ -29,7 +29,9 @@
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
 			}
-		},
+		}
+
+		,
 
 		{
 			"type"			: "ScnShader",

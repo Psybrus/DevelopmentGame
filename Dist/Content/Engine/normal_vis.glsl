@@ -48,7 +48,7 @@ PS_IN( vec4, VsTexCoord0 );
 // pixelMain
 void pixelMain()
 {
-	writeFrag( fragColour, vec4( VsNormal.xyz, 1.0 ), VsNormal.xyz );
+	writeFrag( FRAMEBUFFER_OUTPUT, vec4( VsNormal.xyz, 1.0 ), VsNormal.xyz );
 }
 
 #endif

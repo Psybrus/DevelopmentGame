@@ -28,7 +28,7 @@ PSY_SAMPLER_2D( ResolveTex );
 void pixelMain()
 {
 	vec4 Colour = PSY_SAMPLE_2D( ResolveTex, VsTexCoord0.xy );
-	fragColour[0] = linearToGamma( vec4( Colour.xyz, 1.0 ) );
+	outputFrag[0] = linearToGamma( vec4( Colour.xyz, 1.0 ) );
 }
 
 #endif

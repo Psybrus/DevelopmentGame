@@ -65,7 +65,6 @@ PSY_SAMPLER_2D( DepthTex );
 void pixelMain()
 {
 	vec4 Diffuse = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
-	Diffuse *= VsColour0;
 
 #if defined( SOFT_CLIPPING )
 	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, vec2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );
@@ -79,7 +78,7 @@ void pixelMain()
 #  endif
 #endif
 
-	writeFrag( fragColour, Diffuse, VsNormal.xyz );
+	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse * VsColour0, VsNormal.xyz, vec3( 0.0, 0.0, 0.0 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -93,7 +92,7 @@ void pixelMainMask()
 	}
 	vec4 Diffuse = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
 
-	writeFrag( fragColour, Diffuse * VsColour0, VsNormal.xyz );
+	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse * VsColour0, VsNormal.xyz, vec3( 0.0, 0.0, 0.0 ) );
 }
 
 #endif

@@ -40,13 +40,13 @@
 						{ 
 							"name" : "Animation test",
 							"entity" : "$(ScnEntity:animation_test.TestEntity)"
-						}
+						},
 
-/*
-						{ 
+/*						{ 
 							"name" : "Render target test",
 							"entity" : "$(ScnEntity:render_target_test.TestEntity)"
 						},
+*/
 						{ 
 							"name" : "Shader test",
 							"entity" : "$(ScnEntity:shader_test.TestEntity)"
@@ -61,6 +61,7 @@
 							"name" : "Texture test",
 							"entity" : "$(ScnEntity:texture_test.TestEntity)"
 						},
+/*
 
 						{ 
 							"name" : "Volume test",
@@ -71,7 +72,7 @@
 							"name" : "Cloud test",
 							"entity" : "$(ScnEntity:cloud_test.TestEntity)"
 						},
-
+*/
 						{ 
 							"name" : "Trail test",
 							"entity" : "$(ScnEntity:trail_test.TestEntity)"
@@ -111,7 +112,7 @@
 							"name" : "Network test",
 							"entity" : "$(ScnEntity:network_test.TestEntity)"
 						}
-
+/*
 						{
 							"name" : "Sprite test",
 							"entity" : "$(ScnEntity:sprite_test.TestEntity)"

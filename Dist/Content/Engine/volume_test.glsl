@@ -159,7 +159,7 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 // pixelMain
 void pixelMain()
 {
-	fragColour[0] = render( VsRayPos, normalize( VsRayDir ) );
+	outputFrag[0] = render( VsRayPos, normalize( VsRayDir ) );
 }
 
 #endif // PIXEL_SHADER

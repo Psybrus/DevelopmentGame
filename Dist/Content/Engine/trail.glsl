@@ -41,7 +41,7 @@ PS_IN( float4, VsTexCoord0 );
 // pixelMain
 void pixelMain()
 {
-	writeFrag( fragColour, VsColour0, VsNormal.xyz, float3( 0.0, 0.0, 0.0 ) );
+	writeFrag( FRAMEBUFFER_OUTPUT, VsColour0, VsNormal.xyz, float3( 0.0, 0.0, 0.0 ) );
 }
 
 #endif

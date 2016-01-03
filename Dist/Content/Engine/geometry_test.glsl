@@ -100,7 +100,7 @@ PS_IN( vec4, GsTexCoord0 );
 // pixelMain
 void pixelMain()
 {
-	fragColour[0] = GsColour0;
+	outputFrag[0] = GsColour0;
 }
 
 #endif

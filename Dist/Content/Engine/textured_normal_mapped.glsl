@@ -122,7 +122,7 @@ void pixelMain()
 #  endif
 #endif
 
-	writeFrag( fragColour, Diffuse, Normal.xyz, Specular.xyz );
+	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse, Normal.xyz, Specular.xyz );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -140,7 +140,7 @@ void pixelMainMask()
 	getMaterial( Diffuse, Normal, Specular );
 	Diffuse *= VsColour0;
 
-	writeFrag( fragColour, Diffuse * VsColour0, Normal.xyz, Specular.xyz );
+	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse * VsColour0, Normal.xyz, Specular.xyz );
 }
 
 #endif

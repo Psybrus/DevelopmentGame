@@ -31,7 +31,7 @@ PS_IN( vec4, VsTexCoord0 );
 // pixelDefaultMain
 void pixelDefaultMain()
 {
-	fragColour[0] = VsColour0;
+	outputFrag[0] = VsColour0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ PSY_SAMPLER_2D( DiffuseTex );
 void pixelTexturedMain()
 {
 	vec4 Colour = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
-	fragColour[0] = Colour * VsColour0;
+	outputFrag[0] = Colour * VsColour0;
 }
 
 #endif
