@@ -102,13 +102,12 @@ void getMaterial( out vec4 Diffuse, out vec4 Normal, out vec4 Specular )
 
 //////////////////////////////////////////////////////////////////////////
 // pixelMain
-void pixelMain()
+void pixelAll( FRAMEBUFFER_INPUT )
 {
 	vec4 Diffuse;
 	vec4 Normal;
 	vec4 Specular;
 	getMaterial( Diffuse, Normal, Specular );
-	Diffuse *= VsColour0;
 
 #if defined( SOFT_CLIPPING )
 	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, vec2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );
@@ -122,7 +121,24 @@ void pixelMain()
 #  endif
 #endif
 
-	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse, Normal.xyz, Specular.xyz );
+#if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
+	Diffuse = gammaToLinear( Diffuse ) * VsColour0;
+	Specular = gammaToLinear( Specular ) * VsColour0;
+	vec3 DiffuseLight = vec3( 1.0 );
+	vec3 SpecularLight = vec3( 1.0 );
+	defaultLighting( Normal.xyz, DiffuseLight, SpecularLight );
+	vec3 TotalLight = linearToGamma( Diffuse.xyz * DiffuseLight + Specular.xyz * SpecularLight );
+	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalLight, Diffuse.w ), Normal.xyz, Specular.xyz );
+#else
+	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, Normal.xyz, Specular.xyz );
+#endif
+}
+
+//////////////////////////////////////////////////////////////////////////
+// pixelMain
+void pixelMain()
+{
+	pixelAll( FRAMEBUFFER_OUTPUT );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -134,13 +150,7 @@ void pixelMainMask()
 	{
 		discard;
 	}
-	vec4 Diffuse;
-	vec4 Normal;
-	vec4 Specular;
-	getMaterial( Diffuse, Normal, Specular );
-	Diffuse *= VsColour0;
-
-	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse * VsColour0, Normal.xyz, Specular.xyz );
+	pixelAll( FRAMEBUFFER_OUTPUT );
 }
 
 #endif

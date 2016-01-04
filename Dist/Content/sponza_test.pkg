@@ -16,6 +16,7 @@
 							"$Class"				: "ScnModelComponent",
 							"type"					: "ScnModelComponent",
 							"model"					: "$(ScnModel:this.sponza)",
+							"islit"					: true,
 							"scale"					: "0.1, 0.1, 0.1"
 						},
 

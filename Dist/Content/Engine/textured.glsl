@@ -61,24 +61,28 @@ PSY_SAMPLER_2D( DepthTex );
 #endif
 
 //////////////////////////////////////////////////////////////////////////
-// pixelMain
-void pixelMain()
+// pixelAll
+void pixelAll( FRAMEBUFFER_INPUT )
 {
 	vec4 Diffuse = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
 
-#if defined( SOFT_CLIPPING )
-	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, vec2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );
-	float SrcDepth = linearDepth( gl_FragCoord.z, NearFar_.x, NearFar_.y );
-	float DiffDepth = clamp( ( DstDepth - SrcDepth ) / 1.0, 0.0, 1.0 );
-	Diffuse.w *= DiffDepth;
-
-#  if defined ( PERM_RENDER_DEFERRED )
-	// If we're doing soft clipping for deferred it means we're no longer rendering to the gbuffer, so we need to go linear.
-	Diffuse = gammaToLinear( Diffuse );
-#  endif
+#if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
+	Diffuse = gammaToLinear( Diffuse ) * VsColour0;
+	vec3 DiffuseLight = vec3( 1.0 );
+	vec3 SpecularLight = vec3( 1.0 );
+	defaultLighting( VsNormal.xyz, DiffuseLight, SpecularLight );
+	vec3 TotalLight = linearToGamma( Diffuse.xyz * DiffuseLight );
+	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalLight, Diffuse.w ), VsNormal.xyz, vec3( 0.0, 0.0, 0.0 ) );
+#else
+	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, VsNormal.xyz, vec3( 0.0, 0.0, 0.0 ) );
 #endif
+}
 
-	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse * VsColour0, VsNormal.xyz, vec3( 0.0, 0.0, 0.0 ) );
+//////////////////////////////////////////////////////////////////////////
+// pixelMain
+void pixelMain()
+{
+	pixelAll( FRAMEBUFFER_OUTPUT );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -90,9 +94,8 @@ void pixelMainMask()
 	{
 		discard;
 	}
-	vec4 Diffuse = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
 
-	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse * VsColour0, VsNormal.xyz, vec3( 0.0, 0.0, 0.0 ) );
+	pixelAll( FRAMEBUFFER_OUTPUT );
 }
 
 #endif

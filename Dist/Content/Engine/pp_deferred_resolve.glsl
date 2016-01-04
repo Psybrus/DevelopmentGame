@@ -31,28 +31,16 @@ PSY_SAMPLER_2D( DepthTex );
 
 void pixelMain()
 {
-	vec4 Albedo  = PSY_SAMPLE_2D( AlbedoTex, VsTexCoord0.xy );
-	vec4 Material  = PSY_SAMPLE_2D( MaterialTex, VsTexCoord0.xy );
-	vec4 Normal  = PSY_SAMPLE_2D( NormalTex, VsTexCoord0.xy );
+	vec4 Albedo  = gammaToLinear( PSY_SAMPLE_2D( AlbedoTex, VsTexCoord0.xy ) );
+	vec4 Specular  = gammaToLinear( PSY_SAMPLE_2D( MaterialTex, VsTexCoord0.xy ) );
+	vec4 Normal  = PSY_SAMPLE_2D( NormalTex, VsTexCoord0.xy ) * 2.0 - 1.0;
 	vec4 Velocity  = PSY_SAMPLE_2D( DepthTex, VsTexCoord0.xy );
 
+	vec3 DiffuseLight;
+	vec3 SpecularLight;
+	defaultLighting( Normal.xyz, DiffuseLight, SpecularLight );
 
-	// Hacky lighting.
-	vec3 CameraVector = mul( ViewTransform_, vec4( 0.0, 0.0, 1.0, 0.0 ) ).xyz;
-	vec3 LightVector = -normalize( vec3( cos( ViewTime_.x ), -1.0, sin( ViewTime_.x ) ) );
-	vec3 HalfVector = normalize( LightVector + CameraVector );
-	float NdotL = dot( Normal.xyz, LightVector );
-	float NdotH = dot( Normal.xyz, HalfVector );
-	
-	// Ambient + Diffuse
-	float AmbientLight = 0.2;
-	float DiffuseLight = max( NdotL, 0.0 );
-	float TotalLight = min( AmbientLight + DiffuseLight, 1.0 );
-
-	float Facing = NdotL > 0.0 ? 1.0 : 0.0;
-	float Specular = ( Facing * pow( max( NdotH, 0.0 ), 1.0 ) ) * 0.2;
-
-	outputFrag[0] = gammaToLinear( vec4( ( Albedo.xyz * ( AmbientLight + DiffuseLight ) ) + ( Material.xyz * Specular ), 1.0 ) );
+	outputFrag[0] = vec4( ( Albedo.xyz * DiffuseLight ) + ( Specular.xyz * SpecularLight ), 1.0 );
 }
 
 #endif
