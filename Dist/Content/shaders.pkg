@@ -54,6 +54,7 @@
 				"PASS_OPAQUE",
 				"PASS_TRANSPARENT",
 				"LIGHTING_NONE",
+				"LIGHTING_DIFFUSE",
 				"LIGHTING_DIFFUSE"
 			],
 
@@ -86,7 +87,8 @@
 				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
 				"PASS_TRANSPARENT",
-				"LIGHTING_NONE"
+				"LIGHTING_NONE",
+				"LIGHTING_DIFFUSE"
 			],
 
 			"excludepermutations" : [
@@ -151,7 +153,8 @@
 				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
 				"PASS_TRANSPARENT",
-				"LIGHTING_NONE"
+				"LIGHTING_NONE",
+				"LIGHTING_DIFFUSE"
 			],
 
 			"excludepermutations" : [

@@ -58,6 +58,28 @@
 					"depthstenciltarget"	: "$(ScnTexture:this.gbuffer_depth)"
 				},
 
+				// Light -> HDR buffer.
+				{
+					"$Class"				: "ScnDeferredLightingComponent",
+					"type"					: "ScnDeferredLightingComponent",
+					"rendermask"			: 1,
+					"renderpermutations"	: "RENDER_DEFERRED",
+					"passes"				: "TRANSPARENT",
+
+					"textures"				: {
+						"aAlbedoTex" : "$(ScnTexture:this.gbuffer_albedo)",
+						"aMaterialTex" : "$(ScnTexture:this.gbuffer_material)",
+						"aNormalTex" : "$(ScnTexture:this.gbuffer_normal)",
+						"aVelocityTex" : "$(ScnTexture:this.gbuffer_velocity)",
+						"aDepthTex" : "$(ScnTexture:this.gbuffer_depth)"
+					},
+
+					"shaders"				: [
+						"$(ScnShader:pp_shaders.pp_deferred_point_light)",
+						"$(ScnShader:pp_shaders.pp_deferred_spot_light)"
+					]
+				},
+
 				// Overlay view. This is the framebuffer.
 				{
 					"$Class"				: "ScnViewComponent",
@@ -76,67 +98,6 @@
 					"enablecleardepth"		: true,
 					"renderpermutation"		: "RENDER_DEFERRED",
 					"passes"				: "OVERLAY"
-				},
-
-				// GBuffer -> Resolve.
-				{
-					"$Class"				: "ScnPostProcessComponent",
-					"type"					: "ScnPostProcessComponent",
-					"rendermask"			: 1,
-					"renderpermutations"	: "RENDER_DEFERRED",
-					"passes"				: "TRANSPARENT",
-
-					"nodes"					: [
-						{
-							"inputtextures" : {
-								"aAlbedoTex" : "$(ScnTexture:this.gbuffer_albedo)",
-								"aMaterialTex" : "$(ScnTexture:this.gbuffer_material)",
-								"aNormalTex" : "$(ScnTexture:this.gbuffer_normal)",
-								"aVelocityTex" : "$(ScnTexture:this.gbuffer_velocity)",
-								"aDepthTex" : "$(ScnTexture:this.gbuffer_depth)"
-							},
-
-							"inputsamplers" : {
-								"aAlbedoTex" : {
-									"addressu" : "clamp",
-									"addressv" : "clamp",
-									"minfilter" : "nearest",
-									"magfilter" : "nearest"
-								},
-								"aMaterialTex" : {
-									"addressu" : "clamp",
-									"addressv" : "clamp",
-									"minfilter" : "nearest",
-									"magfilter" : "nearest"
-								},
-								"aNormalTex" : {
-									"addressu" : "clamp",
-									"addressv" : "clamp",
-									"minfilter" : "nearest",
-									"magfilter" : "nearest"
-								},
-								"aVelocityTex" : {
-									"addressu" : "clamp",
-									"addressv" : "clamp",
-									"minfilter" : "nearest",
-									"magfilter" : "nearest"
-								},
-								"aDepthTex" : {
-									"addressu" : "clamp",
-									"addressv" : "clamp",
-									"minfilter" : "nearest",
-									"magfilter" : "nearest"
-								}
-							},
-
-							"outputtextures" : {
-								"0" : "$(ScnTexture:this.gbuffer_resolve)"
-							},
-
-							"shader" : "$(ScnShader:pp_shaders.pp_deferred_resolve)",
-							"renderstate" : {}
-						}
-					]
 				},
 
 				// Resolve -> Framebuffer.

@@ -28,8 +28,8 @@ void vertexMain()
 {
  	vec4 WorldPosition;
 	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, InPosition_ );
+	PSY_MAKE_WORLD_SPACE_NORMAL( VsNormal, InNormal_ );
 	PSY_MAKE_CLIP_SPACE_VERTEX( gl_Position, WorldPosition );
-	VsNormal = InNormal_;
 	VsTexCoord0 = InTexCoord_;
 	VsColour0 = InColour_;
 }

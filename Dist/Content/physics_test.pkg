@@ -199,6 +199,7 @@
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:models.cube)",
+					"islit"					: true,
 					"scale"					: "0.5, 0.5, 0.5"
 				}
 			]
@@ -232,6 +233,7 @@
 					"$Class"				: "ScnModelComponent",
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
+					"islit"					: true,
 					"model"					: "$(ScnModel:models.sphere)"
 				}
 			]
@@ -318,6 +320,7 @@
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:models.teapot)",
+					"islit"					: true,
 					"scale"					: "1.0, 1.0, 1.0"
 				}
 			]
@@ -392,6 +395,7 @@
 					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:models.cube)",
+					"islit"					: true,
 					"scale"					: "1.0, 0.1, 1.0"
 				}
 			]

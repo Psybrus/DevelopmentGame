@@ -38,12 +38,12 @@ VS_OUT( vec4, VsBinormal );
 VS_OUT( vec4, VsTangent );
 #endif
 VS_OUT( vec4, VsTexCoord0 );
+VS_OUT( vec4, VsWorldPosition );
 
 void vertexMain()
 {
- 	vec4 WorldPosition;
-	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, InPosition_ );
-	PSY_MAKE_CLIP_SPACE_VERTEX( gl_Position, WorldPosition );
+	PSY_MAKE_WORLD_SPACE_VERTEX( VsWorldPosition, InPosition_ );
+	PSY_MAKE_CLIP_SPACE_VERTEX( gl_Position, VsWorldPosition );
 	VsColour0 = InColour_;
 	PSY_MAKE_WORLD_SPACE_NORMAL( VsNormal, InNormal_ );
 	VsTexCoord0 = InTexCoord_;
@@ -67,6 +67,7 @@ PS_IN( vec4, VsTexCoord0 );
 PS_IN( vec4, VsBinormal );
 PS_IN( vec4, VsTangent );
 #endif
+PS_IN( vec4, VsWorldPosition );
 
 //////////////////////////////////////////////////////////////////////////
 // Samplers
@@ -93,7 +94,7 @@ void getMaterial( out vec4 Diffuse, out vec4 Normal, out vec4 Specular )
 #endif
 
 	Normal = PSY_SAMPLE_2D( NormalTex, VsTexCoord0.xy );
-	Normal.xyz = Normal.xyz * 2.0 - 1.0;
+	Normal.xyz = normalize( Normal.xyz * 2.0 - 1.0 );
 	Normal.xyz = mul( TBN, Normal.xyz );
 
 	Diffuse = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
@@ -124,9 +125,19 @@ void pixelAll( FRAMEBUFFER_INPUT )
 #if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
 	Diffuse = gammaToLinear( Diffuse ) * VsColour0;
 	Specular = gammaToLinear( Specular ) * VsColour0;
-	vec3 DiffuseLight = vec3( 1.0 );
-	vec3 SpecularLight = vec3( 1.0 );
+	vec3 DiffuseLight = vec3( 0.0 );
+	vec3 SpecularLight = vec3( 0.0 );
+
+#if 1
+	vec4 EyePosition = ViewTransform_[3];
+	defaultLighting( 0, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
+	defaultLighting( 1, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
+	defaultLighting( 2, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
+	defaultLighting( 3, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
+#else
 	defaultLighting( Normal.xyz, DiffuseLight, SpecularLight );
+#endif
+
 	vec3 TotalLight = linearToGamma( Diffuse.xyz * DiffuseLight + Specular.xyz * SpecularLight );
 	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalLight, Diffuse.w ), Normal.xyz, Specular.xyz );
 #else

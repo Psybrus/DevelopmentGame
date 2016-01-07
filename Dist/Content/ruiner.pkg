@@ -35,7 +35,7 @@
 			"name"			: "ruinerbody01",
 
 			// Shader
-			"shader"		: "$(ScnShader:shaders.textured)",
+			"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
 
 			// Samplers
 			"samplers"		: {

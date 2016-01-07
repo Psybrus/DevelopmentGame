@@ -4,12 +4,46 @@
 			"type"		: "ScnModel",
 			"name"		: "teapot",
 			"source"	: "Content/Source/teapot/wt_teapot.obj",
-			"materials" : [
+			"materials": [
 				{
-					"regex" : "(.*)",
-					"material" : "$(ScnMaterial:materials.textured)"
+					"regex" : "(.*)", 
+					"templatematerial" : {
+						"$Class"		: "ScnMaterialImport",
+						"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
+
+						"renderstate" : {
+							"blendstate" : {
+								"rendertarget" : [
+									{
+										"enable" : false
+									}
+								]
+							},
+
+							"depthstencilstate" : {
+								"depthtestenable" : true,
+								"depthwriteenable" : true,
+								"depthfunc" : "lessequal",
+								"stencilenable" : false
+							},
+
+							"rasteriserstate" : {
+								"fillmode" : "solid",
+								"cullmode" : "ccw",
+								"depthclipenable" : true,
+								"antialiasedlineenable" : true
+							}
+						}
+					}
 				}
 			],
+
+			"defaulttextures" : {
+				"aDiffuseTex" : "$(ScnTexture:textures.white)",
+				"aNormalTex" : "$(ScnTexture:textures.normal)",
+				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
+			},
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
@@ -22,12 +56,46 @@
 			"type"		: "ScnModel",
 			"name"		: "bunny",
 			"source"	: "Content/Source/bunny.obj",
-			"materials" : [
+			"materials": [
 				{
-					"regex" : "(.*)",
-					"material" : "$(ScnMaterial:materials.textured)"
+					"regex" : "(.*)", 
+					"templatematerial" : {
+						"$Class"		: "ScnMaterialImport",
+						"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
+
+						"renderstate" : {
+							"blendstate" : {
+								"rendertarget" : [
+									{
+										"enable" : false
+									}
+								]
+							},
+
+							"depthstencilstate" : {
+								"depthtestenable" : true,
+								"depthwriteenable" : true,
+								"depthfunc" : "lessequal",
+								"stencilenable" : false
+							},
+
+							"rasteriserstate" : {
+								"fillmode" : "solid",
+								"cullmode" : "ccw",
+								"depthclipenable" : true,
+								"antialiasedlineenable" : true
+							}
+						}
+					}
 				}
 			],
+
+			"defaulttextures" : {
+				"aDiffuseTex" : "$(ScnTexture:textures.white)",
+				"aNormalTex" : "$(ScnTexture:textures.normal)",
+				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
+			},
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
@@ -76,12 +144,46 @@
 			"type"		: "ScnModel",
 			"name"		: "sphere",
 			"source"	: "Content/Source/sphere.fbx",
-			"materials" : [
+			"materials": [
 				{
-					"regex" : "(.*)",
-					"material" : "$(ScnMaterial:materials.textured)"
+					"regex" : "(.*)", 
+					"templatematerial" : {
+						"$Class"		: "ScnMaterialImport",
+						"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
+
+						"renderstate" : {
+							"blendstate" : {
+								"rendertarget" : [
+									{
+										"enable" : false
+									}
+								]
+							},
+
+							"depthstencilstate" : {
+								"depthtestenable" : true,
+								"depthwriteenable" : true,
+								"depthfunc" : "lessequal",
+								"stencilenable" : false
+							},
+
+							"rasteriserstate" : {
+								"fillmode" : "solid",
+								"cullmode" : "ccw",
+								"depthclipenable" : true,
+								"antialiasedlineenable" : true
+							}
+						}
+					}
 				}
 			],
+
+			"defaulttextures" : {
+				"aDiffuseTex" : "$(ScnTexture:textures.white)",
+				"aNormalTex" : "$(ScnTexture:textures.normal)",
+				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
+			},
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
@@ -94,12 +196,46 @@
 			"type"		: "ScnModel",
 			"name"		: "cube",
 			"source"	: "Content/Source/cube.fbx",
-			"materials" : [
+			"materials": [
 				{
-					"regex" : "(.*)",
-					"material" : "$(ScnMaterial:materials.textured)"	
+					"regex" : "(.*)", 
+					"templatematerial" : {
+						"$Class"		: "ScnMaterialImport",
+						"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
+
+						"renderstate" : {
+							"blendstate" : {
+								"rendertarget" : [
+									{
+										"enable" : false
+									}
+								]
+							},
+
+							"depthstencilstate" : {
+								"depthtestenable" : true,
+								"depthwriteenable" : true,
+								"depthfunc" : "lessequal",
+								"stencilenable" : false
+							},
+
+							"rasteriserstate" : {
+								"fillmode" : "solid",
+								"cullmode" : "ccw",
+								"depthclipenable" : true,
+								"antialiasedlineenable" : true
+							}
+						}
+					}
 				}
 			],
+
+			"defaulttextures" : {
+				"aDiffuseTex" : "$(ScnTexture:textures.white)",
+				"aNormalTex" : "$(ScnTexture:textures.normal)",
+				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
+			},
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
