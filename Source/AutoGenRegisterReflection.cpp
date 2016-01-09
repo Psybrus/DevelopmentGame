@@ -198,6 +198,7 @@ void AutoGenRegisterReflection()
 	ScnShader::StaticRegisterClass();
 	ScnShaderViewUniformBlockData::StaticRegisterClass();
 	ScnShaderLightUniformBlockData::StaticRegisterClass();
+	ScnShaderMaterialUniformBlockData::StaticRegisterClass();
 	ScnShaderObjectUniformBlockData::StaticRegisterClass();
 	ScnShaderBoneUniformBlockData::StaticRegisterClass();
 	ScnShaderAlphaTestUniformBlockData::StaticRegisterClass();
