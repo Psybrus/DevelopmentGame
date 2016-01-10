@@ -127,18 +127,13 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	Specular = gammaToLinear( Specular ) * VsColour0;
 	vec3 DiffuseLight = vec3( 0.0 );
 	vec3 SpecularLight = vec3( 0.0 );
-
-#if 1
-	vec4 EyePosition = ViewTransform_[3];
-	defaultLighting( 0, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
-	defaultLighting( 1, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
-	defaultLighting( 2, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
-	defaultLighting( 3, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
-#else
-	defaultLighting( Normal.xyz, DiffuseLight, SpecularLight );
-#endif
-
+	vec3 EyePosition = InverseViewTransform_[3].xyz;
+	for( int LightIdx = 0; LightIdx < MAX_LIGHTS; ++LightIdx )
+	{
+		defaultLighting( LightIdx, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
+	}
 	vec3 TotalLight = linearToGamma( Diffuse.xyz * DiffuseLight + Specular.xyz * SpecularLight );
+
 	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalLight, Diffuse.w ), Normal.xyz, Specular.xyz );
 #else
 	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, Normal.xyz, Specular.xyz );

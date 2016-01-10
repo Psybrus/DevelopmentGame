@@ -41,7 +41,7 @@
 			"defaulttextures" : {
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
-				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aSpecularTex" : "$(ScnTexture:textures.white)",
 				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			},
 
@@ -93,7 +93,7 @@
 			"defaulttextures" : {
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
-				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aSpecularTex" : "$(ScnTexture:textures.white)",
 				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			},
 
@@ -181,7 +181,7 @@
 			"defaulttextures" : {
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
-				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aSpecularTex" : "$(ScnTexture:textures.white)",
 				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			},
 
@@ -233,7 +233,7 @@
 			"defaulttextures" : {
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
-				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aSpecularTex" : "$(ScnTexture:textures.white)",
 				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			},
 

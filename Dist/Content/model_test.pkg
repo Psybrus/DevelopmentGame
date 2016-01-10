@@ -15,9 +15,9 @@
 						{
 							"$Class"				: "ScnModelComponent",
 							"type"					: "ScnModelComponent",
-							"model"					: "$(ScnModel:models.bunny)",
+							"model"					: "$(ScnModel:models.sphere)",
 							"islit"					: true,
-							"scale"					: "32.0, 32.0, 32.0"
+							"scale"					: "1.0, 1.0, 1.0"
 						}
 					]
 				}
