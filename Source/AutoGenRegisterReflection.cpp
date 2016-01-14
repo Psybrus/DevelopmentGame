@@ -96,6 +96,7 @@
 #include "GaTestCloudComponent.h"
 #include "GaTestComputeComponent.h"
 #include "GaTestFontComponent.h"
+#include "GaTestLightingComponent.h"
 #include "GaTestModelComponent.h"
 #include "GaTestParticleComponent.h"
 #include "GaTestSelectionComponent.h"
@@ -187,6 +188,7 @@ void AutoGenRegisterReflection()
 	ScnLightComponent::StaticRegisterClass();
 	ScnMaterial::StaticRegisterClass();
 	ScnMaterialComponent::StaticRegisterClass();
+	ScnModelUniforms::StaticRegisterClass();
 	ScnModel::StaticRegisterClass();
 	ScnModelComponent::StaticRegisterClass();
 	ScnParticleSystemComponent::StaticRegisterClass();
@@ -235,6 +237,7 @@ void AutoGenRegisterReflection()
 	GaTestCloudComponent::StaticRegisterClass();
 	GaTestComputeComponent::StaticRegisterClass();
 	GaTestFontComponent::StaticRegisterClass();
+	GaTestLightingComponent::StaticRegisterClass();
 	GaTestModelComponent::StaticRegisterClass();
 	GaTestParticleComponent::StaticRegisterClass();
 	GaMenuEntry::StaticRegisterClass();

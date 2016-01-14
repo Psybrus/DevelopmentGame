@@ -33,7 +33,11 @@
 								"depthclipenable" : true,
 								"antialiasedlineenable" : true
 							}
-						}
+						},
+
+						"automaticuniformblocks" : [
+							"ScnShaderMaterialUniformBlockData"
+						]
 					}
 				}
 			],
@@ -85,7 +89,10 @@
 								"depthclipenable" : true,
 								"antialiasedlineenable" : true
 							}
-						}
+						},
+						"automaticuniformblocks" : [
+							"ScnShaderMaterialUniformBlockData"
+						]
 					}
 				}
 			],
@@ -173,7 +180,10 @@
 								"depthclipenable" : true,
 								"antialiasedlineenable" : true
 							}
-						}
+						},
+						"automaticuniformblocks" : [
+							"ScnShaderMaterialUniformBlockData"
+						]
 					}
 				}
 			],
@@ -225,7 +235,10 @@
 								"depthclipenable" : true,
 								"antialiasedlineenable" : true
 							}
-						}
+						},
+						"automaticuniformblocks" : [
+							"ScnShaderMaterialUniformBlockData"
+						]
 					}
 				}
 			],

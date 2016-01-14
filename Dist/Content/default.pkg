@@ -84,6 +84,11 @@
 						},
 
 						{ 
+							"name" : "Lighting test",
+							"entity" : "$(ScnEntity:lighting_test.TestEntity)"
+						},
+
+						{ 
 							"name" : "Sponza test",
 							"entity" : "$(ScnEntity:sponza_test.TestEntity)"
 						},
@@ -151,7 +156,7 @@
 						"row0" : "1.0, 0.0, 0.0, 0.0",
 						"row1" : "0.0, 1.0, 0.0, 0.0",
 						"row2" : "0.0, 0.0, 1.0, 0.0",
-						"row3" : "0.0, 10.0, 1.0, 1.0"
+						"row3" : "0.0, 1.0, 4.0, 1.0"
 					},
 
 					"components" : [
@@ -176,10 +181,7 @@
 							"scale"					: "0.1, 0.1, 0.1"
 						}
 					]
-				}
-
-				/*
-				,
+				},
 
 				{
 					"$Class"				: "ScnEntity",
@@ -250,7 +252,6 @@
 						}
 					]
 				}
-				*/
 			]
 		}
 	]

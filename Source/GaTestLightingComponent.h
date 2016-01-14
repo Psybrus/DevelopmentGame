@@ -1,6 +1,6 @@
 /**************************************************************************
 *
-* File:		GaTestModelComponent.h
+* File:		GaTestLightingComponent.h
 * Author:	Neil Richardson 
 * Ver/Date:		
 * Description:
@@ -11,38 +11,34 @@
 * 
 **************************************************************************/
 
-#ifndef __GaTestModelComponent_H__
-#define __GaTestModelComponent_H__
+#ifndef __GaTestLightingComponent_H__
+#define __GaTestLightingComponent_H__
 
 #include "Psybrus.h"
 #include "System/Scene/ScnComponent.h"
 
-#include "System/Scene/Rendering/ScnMaterial.h"
+#include "System/Scene/Rendering/ScnModel.h"
 
 //////////////////////////////////////////////////////////////////////////
 // GaExampleComponentRef
-typedef ReObjectRef< class GaTestModelComponent > GaTestModelComponentRef;
+typedef ReObjectRef< class GaTestLightingComponent > GaTestLightingComponentRef;
 
 //////////////////////////////////////////////////////////////////////////
-// GaTestModelComponent
-class GaTestModelComponent:
+// GaTestLightingComponent
+class GaTestLightingComponent:
 	public ScnComponent
 {
 public:
-	REFLECTION_DECLARE_DERIVED( GaTestModelComponent, ScnComponent );
+	REFLECTION_DECLARE_DERIVED( GaTestLightingComponent, ScnComponent );
 
-	GaTestModelComponent();
-	virtual ~GaTestModelComponent();
+	GaTestLightingComponent();
+	virtual ~GaTestLightingComponent();
 	
 	void onAttach( ScnEntityWeakRef Parent ) override;
 	void onDetach( ScnEntityWeakRef Parent ) override;
 	
 private:
-	ScnMaterialRef Material_;
-
-	// Automatic uniforms.
-	std::vector< std::pair< BcName, RsBufferUPtr > > AutomaticUniformBuffers_;
-	std::vector< std::pair< BcName, BcBinaryData > > AutomaticUniformBlocks_;
+	ScnModelRef Model_;
 };
 
 #endif

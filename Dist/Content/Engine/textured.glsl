@@ -83,18 +83,28 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 #if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
 	Diffuse = gammaToLinear( Diffuse ) * VsColour0;
-	Specular = gammaToLinear( Diffuse ) * VsColour0;
-	vec3 DiffuseLight = vec3( 0.0 );
-	vec3 SpecularLight = vec3( 0.0 );
-	vec4 EyePosition = ViewTransform_[3];
+	vec3 EyePosition = InverseViewTransform_[3].xyz;
+	vec3 TotalSurface = vec3( 0.0 );
+
+	Material InMaterial;
+	InMaterial.Colour_ = MaterialBaseColour_.xyz * Diffuse.xyz;
+	InMaterial.Specular_ = MaterialSpecular_;
+	InMaterial.Roughness_ = MaterialRoughness_;
+	InMaterial.Metallic_ = MaterialMetallic_;
+
 	for( int LightIdx = 0; LightIdx < MAX_LIGHTS; ++LightIdx )
 	{
-		defaultLighting( LightIdx, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
+		Light InLight;
+		InLight.Position_ = LightPosition_[ LightIdx ].xyz;
+		InLight.Colour_ = LightDiffuseColour_[ LightIdx ].xyz;
+		InLight.AttenuationCLQ_ = LightAttn_[ LightIdx ].xyz;
+		TotalSurface += BRDF_Default( InLight, InMaterial, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz );
 	}
-	vec3 TotalLight = linearToGamma( Diffuse.xyz * DiffuseLight + Specular.xyz * SpecularLight );
-	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalLight, Diffuse.w ), Normal.xyz, Specular.xyz );
+	TotalSurface = min( vec3( 1.0 ), TotalSurface );
+	TotalSurface = linearToGamma( TotalSurface );
+	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalSurface, Diffuse.w ), Normal.xyz, vec3( 0.0, 0.0, 0.0 ) );
 #else
-	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, VsNormal.xyz, vec3( 1.0, 1.0, 1.0 ) );
+	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, VsNormal.xyz, Specular.xyz );
 #endif
 }
 

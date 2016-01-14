@@ -94,11 +94,13 @@ void getMaterial( out vec4 Diffuse, out vec4 Normal, out vec4 Specular )
 #endif
 
 	Normal = PSY_SAMPLE_2D( NormalTex, VsTexCoord0.xy );
-	Normal.xyz = normalize( Normal.xyz * 2.0 - 1.0 );
+	Normal.xyz = Normal.xyz * 2.0 - 1.0;
 	Normal.xyz = mul( TBN, Normal.xyz );
+	Normal.xyz = normalize( Normal.xyz );
 
 	Diffuse = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
 	Specular = PSY_SAMPLE_2D( SpecularTex, VsTexCoord0.xy );
+	Specular = vec4( Specular.x + Specular.y + Specular.z ) / 3.0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -109,6 +111,11 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	vec4 Normal;
 	vec4 Specular;
 	getMaterial( Diffuse, Normal, Specular );
+
+	Material InMaterial;
+	InMaterial.Metallic_ = MaterialMetallic_;
+	InMaterial.Specular_ = MaterialSpecular_ * Specular.x;
+	InMaterial.Roughness_ = MaterialRoughness_;
 
 #if defined( SOFT_CLIPPING )
 	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, vec2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );
@@ -124,19 +131,24 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 #if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
 	Diffuse = gammaToLinear( Diffuse ) * VsColour0;
-	Specular = gammaToLinear( Specular ) * VsColour0;
-	vec3 DiffuseLight = vec3( 0.0 );
-	vec3 SpecularLight = vec3( 0.0 );
 	vec3 EyePosition = InverseViewTransform_[3].xyz;
+	vec3 TotalSurface = vec3( 0.0 );
+
+	InMaterial.Colour_ = MaterialBaseColour_.xyz * Diffuse.xyz;
+
 	for( int LightIdx = 0; LightIdx < MAX_LIGHTS; ++LightIdx )
 	{
-		defaultLighting( LightIdx, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, DiffuseLight, SpecularLight );
+		Light InLight;
+		InLight.Position_ = LightPosition_[ LightIdx ].xyz;
+		InLight.Colour_ = LightDiffuseColour_[ LightIdx ].xyz;
+		InLight.AttenuationCLQ_ = LightAttn_[ LightIdx ].xyz;
+		TotalSurface += BRDF_Default( InLight, InMaterial, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz );
 	}
-	vec3 TotalLight = linearToGamma( Diffuse.xyz * DiffuseLight + Specular.xyz * SpecularLight );
-
-	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalLight, Diffuse.w ), Normal.xyz, Specular.xyz );
+	TotalSurface = min( vec3( 1.0 ), TotalSurface );
+	TotalSurface = linearToGamma( TotalSurface );
+	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalSurface, Diffuse.w ), Normal.xyz, vec3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
 #else
-	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, Normal.xyz, Specular.xyz );
+	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, Normal.xyz, vec3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
 #endif
 }
 
