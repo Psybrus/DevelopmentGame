@@ -15,7 +15,7 @@
 						{
 							"$Class"				: "GaTestLightingComponent",
 							"type"					: "GaTestLightingComponent",
-							"model"					: "$(ScnModel:models.teapot)"
+							"model"					: "$(ScnModel:models.bunny)"
 						}
 					]
 				}

@@ -131,13 +131,15 @@ void pixelAll( FRAMEBUFFER_INPUT )
 #endif
 
 #if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
-	Diffuse = gammaToLinear( Diffuse ) * VsColour0;
+	Diffuse = gammaToLinear( Diffuse ) * VsColour0 * MaterialBaseColour_;
 	vec3 EyePosition = InverseViewTransform_[3].xyz;
 	vec3 TotalSurface = vec3( 0.0 );
 
-	InMaterial.Colour_ = MaterialBaseColour_.xyz * Diffuse.xyz;
+	InMaterial.Colour_ = Diffuse.xyz;
 
-	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( VsWorldPosition.xyz - EyePosition ), Normal.xyz ), 8.0 ).xyz;
+	int ReflectionLevels = textureQueryLevels( aReflectionTex );
+	float MipLevel = float(ReflectionLevels) * InMaterial.Roughness_;
+	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( VsWorldPosition.xyz - EyePosition ), Normal.xyz ), MipLevel ).xyz;
 
 	for( int LightIdx = 0; LightIdx < MAX_LIGHTS; ++LightIdx )
 	{
@@ -147,13 +149,13 @@ void pixelAll( FRAMEBUFFER_INPUT )
 		InLight.AttenuationCLQ_ = LightAttn_[ LightIdx ].xyz;
 		TotalSurface += BRDF_Default( InLight, InMaterial, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, ReflectionColour.xyz );
 	}
-	TotalSurface = min( vec3( 1.0 ), TotalSurface );
+	TotalSurface = min( vec3( 1.0 ), TotalSurface );	
 	TotalSurface = linearToGamma( TotalSurface );
-
 
 	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalSurface, Diffuse.w ), Normal.xyz, vec3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
 #else
-	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, Normal.xyz, vec3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
+	Diffuse = gammaToLinear( Diffuse ) * VsColour0 * MaterialBaseColour_;
+	writeFrag( FRAMEBUFFER_INTERNAL, linearToGamma( Diffuse ), Normal.xyz, vec3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
 #endif
 }
 

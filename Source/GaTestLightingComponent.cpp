@@ -64,6 +64,9 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 	BcU32 Idx = 0;
 	BcF32 Width = 0.0f;
 
+	MaMat4d EntityTransform;
+	EntityTransform.scale( MaVec3d( 10.0f, 10.0f, 10.0f ) );
+
 	// Create model entities.
 	BcF32 MaxSize = 8.0f;
 	for( BcF32 Z = 0.0f; Z <= 1.0f; Z += 1.0f / MaxSize )
@@ -72,13 +75,15 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 		{
 			BcF32 Y = 0.0f;
 			BcF32 XPosition = ( X - 0.5f ) * MaxSize * 2.0f;
-			BcF32 YPosition = ( ( Y - 0.5f ) * MaxSize * 2.0f ) + MaxSize;
+			BcF32 YPosition = ( ( Y - 0.5f ) * MaxSize * 2.0f );
 			BcF32 ZPosition = ( Z - 0.5f ) * MaxSize * 2.0f;
 			auto Entity = Parent->attach< ScnEntity >( "ModelEntity" );
 			auto ModelComponent = Entity->attach< ScnModelComponent >( "ModelComponent", Model_ );
-			Entity->setLocalPosition( MaVec3d( XPosition, YPosition, ZPosition ) );
+			EntityTransform.translation( MaVec3d( XPosition, YPosition, ZPosition ) );
+			Entity->setLocalMatrix( EntityTransform );
 
 			ScnShaderMaterialUniformBlockData MaterialData;
+			MaterialData.MaterialBaseColour_ = MaVec4d( 1.000f, 0.766f, 0.336f, 0.000f );
 			MaterialData.MaterialMetallic_ = 0.0f;
 			MaterialData.MaterialSpecular_ = Z;
 			MaterialData.MaterialRoughness_ = X;
@@ -93,13 +98,15 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 		{
 			BcF32 Y = 0.0f;
 			BcF32 XPosition = ( X - 0.5f ) * MaxSize * 2.0f;
-			BcF32 YPosition = ( ( Y - 0.5f ) * MaxSize * 2.0f ) + MaxSize * 2.0f;
+			BcF32 YPosition = ( ( Y - 0.5f ) * MaxSize * 2.0f ) + 10.0f;
 			BcF32 ZPosition = ( Z - 0.5f ) * MaxSize * 2.0f;
 			auto Entity = Parent->attach< ScnEntity >( "ModelEntity" );
 			auto ModelComponent = Entity->attach< ScnModelComponent >( "ModelComponent", Model_ );
-			Entity->setLocalPosition( MaVec3d( XPosition, YPosition, ZPosition ) );
+			EntityTransform.translation( MaVec3d( XPosition, YPosition, ZPosition ) );
+			Entity->setLocalMatrix( EntityTransform );
 
 			ScnShaderMaterialUniformBlockData MaterialData;
+			MaterialData.MaterialBaseColour_ = MaVec4d( 1.000f, 0.766f, 0.336f, 0.000f );
 			MaterialData.MaterialMetallic_ = Z;
 			MaterialData.MaterialSpecular_ = 0.0f;
 			MaterialData.MaterialRoughness_ = X;

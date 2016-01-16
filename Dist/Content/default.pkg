@@ -189,7 +189,7 @@
 					"model"					: "$(ScnModel:models.skysphere)",
 					"islit"					: false,
 					"scale"					: "1000.0, 1000.0, 1000.0",
-					"pass"					: "TRANSPARENT"
+					"passes"				: "TRANSPARENT"
 				}
 
 				/*,

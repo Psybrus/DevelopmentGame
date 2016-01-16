@@ -49,12 +49,14 @@ void pixelMain()
 	vec3 EyePosition = InverseViewTransform_[3].xyz;
 
 	Material InMaterial;
-	InMaterial.Colour_ = MaterialBaseColour_.xyz * GBufferAlbedo.xyz;
+	InMaterial.Colour_ = GBufferAlbedo.xyz;
 	InMaterial.Metallic_ = GBufferMaterial.x;
 	InMaterial.Specular_ = GBufferMaterial.y;
 	InMaterial.Roughness_ = GBufferMaterial.z;
 
-	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( WorldPosition.xyz - EyePosition ), GBufferNormal.xyz ), InMaterial.Roughness_ ).xyz;
+	int ReflectionLevels = textureQueryLevels( aReflectionTex );
+	float MipLevel = float(ReflectionLevels) * InMaterial.Roughness_;
+	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( WorldPosition.xyz - EyePosition ), GBufferNormal.xyz ), MipLevel ).xyz;
 
 	Light InLight;
 	InLight.Position_ = LightPosition_[ 0 ].xyz;

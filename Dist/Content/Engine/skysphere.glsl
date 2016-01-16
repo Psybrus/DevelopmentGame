@@ -59,7 +59,7 @@ PSY_SAMPLER_CUBE( ReflectionTex );
 // pixelAll
 void pixelAll( FRAMEBUFFER_INPUT )
 {
-	vec4 Diffuse = textureLod( aReflectionTex, VsNormal.xyz, 4.0 );
+	vec4 Diffuse = texture( aReflectionTex, VsNormal.xyz );
 	vec4 Specular = vec4( 1.0, 1.0, 1.0, 1.0 );
 	vec4 Normal = normalize( VsNormal );
 
