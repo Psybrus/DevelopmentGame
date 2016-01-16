@@ -31,6 +31,7 @@ void GaCameraComponent::StaticRegisterClass()
 		new ReField( "CameraWalk_",			&GaCameraComponent::CameraWalk_ ),
 		new ReField( "CameraDistance_",		&GaCameraComponent::CameraDistance_ ),
 		new ReField( "CameraZoom_",			&GaCameraComponent::CameraZoom_ ),
+		new ReField( "MoveFast_",			&GaCameraComponent::MoveFast_ ),
 		new ReField( "CameraState_",		&GaCameraComponent::CameraState_ ),
 		new ReField( "NextCameraState_",	&GaCameraComponent::NextCameraState_ ),
 		new ReField( "Renderers_",			&GaCameraComponent::Renderers_, bcRFF_IMPORTER | bcRFF_SHALLOW_COPY ),
@@ -49,9 +50,9 @@ GaCameraComponent::GaCameraComponent()
 {
 	CameraState_ = STATE_IDLE;
 	NextCameraState_ = STATE_IDLE;
-	CameraDistance_ = 16.0f;
+	CameraDistance_ = 1.0f;
 	CameraZoom_ = 0.0f;
-
+	MoveFast_ = BcFalse;
 #if PLATFORM_ANDROID
 	CameraRotation_ = MaVec3d( 0.1f, 0.0f, 0.0f );
 #endif
@@ -86,15 +87,18 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 
 	case STATE_ROTATE:
 		{
-			OsCore::pImpl()->getClient( 0 )->setMouseLock( BcTrue );
-			BcF32 RotateSpeed = 0.25f;
-			CameraRotation_ += MaVec3d( LastMouseEvent_.MouseDY_, LastMouseEvent_.MouseDX_, 0.0f ) * RotateSpeed * Tick;
+			//OsCore::pImpl()->getClient( 0 )->setMouseLock( BcTrue );
+			BcF32 RotateSpeed = 1.0f / 200.0f;
+			MaVec3d CameraRotateAmount = MaVec3d( 
+				LastMouseEvent_.MouseY_ - InitialMouseEvent_.MouseY_, 
+				-( LastMouseEvent_.MouseX_ - InitialMouseEvent_.MouseX_ ), 0.0f ) * RotateSpeed;
+			CameraRotation_ = BaseCameraRotation_ + CameraRotateAmount;
 		}
 		break;
 
 	case STATE_PAN:
 		{
-			OsCore::pImpl()->getClient( 0 )->setMouseLock( BcTrue );
+			//OsCore::pImpl()->getClient( 0 )->setMouseLock( BcTrue );
 
 			BcF32 PanSpeed = 4.0f;
 			MaMat4d CameraRotationMatrix = getCameraRotationMatrix();
@@ -111,7 +115,7 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 	CameraDistance_ = BcClamp( CameraDistance_, 1.0f, 4096.0f );
 	CameraZoom_ = 0.0f;
 
-	BcF32 WalkSpeed = 8.0f;
+	BcF32 WalkSpeed = MoveFast_ ? 32.0f : 8.0f;
 	MaMat4d CameraRotationMatrix = getCameraRotationMatrix();
 	MaVec3d OffsetVector = -CameraWalk_ * CameraRotationMatrix;
 	CameraTarget_ += OffsetVector * Tick * WalkSpeed;
@@ -215,13 +219,15 @@ eEvtReturn GaCameraComponent::onMouseDown( EvtID ID, const EvtBaseEvent& Event )
 {
 	const auto& MouseEvent = Event.get< OsEventInputMouse >();
 
+	InitialMouseEvent_ = MouseEvent;
 	if( NextCameraState_ == STATE_IDLE )
 	{
-		if( MouseEvent.ButtonCode_ == 2 )
+		if( MouseEvent.ButtonCode_ == 1 )
 		{
+			BaseCameraRotation_ = CameraRotation_;
 			NextCameraState_ = STATE_ROTATE;
 		}
-		else if( MouseEvent.ButtonCode_ == 1 )
+		else if( MouseEvent.ButtonCode_ == 2 )
 		{
 			NextCameraState_ = STATE_PAN;
 		}
@@ -303,6 +309,9 @@ eEvtReturn GaCameraComponent::onKeyDown( EvtID ID, const EvtBaseEvent& Event )
 	case 'D':
 		CameraWalk_.x( 1.0f );
 		break;
+	case OsEventInputKeyboard::KEYCODE_SHIFT:
+		MoveFast_ = BcTrue;
+		break;
 
 	}
 
@@ -337,6 +346,9 @@ eEvtReturn GaCameraComponent::onKeyUp( EvtID ID, const EvtBaseEvent& Event )
 		break;
 	case OsEventInputKeyboard::KEYCODE_F4:
 		SelectedRenderer_ = ( SelectedRenderer_ + 1 ) % Renderers_.size();
+		break;
+	case OsEventInputKeyboard::KEYCODE_SHIFT:
+		MoveFast_ = BcFalse;
 		break;
 	}
 

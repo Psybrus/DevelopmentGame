@@ -55,7 +55,7 @@ private:
 	MaVec3d CameraWalk_;
 	BcF32 CameraDistance_;
 	BcF32 CameraZoom_;
-
+	BcBool MoveFast_;
 	MaVec3d CameraRotationDelta_;
 
 	enum CameraState
@@ -69,6 +69,9 @@ private:
 	CameraState NextCameraState_;
 	OsEventInputMouse LastMouseEvent_;
 	OsEventInputKeyboard LastKeyboardEvent_;
+
+	OsEventInputMouse InitialMouseEvent_;
+	MaVec3d BaseCameraRotation_;
 
 	int SelectedRenderer_ = 0;
 	std::vector< ScnEntityRef > Renderers_;
