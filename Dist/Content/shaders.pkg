@@ -35,6 +35,40 @@
 
 		{
 			"type"			: "ScnShader",
+			"name"			: "skysphere",
+			"sources" 		: {
+				//"D3D11_4_0_LEVEL_9_1" : "Content/Engine/skysphere.hlsl",
+				"GLSL_330" : "Content/Engine/skysphere.glsl"
+				//"GLSL_ES_100" : "Content/Engine/skysphere.glsl"
+			},
+
+			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/skysphere.glsl"
+				}
+			},
+
+			"includepermutations" : [
+				"RENDER_FORWARD",
+				"RENDER_DEFERRED",
+				"PASS_OPAQUE",
+				"PASS_TRANSPARENT",
+				"LIGHTING_NONE",
+				"LIGHTING_DIFFUSE",
+				"LIGHTING_DIFFUSE"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
 			"name"			: "textured",
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/textured.hlsl",

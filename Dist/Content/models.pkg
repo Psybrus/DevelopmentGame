@@ -207,6 +207,55 @@
 
 		{
 			"type"		: "ScnModel",
+			"name"		: "skysphere",
+			"source"	: "Content/Source/skysphere.obj",
+			"materials": [
+				{
+					"regex" : "(.*)", 
+					"templatematerial" : {
+						"$Class"		: "ScnMaterialImport",
+						"shader"		: "$(ScnShader:shaders.skysphere)",
+
+						"renderstate" : {
+							"blendstate" : {
+								"rendertarget" : [
+									{
+										"enable" : false
+									}
+								]
+							},
+
+							"depthstencilstate" : {
+								"depthtestenable" : true,
+								"depthwriteenable" : false,
+								"depthfunc" : "lessequal",
+								"stencilenable" : false
+							},
+
+							"rasteriserstate" : {
+								"fillmode" : "solid",
+								"cullmode" : "none",
+								"depthclipenable" : true,
+								"antialiasedlineenable" : true
+							}
+						}
+					}
+				}
+			],
+
+			"defaulttextures" : {
+				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"normal" : "BYTE_NORM",
+				"texcoord" : "FLOAT32"
+			}
+		},
+
+		{
+			"type"		: "ScnModel",
 			"name"		: "cube",
 			"source"	: "Content/Source/cube.fbx",
 			"materials": [

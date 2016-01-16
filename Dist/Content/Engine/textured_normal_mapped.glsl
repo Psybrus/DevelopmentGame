@@ -137,7 +137,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 	InMaterial.Colour_ = MaterialBaseColour_.xyz * Diffuse.xyz;
 
-	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( VsWorldPosition.xyz - EyePosition ), Normal.xyz ), MaterialRoughness_ ).xyz;
+	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( VsWorldPosition.xyz - EyePosition ), Normal.xyz ), 8.0 ).xyz;
 
 	for( int LightIdx = 0; LightIdx < MAX_LIGHTS; ++LightIdx )
 	{

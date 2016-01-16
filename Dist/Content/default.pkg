@@ -23,6 +23,41 @@
 				},
 
 				{
+					"$Class"				: "ScnEntity",
+					"type"					: "ScnEntity",
+
+					"localtransform" : {
+						"row0" : "1.0, 0.0, 0.0, 0.0",
+						"row1" : "0.0, 1.0, 0.0, 0.0",
+						"row2" : "0.0, 0.0, 1.0, 0.0",
+						"row3" : "0.0, 32.0, 32.0, 1.0"
+					},
+
+					"components" : [
+						{
+							"$Class"				: "ScnLightComponent",
+							"type"					: "ScnLightComponent",
+							"name"					: "Sunlight",
+
+							"diffusecolour"			: "0.5, 0.5, 0.5, 1.0",
+
+							"min"					: 16.0,
+							"mid"					: 2048.0,
+							"max"					: 1000000.0
+						},
+
+						{
+							"$Class"				: "ScnModelComponent",
+							"type"					: "ScnModelComponent",
+							"name"					: "TestModel",
+							"model"					: "$(ScnModel:models.sphere)",
+
+							"scale"					: "0.1, 0.1, 0.1"
+						}
+					]
+				},
+
+				{
 					"$Class"				: "ScnCanvasComponent",
 					"type"					: "ScnCanvasComponent",
 					"noofvertices" 			: 8192,
@@ -149,39 +184,15 @@
 				},
 
 				{
-					"$Class"				: "ScnEntity",
-					"type"					: "ScnEntity",
+					"$Class"				: "ScnModelComponent",
+					"type"					: "ScnModelComponent",
+					"model"					: "$(ScnModel:models.skysphere)",
+					"islit"					: false,
+					"scale"					: "1000.0, 1000.0, 1000.0",
+					"pass"					: "TRANSPARENT"
+				}
 
-					"localtransform" : {
-						"row0" : "1.0, 0.0, 0.0, 0.0",
-						"row1" : "0.0, 1.0, 0.0, 0.0",
-						"row2" : "0.0, 0.0, 1.0, 0.0",
-						"row3" : "0.0, 1.0, 4.0, 1.0"
-					},
-
-					"components" : [
-						{
-							"$Class"				: "ScnLightComponent",
-							"type"					: "ScnLightComponent",
-							"name"					: "Sunlight",
-
-							"diffusecolour"			: "0.5, 0.5, 0.5, 1.0",
-
-							"min"					: 16.0,
-							"mid"					: 2048.0,
-							"max"					: 1000000.0
-						},
-
-						{
-							"$Class"				: "ScnModelComponent",
-							"type"					: "ScnModelComponent",
-							"name"					: "TestModel",
-							"model"					: "$(ScnModel:models.sphere)",
-
-							"scale"					: "0.1, 0.1, 0.1"
-						}
-					]
-				},
+				/*,
 
 				{
 					"$Class"				: "ScnEntity",
@@ -252,6 +263,7 @@
 						}
 					]
 				}
+				*/
 			]
 		}
 	]
