@@ -71,7 +71,8 @@
 						"aMaterialTex" : "$(ScnTexture:this.gbuffer_material)",
 						"aNormalTex" : "$(ScnTexture:this.gbuffer_normal)",
 						"aVelocityTex" : "$(ScnTexture:this.gbuffer_velocity)",
-						"aDepthTex" : "$(ScnTexture:this.gbuffer_depth)"
+						"aDepthTex" : "$(ScnTexture:this.gbuffer_depth)",
+						"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
 					},
 
 					"shaders"				: [

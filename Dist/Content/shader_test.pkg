@@ -19,8 +19,8 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_deferred_resolve",
 			"sources" 		: {
-				"GLSL_330" : "Content/Engine/pp_deferred_resolve.glsl",
-				"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.glsl"
+				"GLSL_330" : "Content/Engine/pp_deferred_resolve.glsl"//,
+				//"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.glsl"
 			},
 
 			"includepermutations" : [

@@ -75,6 +75,7 @@ PSY_SAMPLER_2D( DiffuseTex );
 PSY_SAMPLER_2D( NormalTex );
 PSY_SAMPLER_2D( SpecularTex );
 PSY_SAMPLER_2D( OpacityTex );
+PSY_SAMPLER_CUBE( ReflectionTex );
 
 #if defined( SOFT_CLIPPING )
 PSY_SAMPLER_2D( DepthTex );
@@ -136,16 +137,20 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 	InMaterial.Colour_ = MaterialBaseColour_.xyz * Diffuse.xyz;
 
+	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( VsWorldPosition.xyz - EyePosition ), Normal.xyz ), MaterialRoughness_ ).xyz;
+
 	for( int LightIdx = 0; LightIdx < MAX_LIGHTS; ++LightIdx )
 	{
 		Light InLight;
 		InLight.Position_ = LightPosition_[ LightIdx ].xyz;
 		InLight.Colour_ = LightDiffuseColour_[ LightIdx ].xyz;
 		InLight.AttenuationCLQ_ = LightAttn_[ LightIdx ].xyz;
-		TotalSurface += BRDF_Default( InLight, InMaterial, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz );
+		TotalSurface += BRDF_Default( InLight, InMaterial, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, ReflectionColour.xyz );
 	}
 	TotalSurface = min( vec3( 1.0 ), TotalSurface );
 	TotalSurface = linearToGamma( TotalSurface );
+
+
 	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalSurface, Diffuse.w ), Normal.xyz, vec3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
 #else
 	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, Normal.xyz, vec3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );

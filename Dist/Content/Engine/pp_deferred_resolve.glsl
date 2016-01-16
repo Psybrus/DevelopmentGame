@@ -28,6 +28,7 @@ PSY_SAMPLER_2D( MaterialTex );
 PSY_SAMPLER_2D( NormalTex );
 PSY_SAMPLER_2D( VelocityTex );
 PSY_SAMPLER_2D( DepthTex );
+PSY_SAMPLER_CUBE( ReflectionTex );
 
 void pixelMain()
 {
@@ -53,11 +54,13 @@ void pixelMain()
 	InMaterial.Specular_ = GBufferMaterial.y;
 	InMaterial.Roughness_ = GBufferMaterial.z;
 
+	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( WorldPosition.xyz - EyePosition ), GBufferNormal.xyz ), InMaterial.Roughness_ ).xyz;
+
 	Light InLight;
 	InLight.Position_ = LightPosition_[ 0 ].xyz;
 	InLight.Colour_ = LightDiffuseColour_[ 0 ].xyz;
 	InLight.AttenuationCLQ_ = LightAttn_[ 0 ].xyz;
-	vec3 TotalSurface = BRDF_Default( InLight, InMaterial, EyePosition, WorldPosition.xyz, GBufferNormal.xyz );
+	vec3 TotalSurface = BRDF_Default( InLight, InMaterial, EyePosition, WorldPosition.xyz, GBufferNormal.xyz, ReflectionColour.xyz );
 
 	outputFrag[0] = vec4( TotalSurface, 1.0 );
 }

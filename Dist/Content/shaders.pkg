@@ -5,8 +5,8 @@
 			"name"			: "default",
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/default.hlsl",
-				"GLSL_330" : "Content/Engine/default.glsl",
-				"GLSL_ES_100" : "Content/Engine/default.glsl"
+				"GLSL_330" : "Content/Engine/default.glsl"
+				//"GLSL_ES_100" : "Content/Engine/default.glsl"
 			},
 
 			"@(android)" : {
@@ -38,8 +38,8 @@
 			"name"			: "textured",
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/textured.hlsl",
-				"GLSL_330" : "Content/Engine/textured.glsl",
-				"GLSL_ES_100" : "Content/Engine/textured.glsl"
+				"GLSL_330" : "Content/Engine/textured.glsl"
+				//"GLSL_ES_100" : "Content/Engine/textured.glsl"
 			},
 
 			"@(android)" : {
@@ -72,8 +72,8 @@
 			"name"			: "textured_mask",
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/textured.hlsl",
-				"GLSL_330" : "Content/Engine/textured.glsl",
-				"GLSL_ES_100" : "Content/Engine/textured.glsl"
+				"GLSL_330" : "Content/Engine/textured.glsl"
+				//"GLSL_ES_100" : "Content/Engine/textured.glsl"
 			},
 
 			"@(android)" : {
@@ -105,8 +105,8 @@
 			"name"			: "textured_normal_mapped",
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/textured_normal_mapped.hlsl",
-				"GLSL_330" : "Content/Engine/textured_normal_mapped.glsl",
-				"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.glsl"
+				"GLSL_330" : "Content/Engine/textured_normal_mapped.glsl"
+				//"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.glsl"
 			},
 
 			"@(android)" : {
@@ -138,8 +138,8 @@
 			"name"			: "textured_normal_mapped_mask",
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/textured_normal_mapped.hlsl",
-				"GLSL_330" : "Content/Engine/textured_normal_mapped.glsl",
-				"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.glsl"
+				"GLSL_330" : "Content/Engine/textured_normal_mapped.glsl"
+				//"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.glsl"
 			},
 
 			"@(android)" : {
@@ -171,8 +171,8 @@
 			"name"			: "normal_vis",
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/normal_vis.hlsl",
-				"GLSL_330" : "Content/Engine/normal_vis.glsl",
-				"GLSL_ES_100" : "Content/Engine/normal_vis.glsl"
+				"GLSL_330" : "Content/Engine/normal_vis.glsl"
+				//"GLSL_ES_100" : "Content/Engine/normal_vis.glsl"
 			},
 
 			"@(android)" : {
@@ -203,8 +203,8 @@
 			"name"			: "fullscreen",
 			"sources" 		: {
 				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/fullscreen.hlsl",
-				"GLSL_330" : "Content/Engine/fullscreen.glsl",
-				"GLSL_ES_100" : "Content/Engine/fullscreen.glsl"
+				"GLSL_330" : "Content/Engine/fullscreen.glsl"
+				//"GLSL_ES_100" : "Content/Engine/fullscreen.glsl"
 			},
 
 			"@(android)" : {
