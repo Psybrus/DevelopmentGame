@@ -9,6 +9,7 @@
 					"$Class"				: "GaTestComputeComponent",
 					"type"					: "GaTestComputeComponent",
 
+					"passes" 				: "TRANSPARENT",
 					"computeshader"			: "$(ScnShader:this.compute_shader)",
 					"material"				: "$(ScnMaterial:this.material)"
 				}
