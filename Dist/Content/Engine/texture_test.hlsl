@@ -1,4 +1,4 @@
-#include "Psybrus.hlsl"
+#include <Psybrus.psh>
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -52,9 +52,9 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 
 	float4 WorldPosition;
 	float4 Normal;
-	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_, i );
+	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_ );
 	PSY_MAKE_CLIP_SPACE_VERTEX( o.Position_, WorldPosition );
-	PSY_MAKE_WORLD_SPACE_NORMAL( Normal, i.Normal_, i );
+	PSY_MAKE_WORLD_SPACE_NORMAL( Normal, i.Normal_ );
 	o.Colour_ = i.Colour_;
 
 #if TEXTURE_TEST_DIMENSION == 6

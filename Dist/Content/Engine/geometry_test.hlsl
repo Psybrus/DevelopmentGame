@@ -1,4 +1,4 @@
-#include "Psybrus.hlsl"
+#include <Psybrus.psh>
 
 ////////////////////////////////////////////////////////////////////////
 // VS_INPUT
@@ -75,7 +75,7 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 	VS_OUTPUT o = (VS_OUTPUT)0;
 
 	float4 WorldPosition;
-	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_, i );
+	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_ );
 	PSY_MAKE_CLIP_SPACE_VERTEX( o.Position_, WorldPosition );
 	o.Tangent_ = i.Tangent_;
 	o.Colour_ = i.Colour_;
@@ -105,22 +105,23 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 void geometryMain( triangle VS_OUTPUT Input[3],
                    inout TriangleStream< GS_OUTPUT > OutputStream )
 {
-	for( float j = -4; j <= 4; j += 1.0 )
+	for( float IdxB = -4; IdxB <= 4; IdxB += 1.0 )
 	{
-		for( int i = 0; i < 3; ++i )
+		for( int IdxA = 0; IdxA < 3; ++IdxA )
 		{
+			VS_OUTPUT i = Input[IdxA];
 			GS_OUTPUT Output;
 			float4 WorldPosition;
-			PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, Input[i].Position_, Input[i] );
+			PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_ );
 
-			WorldPosition.z += j * 10.0;
+			WorldPosition.z += IdxB * 10.0;
 
 			PSY_MAKE_CLIP_SPACE_VERTEX( Output.Position_, WorldPosition );
 
-			Output.Normal_ = Input[i].Normal_;
-			Output.Tangent_ = Input[i].Tangent_;
-			Output.Colour_ = Input[i].Colour_;
-			Output.TexCoord0_ = Input[i].TexCoord0_;
+			Output.Normal_ = Input[IdxA].Normal_;
+			Output.Tangent_ = Input[IdxA].Tangent_;
+			Output.Colour_ = Input[IdxA].Colour_;
+			Output.TexCoord0_ = Input[IdxA].TexCoord0_;
 
 			OutputStream.Append( Output );
 		}

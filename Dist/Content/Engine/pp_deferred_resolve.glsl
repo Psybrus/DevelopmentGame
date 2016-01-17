@@ -1,4 +1,4 @@
-#include <Psybrus.glsl>
+#include <Psybrus.psh>
 
 //////////////////////////////////////////////////////////////////////////
 // Vertex shader
@@ -56,7 +56,7 @@ void pixelMain()
 
 	int ReflectionLevels = textureQueryLevels( aReflectionTex );
 	float MipLevel = float(ReflectionLevels) * InMaterial.Roughness_;
-	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( WorldPosition.xyz - EyePosition ), GBufferNormal.xyz ), MipLevel ).xyz;
+	vec3 ReflectionColour = gammaToLinear( PSY_SAMPLE_CUBE_LOD( ReflectionTex, reflect( normalize( WorldPosition.xyz - EyePosition ), GBufferNormal.xyz ), MipLevel ).xyz );
 
 	Light InLight;
 	InLight.Position_ = LightPosition_[ 0 ].xyz;

@@ -1,4 +1,4 @@
-#include <Psybrus.glsl>
+#include <Psybrus.psh>
 
 //////////////////////////////////////////////////////////////////////////
 // If rendering particles + in deferred, enable soft clipping.
@@ -101,7 +101,6 @@ void getMaterial( out vec4 Diffuse, out vec4 Normal, out vec4 Specular )
 
 	Diffuse = PSY_SAMPLE_2D( DiffuseTex, VsTexCoord0.xy );
 	Specular = PSY_SAMPLE_2D( SpecularTex, VsTexCoord0.xy );
-	Specular = vec4( Specular.x + Specular.y + Specular.z ) / 3.0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -114,9 +113,9 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	getMaterial( Diffuse, Normal, Specular );
 
 	Material InMaterial;
-	InMaterial.Metallic_ = MaterialMetallic_;
-	InMaterial.Specular_ = MaterialSpecular_ * Specular.x;
-	InMaterial.Roughness_ = MaterialRoughness_;
+	InMaterial.Metallic_ = MaterialMetallic_ * Specular.x;
+	InMaterial.Specular_ = MaterialSpecular_ * Specular.y;
+	InMaterial.Roughness_ = MaterialRoughness_ * Specular.z;
 
 #if defined( SOFT_CLIPPING )
 	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, vec2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );
@@ -139,7 +138,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 	int ReflectionLevels = textureQueryLevels( aReflectionTex );
 	float MipLevel = float(ReflectionLevels) * InMaterial.Roughness_;
-	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( VsWorldPosition.xyz - EyePosition ), Normal.xyz ), MipLevel ).xyz;
+	vec3 ReflectionColour = gammaToLinear( PSY_SAMPLE_CUBE_LOD( ReflectionTex, reflect( normalize( VsWorldPosition.xyz - EyePosition ), Normal.xyz ), MipLevel ).xyz );
 
 	for( int LightIdx = 0; LightIdx < MAX_LIGHTS; ++LightIdx )
 	{
@@ -149,7 +148,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 		InLight.AttenuationCLQ_ = LightAttn_[ LightIdx ].xyz;
 		TotalSurface += BRDF_Default( InLight, InMaterial, EyePosition.xyz, VsWorldPosition.xyz, Normal.xyz, ReflectionColour.xyz );
 	}
-	TotalSurface = min( vec3( 1.0 ), TotalSurface );	
+	TotalSurface = min( vec3( 1.0 ), TotalSurface );
 	TotalSurface = linearToGamma( TotalSurface );
 
 	writeFrag( FRAMEBUFFER_INTERNAL, vec4( TotalSurface, Diffuse.w ), Normal.xyz, vec3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );

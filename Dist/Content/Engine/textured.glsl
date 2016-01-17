@@ -1,4 +1,4 @@
-#include <Psybrus.glsl>
+#include <Psybrus.psh>
 
 //////////////////////////////////////////////////////////////////////////
 // If rendering particles + in deferred, enable soft clipping.
@@ -93,7 +93,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	InMaterial.Roughness_ = MaterialRoughness_;
 	InMaterial.Metallic_ = MaterialMetallic_;
 
-	vec3 ReflectionColour = textureLod( aReflectionTex, reflect( normalize( VsWorldPosition.xyz - EyePosition ), Normal.xyz ), MaterialRoughness_ ).xyz;
+	vec3 ReflectionColour = PSY_SAMPLE_CUBE_LOD( ReflectionTex, reflect( normalize( VsWorldPosition.xyz - EyePosition ), Normal.xyz ), MaterialRoughness_ ).xyz;
 
 	for( int LightIdx = 0; LightIdx < MAX_LIGHTS; ++LightIdx )
 	{

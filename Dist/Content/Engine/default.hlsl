@@ -1,4 +1,4 @@
-#include "Psybrus.hlsl"
+#include "Psybrus.psh"
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -39,8 +39,8 @@ VS_OUTPUT vertexMain( VS_INPUT i )
 {
 	VS_OUTPUT o = (VS_OUTPUT)0;
 
-	float4 WorldPosition;
-	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_, i );
+	float4 WorldPosition = float4( 0.0, 0.0, 0.0, 0.0 );
+	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, i.Position_ );
 	PSY_MAKE_CLIP_SPACE_VERTEX( o.Position_, WorldPosition );
 	o.Colour_ = i.Colour_;
 	o.TexCoord0_ = i.TexCoord0_;

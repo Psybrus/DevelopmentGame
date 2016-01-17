@@ -1,4 +1,4 @@
-#include <Psybrus.glsl>
+#include <Psybrus.psh>
 
 //////////////////////////////////////////////////////////////////////////
 // If rendering particles + in deferred, enable soft clipping.
@@ -59,9 +59,13 @@ PSY_SAMPLER_CUBE( ReflectionTex );
 // pixelAll
 void pixelAll( FRAMEBUFFER_INPUT )
 {
-	vec4 Diffuse = texture( aReflectionTex, VsNormal.xyz );
+	vec4 Diffuse = PSY_SAMPLE_CUBE( ReflectionTex, VsNormal.xyz );
 	vec4 Specular = vec4( 1.0, 1.0, 1.0, 1.0 );
 	vec4 Normal = normalize( VsNormal );
+
+#if defined ( PERM_RENDER_DEFERRED )
+	Diffuse = gammaToLinear( Diffuse );
+#endif
 
 	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * VsColour0, VsNormal.xyz, Specular.xyz );
 }
