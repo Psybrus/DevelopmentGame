@@ -1,0 +1,79 @@
+#include <Psybrus.psh>
+
+//////////////////////////////////////////////////////////////////////////
+// If rendering particles + in deferred, enable soft clipping.
+#if defined( PERM_MESH_PARTICLE_3D ) && defined ( PERM_RENDER_DEFERRED )
+#define SOFT_CLIPPING
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+// Vertex shader
+#if VERTEX_SHADER
+
+VS_IN_BEGIN
+	DECLARE_IN( float4, InPosition_, POSITION );
+	DECLARE_IN( float4, InNormal_, NORMAL );
+	DECLARE_IN( float4, InTexCoord_, TEXCOORD0 );
+	DECLARE_IN( float4, InColour_, COLOR0 );
+#if defined( PERM_MESH_SKINNED_3D )
+	DECLARE_IN( float4, InBlendWeights_, BLENDWEIGHTS );
+	DECLARE_IN( BLENDINDICES_TYPE, InBlendIndices_, BLENDINDICES );
+#elif defined( PERM_MESH_PARTICLE_3D )
+	DECLARE_IN( float4, InTangent_, TANGENT );
+#endif
+VS_IN_END
+
+VS_OUT_BEGIN
+	DECLARE_OUT( float4, VsColour0, COLOR0 );
+	DECLARE_OUT( float4, VsNormal, NORMAL );
+	DECLARE_OUT( float4, VsTexCoord0, TEXCOORD0 );
+	DECLARE_OUT( float4, VsWorldPosition, TEXCOORD1 );
+VS_OUT_END
+
+VS_MAIN( vertexMain )
+{
+	VS_ENTER;
+	PSY_MAKE_WORLD_SPACE_VERTEX( OUT( VsWorldPosition ), IN( InPosition_ ) );
+	PSY_MAKE_CLIP_SPACE_VERTEX( OUT_POSITION, OUT( VsWorldPosition ) );
+	OUT( VsColour0 ) = IN( InColour_ );
+	PSY_MAKE_WORLD_SPACE_NORMAL( OUT( VsNormal ), IN( InNormal_ ) );
+	OUT( VsTexCoord0 ) = IN( InTexCoord_ );
+	VS_EXIT;
+}
+
+#endif
+
+//////////////////////////////////////////////////////////////////////////
+// Pixel shader
+#if PIXEL_SHADER
+
+PS_IN_BEGIN
+	DECLARE_IN( float4, VsColour0, COLOR0 );
+	DECLARE_IN( float4, VsNormal, NORMAL );
+	DECLARE_IN( float4, VsTexCoord0, TEXCOORD0 );
+	DECLARE_IN( float4, VsWorldPosition, TEXCOORD1 );
+PS_IN_END
+#include <PsybrusOutput.psh>
+
+//////////////////////////////////////////////////////////////////////////
+// Samplers
+PSY_SAMPLER_CUBE( ReflectionTex );
+
+//////////////////////////////////////////////////////////////////////////
+// pixelMain
+PS_MAIN( pixelMain )
+{
+	PS_ENTER;
+	float4 Diffuse = PSY_SAMPLE_CUBE( ReflectionTex, IN( VsNormal ).xyz );
+	float4 Specular = float4( 1.0, 1.0, 1.0, 1.0 );
+	float4 Normal = normalize( IN( VsNormal ) );
+
+#if defined ( PERM_RENDER_DEFERRED )
+	Diffuse = gammaToLinear( Diffuse );
+#endif
+
+	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse * IN( VsColour0 ), IN( VsNormal ).xyz, Specular.xyz );
+	PS_EXIT;
+}
+
+#endif

@@ -4,9 +4,9 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_copy",
 			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/pp_copy.hlsl",
-				"GLSL_330" : "Content/Engine/pp_copy.glsl",
-				"GLSL_ES_100" : "Content/Engine/pp_copy.glsl"
+				"D3D11_4_0" : "Content/Engine/pp_copy.psf",
+				"GLSL_330" : "Content/Engine/pp_copy.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_copy.psf"
 			},
 
 			"includepermutations" : [
@@ -29,9 +29,9 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_h_blur",
 			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/pp_h_blur.hlsl",
-				"GLSL_330" : "Content/Engine/pp_h_blur.glsl",
-				"GLSL_ES_100" : "Content/Engine/pp_h_blur.glsl"
+				"D3D11_4_0" : "Content/Engine/pp_h_blur.psf",
+				"GLSL_330" : "Content/Engine/pp_h_blur.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_h_blur.psf"
 			},
 
 			"includepermutations" : [
@@ -54,9 +54,9 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_v_blur",
 			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/pp_v_blur.hlsl",
-				"GLSL_330" : "Content/Engine/pp_v_blur.glsl",
-				"GLSL_ES_100" : "Content/Engine/pp_v_blur.glsl"
+				"D3D11_4_0" : "Content/Engine/pp_v_blur.psf",
+				"GLSL_330" : "Content/Engine/pp_v_blur.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_v_blur.psf"
 			},
 
 			"includepermutations" : [
@@ -79,8 +79,9 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_deferred_resolve",
 			"sources" 		: {
-				"GLSL_330" : "Content/Engine/pp_deferred_resolve.glsl",
-				"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.glsl"
+				"D3D11_4_0" : "Content/Engine/pp_deferred_resolve.psf",
+				"GLSL_330" : "Content/Engine/pp_deferred_resolve.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.psf"
 			},
 
 			"includepermutations" : [
@@ -103,8 +104,9 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_deferred_point_light",
 			"sources" 		: {
-				"GLSL_330" : "Content/Engine/pp_deferred_resolve.glsl",
-				"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.glsl"
+				"D3D11_4_0" : "Content/Engine/pp_deferred_resolve.psf",
+				"GLSL_330" : "Content/Engine/pp_deferred_resolve.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.psf"
 			},
 
 			"includepermutations" : [
@@ -127,8 +129,9 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_deferred_spot_light",
 			"sources" 		: {
-				"GLSL_330" : "Content/Engine/pp_deferred_resolve.glsl",
-				"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.glsl"
+				"D3D11_4_0" : "Content/Engine/pp_deferred_resolve.psf",
+				"GLSL_330" : "Content/Engine/pp_deferred_resolve.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.psf"
 			},
 
 			"includepermutations" : [
@@ -150,8 +153,9 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_deferred_present",
 			"sources" 		: {
-				"GLSL_330" : "Content/Engine/pp_deferred_present.glsl",
-				"GLSL_ES_100" : "Content/Engine/pp_deferred_present.glsl"
+				"D3D11_4_0" : "Content/Engine/pp_deferred_present.psf",
+				"GLSL_330" : "Content/Engine/pp_deferred_present.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_deferred_present.psf"
 			},
 
 			"includepermutations" : [

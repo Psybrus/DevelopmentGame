@@ -4,33 +4,39 @@
 // Vertex shader
 #if VERTEX_SHADER
 
-VS_IN( vec4, InPosition_, POSITION );
-VS_IN( vec4, InNormal_, NORMAL );
-VS_IN( vec4, InTexCoord_, TEXCOORD0 );
-VS_IN( vec4, InColour_, COLOUR0 );
+VS_IN_BEGIN
+	DECLARE_IN( float4, InPosition_, POSITION );
+	DECLARE_IN( float4, InNormal_, NORMAL );
+	DECLARE_IN( float4, InTexCoord_, TEXCOORD0 );
+	DECLARE_IN( float4, InColour_, COLOR0 );
+VS_IN_END
 
-VS_OUT( vec3, VsRayPos );
-VS_OUT( vec3, VsRayDir );
+VS_OUT_BEGIN
+	DECLARE_OUT( float3, VsRayPos, TEXCOORD0 );
+	DECLARE_OUT( float3, VsRayDir, TEXCOORD1 );
+VS_OUT_END
 
-void vertexMain()
+VS_MAIN( vertexMain )
 {
-	gl_Position = InPosition_;
+	VS_ENTER;
+	OUT_POSITION = IN( InPosition_ );
 
-	vec2 q = InTexCoord_.xy;
-	vec2 p = -1.0+2.0*q;
+	float2 q = IN( InTexCoord_ ).xy;
+	float2 p = -1.0+2.0*q;
 		 
 	// ray near + far
-	vec4 rn = mul( InverseProjectionTransform_, vec4( p, 0.0, 1.0 ) );
-	vec4 rf = mul( InverseProjectionTransform_, vec4( p, 1.0, 1.0 ) );
+	float4 rn = mul( InverseProjectionTransform_, float4( p, 0.0, 1.0 ) );
+	float4 rf = mul( InverseProjectionTransform_, float4( p, 1.0, 1.0 ) );
 
 	rn *= 0.0;
 	rf *= 10000.0;
 
-	rn = mul( InverseViewTransform_, vec4( rn.xyz, 1.0 ) );
-	rf = mul( InverseViewTransform_, vec4( rf.xyz, 1.0 ) );
+	rn = mul( InverseViewTransform_, float4( rn.xyz, 1.0 ) );
+	rf = mul( InverseViewTransform_, float4( rf.xyz, 1.0 ) );
 
-	VsRayPos = rn.xyz;
-	VsRayDir = normalize( rf.xyz - rn.xyz );
+	OUT( VsRayPos ) = rn.xyz;
+	OUT( VsRayDir ) = normalize( rf.xyz - rn.xyz );
+	VS_EXIT;
 }
 
 #endif
@@ -39,21 +45,24 @@ void vertexMain()
 // Pixel shader
 #if PIXEL_SHADER
 
-PS_IN( vec3, VsRayPos );
-PS_IN( vec3, VsRayDir );
+PS_IN_BEGIN
+	DECLARE_IN( float3, VsRayPos, TEXCOORD0 );
+	DECLARE_IN( float3, VsRayDir, TEXCOORD1 );
+PS_IN_END
+#include <PsybrusOutput.psh>
 
 //////////////////////////////////////////////////////////////////////////
 // sdSphere
-float sdSphere( vec3 Position, float Radius )
+float sdSphere( float3 Position, float Radius )
 {
 	return length( Position ) - Radius;
 }
 
 //////////////////////////////////////////////////////////////////////////
 // sdBox
-float sdBox( vec3 Position, vec3 Bounds )
+float sdBox( float3 Position, float3 Bounds )
 {
-  vec3 Distance = abs( Position ) - Bounds;
+  float3 Distance = abs( Position ) - Bounds;
   return min( max( Distance.x, max( Distance.y, Distance.z ) ), 0.0 ) + length( max( Distance, 0.0 ) );
 }
 
@@ -73,21 +82,21 @@ float cosNoise( float3 Position )
 	return Ret;
 }
 
-float sdCloud( vec3 Position )
+float sdCloud( float3 Position )
 {
 	return cosNoise( Position ); 
 }
 
 //////////////////////////////////////////////////////////////////////////
 // map
-float map( vec3 Position )
+float map( float3 Position )
 {
-	return sdBox( Position, vec3( 8.0, 1.0, 8.0 ) );
+	return sdBox( Position, float3( 8.0, 1.0, 8.0 ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
 // rayMarch
-vec2 rayMarch( vec3 RayPos, vec3 RayDir )
+float2 rayMarch( float3 RayPos, float3 RayDir )
 {
 	float Precision = 0.001;
 	float Tmin = 1.0;
@@ -97,7 +106,7 @@ vec2 rayMarch( vec3 RayPos, vec3 RayDir )
 	float Dist = -1.0;
 	for( int Idx = 0; Idx < MaxSteps; ++Idx )
 	{
-		vec3 SamplePosition = RayPos + RayDir * T;
+		float3 SamplePosition = RayPos + RayDir * T;
 		Dist = map( SamplePosition );
 		if( Dist < Precision || T > Tmax )
 		{
@@ -109,22 +118,22 @@ vec2 rayMarch( vec3 RayPos, vec3 RayDir )
 	{
 		Dist = -1.0;
 	}
-	return vec2( T, Dist );
+	return float2( T, Dist );
 }
 
 //////////////////////////////////////////////////////////////////////////
 // render
-vec4 render( vec3 RayPos, vec3 RayDir )
+float4 render( float3 RayPos, float3 RayDir )
 {
-	vec4 Colour = vec4( 0.0, 0.0, 0.0, 0.0 );
+	float4 Colour = float4( 0.0, 0.0, 0.0, 0.0 );
 
 	// Find intersecting point.
-	vec2 RayRes = rayMarch( RayPos, RayDir );
+	float2 RayRes = rayMarch( RayPos, RayDir );
 	if( RayRes.y >= -0.5 )
 	{
-		vec3 Position = RayPos + RayDir * RayRes.x;
+		float3 Position = RayPos + RayDir * RayRes.x;
 
-		vec4 Colour = vec4( 1.0, 1.0, 1.0, 0.0 );
+		float4 Colour = float4( 1.0, 1.0, 1.0, 0.0 );
 		float Density = 0.1;
 
 		// TODO: Transform position from world to local for 3D texture look ups later?
@@ -139,7 +148,7 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 		float Dist = -1.0;
 		for( int Idx = 0; Idx < MaxSteps; ++Idx )
 		{
-			vec3 SamplePosition = Position + RayDir * T;
+			float3 SamplePosition = Position + RayDir * T;
 			Dist = map( SamplePosition );
 			if( Dist > Precision || T > Tmax || Density > 1.0 )
 			{
@@ -152,14 +161,16 @@ vec4 render( vec3 RayPos, vec3 RayDir )
 		//
 		return Colour;
 	}
-	return vec4( 0.0, 0.0, 0.0, 0.0 );
+	return float4( 0.0, 0.0, 0.0, 0.0 );
 }
 
 //////////////////////////////////////////////////////////////////////////
 // pixelMain
-void pixelMain()
+PS_MAIN( pixelMain )
 {
-	outputFrag[0] = render( VsRayPos, normalize( VsRayDir ) );
+	PS_ENTER;
+	outputFrag[0] = render( IN( VsRayPos ), normalize( IN( VsRayDir ) ) );
+	PS_EXIT;
 }
 
 #endif // PIXEL_SHADER

@@ -74,9 +74,9 @@
 			"type"			: "ScnShader",
 			"name"			: "volume_test",
 			"sources" 		: {
-				//"D3D11_4_0" : "Content/Engine/volume_test.hlsl",
-				"GLSL_ES_100" : "Content/Engine/volume_test.glsl",
-				"GLSL_330" : "Content/Engine/volume_test.glsl"
+				//"D3D11_4_0" : "Content/Engine/volume_test.psf",
+				"GLSL_ES_100" : "Content/Engine/volume_test.psf",
+				"GLSL_330" : "Content/Engine/volume_test.psf"
 			},
 
 			"defines"		: {

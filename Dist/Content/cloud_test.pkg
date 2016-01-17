@@ -75,9 +75,9 @@
 			"type"			: "ScnShader",
 			"name"			: "cloud_shader",
 			"sources" 		: {
-				//"D3D11_4_0" : "Content/Engine/cloud_test.hlsl",
-				"GLSL_ES_100" : "Content/Engine/cloud_test.glsl",
-				"GLSL_330" : "Content/Engine/cloud_test.glsl"
+				//"D3D11_4_0" : "Content/Engine/cloud_test.psf",
+				"GLSL_ES_100" : "Content/Engine/cloud_test.psf",
+				"GLSL_330" : "Content/Engine/cloud_test.psf"
 			},
 
 			"excludepermutations" : [

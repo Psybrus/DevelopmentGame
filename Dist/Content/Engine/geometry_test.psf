@@ -4,21 +4,18 @@
 // Vertex shader
 #if VERTEX_SHADER
 
-VS_IN( vec4, InPosition_, POSITION );
-VS_IN( vec4, InNormal_, NORMAL );
-VS_IN( vec4, InTexCoord_, TEXCOORD0 );
-VS_IN( vec4, InColour_, COLOUR0 );
-
+VS_IN_BEGIN
+	DECLARE_IN( float4, InPosition_, POSITION );
+	DECLARE_IN( float4, InNormal_, NORMAL );
+	DECLARE_IN( float4, InTexCoord_, TEXCOORD0 );
+	DECLARE_IN( float4, InColour_, COLOR0 );
 #if defined( PERM_MESH_SKINNED_3D )
-
-VS_IN( vec4, InBlendWeights_, BLENDWEIGHTS );
-VS_IN( vec4, InBlendIndices_, BLENDINDICES );
-
+	DECLARE_IN( float4, InBlendWeights_, BLENDWEIGHTS );
+	DECLARE_IN( BLENDINDICES_TYPE, InBlendIndices_, BLENDINDICES );
 #elif defined( PERM_MESH_PARTICLE_3D )
-
-VS_IN( vec4, InVertexOffset_, TANGENT );
-
+	DECLARE_IN( float4, InTangent_, TANGENT );
 #endif
+VS_IN_END
 
 //#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_ES_100
 #define VsColour0 GsColour0
@@ -26,18 +23,22 @@ VS_IN( vec4, InVertexOffset_, TANGENT );
 #define VsTexCoord0 GsTexCoord0
 //#endif
 
-VS_OUT( vec4, VsColour0 );
-VS_OUT( vec4, VsNormal );
-VS_OUT( vec4, VsTexCoord0 );
+VS_OUT_BEGIN
+	DECLARE_OUT( float4, VsColour0, COLOR0 );
+	DECLARE_OUT( float4, VsNormal, NORMAL );
+	DECLARE_OUT( float4, VsTexCoord0, TEXCOORD0 );
+VS_OUT_END
 
-void vertexMain()
+VS_MAIN( vertexMain )
 {
- 	vec4 WorldPosition;
-	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, InPosition_ );
-	PSY_MAKE_CLIP_SPACE_VERTEX( gl_Position, WorldPosition );
-	VsNormal = InNormal_;
-	VsTexCoord0 = InTexCoord_;
-	VsColour0 = InColour_;
+	VS_ENTER;
+ 	float4 WorldPosition;
+	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, IN( InPosition_ ) );
+	PSY_MAKE_CLIP_SPACE_VERTEX( OUT_POSITION, WorldPosition );
+	OUT( VsNormal ) = IN( InNormal_ );
+	OUT( VsTexCoord0 ) = IN( InTexCoord_ );
+	OUT( VsColour0 ) = IN( InColour_ );
+	VS_EXIT;
 }
 
 #endif
@@ -51,16 +52,16 @@ layout(triangle_strip, max_vertices = 32) out;
 
 in VertexDataIn
 {
-	vec4 VsColour;
-	vec4 VsNormal;
-	vec4 VsTexCoord0;
+	float4 VsColour;
+	float4 VsNormal;
+	float4 VsTexCoord0;
 } gs_in[];
 
 out VertexDataOut
 {
-	vec4 GsColour0;
-	vec4 GsNormal;
-	vec4 GsTexCoord0;
+	float4 GsColour0;
+	float4 GsNormal;
+	float4 GsTexCoord0;
 } gs_out;
 
 void geometryMain()
@@ -92,15 +93,19 @@ void geometryMain()
 // Pixel shader
 #if PIXEL_SHADER
 
-PS_IN( vec4, GsColour0 );
-PS_IN( vec4, GsNormal );
-PS_IN( vec4, GsTexCoord0 );
-
+PS_IN_BEGIN
+	DECLARE_IN( float4, GsColour0, COLOR0 );
+	DECLARE_IN( float4, GsNormal, NORMAL );
+	DECLARE_IN( float4, GsTexCoord0, TEXCOORD0 );
+PS_IN_END
+#include <PsybrusOutput.psh>
 //////////////////////////////////////////////////////////////////////////
 // pixelMain
-void pixelMain()
+PS_MAIN( pixelMain )
 {
-	outputFrag[0] = GsColour0;
+	PS_ENTER;
+	outputFrag[0] = IN( GsColour0 );
+	PS_EXIT;
 }
 
 #endif

@@ -107,6 +107,41 @@
 					]
 				},
 
+{
+					"$Class"				: "ScnEntity",
+					"type"					: "ScnEntity",
+
+					"localtransform" : {
+						"row0" : "1.0, 0.0, 0.0, 0.0",
+						"row1" : "0.0, 1.0, 0.0, 0.0",
+						"row2" : "0.0, 0.0, 1.0, 0.0",
+						"row3" : "0.0, 1000.0, -1000.0, 1.0"
+					},
+
+					"components" : [
+						{
+							"$Class"				: "ScnLightComponent",
+							"type"					: "ScnLightComponent",
+							"name"					: "Sunlight",
+
+							"diffusecolour"			: "0.05, 0.05, 0.05, 1.0",
+
+							"min"					: 16.0,
+							"mid"					: 2048.0,
+							"max"					: 1000000.0
+						},
+
+						{
+							"$Class"				: "ScnModelComponent",
+							"type"					: "ScnModelComponent",
+							"name"					: "TestModel",
+							"model"					: "$(ScnModel:models.sphere)",
+
+							"scale"					: "0.1, 0.1, 0.1"
+						}
+					]
+				},
+
 				{
 					"$Class"				: "ScnCanvasComponent",
 					"type"					: "ScnCanvasComponent",
@@ -223,8 +258,8 @@
 					"type"					: "GaCameraComponent",
 
 					"renderers"	: [
-						"$(ScnEntity:deferred_renderer.Renderer)",
-						"$(ScnEntity:forward_renderer.Renderer)"
+						"$(ScnEntity:forward_renderer.Renderer)",
+						"$(ScnEntity:deferred_renderer.Renderer)"
 					]
 				},
 

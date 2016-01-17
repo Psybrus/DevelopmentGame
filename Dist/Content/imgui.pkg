@@ -5,14 +5,14 @@
 			"name"			: "default_shader",
 
 			"sources" 		: {
-				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/imgui.hlsl",
-				"GLSL_330" : "Content/Engine/imgui.glsl",
-				"GLSL_ES_100" : "Content/Engine/imgui.glsl"
+				"D3D11_4_0" : "Content/Engine/imgui.psf",
+				"GLSL_330" : "Content/Engine/imgui.psf",
+				"GLSL_ES_100" : "Content/Engine/imgui.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/imgui.glsl"
+					"GLSL_ES_100" : "Content/Engine/imgui.psf"
 				}
 			},
 
@@ -33,14 +33,14 @@
 			"name"			: "textured_shader",
 
 			"sources" 		: {
-				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/imgui.hlsl",
-				"GLSL_330" : "Content/Engine/imgui.glsl",
-				"GLSL_ES_100" : "Content/Engine/imgui.glsl"
+				"D3D11_4_0" : "Content/Engine/imgui.psf",
+				"GLSL_330" : "Content/Engine/imgui.psf",
+				"GLSL_ES_100" : "Content/Engine/imgui.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/imgui.glsl"
+					"GLSL_ES_100" : "Content/Engine/imgui.psf"
 				}
 			},
 

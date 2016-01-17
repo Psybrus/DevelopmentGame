@@ -64,35 +64,6 @@
 		},
 
 		{
-			"type"			: "ScnShader",
-			"name"			: "sprite_shaded",
-			"source"		: "Content/Engine/sprite_shaded.hlsl",
-
-			"excludepermutations" : [
-				"RENDER_DEFERRED",
-				"RENDER_FORWARD_PLUS",
-				"PASS_SHADOW",
-				"MESH_INSTANCED_3D",
-				"LIGHTING_DIFFUSE"
-			],
-
-			"codetypes"	: [
-				"D3D11_4_0_level_9_3"
-			],
-
-			"backendtypes" : [
-				"GLSL",
-				"GLSL_ES",
-				"D3D11"
-			],
-
-			"entrypoints"		: {
-				"vertex" : 		"vertexMain",
-				"pixel" :		"pixelMain"
-			}
-		},
-
-		{
 			"type"			: "ScnMaterial",
 			"name"			: "spritesheet_material_basic",
 
@@ -148,7 +119,7 @@
 			"name"			: "spritesheet_material",
 
 			// Shader
-			"shader"		: "$(ScnShader:this.sprite_shaded)",
+			"shader"		: "$(ScnShader:this.textured)",
 
 			// Textures
 			"textures"		: {

@@ -29,14 +29,14 @@
 			"type"			: "ScnShader",
 			"name"			: "shader",
 			"sources" 		: {
-				"D3D11_4_0_LEVEL_9_1" : "Content/Engine/trail.hlsl",
-				"GLSL_330" : "Content/Engine/trail.glsl",
-				"GLSL_ES_100" : "Content/Engine/trail.glsl"
+				"D3D11_4_0" : "Content/Engine/trail.psf",
+				"GLSL_330" : "Content/Engine/trail.psf",
+				"GLSL_ES_100" : "Content/Engine/trail.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/trail.glsl"
+					"GLSL_ES_100" : "Content/Engine/trail.psf"
 				}
 			},
 
@@ -81,8 +81,8 @@
 				},
 
 				"depthstencilstate" : {
-					"depthtestenable" : false,
-					"depthwriteenable" : false,
+					"depthtestenable" : true,
+					"depthwriteenable" : true,
 					"depthfunc" : "lessequal",
 					"stencilenable" : false
 				},

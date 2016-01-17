@@ -1,4 +1,8 @@
 #version 430 core
+#define SKIP_VERSION
+
+#include <PsybrusTypes.psh>
+
 precision highp float;
 precision highp int;
 
@@ -8,11 +12,11 @@ layout (local_size_x = 1) in;
 
 struct vertex
 {
-	vec4 Position_;
-	vec4 Normal_;
-	vec4 Tangent_;
-	vec4 Colour_;
-	vec4 TexCoord_;
+	float4 Position_;
+	float4 Normal_;
+	float4 Tangent_;
+	float4 Colour_;
+	float4 TexCoord_;
 };
 
 layout(std430) readonly buffer iBuffer
@@ -40,14 +44,14 @@ void main()
 	Out.Ouput[invocationIndex].Colour_ = In.Input[invocationIndex].Colour_;
 	Out.Ouput[invocationIndex].TexCoord_ = In.Input[invocationIndex].TexCoord_;
 #endif
-	ivec2 id = ivec2(gl_GlobalInvocationID.xy);
+	int2 id = int2(gl_GlobalInvocationID.xy);
 
 
 	float texel = 
-		imageLoad( iTexture, id + ivec2(-1, 0 ) ).x +
-		imageLoad( iTexture, id + ivec2( 1, 0 ) ).x +
-		imageLoad( iTexture, id + ivec2( 0, 1 ) ).x + 
-		imageLoad( iTexture, id + ivec2( 0,-1 ) ).x;
+		imageLoad( iTexture, id + int2(-1, 0 ) ).x +
+		imageLoad( iTexture, id + int2( 1, 0 ) ).x +
+		imageLoad( iTexture, id + int2( 0, 1 ) ).x + 
+		imageLoad( iTexture, id + int2( 0,-1 ) ).x;
 	texel = texel * 0.5;
 	texel -= imageLoad( oTexture, id ).x;
 	texel = ( texel - ( texel * 0.0001 ) ) * 1.0;

@@ -154,7 +154,7 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 			ModelComponent->setLit( true );
 		}
 	}
-	
+
 	// Spawn the test model.
 	BcF32 XPosition = 0;
 	BcF32 YPosition = 4.0f;
