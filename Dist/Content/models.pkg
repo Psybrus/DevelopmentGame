@@ -193,7 +193,7 @@
 			"defaulttextures" : {
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
-				"aSpecularTex" : "$(ScnTexture:textures.white)",
+				"aSpecularTex" : "$(ScnTexture:textures.black)",
 				"aOpacityTex" : "$(ScnTexture:textures.white)",
 				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
 			},
@@ -298,7 +298,7 @@
 			"defaulttextures" : {
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
-				"aSpecularTex" : "$(ScnTexture:textures.white)",
+				"aSpecularTex" : "$(ScnTexture:textures.black)",
 				"aOpacityTex" : "$(ScnTexture:textures.white)",
 				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
 			},
@@ -309,6 +309,63 @@
 				"texcoord" : "FLOAT32"
 			}
 		},
+
+		{
+			"type"		: "ScnModel",
+			"name"		: "floor",
+			"source"	: "Content/Source/floor.fbx",
+			"materials": [
+				{
+					"regex" : "(.*)", 
+					"templatematerial" : {
+						"$Class"		: "ScnMaterialImport",
+						"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
+
+						"renderstate" : {
+							"blendstate" : {
+								"rendertarget" : [
+									{
+										"enable" : false
+									}
+								]
+							},
+
+							"depthstencilstate" : {
+								"depthtestenable" : true,
+								"depthwriteenable" : true,
+								"depthfunc" : "lessequal",
+								"stencilenable" : false
+							},
+
+							"rasteriserstate" : {
+								"fillmode" : "solid",
+								"cullmode" : "ccw",
+								"depthclipenable" : true,
+								"antialiasedlineenable" : true
+							}
+						},
+						"automaticuniformblocks" : [
+							"ScnShaderMaterialUniformBlockData"
+						]
+					}
+				}
+			],
+
+			"defaulttextures" : {
+				"aDiffuseTex" : "$(ScnTexture:textures.floor_albedo)",
+				"aNormalTex" : "$(ScnTexture:textures.floor_norm)",
+				"aSpecularTex" : "$(ScnTexture:textures.floor_spec)",
+				"aOpacityTex" : "$(ScnTexture:textures.white)",
+				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"normal" : "BYTE_NORM",
+				"texcoord" : "FLOAT32"
+			}
+		},
+
 		{
 
 			"type"		: "ScnAnimation",

@@ -23,6 +23,56 @@
 				},
 
 				{
+					"$Class"				: "ScnPhysicsWorldComponent",
+					"type"					: "ScnPhysicsWorldComponent",
+					"gravity"				: "0.0, -9.8, 0.0",
+					"debugdrawworld"		: false
+				},
+
+
+				{
+					"name"		:		"FloorEntity",
+					"type"		:		"ScnEntity",
+			
+					"localtransform" : {
+						"row0" : "1.0, 0.0, 0.0, 0.0",
+						"row1" : "0.0, 1.0, 0.0, 0.0",
+						"row2" : "0.0, 0.0, 1.0, 0.0",
+						"row3" : "0.0, 0.0, 0.0, 1.0"
+					},
+
+					"components" : [
+						{
+							"$Class"				: "ScnPhysicsBoxCollisionComponent",
+							"type"					: "ScnPhysicsBoxCollisionComponent",
+
+							"size"					: "100.0, 0.1, 100.0",
+							"localscaling"			: "1.0, 1.0, 1.0",
+							"margin"				: 0.0
+						},
+
+						{
+							"$Class"				: "ScnPhysicsRigidBodyComponent",
+							"type"					: "ScnPhysicsRigidBodyComponent",
+
+							"mass"					: 0.0,
+							"friction"				: 0.5,
+							"rollingfriction"		: 0.1,
+							"restitution"			: 0.5
+						},
+
+						{
+							"$Class"				: "ScnModelComponent",
+							"type"					: "ScnModelComponent",
+							"name"					: "TestModel",
+							"model"					: "$(ScnModel:models.floor)",
+							"islit"					: true,
+							"scale"					: "1.0, 1.0, 1.0"
+						}
+					]
+				},
+
+				{
 					"$Class"				: "ScnEntity",
 					"type"					: "ScnEntity",
 
@@ -30,7 +80,7 @@
 						"row0" : "1.0, 0.0, 0.0, 0.0",
 						"row1" : "0.0, 1.0, 0.0, 0.0",
 						"row2" : "0.0, 0.0, 1.0, 0.0",
-						"row3" : "0.0, 32.0, 32.0, 1.0"
+						"row3" : "0.0, 1000.0, 1000.0, 1.0"
 					},
 
 					"components" : [
@@ -189,6 +239,7 @@
 					"model"					: "$(ScnModel:models.skysphere)",
 					"islit"					: false,
 					"scale"					: "1000.0, 1000.0, 1000.0",
+					"layer"					: 15,
 					"passes"				: "TRANSPARENT"
 				}
 

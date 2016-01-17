@@ -34,11 +34,16 @@ public:
 	GaTestLightingComponent();
 	virtual ~GaTestLightingComponent();
 	
+	void update( BcF32 Tick );
+
 	void onAttach( ScnEntityWeakRef Parent ) override;
 	void onDetach( ScnEntityWeakRef Parent ) override;
 	
 private:
 	ScnModelRef Model_;
+
+	ScnModelComponentRef TestModelComponent_;
+	ScnShaderMaterialUniformBlockData TestModelUniforms_;
 };
 
 #endif

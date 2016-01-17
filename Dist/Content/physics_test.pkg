@@ -7,26 +7,10 @@
 
 			"components" : [
 				{
-					"$Class"				: "ScnPhysicsWorldComponent",
-					"type"					: "ScnPhysicsWorldComponent",
-					"gravity"				: "0.0, -9.8, 0.0",
-					"debugdrawworld"		: false
-				},
-
-
-				{
 					"$Class"				: "GaLevelComponent",
 					"type"					: "GaLevelComponent",
 
 					"entities"				: [
-						// Floor.
-						{
-							"basis"			: "$(ScnEntity:this.FloorEntity)",
-							"name"			: "FloorEntity_0",
-							"position"		: "0.0, -1.0, 0.0",
-							"rotation"		: "0.0, 0.0, 0.0"
-						},
-
 						// Box pile.
 						{
 							"basis"			: "$(ScnEntity:this.BoxEntity)",
@@ -138,33 +122,6 @@
 							"rotation"		: "0.0, 0.0, 0.0"
 						}
 					]
-				}
-			]
-		},
-
-
-		{
-			"name"		:		"FloorEntity",
-			"type"		:		"ScnEntity",
-
-			"components" : [
-				{
-					"$Class"				: "ScnPhysicsBoxCollisionComponent",
-					"type"					: "ScnPhysicsBoxCollisionComponent",
-
-					"size"					: "1000.0, 1.0, 1000.0",
-					"localscaling"			: "1.0, 1.0, 1.0",
-					"margin"				: 0.0
-				},
-
-				{
-					"$Class"				: "ScnPhysicsRigidBodyComponent",
-					"type"					: "ScnPhysicsRigidBodyComponent",
-
-					"mass"					: 0.0,
-					"friction"				: 0.5,
-					"rollingfriction"		: 0.1,
-					"restitution"			: 0.5
 				}
 			]
 		},
