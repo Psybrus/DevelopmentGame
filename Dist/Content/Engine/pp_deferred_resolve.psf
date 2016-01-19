@@ -56,7 +56,7 @@ PS_MAIN( pixelMain )
 	float4 SSPosition = float4( IN( VsTexCoord0 ).xy * 2.0 - 1.0, Depth.x * 2.0 - 1.0, 1.0 );
 	SSPosition = mul( InverseClipTransform_, SSPosition );
 	float3 WorldPosition = SSPosition.xyz / SSPosition.w;
-	float3 EyePosition = InverseViewTransform_[3].xyz;
+	float3 EyePosition = getViewPosition();
 
 	Material InMaterial;
 	InMaterial.Colour_ = GBufferAlbedo.xyz;

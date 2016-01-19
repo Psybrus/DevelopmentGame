@@ -94,7 +94,7 @@
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
-				"normal" : "BYTE_NORM",
+				"normal" : "FLOAT32",
 				"texcoord" : "FLOAT32",
 				"tangent" : "FLOAT32",
 				"binormal" : "FLOAT32"

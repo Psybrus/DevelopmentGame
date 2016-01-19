@@ -89,7 +89,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 #if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
 	Diffuse = gammaToLinear( Diffuse ) * IN( VsColour0 );
-	float3 EyePosition = InverseViewTransform_[3].xyz;
+	float3 EyePosition = getViewPosition();
 	float3 TotalSurface = float3( 0.0, 0.0, 0.0 );
 
 	Material InMaterial;

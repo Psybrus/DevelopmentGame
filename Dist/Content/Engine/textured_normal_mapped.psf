@@ -65,12 +65,13 @@ PS_IN_BEGIN
 	DECLARE_IN( float4, VsColour0, COLOR0 );
 	DECLARE_IN( float4, VsNormal, NORMAL );
 	DECLARE_IN( float4, VsTexCoord0, TEXCOORD0 );
-	DECLARE_IN( float4, VsWorldPosition, TEXCOORD1 );
 #if defined( PERM_MESH_STATIC_3D ) || defined( PERM_MESH_SKINNED_3D )
-	DECLARE_IN( float4, VsBinormal, TEXCOORD2 );
-	DECLARE_IN( float4, VsTangent, TEXCOORD3 );
+	DECLARE_IN( float4, VsBinormal, TEXCOORD1 );
+	DECLARE_IN( float4, VsTangent, TEXCOORD2 );
 #endif
+	DECLARE_IN( float4, VsWorldPosition, TEXCOORD3 );
 PS_IN_END
+
 #include <PsybrusOutput.psh>
 
 //////////////////////////////////////////////////////////////////////////
@@ -87,20 +88,20 @@ PSY_SAMPLER_2D( DepthTex );
 
 //////////////////////////////////////////////////////////////////////////
 // getMaterial
-void getMaterial( in float3 InNormal, in float3 InTangent, in float3 InBinormal, in float2 InTexCoord0, out float4 Diffuse, out float4 Normal, out float4 Specular )
+float4 getMaterial( in float3 InNormal, in float3 InTangent, in float3 InBinormal, in float2 InTexCoord0, out float4 Diffuse, out float4 Normal, out float4 Specular )
 {
-	float3 InNNormal = normalize( InNormal ).xyz;
-	float3 InNTangent = normalize( InTangent ).xyz;
-	float3 InNBinormal = normalize( InBinormal ).xyz;
-	float3x3 TBN = float3x3( InNTangent, InNBinormal, InNNormal );
+	float3x3 TBN = buildTBN( InTangent.xyz, InBinormal.xyz, InNormal.xyz );
 
-	Normal = PSY_SAMPLE_2D( NormalTex, InTexCoord0.xy );
-	Normal.xyz = Normal.xyz * 2.0 - 1.0;
+	float4 TexNormal = PSY_SAMPLE_2D( NormalTex, InTexCoord0.xy );
+	Normal.xyz = TexNormal.xyz * 2.0 - 1.0;
 	Normal.xyz = mul( TBN, Normal.xyz );
 	Normal.xyz = normalize( Normal.xyz );
+	Normal.w = 1.0;
 
 	Diffuse = PSY_SAMPLE_2D( DiffuseTex, InTexCoord0.xy );
 	Specular = PSY_SAMPLE_2D( SpecularTex, InTexCoord0.xy );
+
+	return float4( 0.0, 0.0, 0.0, 0.0 );
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -111,11 +112,11 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	float4 Normal;
 	float4 Specular;
 #if defined( PERM_MESH_STATIC_3D ) || defined( PERM_MESH_SKINNED_3D )
-	getMaterial( 
+	float4 DebugValue = getMaterial( 
 		IN( VsNormal ).xyz, IN( VsTangent ).xyz, IN( VsBinormal ).xyz, IN( VsTexCoord0 ).xy,
 	 	Diffuse, Normal, Specular );
 #else
-	getMaterial( 
+	float4 DebugValue = getMaterial( 
 		float3( 0.0, 0.0, 1.0 ), float3( 1.0, 0.0, 0.0 ), float3( 0.0, 1.0, 0.0 ), IN( VsTexCoord0 ).xy,
 	 	Diffuse, Normal, Specular );
 #endif
@@ -139,7 +140,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 #if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
 	Diffuse = gammaToLinear( Diffuse ) * IN( VsColour0 ) * MaterialBaseColour_;
-	float3 EyePosition = InverseViewTransform_[3].xyz;
+	float3 EyePosition = getViewPosition();
 	float3 TotalSurface = float3( 0.0, 0.0, 0.0 );
 
 	InMaterial.Colour_ = Diffuse.xyz;
@@ -158,6 +159,8 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	}
 	TotalSurface = min( float3( 1.0, 1.0, 1.0 ), TotalSurface );
 	TotalSurface = linearToGamma( TotalSurface );
+
+	//TotalSurface = DebugValue.xyz;
 
 	writeFrag( FRAMEBUFFER_INTERNAL, float4( TotalSurface, Diffuse.w ), Normal.xyz, float3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
 #else

@@ -258,8 +258,8 @@
 					"type"					: "GaCameraComponent",
 
 					"renderers"	: [
-						"$(ScnEntity:deferred_renderer.Renderer)",
-						"$(ScnEntity:forward_renderer.Renderer)"
+						"$(ScnEntity:forward_renderer.Renderer)",
+						"$(ScnEntity:deferred_renderer.Renderer)"
 					]
 				},
 
