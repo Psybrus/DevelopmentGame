@@ -7,18 +7,21 @@
 
 VS_IN_BEGIN
 	DECLARE_IN( float4, InPosition_, POSITION );
-	DECLARE_IN( float4, InTexCoord_, TEXCOORD0 );
+	DECLARE_IN( float4, InTexCoord0_, TEXCOORD0 );
+	DECLARE_IN( float4, InTexCoord1_, TEXCOORD1 );
 VS_IN_END
 
 VS_OUT_BEGIN
 	DECLARE_OUT( float4, VsTexCoord0, TEXCOORD0 );
+	DECLARE_OUT( float4, VsTexCoord1, TEXCOORD1 );
 VS_OUT_END
 
 VS_MAIN( vertexMain )
 {
 	VS_ENTER;
 	OUT_POSITION = IN( InPosition_ ).xyzw;
-	OUT( VsTexCoord0 ) = IN( InTexCoord_ );
+	OUT( VsTexCoord0 ) = IN( InTexCoord0_ );
+	OUT( VsTexCoord1 ) = IN( InTexCoord1_ );
 	VS_EXIT;
 }
 #endif
@@ -29,6 +32,7 @@ VS_MAIN( vertexMain )
 
 PS_IN_BEGIN
 	DECLARE_IN( float4, VsTexCoord0, TEXCOORD0 );
+	DECLARE_IN( float4, VsTexCoord1, TEXCOORD1 );
 PS_IN_END
 #include <PsybrusOutput.psh>
 
@@ -53,7 +57,7 @@ PS_MAIN( pixelMain )
 	float4 Velocity  = PSY_SAMPLE_2D( VelocityTex, IN( VsTexCoord0 ).xy );
 	float4 Depth  = PSY_SAMPLE_2D( DepthTex, IN( VsTexCoord0 ).xy );
 
-	float4 SSPosition = float4( IN( VsTexCoord0 ).xy * 2.0 - 1.0, Depth.x * 2.0 - 1.0, 1.0 );
+	float4 SSPosition = float4( IN( VsTexCoord1 ).xy, Depth.x * 2.0 - 1.0, 1.0 );
 #if PSY_INPUT_BACKEND_TYPE == PSY_BACKEND_TYPE_D3D11
 	SSPosition.y = -SSPosition.y;
 #endif
