@@ -6,6 +6,7 @@
 
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/imgui.psf",
+				"GLSL_430" : "Content/Engine/imgui.psf",
 				"GLSL_330" : "Content/Engine/imgui.psf",
 				"GLSL_ES_100" : "Content/Engine/imgui.psf"
 			},
@@ -34,6 +35,7 @@
 
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/imgui.psf",
+				"GLSL_430" : "Content/Engine/imgui.psf",
 				"GLSL_330" : "Content/Engine/imgui.psf",
 				"GLSL_ES_100" : "Content/Engine/imgui.psf"
 			},

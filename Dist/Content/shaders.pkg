@@ -5,6 +5,7 @@
 			"name"			: "default",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/default.psf",
+				"GLSL_430" : "Content/Engine/default.psf",
 				"GLSL_330" : "Content/Engine/default.psf",
 				"GLSL_ES_100" : "Content/Engine/default.psf"
 			},
@@ -38,6 +39,7 @@
 			"name"			: "skysphere",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/skysphere.psf",
+				"GLSL_430" : "Content/Engine/skysphere.psf",
 				"GLSL_330" : "Content/Engine/skysphere.psf",
 				"GLSL_ES_100" : "Content/Engine/skysphere.psf"
 			},
@@ -72,6 +74,7 @@
 			"name"			: "textured",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/textured.psf",
+				"GLSL_430" : "Content/Engine/textured.psf",
 				"GLSL_330" : "Content/Engine/textured.psf",
 				"GLSL_ES_100" : "Content/Engine/textured.psf"
 			},
@@ -106,6 +109,7 @@
 			"name"			: "textured_mask",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/textured.psf",
+				"GLSL_430" : "Content/Engine/textured.psf",
 				"GLSL_330" : "Content/Engine/textured.psf",
 				"GLSL_ES_100" : "Content/Engine/textured.psf"
 			},
@@ -139,6 +143,7 @@
 			"name"			: "textured_normal_mapped",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/textured_normal_mapped.psf",
+				"GLSL_430" : "Content/Engine/textured_normal_mapped.psf",
 				"GLSL_330" : "Content/Engine/textured_normal_mapped.psf",
 				"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.psf"
 			},
@@ -172,6 +177,7 @@
 			"name"			: "textured_normal_mapped_mask",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/textured_normal_mapped.psf",
+				"GLSL_430" : "Content/Engine/textured_normal_mapped.psf",
 				"GLSL_330" : "Content/Engine/textured_normal_mapped.psf",
 				"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.psf"
 			},
@@ -205,6 +211,7 @@
 			"name"			: "normal_vis",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/normal_vis.psf",
+				"GLSL_430" : "Content/Engine/normal_vis.psf",
 				"GLSL_330" : "Content/Engine/normal_vis.psf",
 				"GLSL_ES_100" : "Content/Engine/normal_vis.psf"
 			},
@@ -237,6 +244,7 @@
 			"name"			: "fullscreen",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/fullscreen.psf",
+				"GLSL_430" : "Content/Engine/fullscreen.psf",
 				"GLSL_330" : "Content/Engine/fullscreen.psf",
 				"GLSL_ES_100" : "Content/Engine/fullscreen.psf"
 			},

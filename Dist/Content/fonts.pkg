@@ -5,6 +5,7 @@
 			"name"			: "font_shader",
 			"sources"		: {
 				"D3D11_4_0" : "Content/Engine/font.psf",
+				"GLSL_430" : "Content/Engine/font.psf",
 				"GLSL_330" : "Content/Engine/font.psf",
 				"GLSL_ES_100" : "Content/Engine/font.psf"
 			},

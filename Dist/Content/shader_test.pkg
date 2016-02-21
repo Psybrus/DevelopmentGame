@@ -19,6 +19,7 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_deferred_resolve",
 			"sources" 		: {
+				"GLSL_430" : "Content/Engine/pp_deferred_resolve.psf",
 				"GLSL_330" : "Content/Engine/pp_deferred_resolve.psf"//,
 				//"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.psf"
 			},
@@ -44,6 +45,7 @@
 			"name"			: "geometry_test",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/geometry_test.psf",
+				"GLSL_430" : "Content/Engine/geometry_test.psf",
 				"GLSL_330" : "Content/Engine/geometry_test.psf",
 				"GLSL_ES_100" : "Content/Engine/geometry_test.psf"
 			},

@@ -30,6 +30,7 @@
 			"name"			: "shader",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/trail.psf",
+				"GLSL_430" : "Content/Engine/trail.psf",
 				"GLSL_330" : "Content/Engine/trail.psf",
 				"GLSL_ES_100" : "Content/Engine/trail.psf"
 			},
