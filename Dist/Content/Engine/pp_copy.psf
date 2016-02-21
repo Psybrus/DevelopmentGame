@@ -1,14 +1,8 @@
 #include <Psybrus.psh>
 
-
-cunt
-
-
-
 //////////////////////////////////////////////////////////////////////////
 // Vertex shader
 #if VERTEX_SHADER
-#error VERTEX shader
 
 VS_IN_BEGIN
 	DECLARE_IN( float4, InPosition_, POSITION );
@@ -32,7 +26,6 @@ VS_MAIN( vertexMain )
 //////////////////////////////////////////////////////////////////////////
 // Pixel shader
 #if PIXEL_SHADER
-#error PIXEL shader
 
 PS_IN_BEGIN
 	DECLARE_IN( float4, VsTexCoord0, TEXCOORD0 );
