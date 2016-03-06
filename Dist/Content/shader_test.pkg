@@ -56,6 +56,12 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/geometry_test.psf"
+				}
+			},
+
 			"includepermutations" : [
 				"RENDER_FOWARD",
 				"RENDER_DEFERRED",

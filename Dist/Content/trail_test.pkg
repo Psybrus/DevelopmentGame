@@ -41,6 +41,12 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/trail.psf"
+				}
+			},
+
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",

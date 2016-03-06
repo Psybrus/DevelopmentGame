@@ -10,7 +10,13 @@
 				"GLSL_ES_100" : "Content/Engine/default.psf"
 			},
 
-			"@(android)" : {
+			"@(gles)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/default.psf"
+				}
+			},
+
+			"@(html5)" : {
 				"sources" 		: {
 					"GLSL_ES_100" : "Content/Engine/default.psf"
 				}
@@ -50,17 +56,24 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/skysphere.psf"
+				}
+			},
+
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
-				"PASS_TRANSPARENT",
-				"LIGHTING_NONE",
-				"LIGHTING_DIFFUSE",
-				"LIGHTING_DIFFUSE"
+				"LIGHTING_NONE"
 			],
 
 			"excludepermutations" : [
+				"MESH_STATIC_2D",
+				"MESH_SKINNED_3D",
+				"MESH_PARTICLE_3D",
+				"MESH_INSTANCED_3D"
 			],
 
 			"entrypoints"		: {
@@ -85,13 +98,18 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/textured.psf"
+				}
+			},
+
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
 				"PASS_TRANSPARENT",
 				"LIGHTING_NONE",
-				"LIGHTING_DIFFUSE",
 				"LIGHTING_DIFFUSE"
 			],
 
@@ -115,6 +133,12 @@
 			},
 
 			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/textured.psf"
+				}
+			},
+
+			"@(html5)" : {
 				"sources" 		: {
 					"GLSL_ES_100" : "Content/Engine/textured.psf"
 				}
@@ -154,6 +178,12 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.psf"
+				}
+			},
+
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
@@ -183,6 +213,12 @@
 			},
 
 			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.psf"
+				}
+			},
+
+			"@(html5)" : {
 				"sources" 		: {
 					"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.psf"
 				}
@@ -222,11 +258,16 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/normal_vis.psf"
+				}
+			},
+
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
-				"PASS_TRANSPARENT",
 				"LIGHTING_NONE"
 			],
 
@@ -255,11 +296,16 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/fullscreen.psf"
+				}
+			},
+
 			"includepermutations" : [
 				"MESH_STATIC_2D",
 				"RENDER_POST_PROCESS",
 				"PASS_OPAQUE",
-				"PASS_TRANSPARENT",
 				"LIGHTING_NONE"
 			],
 
