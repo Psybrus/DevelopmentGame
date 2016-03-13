@@ -115,9 +115,6 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 	// Set material components for view.
 	RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
 			
-	// Bind material.
-	MaterialComponent_->bind( RenderContext.pFrame_, RenderContext.Sort_, BcTrue );
-
 	// Render primitive.				
 	const auto& TexDesc = ComputeOutputTextures_[ ComputeTextureIdx_ ]->getTexture()->getDesc();
 	
@@ -166,14 +163,14 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
-			RsBufferType::UNIFORM,
+			RsResourceBindFlags::UNIFORM_BUFFER,
 			RsResourceCreationFlags::STREAM,
 			sizeof( ScnShaderObjectUniformBlockData ) ),
 		getFullName().c_str() );
 
 	BcU32 IndexBufferSize = sizeof( BcU16 ) * 4;
 	IndexBuffer_ = RsCore::pImpl()->createBuffer(
-		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ),
+		RsBufferDesc( RsResourceBindFlags::INDEX_BUFFER, RsResourceCreationFlags::STATIC, IndexBufferSize ),
 		getFullName().c_str() );
 
 	RsCore::pImpl()->updateBuffer( 

@@ -17,7 +17,7 @@
 #include "Reflection/ReObject.h"
 #include "Reflection/RePrimitive.h"
 #include "System/Content/CsPackage.h"
-#include "System/Content/CsPackageImporter.h"
+#include "System/Content/CsPackageDependencies.h"
 #include "System/Content/CsPlatformParams.h"
 #include "System/Content/CsRedirector.h"
 #include "System/Content/CsResource.h"

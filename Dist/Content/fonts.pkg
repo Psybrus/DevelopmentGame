@@ -16,6 +16,12 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/font.psf"
+				}
+			},
+
 			"excludepermutations" : [
 				"RENDER_DEFERRED",
 				"RENDER_FORWARD_PLUS",

@@ -214,7 +214,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
-			RsBufferType::UNIFORM,
+			RsResourceBindFlags::UNIFORM_BUFFER,
 			RsResourceCreationFlags::STREAM,
 			sizeof( ScnShaderObjectUniformBlockData ) ),
 		getFullName().c_str() );
@@ -222,14 +222,14 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 
 	TestUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
-			RsBufferType::UNIFORM,
+			RsResourceBindFlags::UNIFORM_BUFFER,
 			RsResourceCreationFlags::STREAM,
 			sizeof( GaTestTextureBlockData ) ),
 		getFullName().c_str() );
 
 	BcU32 IndexBufferSize = sizeof( BcU16 ) * 4;
 	IndexBuffer_ = RsCore::pImpl()->createBuffer(
-		RsBufferDesc( RsBufferType::INDEX, RsResourceCreationFlags::STATIC, IndexBufferSize ),
+		RsBufferDesc( RsResourceBindFlags::INDEX_BUFFER, RsResourceCreationFlags::STATIC, IndexBufferSize ),
 		getFullName().c_str() );
 
 	RsCore::pImpl()->updateBuffer( 
@@ -246,7 +246,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 	BcU32 VertexBufferSize = 2048 * sizeof( GaVertex );
 	VertexBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
-			RsBufferType::VERTEX,
+			RsResourceBindFlags::VERTEX_BUFFER,
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ),
 		getFullName().c_str() );

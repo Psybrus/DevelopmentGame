@@ -17,6 +17,12 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/imgui.psf"
+				}
+			},
+
 			"includepermutations" : [
 				"MESH_STATIC_2D",
 				"PASS_TRANSPARENT",
@@ -41,6 +47,12 @@
 			},
 
 			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/imgui.psf"
+				}
+			},
+
+			"@(html5)" : {
 				"sources" 		: {
 					"GLSL_ES_100" : "Content/Engine/imgui.psf"
 				}

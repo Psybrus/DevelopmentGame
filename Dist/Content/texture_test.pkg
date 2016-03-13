@@ -241,6 +241,12 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/texture_test.psf"
+				}
+			},
+
 			"defines"		: {
 				"TEXTURE_TEST_DIMENSION" : "1"
 			},
@@ -269,6 +275,12 @@
 			},
 
 			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/texture_test.psf"
+				}
+			},
+
+			"@(html5)" : {
 				"sources" 		: {
 					"GLSL_ES_100" : "Content/Engine/texture_test.psf"
 				}
@@ -307,6 +319,12 @@
 				}
 			},
 
+			"@(html5)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/texture_test.psf"
+				}
+			},
+
 			"defines"		: {
 				"TEXTURE_TEST_DIMENSION" : "3"
 			},
@@ -335,6 +353,12 @@
 			},
 
 			"@(android)" : {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/texture_test.psf"
+				}
+			},
+
+			"@(html5)" : {
 				"sources" 		: {
 					"GLSL_ES_100" : "Content/Engine/texture_test.psf"
 				}
