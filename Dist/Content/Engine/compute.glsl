@@ -1,4 +1,4 @@
-#version 430 core
+#pragma version 430 core
 #define SKIP_VERSION
 
 #include <PsybrusTypes.psh>
