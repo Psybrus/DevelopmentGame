@@ -9,14 +9,12 @@
 			"components" : [
 				{
 					"$Class"				: "ScnFontComponent",
-					"type"					: "ScnFontComponent",
 					"font"					: "$(ScnFont:fonts.courier)",
 					"material"				: "$(ScnMaterial:materials.font)"
 				},
 
 				{
 					"$Class"				: "ScnDebugRenderComponent",
-					"type"					: "ScnDebugRenderComponent",
 					"noofvertices"			: 65536,
 					"material"				: "$(ScnMaterial:materials.debugrender)",
 					"rendermask"			: 3
@@ -24,15 +22,14 @@
 
 				{
 					"$Class"				: "ScnPhysicsWorldComponent",
-					"type"					: "ScnPhysicsWorldComponent",
 					"gravity"				: "0.0, -9.8, 0.0",
 					"debugdrawworld"		: false
 				},
 
 
 				{
-					"name"		:		"FloorEntity",
-					"type"		:		"ScnEntity",
+					"name"		: "FloorEntity",
+					"$Class"	: "ScnEntity",
 			
 					"localtransform" : {
 						"row0" : "1.0, 0.0, 0.0, 0.0",
@@ -44,7 +41,6 @@
 					"components" : [
 						{
 							"$Class"				: "ScnPhysicsBoxCollisionComponent",
-							"type"					: "ScnPhysicsBoxCollisionComponent",
 
 							"size"					: "100.0, 0.1, 100.0",
 							"localscaling"			: "1.0, 1.0, 1.0",
@@ -53,7 +49,6 @@
 
 						{
 							"$Class"				: "ScnPhysicsRigidBodyComponent",
-							"type"					: "ScnPhysicsRigidBodyComponent",
 
 							"mass"					: 0.0,
 							"friction"				: 0.5,
@@ -63,7 +58,7 @@
 
 						{
 							"$Class"				: "ScnModelComponent",
-							"type"					: "ScnModelComponent",
+
 							"name"					: "TestModel",
 							"model"					: "$(ScnModel:models.floor)",
 							"islit"					: true,
@@ -74,7 +69,7 @@
 
 				{
 					"$Class"				: "ScnEntity",
-					"type"					: "ScnEntity",
+					"name"					: "Sunlight_0",
 
 					"localtransform" : {
 						"row0" : "1.0, 0.0, 0.0, 0.0",
@@ -86,8 +81,6 @@
 					"components" : [
 						{
 							"$Class"				: "ScnLightComponent",
-							"type"					: "ScnLightComponent",
-							"name"					: "Sunlight",
 
 							"diffusecolour"			: "0.5, 0.5, 0.5, 1.0",
 
@@ -98,7 +91,6 @@
 
 						{
 							"$Class"				: "ScnModelComponent",
-							"type"					: "ScnModelComponent",
 							"name"					: "TestModel",
 							"model"					: "$(ScnModel:models.sphere)",
 
@@ -107,9 +99,9 @@
 					]
 				},
 
-{
+				{
 					"$Class"				: "ScnEntity",
-					"type"					: "ScnEntity",
+					"name"					: "Sunlight_1",
 
 					"localtransform" : {
 						"row0" : "1.0, 0.0, 0.0, 0.0",
@@ -121,8 +113,6 @@
 					"components" : [
 						{
 							"$Class"				: "ScnLightComponent",
-							"type"					: "ScnLightComponent",
-							"name"					: "Sunlight",
 
 							"diffusecolour"			: "0.05, 0.05, 0.05, 1.0",
 
@@ -133,7 +123,7 @@
 
 						{
 							"$Class"				: "ScnModelComponent",
-							"type"					: "ScnModelComponent",
+
 							"name"					: "TestModel",
 							"model"					: "$(ScnModel:models.sphere)",
 
@@ -144,14 +134,13 @@
 
 				{
 					"$Class"				: "ScnCanvasComponent",
-					"type"					: "ScnCanvasComponent",
+
 					"noofvertices" 			: 8192,
 					"rendermask"			: 1
 				},
 
 				{
 					"$Class"				: "GaTestSelectionComponent",
-					"type"					: "GaTestSelectionComponent",
 
 					"runautomatedtest"		: false,
 					"testmaxtime"			: 0.1,
@@ -255,7 +244,6 @@
 			"components" : [
 				{
 					"$Class"				: "GaCameraComponent",
-					"type"					: "GaCameraComponent",
 
 					"renderers"	: [
 						"$(ScnEntity:forward_renderer.Renderer)",
@@ -264,13 +252,11 @@
 				},
 
 				{
-					"$Class"				: "ScnSoundListenerComponent",
-					"type"					: "ScnSoundListenerComponent"
+					"$Class"				: "ScnSoundListenerComponent"
 				},
 
 				{
 					"$Class"				: "ScnModelComponent",
-					"type"					: "ScnModelComponent",
 					"model"					: "$(ScnModel:models.skysphere)",
 					"islit"					: false,
 					"scale"					: "1000.0, 1000.0, 1000.0",
@@ -282,7 +268,6 @@
 
 				{
 					"$Class"				: "ScnEntity",
-					"type"					: "ScnEntity",
 
 					"localtransform" : {
 						"row0" : "1.0, 0.0, 0.0, 0.0",
@@ -294,7 +279,6 @@
 					"components" : [
 						{
 							"$Class"				: "ScnLightComponent",
-							"type"					: "ScnLightComponent",
 							"name"					: "Sunlight",
 
 							"diffusecolour"			: "0.2, 0.0, 0.0, 1.0",
@@ -317,7 +301,6 @@
 
 				{
 					"$Class"				: "ScnEntity",
-					"type"					: "ScnEntity",
 
 					"localtransform" : {
 						"row0" : "1.0, 0.0, 0.0, 0.0",
@@ -329,7 +312,6 @@
 					"components" : [
 						{
 							"$Class"				: "ScnLightComponent",
-							"type"					: "ScnLightComponent",
 							"name"					: "Sunlight",
 
 							"diffusecolour"			: "0.0, 0.0, 0.2, 1.0",
@@ -341,7 +323,6 @@
 
 						{
 							"$Class"				: "ScnModelComponent",
-							"type"					: "ScnModelComponent",
 							"name"					: "TestModel",
 							"model"					: "$(ScnModel:models.sphere)",
 

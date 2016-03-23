@@ -8,8 +8,6 @@
 			"components" : [
 				{
 					"$Class"				: "GaTestShaderComponent",
-					"type"					: "GaTestShaderComponent",
-
 					"material"				: "$(ScnMaterial:this.material)"
 				}
 			]

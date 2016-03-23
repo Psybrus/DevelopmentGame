@@ -9,12 +9,10 @@
 			"components" : [
 				{
 					"$Class"	:		"ScnEntity",
-					"type"		:		"ScnEntity",
 					"name"		:		"TestServerEntity",
 					"components" : [
 						{
 							"$Class"				: "GaNetworkTestComponent",
-							"type"					: "GaNetworkTestComponent",
 							"isserver"				: true
 						}
 					]
@@ -22,12 +20,10 @@
 
 				{
 					"$Class"	:		"ScnEntity",
-					"type"		:		"ScnEntity",
 					"name"		:		"TestClientEntity_0",
 					"components" : [
 						{
 							"$Class"				: "GaNetworkTestComponent",
-							"type"					: "GaNetworkTestComponent",
 							"isserver"				: false
 						}
 					]
@@ -35,12 +31,10 @@
 
 				{
 					"$Class"	:		"ScnEntity",
-					"type"		:		"ScnEntity",
 					"name"		:		"TestClientEntity_1",
 					"components" : [
 						{
 							"$Class"				: "GaNetworkTestComponent",
-							"type"					: "GaNetworkTestComponent",
 							"isserver"				: false
 						}
 					]
@@ -48,12 +42,10 @@
 
 				{
 					"$Class"	:		"ScnEntity",
-					"type"		:		"ScnEntity",
 					"name"		:		"TestClientEntity_2",
 					"components" : [
 						{
 							"$Class"				: "GaNetworkTestComponent",
-							"type"					: "GaNetworkTestComponent",
 							"isserver"				: false
 						}
 					]

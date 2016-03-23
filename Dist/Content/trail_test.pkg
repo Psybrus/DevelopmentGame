@@ -8,7 +8,6 @@
 			"components" : [
 				{
 					"$Class"				: "GaMovingComponent",
-					"type"					: "GaMovingComponent",
 					"position"				: "0.0, 0.0, 0.0",
 					"axisspeed"				: "2.0, 1.0, 0.2",
 					"axismagnitude"			: "10.0, 10.0, 10.0"
@@ -16,7 +15,6 @@
 
 				{
 					"$Class"				: "GaTrailComponent",
-					"type"					: "GaTrailComponent",
 					"material"				: "$(ScnMaterial:this.material)",
 					"width"					: 1.0,
 					"maxlength"				: 30.0,

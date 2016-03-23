@@ -8,7 +8,6 @@
 			"components" : [
 				{
 					"$Class"				: "ScnModelComponent",
-					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
 					"islit"					: false,
@@ -18,7 +17,6 @@
 
 				{
 					"$Class"				: "ScnPostProcessComponent",
-					"type"					: "ScnPostProcessComponent",
 					"rendermask"			: 2,
 
 					"nodes"					: [
@@ -152,7 +150,6 @@
 
 				{
 					"$Class"				: "GaFullscreenQuadComponent",
-					"type"					: "GaFullscreenQuadComponent",
 					"material"				: "$(ScnMaterial:materials.test_rt)",
 					"rendermask"			: 1
 				}

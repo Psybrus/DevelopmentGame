@@ -52,7 +52,7 @@
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
-				"texcoord" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
 				"normal" : "FLOAT32",
 				"binormal" : "FLOAT32",
 				"tangent" : "FLOAT32"
@@ -110,7 +110,7 @@
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
-				"texcoord" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
 				"normal" : "FLOAT32",
 				"binormal" : "FLOAT32",
 				"tangent" : "FLOAT32"
@@ -130,7 +130,7 @@
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
-				"texcoord" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
 				"normal" : "FLOAT32",
 				"binormal" : "FLOAT32",
 				"tangent" : "FLOAT32"
@@ -150,7 +150,7 @@
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
-				"texcoord" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
 				"normal" : "FLOAT32",
 				"binormal" : "FLOAT32",
 				"tangent" : "FLOAT32"
@@ -208,7 +208,7 @@
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
-				"texcoord" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
 				"normal" : "FLOAT32",
 				"binormal" : "FLOAT32",
 				"tangent" : "FLOAT32"
@@ -259,7 +259,7 @@
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
-				"texcoord" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
 				"normal" : "FLOAT32",
 				"binormal" : "FLOAT32",
 				"tangent" : "FLOAT32"
@@ -317,7 +317,7 @@
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
-				"texcoord" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
 				"normal" : "FLOAT32",
 				"binormal" : "FLOAT32",
 				"tangent" : "FLOAT32"
@@ -375,7 +375,7 @@
 
 			"vertexformat" : {
 				"position" : "FLOAT32",
-				"texcoord" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
 				"normal" : "FLOAT32",
 				"binormal" : "FLOAT32",
 				"tangent" : "FLOAT32"

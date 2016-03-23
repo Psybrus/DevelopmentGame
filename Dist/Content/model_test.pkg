@@ -9,12 +9,10 @@
 			"components" : [
 				{
 					"$Class"	:		"ScnEntity",
-					"type"		:		"ScnEntity",
 					"name"		:		"TestModelEntity",
 					"components" : [
 						{
 							"$Class"				: "ScnModelComponent",
-							"type"					: "ScnModelComponent",
 							"model"					: "$(ScnModel:models.sphere)",
 							"islit"					: true,
 							"scale"					: "1.0, 1.0, 1.0"

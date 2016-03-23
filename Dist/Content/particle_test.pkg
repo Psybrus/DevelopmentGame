@@ -8,22 +8,19 @@
 			"components" : [
 				{
 					"$Class"				: "ScnFontComponent",
-					"type"					: "ScnFontComponent",
 					"font"					: "$(ScnFont:fonts.courier)",
 					"material"				: "$(ScnMaterial:materials.font)"
 				},
 
 				{
 					"$Class"				: "ScnParticleSystemComponent",
-					"type"					: "ScnParticleSystemComponent",
 					"noofparticles"			: 10000,
 					"islocalspace"			: false,
 					"material"				: "$(ScnMaterial:materials.particles)"
 				},
 
 				{
-					"$Class"				: "GaTestParticleComponent",
-					"type"					: "GaTestParticleComponent"
+					"$Class"				: "GaTestParticleComponent"
 				}
 			]
 		}

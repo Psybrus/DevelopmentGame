@@ -9,12 +9,10 @@
 			"components" : [
 				{
 					"$Class"	:		"ScnEntity",
-					"type"		:		"ScnEntity",
 					"name"		:		"TestLightingEntity",
 					"components" : [
 						{
 							"$Class"				: "GaTestLightingComponent",
-							"type"					: "GaTestLightingComponent",
 							"model"					: "$(ScnModel:models.bunny)"
 						}
 					]

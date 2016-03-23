@@ -8,7 +8,6 @@
 			"components" : [
 				{
 					"$Class"				: "GaLevelComponent",
-					"type"					: "GaLevelComponent",
 
 					"entities"				: [
 						// Box pile.
@@ -134,7 +133,6 @@
 			"components" : [
 				{
 					"$Class"				: "ScnPhysicsBoxCollisionComponent",
-					"type"					: "ScnPhysicsBoxCollisionComponent",
 
 					"size"					: "1.0, 1.0, 1.0",
 					"localscaling"			: "1.0, 1.0, 1.0",
@@ -143,7 +141,6 @@
 
 				{
 					"$Class"				: "ScnPhysicsRigidBodyComponent",
-					"type"					: "ScnPhysicsRigidBodyComponent",
 
 					"mass"					: 1.0,
 					"friction"				: 0.5,
@@ -153,7 +150,7 @@
 
 				{
 					"$Class"				: "ScnModelComponent",
-					"type"					: "ScnModelComponent",
+
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:models.cube)",
 					"islit"					: true,
@@ -170,7 +167,6 @@
 			"components" : [
 				{
 					"$Class"				: "ScnPhysicsSphereCollisionComponent",
-					"type"					: "ScnPhysicsSphereCollisionComponent",
 
 					"radius"				: 1.0,
 					"localscaling"			: "1.0, 1.0, 1.0"
@@ -178,7 +174,6 @@
 
 				{
 					"$Class"				: "ScnPhysicsRigidBodyComponent",
-					"type"					: "ScnPhysicsRigidBodyComponent",
 
 					"mass"					: 1.0,
 					"friction"				: 0.5,
@@ -188,7 +183,7 @@
 
 				{
 					"$Class"				: "ScnModelComponent",
-					"type"					: "ScnModelComponent",
+
 					"name"					: "TestModel",
 					"islit"					: true,
 					"model"					: "$(ScnModel:models.sphere)"
@@ -204,7 +199,6 @@
 			"components" : [
 				{
 					"$Class"				: "ScnPhysicsCapsuleCollisionComponent",
-					"type"					: "ScnPhysicsCapsuleCollisionComponent",
 
 					"radius"				: 0.5,
 					"height"				: 1.0,
@@ -213,7 +207,6 @@
 
 				{
 					"$Class"				: "ScnPhysicsRigidBodyComponent",
-					"type"					: "ScnPhysicsRigidBodyComponent",
 
 					"mass"					: 1.0,
 					"friction"				: 0.5,
@@ -231,7 +224,6 @@
 			"components" : [
 				{
 					"$Class"				: "ScnPhysicsCylinderCollisionComponent",
-					"type"					: "ScnPhysicsCylinderCollisionComponent",
 
 					"size"					: "1.0, 1.0, 1.0",
 					"localscaling"			: "1.0, 1.0, 1.0"
@@ -239,7 +231,6 @@
 
 				{
 					"$Class"				: "ScnPhysicsRigidBodyComponent",
-					"type"					: "ScnPhysicsRigidBodyComponent",
 
 					"mass"					: 1.0,
 					"friction"				: 0.5,
@@ -256,7 +247,6 @@
 			"components" : [
 				{
 					"$Class"				: "ScnPhysicsMeshCollisionComponent",
-					"type"					: "ScnPhysicsMeshCollisionComponent",
 					"mesh"					: "$(ScnPhysicsMesh:this.teapot_dynamic)",
 					"size"					: "1.0, 1.0, 1.0",
 					"localscaling"			: "1.0, 1.0, 1.0"
@@ -264,8 +254,6 @@
 
 				{
 					"$Class"				: "ScnPhysicsRigidBodyComponent",
-					"type"					: "ScnPhysicsRigidBodyComponent",
-
 					"mass"					: 1.0,
 					"friction"				: 0.5,
 					"rollingfriction"		: 0.1,
@@ -274,7 +262,6 @@
 				
 				{
 					"$Class"				: "ScnModelComponent",
-					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:models.teapot)",
 					"islit"					: true,
@@ -318,8 +305,6 @@
 			"components" : [
 				{
 					"$Class"				: "ScnPhysicsBoxCollisionComponent",
-					"type"					: "ScnPhysicsBoxCollisionComponent",
-
 					"size"					: "1.0, 1.0, 1.0",
 					"localscaling"			: "2.0, 0.2, 2.0",
 					"margin"				: 0.0
@@ -327,8 +312,6 @@
 
 				{
 					"$Class"				: "ScnPhysicsRigidBodyComponent",
-					"type"					: "ScnPhysicsRigidBodyComponent",
-
 					"mass"					: 1.0,
 					"friction"				: 0.5,
 					"rollingfriction"		: 0.1,
@@ -338,7 +321,6 @@
 /* TODO: Causes valgrind to trigger.
 				{
 					"$Class"				: "ScnPhysicsHingeConstraintComponent",
-					"type"					: "ScnPhysicsHingeConstraintComponent",
 					"framea"				: {
 						"row0" : "0.0, 0.0, 1.0, 0.0",
 						"row1" : "0.0, 1.0, 0.0, 0.0",
@@ -349,7 +331,6 @@
 */
 				{
 					"$Class"				: "ScnModelComponent",
-					"type"					: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:models.cube)",
 					"islit"					: true,

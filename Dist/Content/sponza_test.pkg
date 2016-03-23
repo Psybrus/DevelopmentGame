@@ -9,12 +9,10 @@
 			"components" : [
 				{
 					"$Class"	:		"ScnEntity",
-					"type"		:		"ScnEntity",
 					"name"		:		"TestModelEntity",
 					"components" : [
 						{
 							"$Class"				: "ScnModelComponent",
-							"type"					: "ScnModelComponent",
 							"model"					: "$(ScnModel:this.sponza)",
 							"islit"					: true,
 							"scale"					: "0.1, 0.1, 0.1"
@@ -22,15 +20,13 @@
 
 						{
 							"$Class"				: "ScnParticleSystemComponent",
-							"type"					: "ScnParticleSystemComponent",
 							"noofparticles"			: 10000,
 							"islocalspace"			: false,
 							"material"				: "$(ScnMaterial:materials.particles)"
 						},
 
 						{
-							"$Class"				: "GaTestParticleComponent",
-							"type"					: "GaTestParticleComponent"
+							"$Class"				: "GaTestParticleComponent"
 						}
 					]
 				}
@@ -95,7 +91,7 @@
 			"vertexformat" : {
 				"position" : "FLOAT32",
 				"normal" : "FLOAT32",
-				"texcoord" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
 				"tangent" : "FLOAT32",
 				"binormal" : "FLOAT32"
 			},

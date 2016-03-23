@@ -8,28 +8,35 @@
 			"components" : [
 				{
 					"$Class"				: "ScnFontComponent",
-					"type"					: "ScnFontComponent",
 					"font"					: "$(ScnFont:fonts.courier)",
 					"material"				: "$(ScnMaterial:materials.font)"
 				},
 
 				{
 					"$Class"				: "ScnSoundEmitterComponent",
-					"type"					: "ScnSoundEmitterComponent",
 					"velocitymultiplier"	: 100.0,
 					"maxvelocity"			: 100.0
 				},
 
 				{
 					"$Class"				: "ScnSoundEmitterComponent",
-					"type"					: "ScnSoundEmitterComponent",
 					"velocitymultiplier"	: 100.0,
 					"maxvelocity"			: 100.0
 				},
 
 				{
+					"$Class"				: "ScnParticleSystemComponent",
+					"noofparticles"			: 10000,
+					"islocalspace"			: false,
+					"material"				: "$(ScnMaterial:materials.particles)"
+				},
+
+				{
+					"$Class"				: "GaTestParticleComponent"
+				},
+
+				{
 					"$Class"				: "GaMovingComponent",
-					"type"					: "GaMovingComponent",
 					"position"				: "0.0, 0.0, 0.0",
 					"axisspeed"				: "1.0, 0.5, 0.01",
 					"axismagnitude"			: "10.0, 10.0, 10.0"
@@ -37,13 +44,11 @@
 
 				{
 					"$Class"				: "ScnModelComponent",
-					"type"					: "ScnModelComponent",
 					"model"					: "$(ScnModel:models.sphere)"
 				},
 
 				{
 					"$Class"				: "GaTestSoundComponent",
-					"type"					: "GaTestSoundComponent",
 					"sound"					: "$(ScnSound:this.Sound)",
 					"music"					: "$(ScnSound:this.Music)"
 				}
