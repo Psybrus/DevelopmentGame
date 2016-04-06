@@ -15,6 +15,8 @@
 
 #include "System/Scene/ScnCore.h"
 
+#include "System/Content/CsPackageDependencies.h"
+
 //////////////////////////////////////////////////////////////////////////
 // PsyGameInit
 void PsyGameInit()

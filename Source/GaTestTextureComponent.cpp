@@ -162,7 +162,7 @@ void GaTestTextureComponent::drawTest(
 					FrameBuffer,
 					&Viewport,
 					nullptr,
-					RsTopologyType::TRIANGLE_STRIP, 0, 4, 0 );
+					RsTopologyType::TRIANGLE_STRIP, 0, 4, 0, 0, 1 );
 			} );
 	}
 }

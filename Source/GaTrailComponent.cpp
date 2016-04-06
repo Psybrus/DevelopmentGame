@@ -157,7 +157,7 @@ void GaTrailComponent::render( ScnRenderContext & RenderContext )
 					FrameBuffer,
 					&Viewport,
 					nullptr,
-					RsTopologyType::TRIANGLE_STRIP, 0, NoofIndices );
+					RsTopologyType::TRIANGLE_STRIP, 0, NoofIndices, 0, 1 );
 			} );
 #endif
 	}

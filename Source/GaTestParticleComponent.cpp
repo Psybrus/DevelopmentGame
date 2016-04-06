@@ -60,10 +60,9 @@ void GaTestParticleComponent::update( BcF32 Tick )
 	ScnParticle* Particle = nullptr;
 	if( ParticleSystem_->allocParticle( Particle ) )
 	{
-		Particle->Position_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 		Particle->CurrentTime_ = 0.0f;
 
-		Particle->Position_ = MaVec3d( 0.0f, 0.0f, 0.0f );
+		Particle->Position_ = getParentEntity()->getWorldPosition();
 		Particle->Velocity_ = ( MaVec3d( Rand.randReal(), Rand.randReal(), Rand.randReal() ) ).normal() * 10.0f;
 		Particle->Acceleration_ = -Particle->Velocity_ * 0.5f;
 		Particle->Scale_ = MaVec2d( 2.0f, 2.0f );
