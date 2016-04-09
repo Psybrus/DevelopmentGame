@@ -61,7 +61,7 @@
 
 				"depthstencilstate" : {
 					"depthtestenable" : false,
-					"depthwriteenable" : false,
+					"depthwriteenable" : true,
 					"depthfunc" : "lessequal",
 					"stencilenable" : false
 				},
@@ -109,7 +109,7 @@
 
 				"depthstencilstate" : {
 					"depthtestenable" : false,
-					"depthwriteenable" : false,
+					"depthwriteenable" : true,
 					"depthfunc" : "lessequal",
 					"stencilenable" : false
 				},
@@ -158,7 +158,7 @@
 
 				"depthstencilstate" : {
 					"depthtestenable" : false,
-					"depthwriteenable" : false,
+					"depthwriteenable" : true,
 					"depthfunc" : "lessequal",
 					"stencilenable" : false
 				},
@@ -207,7 +207,7 @@
 
 				"depthstencilstate" : {
 					"depthtestenable" : false,
-					"depthwriteenable" : false,
+					"depthwriteenable" : true,
 					"depthfunc" : "lessequal",
 					"stencilenable" : false
 				},

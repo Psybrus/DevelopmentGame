@@ -78,7 +78,6 @@
 #include "System/Scene/ScnComponent.h"
 #include "System/Scene/ScnComponentProcessor.h"
 #include "System/Scene/ScnEntity.h"
-#include "System/Scene/ScnSpatialComponent.h"
 #include "System/Scene/Sound/ScnSound.h"
 #include "System/Scene/Sound/ScnSoundEmitter.h"
 #include "System/Scene/Sound/ScnSoundListenerComponent.h"
@@ -217,7 +216,6 @@ void AutoGenRegisterReflection()
 	ScnComponent::StaticRegisterClass();
 	ScnComponentProcessor::StaticRegisterClass();
 	ScnEntity::StaticRegisterClass();
-	ScnSpatialComponent::StaticRegisterClass();
 	ScnSound::StaticRegisterClass();
 	ScnSoundEmitterComponent::StaticRegisterClass();
 	ScnSoundListenerComponent::StaticRegisterClass();

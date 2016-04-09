@@ -260,7 +260,7 @@
 					"model"					: "$(ScnModel:models.skysphere)",
 					"islit"					: false,
 					"scale"					: "1000.0, 1000.0, 1000.0",
-					"layer"					: 15,
+					"layer"					: 0,
 					"passes"				: "TRANSPARENT"
 				}
 
