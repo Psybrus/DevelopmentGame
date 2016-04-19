@@ -1,24 +1,5 @@
 #include <Psybrus.psh>
 
-////////////////////////////////////////////////////////////////////////
-// GaTestCloudBlockData
-BEGIN_CBUFFER( GaTestCloudBlockData )
-	ENTRY( GaTestCloudBlockData, float4, CloudTimer_ ) 
-	ENTRY( GaTestCloudBlockData, float4, CloudScale_ ) 
-	ENTRY( GaTestCloudBlockData, float, CloudThreshold_ )
-	ENTRY( GaTestCloudBlockData, float, CloudPadding0_ )
-	ENTRY( GaTestCloudBlockData, float, CloudPadding1_ )
-	ENTRY( GaTestCloudBlockData, float, CloudPadding2_ )
-END_CBUFFER
-
-#if !PSY_USE_CBUFFER
-
-#  define CloudTimer_ GaTestCloudBlockDataVS_XCloudTimer_
-#  define CloudScale_ GaTestCloudBlockDataVS_XCloudScale_
-#  define CloudThreshold_ GaTestCloudBlockDataVS_XCloudThreshold_
-
-#endif
-
 //////////////////////////////////////////////////////////////////////////
 // Vertex shader
 #if VERTEX_SHADER

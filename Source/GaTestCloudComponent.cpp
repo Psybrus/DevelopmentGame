@@ -65,7 +65,8 @@ void GaTestCloudBlockData::StaticRegisterClass()
 		new ReField( "CloudPadding2_", &GaTestCloudBlockData::CloudPadding2_ ),
 	};
 
-	ReRegisterClass< GaTestCloudBlockData >( Fields );
+	auto& Class = ReRegisterClass< GaTestCloudBlockData >( Fields );
+	Class.addAttribute( new ScnShaderDataAttribute( BcFalse ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

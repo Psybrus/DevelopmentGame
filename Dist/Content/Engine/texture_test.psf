@@ -1,17 +1,5 @@
 #include <Psybrus.psh>
 
-////////////////////////////////////////////////////////////////////////
-// GaTestTextureBlockData
-BEGIN_CBUFFER( GaTestTextureBlockData )
-	ENTRY( GaTestTextureBlockData, float4, UVWOffset_ ) 
-END_CBUFFER
-
-#if !PSY_USE_CBUFFER
-
-#  define UVWOffset_ GaTestTextureBlockDataVS_XUVWOffset_
-
-#endif
-
 //////////////////////////////////////////////////////////////////////////
 // Vertex shader
 #if VERTEX_SHADER

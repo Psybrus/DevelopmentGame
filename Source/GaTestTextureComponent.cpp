@@ -56,7 +56,8 @@ void GaTestTextureBlockData::StaticRegisterClass()
 		new ReField( "UVWOffset_", &GaTestTextureBlockData::UVWOffset_ ),
 	};
 
-	ReRegisterClass< GaTestTextureBlockData >( Fields );
+	auto& Class = ReRegisterClass< GaTestTextureBlockData >( Fields );
+	Class.addAttribute( new ScnShaderDataAttribute( BcFalse ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

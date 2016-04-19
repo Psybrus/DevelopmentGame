@@ -39,6 +39,8 @@
 			"name"		: "sponza",
 			"source"	: "Content/Source/crytek-sponza/sponza.obj",
 
+			"flattenhierarchy" : true,
+
 			"materials": [
 				{
 					"regex" : "(.*)", 

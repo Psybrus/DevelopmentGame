@@ -149,7 +149,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	float MipLevel = float(ReflectionLevels) * InMaterial.Roughness_;
 	float3 ReflectionColour = gammaToLinear( PSY_SAMPLE_CUBE_LOD( ReflectionTex, reflect( normalize( IN( VsWorldPosition ).xyz - EyePosition ), Normal.xyz ), MipLevel ).xyz );
 
-	for( int LightIdx = 0; LightIdx < MAX_LIGHTS; ++LightIdx )
+	for( int LightIdx = 0; LightIdx < 4; ++LightIdx )
 	{
 		Light InLight;
 		InLight.Position_ = LightPosition_[ LightIdx ].xyz;

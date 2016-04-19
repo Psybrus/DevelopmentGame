@@ -197,6 +197,7 @@ void AutoGenRegisterReflection()
 	ScnPostProcessComponent::StaticRegisterClass();
 	ScnRenderableComponent::StaticRegisterClass();
 	ScnShader::StaticRegisterClass();
+	ScnShaderDataAttribute::StaticRegisterClass();
 	ScnShaderViewUniformBlockData::StaticRegisterClass();
 	ScnShaderLightUniformBlockData::StaticRegisterClass();
 	ScnShaderMaterialUniformBlockData::StaticRegisterClass();
