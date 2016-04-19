@@ -132,6 +132,17 @@ layout(std140) uniform ScnShaderObjectUniformBlockData
 	float4x4 NormalTransform_;
 };
 
+struct ScnShaderObjectUniformBlockDataInstance
+{
+	float4x4 WorldTransform_;
+	float4x4 NormalTransform_;
+};
+
+layout(std140) uniform ScnShaderObjectUniformBlockDataInstanced
+{
+	ScnShaderObjectUniformBlockDataInstance ObjectInstances_[128];
+};
+
 layout(std140) uniform ScnShaderViewUniformBlockData
 {
 	float4x4 InverseProjectionTransform_;
@@ -161,6 +172,20 @@ layout(std140) uniform ScnShaderMaterialUniformBlockData
 	float MaterialSpecular_;
 	float MaterialRoughness_;
 	float MaterialUnused_;
+};
+
+struct ScnShaderMaterialUniformBlockDataInstance
+{
+	float4 MaterialBaseColour_;
+	float MaterialMetallic_;
+	float MaterialSpecular_;
+	float MaterialRoughness_;
+	float MaterialUnused_;
+};
+
+layout(std140) uniform ScnShaderMaterialUniformBlockDataInstanced
+{
+	ScnShaderMaterialUniformBlockDataInstance MaterialInstances_[128];
 };
 
 layout(std140) uniform ScnShaderBoneUniformBlockData
@@ -225,6 +250,17 @@ cbuffer ScnShaderObjectUniformBlockData
 	float4x4 NormalTransform_;
 };
 
+struct ScnShaderObjectUniformBlockDataInstance
+{
+	float4x4 WorldTransform_;
+	float4x4 NormalTransform_;
+};
+
+cbuffer ScnShaderObjectUniformBlockDataInstanced
+{
+	ScnShaderObjectUniformBlockDataInstance ObjectInstances_[128];
+};
+
 cbuffer ScnShaderViewUniformBlockData
 {
 	float4x4 InverseProjectionTransform_;
@@ -254,6 +290,20 @@ cbuffer ScnShaderMaterialUniformBlockData
 	float MaterialSpecular_;
 	float MaterialRoughness_;
 	float MaterialUnused_;
+};
+
+struct ScnShaderMaterialUniformBlockDataInstance
+{
+	float4 MaterialBaseColour_;
+	float MaterialMetallic_;
+	float MaterialSpecular_;
+	float MaterialRoughness_;
+	float MaterialUnused_;
+};
+
+cbuffer ScnShaderMaterialUniformBlockDataInstanced
+{
+	ScnShaderMaterialUniformBlockDataInstance MaterialInstances_[128];
 };
 
 cbuffer ScnShaderBoneUniformBlockData

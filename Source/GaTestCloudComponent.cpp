@@ -66,7 +66,7 @@ void GaTestCloudBlockData::StaticRegisterClass()
 	};
 
 	auto& Class = ReRegisterClass< GaTestCloudBlockData >( Fields );
-	Class.addAttribute( new ScnShaderDataAttribute( BcFalse ) );
+	Class.addAttribute( new ScnShaderDataAttribute( "CloudTest", BcFalse ) );
 }
 
 //////////////////////////////////////////////////////////////////////////

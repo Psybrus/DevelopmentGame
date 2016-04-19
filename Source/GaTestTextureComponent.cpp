@@ -57,7 +57,7 @@ void GaTestTextureBlockData::StaticRegisterClass()
 	};
 
 	auto& Class = ReRegisterClass< GaTestTextureBlockData >( Fields );
-	Class.addAttribute( new ScnShaderDataAttribute( BcFalse ) );
+	Class.addAttribute( new ScnShaderDataAttribute( "TextureTest", BcFalse ) );
 }
 
 //////////////////////////////////////////////////////////////////////////
