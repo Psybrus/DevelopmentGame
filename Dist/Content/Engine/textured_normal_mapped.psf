@@ -106,7 +106,7 @@ float4 getMaterial( in float3 InNormal, in float3 InTangent, in float3 InBinorma
 
 //////////////////////////////////////////////////////////////////////////
 // pixelMain
-void pixelAll( FRAMEBUFFER_INPUT )
+void pixelAll( FRAMEBUFFER_INPUT, uint InstanceID )
 {
 	float4 Diffuse;
 	float4 Normal;
@@ -121,10 +121,19 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	 	Diffuse, Normal, Specular );
 #endif
 
+#if defined( PERM_MESH_INSTANCED_3D ) && PSY_INPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
 	Material InMaterial;
+	InMaterial.Colour_ = MaterialInstances_[ InstanceID ].MaterialBaseColour_.xyz;
+	InMaterial.Metallic_ = MaterialInstances_[ InstanceID ].MaterialMetallic_ * Specular.x;
+	InMaterial.Specular_ = MaterialInstances_[ InstanceID ].MaterialSpecular_ * Specular.y;
+	InMaterial.Roughness_ = MaterialInstances_[ InstanceID ].MaterialRoughness_ * Specular.z;
+#else
+	Material InMaterial;
+	InMaterial.Colour_ = MaterialBaseColour_.xyz;
 	InMaterial.Metallic_ = MaterialMetallic_ * Specular.x;
 	InMaterial.Specular_ = MaterialSpecular_ * Specular.y;
 	InMaterial.Roughness_ = MaterialRoughness_ * Specular.z;
+#endif
 
 #if defined( SOFT_CLIPPING )
 	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, float2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );
@@ -139,7 +148,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 #endif
 
 #if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
-	Diffuse = gammaToLinear( Diffuse ) * IN( VsColour0 ) * MaterialBaseColour_;
+	Diffuse = gammaToLinear( Diffuse ) * IN( VsColour0 ) * InMaterial.Colour_;
 	float3 EyePosition = getViewPosition();
 	float3 TotalSurface = float3( 0.0, 0.0, 0.0 );
 
@@ -164,7 +173,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 	writeFrag( FRAMEBUFFER_INTERNAL, float4( TotalSurface, Diffuse.w ), Normal.xyz, float3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
 #else
-	Diffuse = gammaToLinear( Diffuse ) * IN( VsColour0 ) * MaterialBaseColour_;
+	Diffuse = gammaToLinear( Diffuse ) * IN( VsColour0 ) * InMaterial.Colour_;
 	writeFrag( FRAMEBUFFER_INTERNAL, linearToGamma( Diffuse ), Normal.xyz, float3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
 #endif
 }
@@ -174,7 +183,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 PS_MAIN( pixelMain )
 {
 	PS_ENTER;
-	pixelAll( FRAMEBUFFER_OUTPUT );
+	pixelAll( FRAMEBUFFER_OUTPUT, GInstanceID );
 	PS_EXIT;
 }
 
@@ -188,7 +197,7 @@ PS_MAIN( pixelMainMask )
 	{
 		discard;
 	}
-	pixelAll( FRAMEBUFFER_OUTPUT );
+	pixelAll( FRAMEBUFFER_OUTPUT, GInstanceID );
 	PS_EXIT;
 }
 

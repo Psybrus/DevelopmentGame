@@ -69,7 +69,7 @@ PSY_SAMPLER_2D( DepthTex );
 
 //////////////////////////////////////////////////////////////////////////
 // pixelAll
-void pixelAll( FRAMEBUFFER_INPUT )
+void pixelAll( FRAMEBUFFER_INPUT, uint InstanceID )
 {
 	float4 Diffuse = PSY_SAMPLE_2D( DiffuseTex, IN( VsTexCoord0 ).xy );
 	float4 Specular = float4( 1.0, 1.0, 1.0, 1.0 );
@@ -92,11 +92,19 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	float3 EyePosition = getViewPosition();
 	float3 TotalSurface = float3( 0.0, 0.0, 0.0 );
 
+#if defined( PERM_MESH_INSTANCED_3D ) && PSY_INPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
+	Material InMaterial;
+	InMaterial.Colour_ = MaterialInstances_[ InstanceID ].MaterialBaseColour_.xyz * Diffuse.xyz;
+	InMaterial.Metallic_ = MaterialInstances_[ InstanceID ].MaterialMetallic_ * Specular.x;
+	InMaterial.Specular_ = MaterialInstances_[ InstanceID ].MaterialSpecular_ * Specular.y;
+	InMaterial.Roughness_ = MaterialInstances_[ InstanceID ].MaterialRoughness_ * Specular.z;
+#else
 	Material InMaterial;
 	InMaterial.Colour_ = MaterialBaseColour_.xyz * Diffuse.xyz;
-	InMaterial.Specular_ = MaterialSpecular_;
-	InMaterial.Roughness_ = MaterialRoughness_;
-	InMaterial.Metallic_ = MaterialMetallic_;
+	InMaterial.Metallic_ = MaterialMetallic_ * Specular.x;
+	InMaterial.Specular_ = MaterialSpecular_ * Specular.y;
+	InMaterial.Roughness_ = MaterialRoughness_ * Specular.z;
+#endif
 
 	float3 ReflectionColour = PSY_SAMPLE_CUBE_LOD( ReflectionTex, reflect( normalize( IN( VsWorldPosition ).xyz - EyePosition ), Normal.xyz ), MaterialRoughness_ ).xyz;
 
@@ -121,7 +129,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 PS_MAIN( pixelMain )
 {
 	PS_ENTER;
-	pixelAll( FRAMEBUFFER_OUTPUT );
+	pixelAll( FRAMEBUFFER_OUTPUT, GInstanceID );
 	PS_EXIT;
 }
 
@@ -136,7 +144,7 @@ PS_MAIN( pixelMainMask )
 		discard;
 	}
 
-	pixelAll( FRAMEBUFFER_OUTPUT );
+	pixelAll( FRAMEBUFFER_OUTPUT, GInstanceID );
 	PS_EXIT;
 }
 

@@ -72,8 +72,7 @@
 			"excludepermutations" : [
 				"MESH_STATIC_2D",
 				"MESH_SKINNED_3D",
-				"MESH_PARTICLE_3D",
-				"MESH_INSTANCED_3D"
+				"MESH_PARTICLE_3D"
 			],
 
 			"entrypoints"		: {
