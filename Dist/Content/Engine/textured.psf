@@ -29,6 +29,8 @@ VS_OUT_BEGIN
 	DECLARE_OUT( float4, VsNormal, NORMAL );
 	DECLARE_OUT( float4, VsTexCoord0, TEXCOORD0 );
 	DECLARE_OUT( float4, VsWorldPosition, TEXCOORD1 );
+	DECLARE_OUT( float4, VsMaterial0, TEXCOORD2 );
+	DECLARE_OUT( float4, VsMaterial1, TEXCOORD3 );
 VS_OUT_END
 
 VS_MAIN( vertexMain )
@@ -39,6 +41,27 @@ VS_MAIN( vertexMain )
 	OUT( VsColour0 ) = IN( InColour_ );
 	PSY_MAKE_WORLD_SPACE_NORMAL( OUT( VsNormal ), IN( InNormal_ ) );
 	OUT( VsTexCoord0 ) = IN( InTexCoord_ );
+
+#if defined( PERM_MESH_INSTANCED_3D ) && PSY_INPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
+	float4 Material0 = float4( MaterialInstances_[ GInstanceID ].MaterialBaseColour_.xyz, 1.0 );
+	float4 Material1;
+	Material1.x = MaterialInstances_[ GInstanceID ].MaterialMetallic_;
+	Material1.y = MaterialInstances_[ GInstanceID ].MaterialSpecular_;
+	Material1.z = MaterialInstances_[ GInstanceID ].MaterialRoughness_;
+	Material1.w = 0.0;
+	OUT( VsMaterial0 ) = Material0;
+	OUT( VsMaterial1 ) = Material1;
+#else
+	float4 Material0 = float4( MaterialBaseColour_.xyz, 1.0 );
+	float4 Material1;
+	Material1.x = MaterialMetallic_;
+	Material1.y = MaterialSpecular_;
+	Material1.z = MaterialRoughness_;
+	Material1.w = 0.0;
+	OUT( VsMaterial0 ) = Material0;
+	OUT( VsMaterial1 ) = Material1;
+#endif
+
 	VS_EXIT;
 }
 
@@ -53,6 +76,8 @@ PS_IN_BEGIN
 	DECLARE_IN( float4, VsNormal, NORMAL );
 	DECLARE_IN( float4, VsTexCoord0, TEXCOORD0 );
 	DECLARE_IN( float4, VsWorldPosition, TEXCOORD1 );
+	DECLARE_IN( float4, VsMaterial0, TEXCOORD2 );
+	DECLARE_IN( float4, VsMaterial1, TEXCOORD3 );
 PS_IN_END
 #include <PsybrusOutput.psh>
 
@@ -69,11 +94,17 @@ PSY_SAMPLER_2D( DepthTex );
 
 //////////////////////////////////////////////////////////////////////////
 // pixelAll
-void pixelAll( FRAMEBUFFER_INPUT, uint InstanceID )
+void pixelAll( FRAMEBUFFER_INPUT )
 {
 	float4 Diffuse = PSY_SAMPLE_2D( DiffuseTex, IN( VsTexCoord0 ).xy );
 	float4 Specular = float4( 1.0, 1.0, 1.0, 1.0 );
 	float4 Normal = normalize( IN( VsNormal ) );
+
+	Material InMaterial;
+	InMaterial.Colour_ = IN( VsMaterial0 ).xyz;
+	InMaterial.Metallic_ = IN( VsMaterial1 ).x;
+	InMaterial.Specular_ = IN( VsMaterial1 ).y;
+	InMaterial.Roughness_ = IN( VsMaterial1 ).z;
 
 #if defined( SOFT_CLIPPING )
 	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, float2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );
@@ -91,20 +122,6 @@ void pixelAll( FRAMEBUFFER_INPUT, uint InstanceID )
 	Diffuse = gammaToLinear( Diffuse ) * IN( VsColour0 );
 	float3 EyePosition = getViewPosition();
 	float3 TotalSurface = float3( 0.0, 0.0, 0.0 );
-
-#if defined( PERM_MESH_INSTANCED_3D ) && PSY_INPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
-	Material InMaterial;
-	InMaterial.Colour_ = MaterialInstances_[ InstanceID ].MaterialBaseColour_.xyz * Diffuse.xyz;
-	InMaterial.Metallic_ = MaterialInstances_[ InstanceID ].MaterialMetallic_ * Specular.x;
-	InMaterial.Specular_ = MaterialInstances_[ InstanceID ].MaterialSpecular_ * Specular.y;
-	InMaterial.Roughness_ = MaterialInstances_[ InstanceID ].MaterialRoughness_ * Specular.z;
-#else
-	Material InMaterial;
-	InMaterial.Colour_ = MaterialBaseColour_.xyz * Diffuse.xyz;
-	InMaterial.Metallic_ = MaterialMetallic_ * Specular.x;
-	InMaterial.Specular_ = MaterialSpecular_ * Specular.y;
-	InMaterial.Roughness_ = MaterialRoughness_ * Specular.z;
-#endif
 
 	float3 ReflectionColour = PSY_SAMPLE_CUBE_LOD( ReflectionTex, reflect( normalize( IN( VsWorldPosition ).xyz - EyePosition ), Normal.xyz ), MaterialRoughness_ ).xyz;
 
@@ -129,7 +146,7 @@ void pixelAll( FRAMEBUFFER_INPUT, uint InstanceID )
 PS_MAIN( pixelMain )
 {
 	PS_ENTER;
-	pixelAll( FRAMEBUFFER_OUTPUT, GInstanceID );
+	pixelAll( FRAMEBUFFER_OUTPUT );
 	PS_EXIT;
 }
 
@@ -144,8 +161,9 @@ PS_MAIN( pixelMainMask )
 		discard;
 	}
 
-	pixelAll( FRAMEBUFFER_OUTPUT, GInstanceID );
+	pixelAll( FRAMEBUFFER_OUTPUT );
 	PS_EXIT;
 }
+
 
 #endif
