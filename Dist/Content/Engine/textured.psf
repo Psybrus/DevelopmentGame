@@ -26,38 +26,42 @@ VS_IN_END
 
 VS_OUT_BEGIN
 	DECLARE_OUT( float4, VsColour0, COLOR0 );
-	DECLARE_OUT( float4, VsNormal, NORMAL );
-	DECLARE_OUT( float4, VsTexCoord0, TEXCOORD0 );
-	DECLARE_OUT( float4, VsWorldPosition, TEXCOORD1 );
-	DECLARE_OUT( float4, VsMaterial0, TEXCOORD2 );
-	DECLARE_OUT( float4, VsMaterial1, TEXCOORD3 );
+	DECLARE_OUT( float3, VsNormal, NORMAL );
+	DECLARE_OUT( float2, VsTexCoord0, TEXCOORD0 );
+	DECLARE_OUT( float3, VsWorldPosition, TEXCOORD1 );
+	DECLARE_OUT( float3, VsMaterial0, TEXCOORD2 );
+	DECLARE_OUT( float3, VsMaterial1, TEXCOORD3 );
 VS_OUT_END
 
 VS_MAIN( vertexMain )
 {
 	VS_ENTER;
-	PSY_MAKE_WORLD_SPACE_VERTEX( OUT( VsWorldPosition ), IN( InPosition_ ) );
-	PSY_MAKE_CLIP_SPACE_VERTEX( OUT_POSITION, OUT( VsWorldPosition ) );
+	float4 WorldPosition;
+	PSY_MAKE_WORLD_SPACE_VERTEX( WorldPosition, IN( InPosition_ ) );
+	PSY_MAKE_CLIP_SPACE_VERTEX( OUT_POSITION, WorldPosition );
+	OUT( VsWorldPosition ) = WorldPosition.xyz;
 	OUT( VsColour0 ) = IN( InColour_ );
-	PSY_MAKE_WORLD_SPACE_NORMAL( OUT( VsNormal ), IN( InNormal_ ) );
-	OUT( VsTexCoord0 ) = IN( InTexCoord_ );
+
+	float4 Normal;
+	PSY_MAKE_WORLD_SPACE_NORMAL( Normal, IN( InNormal_ ) );
+	OUT( VsNormal ) = Normal.xyz;
+
+	OUT( VsTexCoord0 ) = IN( InTexCoord_ ).xy;
 
 #if defined( PERM_MESH_INSTANCED_3D ) && PSY_INPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
-	float4 Material0 = float4( MaterialInstances_[ GInstanceID ].MaterialBaseColour_.xyz, 1.0 );
-	float4 Material1;
+	float3 Material0 = MaterialInstances_[ GInstanceID ].MaterialBaseColour_.xyz;
+	float3 Material1;
 	Material1.x = MaterialInstances_[ GInstanceID ].MaterialMetallic_;
 	Material1.y = MaterialInstances_[ GInstanceID ].MaterialSpecular_;
 	Material1.z = MaterialInstances_[ GInstanceID ].MaterialRoughness_;
-	Material1.w = 0.0;
 	OUT( VsMaterial0 ) = Material0;
 	OUT( VsMaterial1 ) = Material1;
 #else
-	float4 Material0 = float4( MaterialBaseColour_.xyz, 1.0 );
-	float4 Material1;
+	float3 Material0 = MaterialBaseColour_.xyz;
+	float3 Material1;
 	Material1.x = MaterialMetallic_;
 	Material1.y = MaterialSpecular_;
 	Material1.z = MaterialRoughness_;
-	Material1.w = 0.0;
 	OUT( VsMaterial0 ) = Material0;
 	OUT( VsMaterial1 ) = Material1;
 #endif
@@ -73,11 +77,11 @@ VS_MAIN( vertexMain )
 
 PS_IN_BEGIN
 	DECLARE_IN( float4, VsColour0, COLOR0 );
-	DECLARE_IN( float4, VsNormal, NORMAL );
-	DECLARE_IN( float4, VsTexCoord0, TEXCOORD0 );
-	DECLARE_IN( float4, VsWorldPosition, TEXCOORD1 );
-	DECLARE_IN( float4, VsMaterial0, TEXCOORD2 );
-	DECLARE_IN( float4, VsMaterial1, TEXCOORD3 );
+	DECLARE_IN( float3, VsNormal, NORMAL );
+	DECLARE_IN( float2, VsTexCoord0, TEXCOORD0 );
+	DECLARE_IN( float3, VsWorldPosition, TEXCOORD1 );
+	DECLARE_IN( float3, VsMaterial0, TEXCOORD2 );
+	DECLARE_IN( float3, VsMaterial1, TEXCOORD3 );
 PS_IN_END
 #include <PsybrusOutput.psh>
 
@@ -98,7 +102,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 {
 	float4 Diffuse = PSY_SAMPLE_2D( DiffuseTex, IN( VsTexCoord0 ).xy );
 	float4 Specular = float4( 1.0, 1.0, 1.0, 1.0 );
-	float4 Normal = normalize( IN( VsNormal ) );
+	float3 Normal = normalize( IN( VsNormal ) );
 
 	Material InMaterial;
 	InMaterial.Colour_ = IN( VsMaterial0 ).xyz;
