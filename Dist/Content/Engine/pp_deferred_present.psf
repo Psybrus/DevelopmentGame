@@ -1,5 +1,7 @@
 #include <Psybrus.psh>
 
+#include <UniformPostProcessConfig.psh>
+
 //////////////////////////////////////////////////////////////////////////
 // Vertex shader
 #if VERTEX_SHADER

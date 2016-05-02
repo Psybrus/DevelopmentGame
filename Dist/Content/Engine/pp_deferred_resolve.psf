@@ -1,5 +1,9 @@
 #include <Psybrus.psh>
+
 #include <PsybrusLighting.psh>
+
+#include <UniformLight.psh>
+#include <UniformMaterial.psh>
 
 //////////////////////////////////////////////////////////////////////////
 // Vertex shader

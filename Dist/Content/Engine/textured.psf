@@ -1,6 +1,9 @@
 #include <Psybrus.psh>
 #include <PsybrusLighting.psh>
 
+#include <UniformLight.psh>
+#include <UniformMaterial.psh>
+
 //////////////////////////////////////////////////////////////////////////
 // Features.
 #if defined( PERM_MESH_PARTICLE_3D ) && defined ( PERM_RENDER_DEFERRED )
@@ -139,9 +142,15 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	for( int LightIdx = 0; LightIdx < 4; ++LightIdx )
 	{
 		Light InLight;
+#if defined( INSTANCED_DRAW )
+		InLight.Position_ = LightInstances_[ InstanceID ].LightPosition_[ LightIdx ].xyz;
+		InLight.Colour_ = LightInstances_[ InstanceID ].LightDiffuseColour_[ LightIdx ].xyz;
+		InLight.AttenuationCLQ_ = LightInstances_[ InstanceID ].LightAttn_[ LightIdx ].xyz;
+#else
 		InLight.Position_ = LightPosition_[ LightIdx ].xyz;
 		InLight.Colour_ = LightDiffuseColour_[ LightIdx ].xyz;
 		InLight.AttenuationCLQ_ = LightAttn_[ LightIdx ].xyz;
+#endif
 		TotalSurface += BRDF_Default( InLight, InMaterial, EyePosition.xyz, IN( VsWorldPosition ).xyz, Normal.xyz, ReflectionColour.xyz );
 	}
 	TotalSurface = min( float3( 1.0, 1.0, 1.0 ), TotalSurface );

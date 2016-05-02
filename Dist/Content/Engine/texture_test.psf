@@ -1,5 +1,7 @@
 #include <Psybrus.psh>
 
+#include <UniformTextureTest.psh>
+
 //////////////////////////////////////////////////////////////////////////
 // Vertex shader
 #if VERTEX_SHADER

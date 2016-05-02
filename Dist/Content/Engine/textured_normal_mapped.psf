@@ -1,6 +1,9 @@
 #include <Psybrus.psh>
 #include <PsybrusLighting.psh>
 
+#include <UniformLight.psh>
+#include <UniformMaterial.psh>
+
 //////////////////////////////////////////////////////////////////////////
 // Features.
 #if defined( PERM_MESH_PARTICLE_3D ) && defined ( PERM_RENDER_DEFERRED )
@@ -167,9 +170,9 @@ void pixelAll( FRAMEBUFFER_INPUT )
 #endif
 
 	// Multiply down the specular texture channels.
-	InMaterial.Metallic_ = MaterialMetallic_ * Specular.x;
-	InMaterial.Specular_ = MaterialSpecular_ * Specular.y;
-	InMaterial.Roughness_ = MaterialRoughness_ * Specular.z;
+	InMaterial.Metallic_ = InMaterial.Metallic_ * Specular.x;
+	InMaterial.Specular_ = InMaterial.Specular_ * Specular.y;
+	InMaterial.Roughness_ = InMaterial.Roughness_ * Specular.z;
 
 #if defined( SOFT_CLIPPING )
 	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, float2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );
@@ -197,16 +200,19 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	for( int LightIdx = 0; LightIdx < 4; ++LightIdx )
 	{
 		Light InLight;
+#if defined( INSTANCED_DRAW )
+		InLight.Position_ = LightInstances_[ InstanceID ].LightPosition_[ LightIdx ].xyz;
+		InLight.Colour_ = LightInstances_[ InstanceID ].LightDiffuseColour_[ LightIdx ].xyz;
+		InLight.AttenuationCLQ_ = LightInstances_[ InstanceID ].LightAttn_[ LightIdx ].xyz;
+#else
 		InLight.Position_ = LightPosition_[ LightIdx ].xyz;
 		InLight.Colour_ = LightDiffuseColour_[ LightIdx ].xyz;
 		InLight.AttenuationCLQ_ = LightAttn_[ LightIdx ].xyz;
+#endif
 		TotalSurface += BRDF_Default( InLight, InMaterial, EyePosition.xyz, IN( VsWorldPosition ).xyz, Normal.xyz, ReflectionColour.xyz );
 	}
 	TotalSurface = min( float3( 1.0, 1.0, 1.0 ), TotalSurface );
 	TotalSurface = linearToGamma( TotalSurface );
-
-
-	//TotalSurface = DebugValue.xyz;
 
 	writeFrag( FRAMEBUFFER_INTERNAL, float4( TotalSurface, Diffuse.w ), Normal.xyz, float3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
 #else
