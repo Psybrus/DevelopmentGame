@@ -198,6 +198,11 @@
 						},
 
 						{ 
+							"name" : "Instancing test",
+							"entity" : "$(ScnEntity:instancing_test.TestEntity)"
+						},
+
+						{ 
 							"name" : "Sponza test",
 							"entity" : "$(ScnEntity:sponza_test.TestEntity)"
 						},

@@ -95,6 +95,7 @@
 #include "GaTestCloudComponent.h"
 #include "GaTestComputeComponent.h"
 #include "GaTestFontComponent.h"
+#include "GaTestInstancingComponent.h"
 #include "GaTestLightingComponent.h"
 #include "GaTestModelComponent.h"
 #include "GaTestParticleComponent.h"
@@ -236,6 +237,7 @@ void AutoGenRegisterReflection()
 	GaTestCloudComponent::StaticRegisterClass();
 	GaTestComputeComponent::StaticRegisterClass();
 	GaTestFontComponent::StaticRegisterClass();
+	GaTestInstancingComponent::StaticRegisterClass();
 	GaTestLightingComponent::StaticRegisterClass();
 	GaTestModelComponent::StaticRegisterClass();
 	GaTestParticleComponent::StaticRegisterClass();

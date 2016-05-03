@@ -1,0 +1,32 @@
+{
+
+	"resources" : [
+		{
+			"name"		:		"TestEntity",
+			"$Class"	: 		"ScnEntity",
+			"type"		:		"ScnEntity",
+
+			"components" : [
+				{
+					"$Class"	:		"ScnEntity",
+					"name"		:		"TestInstancingEntity",
+					"components" : [
+						{
+							"$Class"				: "GaTestInstancingComponent",
+							"models"				: [
+								"$(ScnModel:models.bunny)",
+								"$(ScnModel:models.sphere)",
+								"$(ScnModel:models.cube)"
+							],
+							"scales"				: [
+								"10.0, 10.0, 10.0",
+								"1.0, 1.0, 1.0",
+								"1.0, 1.0, 1.0"
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
