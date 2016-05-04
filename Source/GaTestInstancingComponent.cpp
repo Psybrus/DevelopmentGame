@@ -115,11 +115,19 @@ void GaTestInstancingComponent::onAttach( ScnEntityWeakRef Parent )
 			Entity->setLocalMatrix( EntityTransform * RotationTransform );
 
 			ScnShaderMaterialUniformBlockData MaterialData;
-			bool IsLit = RNG.randRange( 0, 32 ) < 24;
-			MaterialData.MaterialBaseColour_ = IsLit ? MaVec4d( 1.000f, 0.766f, 0.336f, 1.000f ) : MaVec4d( 1.0f, 0.0f, 1.0f, 1.0f );
-			MaterialData.MaterialMetallic_ = 0.0f;
-			MaterialData.MaterialSpecular_ = Z;
-			MaterialData.MaterialRoughness_ = X;
+			bool IsLit = RNG.randRange( 0, 32 ) < 30;
+			MaterialData.MaterialBaseColour_ = MaVec4d( 1.0f, 0.0f, 1.0f, 1.0f );
+			if( IsLit )
+			{
+				MaterialData.MaterialBaseColour_ = MaVec4d( 
+					RNG.randRealRange( 0.0f, 1.0f ),
+					RNG.randRealRange( 0.0f, 1.0f ),
+					RNG.randRealRange( 0.0f, 1.0f ),
+					1.0f );
+			}
+			MaterialData.MaterialMetallic_ = RNG.randRealRange( 0.0f, 1.0f );
+			MaterialData.MaterialSpecular_ = RNG.randRealRange( 0.0f, 1.0f );
+			MaterialData.MaterialRoughness_ = RNG.randRealRange( 0.0f, 1.0f );
 			ModelComponent->setUniforms( MaterialData );
 			ModelComponent->setLit( IsLit );
 		}

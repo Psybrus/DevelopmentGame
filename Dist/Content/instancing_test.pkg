@@ -15,11 +15,13 @@
 							"$Class"				: "GaTestInstancingComponent",
 							"models"				: [
 								"$(ScnModel:models.bunny)",
+								"$(ScnModel:models.teapot)",
 								"$(ScnModel:models.sphere)",
 								"$(ScnModel:models.cube)"
 							],
 							"scales"				: [
 								"10.0, 10.0, 10.0",
+								"1.0, 1.0, 1.0",
 								"1.0, 1.0, 1.0",
 								"1.0, 1.0, 1.0"
 							]
