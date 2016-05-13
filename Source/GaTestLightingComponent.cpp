@@ -104,10 +104,31 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 	MaMat4d RotationTransform;
 	RotationTransform.rotation( MaVec3d( 0.0f, BcPI, 0.0f ) );
 	MaMat4d EntityTransform;
+
+	// Create model entities.
+	{
+		// Spawn the test model.
+		BcF32 XPosition = 0;
+		BcF32 YPosition = 4.0f;
+		BcF32 ZPosition = 0;
+		auto Entity = Parent->attach< ScnEntity >( "ModelEntity" );
+		TestModelComponent_ = Entity->attach< ScnModelComponent >( "ModelComponent", Model_ );
+		EntityTransform.scale( MaVec3d( 100.0f, 100.0f, 100.0f ) );
+		EntityTransform = EntityTransform * RotationTransform;
+		EntityTransform.translation( MaVec3d( XPosition, YPosition, ZPosition ) );
+		Entity->setLocalMatrix( EntityTransform );
+
+		TestModelUniforms_.MaterialBaseColour_ = MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f );
+		TestModelUniforms_.MaterialMetallic_ = 0.0f;
+		TestModelUniforms_.MaterialSpecular_ = 0.0f;
+		TestModelUniforms_.MaterialRoughness_ = 0.0f;
+		TestModelComponent_->setUniforms( TestModelUniforms_ );
+		TestModelComponent_->setLit( true );
+	}
+
 	EntityTransform.scale( MaVec3d( 10.0f, 10.0f, 10.0f ) );
 	EntityTransform = EntityTransform * RotationTransform;
 
-	// Create model entities.
 	BcF32 MaxSize = 8.0f;
 	for( BcF32 Z = 0.0f; Z <= 1.0f; Z += 1.0f / MaxSize )
 	{
@@ -154,24 +175,6 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 			ModelComponent->setLit( true );
 		}
 	}
-
-	// Spawn the test model.
-	BcF32 XPosition = 0;
-	BcF32 YPosition = 4.0f;
-	BcF32 ZPosition = 0;
-	auto Entity = Parent->attach< ScnEntity >( "ModelEntity" );
-	TestModelComponent_ = Entity->attach< ScnModelComponent >( "ModelComponent", Model_ );
-	EntityTransform.scale( MaVec3d( 100.0f, 100.0f, 100.0f ) );
-	EntityTransform = EntityTransform * RotationTransform;
-	EntityTransform.translation( MaVec3d( XPosition, YPosition, ZPosition ) );
-	Entity->setLocalMatrix( EntityTransform );
-
-	TestModelUniforms_.MaterialBaseColour_ = MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f );
-	TestModelUniforms_.MaterialMetallic_ = 0.0f;
-	TestModelUniforms_.MaterialSpecular_ = 0.0f;
-	TestModelUniforms_.MaterialRoughness_ = 0.0f;
-	TestModelComponent_->setUniforms( TestModelUniforms_ );
-	TestModelComponent_->setLit( true );
 }
 
 //////////////////////////////////////////////////////////////////////////

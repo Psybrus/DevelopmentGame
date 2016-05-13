@@ -40,9 +40,8 @@ VS_OUT_BEGIN
 	DECLARE_OUT( float3, VsNormal, NORMAL );
 	DECLARE_OUT( float2, VsTexCoord0, TEXCOORD0 );
 	DECLARE_OUT( float3, VsWorldPosition, TEXCOORD1 );
-	DECLARE_OUT( float3, VsMaterial0, TEXCOORD2 );
 #if defined( INSTANCED_DRAW )
-	DECLARE_OUT( float, VsInstanceID, TEXCOORD7 );
+	DECLARE_OUT_NOINTERPOLATION( int, VsInstanceID, TEXCOORD7 );
 #endif
 VS_OUT_END
 
@@ -62,7 +61,7 @@ VS_MAIN( vertexMain )
 	OUT( VsTexCoord0 ) = IN( InTexCoord_ ).xy;
 
 #if defined( INSTANCED_DRAW )
-	OUT( VsInstanceID ) = float( GInstanceID );
+	OUT( VsInstanceID ) = GInstanceID;
 #endif
 
 	VS_EXIT;
@@ -79,10 +78,8 @@ PS_IN_BEGIN
 	DECLARE_IN( float3, VsNormal, NORMAL );
 	DECLARE_IN( float2, VsTexCoord0, TEXCOORD0 );
 	DECLARE_IN( float3, VsWorldPosition, TEXCOORD1 );
-	DECLARE_IN( float3, VsMaterial0, TEXCOORD2 );
-	DECLARE_IN( float3, VsMaterial1, TEXCOORD3 );
 #if defined( INSTANCED_DRAW )
-	DECLARE_IN( float, VsInstanceID, TEXCOORD7 );
+	DECLARE_IN_NOINTERPOLATION( int, VsInstanceID, TEXCOORD7 );
 #endif
 PS_IN_END
 #include <PsybrusOutput.psh>
@@ -106,7 +103,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 	Material InMaterial;
 #if defined( INSTANCED_DRAW )
-	int InstanceID = int( IN( VsInstanceID ) );
+	int InstanceID = IN( VsInstanceID );
 	InMaterial.Colour_ = MaterialInstances_[ InstanceID ].MaterialBaseColour_.xyz;
 	InMaterial.Metallic_ = MaterialInstances_[ InstanceID ].MaterialMetallic_;
 	InMaterial.Specular_ = MaterialInstances_[ InstanceID ].MaterialSpecular_;

@@ -70,7 +70,12 @@
 								"depthclipenable" : true,
 								"antialiasedlineenable" : true
 							}
-						}
+						},
+
+						"automaticuniformblocks" : [
+							"ScnShaderMaterialUniformBlockData"
+						]
+
 					}
 				},
 
@@ -102,7 +107,8 @@
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
 				"aSpecularTex" : "$(ScnTexture:textures.black)",
-				"aOpacityTex" : "$(ScnTexture:textures.white)"
+				"aOpacityTex" : "$(ScnTexture:textures.white)",
+				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
 			}
 		},
 
@@ -150,6 +156,11 @@
 					"addressv" : "clamp",
 					"minfilter" : "linear_mipmap_linear",
 					"magfilter" : "linear"
+				},
+
+				"aReflectionTex"	: {
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
 				}
 			},
 
@@ -175,7 +186,11 @@
 					"depthclipenable" : true,
 					"antialiasedlineenable" : true
 				}
-			}
+			},
+
+			"automaticuniformblocks" : [
+				"ScnShaderMaterialUniformBlockData"
+			]
 		},
 
 		{
@@ -221,7 +236,12 @@
 					"addressv" : "clamp",
 					"minfilter" : "linear_mipmap_linear",
 					"magfilter" : "linear"
-				}
+				},
+
+				"aReflectionTex"	: {
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				}			
 			},
 
 			"renderstate" : {
@@ -246,7 +266,12 @@
 					"depthclipenable" : true,
 					"antialiasedlineenable" : true
 				}
-			}
+			},
+
+			"automaticuniformblocks" : [
+				"ScnShaderMaterialUniformBlockData"
+			]
+
 		},
 
 		{
@@ -292,6 +317,18 @@
 					"addressv" : "clamp",
 					"minfilter" : "linear_mipmap_linear",
 					"magfilter" : "linear"
+				},
+
+				"aOpacityTex"	: {
+					"addressu" : "wrap",
+					"addressv" : "wrap",
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
+				},
+
+				"aReflectionTex"	: {
+					"minfilter" : "linear_mipmap_linear",
+					"magfilter" : "linear"
 				}
 			},
 
@@ -317,7 +354,12 @@
 					"depthclipenable" : true,
 					"antialiasedlineenable" : true
 				}
-			}
+			},
+
+			"automaticuniformblocks" : [
+				"ScnShaderMaterialUniformBlockData"
+			]
+
 		},
 
 		{

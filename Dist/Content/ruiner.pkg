@@ -83,7 +83,11 @@
 					"depthclipenable" : true,
 					"antialiasedlineenable" : true
 				}
-			}
+			},
+
+			"automaticuniformblocks" : [
+				"ScnShaderMaterialUniformBlockData"
+			]
 		},
 
 		{

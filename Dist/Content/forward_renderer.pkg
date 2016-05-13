@@ -20,7 +20,8 @@
 					"verticalfov"			: 0.0,
 					"rendermask"			: 1,
 					"renderpermutation"		: "RENDER_FORWARD",
-					"passes"				: "OPAQUE|TRANSPARENT|OVERLAY"
+					"passes"				: "OPAQUE|TRANSPARENT|OVERLAY",
+					"reflectioncubemap"		: "$(ScnTexture:cubemap_textures.cubemap)"
 				}
 			]
 		}
