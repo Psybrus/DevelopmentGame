@@ -73,8 +73,7 @@ PS_MAIN( pixelMain )
 	Material InMaterial;
 	InMaterial.Colour_ = GBufferAlbedo.xyz;
 	InMaterial.Metallic_ = GBufferMaterial.x;
-	InMaterial.Specular_ = GBufferMaterial.y;
-	InMaterial.Roughness_ = GBufferMaterial.z;
+	InMaterial.Roughness_ = GBufferMaterial.y;
 
 	int ReflectionLevels = textureQueryLevels( aReflectionTex );
 	float MipLevel = float(ReflectionLevels) * InMaterial.Roughness_;

@@ -99,6 +99,7 @@
 					]
 				},
 
+				/*
 				{
 					"$Class"				: "ScnEntity",
 					"name"					: "Sunlight_1",
@@ -131,6 +132,7 @@
 						}
 					]
 				},
+				*/
 
 				{
 					"$Class"				: "ScnCanvasComponent",
@@ -251,8 +253,8 @@
 					"$Class"				: "GaCameraComponent",
 
 					"renderers"	: [
-						"$(ScnEntity:forward_renderer.Renderer)",
-						"$(ScnEntity:deferred_renderer.Renderer)"
+						"$(ScnEntity:deferred_renderer.Renderer)",
+						"$(ScnEntity:forward_renderer.Renderer)"
 					]
 				},
 

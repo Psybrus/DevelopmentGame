@@ -150,12 +150,10 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	int InstanceID = IN( VsInstanceID );
 	InMaterial.Colour_ = MaterialInstances_[ InstanceID ].MaterialBaseColour_.xyz;
 	InMaterial.Metallic_ = MaterialInstances_[ InstanceID ].MaterialMetallic_;
-	InMaterial.Specular_ = MaterialInstances_[ InstanceID ].MaterialSpecular_;
 	InMaterial.Roughness_ = MaterialInstances_[ InstanceID ].MaterialRoughness_;
 #else
 	InMaterial.Colour_ = MaterialBaseColour_.xyz;
 	InMaterial.Metallic_ = MaterialMetallic_;
-	InMaterial.Specular_ = MaterialSpecular_;
 	InMaterial.Roughness_ = MaterialRoughness_;
 #endif
 
@@ -171,7 +169,6 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 	// Multiply down the specular texture channels.
 	InMaterial.Metallic_ = InMaterial.Metallic_ * Specular.x;
-	InMaterial.Specular_ = InMaterial.Specular_ * Specular.y;
 	InMaterial.Roughness_ = InMaterial.Roughness_ * Specular.z;
 
 #if defined( SOFT_CLIPPING )
@@ -214,10 +211,10 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	TotalSurface = min( float3( 1.0, 1.0, 1.0 ), TotalSurface );
 	TotalSurface = linearToGamma( TotalSurface );
 
-	writeFrag( FRAMEBUFFER_INTERNAL, float4( TotalSurface, Diffuse.w ), Normal.xyz, float3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
+	writeFrag( FRAMEBUFFER_INTERNAL, float4( TotalSurface, Diffuse.w ), Normal.xyz, float3( InMaterial.Metallic_, InMaterial.Roughness_, 0.0 ) );
 #else
 	Diffuse = gammaToLinear( Diffuse ) * IN( VsColour0 ) * float4( InMaterial.Colour_, 1.0 );
-	writeFrag( FRAMEBUFFER_INTERNAL, linearToGamma( Diffuse ), Normal.xyz, float3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
+	writeFrag( FRAMEBUFFER_INTERNAL, linearToGamma( Diffuse ), Normal.xyz, float3( InMaterial.Metallic_, InMaterial.Roughness_, 0.0 ) );
 #endif
 }
 

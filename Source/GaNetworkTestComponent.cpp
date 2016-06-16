@@ -98,7 +98,7 @@ void GaNetworkTestComponent::onAttach( ScnEntityWeakRef Parent )
 #if !PLATFORM_HTML5 && !PLATFORM_WINPHONE
 	if( IsServer_ )
 	{
-		Session_ = new NsSessionImpl( NsSessionImpl::SERVER, 32, Port );
+		Session_ = new NsSessionImpl( NsSessionImpl::SERVER, 32, Port, true );
 		NetworkedProxy_ = new NsEventProxy( this, Session_, 0 );
 	}
 	else

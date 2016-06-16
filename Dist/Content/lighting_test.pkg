@@ -13,7 +13,7 @@
 					"components" : [
 						{
 							"$Class"				: "GaTestLightingComponent",
-							"model"					: "$(ScnModel:models.bunny)"
+							"model"					: "$(ScnModel:models.sphere)"
 						}
 					]
 				}

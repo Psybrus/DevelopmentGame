@@ -126,7 +126,6 @@ void GaTestInstancingComponent::onAttach( ScnEntityWeakRef Parent )
 					1.0f );
 			}
 			MaterialData.MaterialMetallic_ = RNG.randRealRange( 0.0f, 1.0f );
-			MaterialData.MaterialSpecular_ = RNG.randRealRange( 0.0f, 1.0f );
 			MaterialData.MaterialRoughness_ = RNG.randRealRange( 0.0f, 1.0f );
 			ModelComponent->setUniforms( MaterialData );
 			ModelComponent->setLit( IsLit );

@@ -80,7 +80,6 @@ void GaTestLightingComponent::update( BcF32 Tick )
 		}
 
 		ImGui::SliderFloat( "Metallic", &TestModelUniforms_.MaterialMetallic_, 0.0f, 1.0f );
-		ImGui::SliderFloat( "Specular", &TestModelUniforms_.MaterialSpecular_, 0.0f, 1.0f );
 		ImGui::SliderFloat( "Roughness", &TestModelUniforms_.MaterialRoughness_, 0.0f, 1.0f );
 
 		ImGui::EndGroup();
@@ -109,27 +108,27 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 	{
 		// Spawn the test model.
 		BcF32 XPosition = 0;
-		BcF32 YPosition = 4.0f;
+		BcF32 YPosition = 10.0f;
 		BcF32 ZPosition = 0;
 		auto Entity = Parent->attach< ScnEntity >( "ModelEntity" );
 		TestModelComponent_ = Entity->attach< ScnModelComponent >( "ModelComponent", Model_ );
-		EntityTransform.scale( MaVec3d( 100.0f, 100.0f, 100.0f ) );
+		EntityTransform.scale( MaVec3d( 5.0f, 5.0f, 5.0f ) );
 		EntityTransform = EntityTransform * RotationTransform;
 		EntityTransform.translation( MaVec3d( XPosition, YPosition, ZPosition ) );
 		Entity->setLocalMatrix( EntityTransform );
 
-		TestModelUniforms_.MaterialBaseColour_ = MaVec4d( 1.0f, 1.0f, 1.0f, 1.0f );
+		TestModelUniforms_.MaterialBaseColour_ = MaVec4d( 0.2f, 0.2f, 0.2f, 1.0f );
 		TestModelUniforms_.MaterialMetallic_ = 0.0f;
-		TestModelUniforms_.MaterialSpecular_ = 0.0f;
 		TestModelUniforms_.MaterialRoughness_ = 0.0f;
 		TestModelComponent_->setUniforms( TestModelUniforms_ );
 		TestModelComponent_->setLit( true );
 	}
 
-	EntityTransform.scale( MaVec3d( 10.0f, 10.0f, 10.0f ) );
+	EntityTransform.scale( MaVec3d( 1.0f, 1.0f, 1.0f ) );
 	EntityTransform = EntityTransform * RotationTransform;
 
 	BcF32 MaxSize = 8.0f;
+
 	for( BcF32 Z = 0.0f; Z <= 1.0f; Z += 1.0f / MaxSize )
 	{
 		for( BcF32 X = 0.0f; X <= 1.0f; X += 1.0f / MaxSize )
@@ -144,33 +143,9 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 			Entity->setLocalMatrix( EntityTransform );
 
 			ScnShaderMaterialUniformBlockData MaterialData;
-			MaterialData.MaterialBaseColour_ = MaVec4d( 1.000f, 0.766f, 0.336f, 1.000f );
-			MaterialData.MaterialMetallic_ = 0.0f;
-			MaterialData.MaterialSpecular_ = Z;
-			MaterialData.MaterialRoughness_ = X;
-			ModelComponent->setUniforms( MaterialData );
-			ModelComponent->setLit( true );
-		}
-	}
-
-	for( BcF32 Z = 0.0f; Z <= 1.0f; Z += 1.0f / MaxSize )
-	{
-		for( BcF32 X = 0.0f; X <= 1.0f; X += 1.0f / MaxSize )
-		{
-			BcF32 Y = 0.0f;
-			BcF32 XPosition = ( X - 0.5f ) * MaxSize * 2.0f;
-			BcF32 YPosition = 4.0f;
-			BcF32 ZPosition = ( Z - 0.5f ) * MaxSize * 2.0f;
-			auto Entity = Parent->attach< ScnEntity >( "ModelEntity" );
-			auto ModelComponent = Entity->attach< ScnModelComponent >( "ModelComponent", Model_ );
-			EntityTransform.translation( MaVec3d( XPosition, YPosition, ZPosition ) );
-			Entity->setLocalMatrix( EntityTransform );
-
-			ScnShaderMaterialUniformBlockData MaterialData;
-			MaterialData.MaterialBaseColour_ = MaVec4d( 1.000f, 0.766f, 0.336f, 1.000f );
-			MaterialData.MaterialMetallic_ = Z;
-			MaterialData.MaterialSpecular_ = 0.0f;
-			MaterialData.MaterialRoughness_ = X;
+			MaterialData.MaterialBaseColour_ = MaVec4d( 1.000f, 1.000f, 1.000f, 1.000f );
+			MaterialData.MaterialMetallic_ = X;
+			MaterialData.MaterialRoughness_ = Z;
 			ModelComponent->setUniforms( MaterialData );
 			ModelComponent->setLit( true );
 		}

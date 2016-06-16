@@ -106,12 +106,10 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	int InstanceID = IN( VsInstanceID );
 	InMaterial.Colour_ = MaterialInstances_[ InstanceID ].MaterialBaseColour_.xyz;
 	InMaterial.Metallic_ = MaterialInstances_[ InstanceID ].MaterialMetallic_;
-	InMaterial.Specular_ = MaterialInstances_[ InstanceID ].MaterialSpecular_;
 	InMaterial.Roughness_ = MaterialInstances_[ InstanceID ].MaterialRoughness_;
 #else
 	InMaterial.Colour_ = MaterialBaseColour_.xyz;
 	InMaterial.Metallic_ = MaterialMetallic_;
-	InMaterial.Specular_ = MaterialSpecular_;
 	InMaterial.Roughness_ = MaterialRoughness_;
 #endif
 
@@ -154,7 +152,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	TotalSurface = linearToGamma( TotalSurface );
 	writeFrag( FRAMEBUFFER_INTERNAL, float4( TotalSurface, Diffuse.w ), Normal.xyz, float3( 0.0, 0.0, 0.0 ) );
 #else
-	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * IN( VsColour0 ), IN( VsNormal ).xyz, float3( InMaterial.Metallic_, InMaterial.Specular_, InMaterial.Roughness_ ) );
+	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * IN( VsColour0 ), IN( VsNormal ).xyz, float3( InMaterial.Metallic_, InMaterial.Roughness_, 0.0 ) );
 #endif
 }
 

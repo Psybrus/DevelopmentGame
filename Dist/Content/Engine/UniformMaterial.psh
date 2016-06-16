@@ -8,12 +8,12 @@ uniform float4 ScnShaderMaterialUniformBlockDataVS_XMaterialBaseColour_;
 #define MaterialBaseColour_ ScnShaderMaterialUniformBlockDataVS_XMaterialBaseColour_
 uniform float ScnShaderMaterialUniformBlockDataVS_XMaterialMetallic_;
 #define MaterialMetallic_ ScnShaderMaterialUniformBlockDataVS_XMaterialMetallic_
-uniform float ScnShaderMaterialUniformBlockDataVS_XMaterialSpecular_;
-#define MaterialSpecular_ ScnShaderMaterialUniformBlockDataVS_XMaterialSpecular_
 uniform float ScnShaderMaterialUniformBlockDataVS_XMaterialRoughness_;
 #define MaterialRoughness_ ScnShaderMaterialUniformBlockDataVS_XMaterialRoughness_
-uniform float ScnShaderMaterialUniformBlockDataVS_XMaterialUnused_;
-#define MaterialUnused_ ScnShaderMaterialUniformBlockDataVS_XMaterialUnused_
+uniform float ScnShaderMaterialUniformBlockDataVS_XMaterialUnused0_;
+#define MaterialUnused0_ ScnShaderMaterialUniformBlockDataVS_XMaterialUnused0_
+uniform float ScnShaderMaterialUniformBlockDataVS_XMaterialUnused1_;
+#define MaterialUnused1_ ScnShaderMaterialUniformBlockDataVS_XMaterialUnused1_
 
 
 #endif
@@ -23,18 +23,18 @@ layout(std140) uniform ScnShaderMaterialUniformBlockData
 {
 	float4 MaterialBaseColour_;
 	float MaterialMetallic_;
-	float MaterialSpecular_;
 	float MaterialRoughness_;
-	float MaterialUnused_;
+	float MaterialUnused0_;
+	float MaterialUnused1_;
 };
 
 struct ScnShaderMaterialUniformBlockDataInstance
 {
 	float4 MaterialBaseColour_;
 	float MaterialMetallic_;
-	float MaterialSpecular_;
 	float MaterialRoughness_;
-	float MaterialUnused_;
+	float MaterialUnused0_;
+	float MaterialUnused1_;
 };
 
 layout(std140) uniform ScnShaderMaterialUniformBlockDataInstanced
@@ -49,18 +49,18 @@ cbuffer ScnShaderMaterialUniformBlockData
 {
 	float4 MaterialBaseColour_;
 	float MaterialMetallic_;
-	float MaterialSpecular_;
 	float MaterialRoughness_;
-	float MaterialUnused_;
+	float MaterialUnused0_;
+	float MaterialUnused1_;
 };
 
 struct ScnShaderMaterialUniformBlockDataInstance
 {
 	float4 MaterialBaseColour_;
 	float MaterialMetallic_;
-	float MaterialSpecular_;
 	float MaterialRoughness_;
-	float MaterialUnused_;
+	float MaterialUnused0_;
+	float MaterialUnused1_;
 };
 
 cbuffer ScnShaderMaterialUniformBlockDataInstanced
