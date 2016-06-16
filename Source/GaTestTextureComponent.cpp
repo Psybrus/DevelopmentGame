@@ -325,7 +325,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.Texture2D_ )
 		{
-			Texture2D_ = ScnTexture::New2D( 32, 32, 1, RsTextureFormat::R8G8B8A8, getFullName().c_str() );
+			Texture2D_ = ScnTexture::New2D( 32, 32, 1, RsTextureFormat::R8G8B8A8, false, false, getFullName().c_str() );
 			auto Slice = Texture2D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture2D_->getTexture(),

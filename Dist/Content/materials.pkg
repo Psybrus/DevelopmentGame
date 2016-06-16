@@ -256,8 +256,7 @@
 
 			// Textures
 			"textures"		: {
-				"aDiffuseTex"	: "$(ScnTexture:textures.particles)",
-				"aDepthTex" : "$(ScnTexture:deferred_renderer.gbuffer_depth)"
+				"aDiffuseTex"	: "$(ScnTexture:textures.particles)"
 			},
 
 			// Samplers

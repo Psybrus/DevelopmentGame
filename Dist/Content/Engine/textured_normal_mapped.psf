@@ -169,7 +169,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 	// Multiply down the specular texture channels.
 	InMaterial.Metallic_ = InMaterial.Metallic_ * Specular.x;
-	InMaterial.Roughness_ = InMaterial.Roughness_ * Specular.z;
+	InMaterial.Roughness_ = InMaterial.Roughness_ * Specular.y;
 
 #if defined( SOFT_CLIPPING )
 	float DstDepth  = linearDepth( PSY_SAMPLE_2D( DepthTex, float2( gl_FragCoord.x, gl_FragCoord.y ) * ViewSize_.zw ).x, NearFar_.x, NearFar_.y );

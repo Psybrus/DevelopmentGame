@@ -60,7 +60,7 @@
 #include "System/Scene/Physics/ScnPhysicsWorldComponent.h"
 #include "System/Scene/Rendering/ScnCanvasComponent.h"
 #include "System/Scene/Rendering/ScnDebugRenderComponent.h"
-#include "System/Scene/Rendering/ScnDeferredLightingComponent.h"
+#include "System/Scene/Rendering/ScnDeferredRendererComponent.h"
 #include "System/Scene/Rendering/ScnFont.h"
 #include "System/Scene/Rendering/ScnLightComponent.h"
 #include "System/Scene/Rendering/ScnMaterial.h"
@@ -179,8 +179,8 @@ void AutoGenRegisterReflection()
 	ScnPhysicsWorldComponent::StaticRegisterClass();
 	ScnCanvasComponent::StaticRegisterClass();
 	ScnDebugRenderComponent::StaticRegisterClass();
-	ScnDeferredLightingVertex::StaticRegisterClass();
-	ScnDeferredLightingComponent::StaticRegisterClass();
+	ScnDeferredRendererVertex::StaticRegisterClass();
+	ScnDeferredRendererComponent::StaticRegisterClass();
 	ScnFont::StaticRegisterClass();
 	ScnFontUniformBlockData::StaticRegisterClass();
 	ScnFontDrawParams::StaticRegisterClass();
