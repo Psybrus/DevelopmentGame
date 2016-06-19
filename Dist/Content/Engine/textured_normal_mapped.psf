@@ -190,10 +190,9 @@ void pixelAll( FRAMEBUFFER_INPUT )
 
 	InMaterial.Colour_ = Diffuse.xyz;
 
-	int ReflectionLevels = textureQueryLevels( aReflectionTex );
-	float MipLevel = float( ReflectionLevels ) * InMaterial.Roughness_;
-	float3 ReflectionColour = gammaToLinear( PSY_SAMPLE_CUBE_LOD( ReflectionTex, reflect( normalize( IN( VsWorldPosition ).xyz - EyePosition ), Normal.xyz ), MipLevel ).xyz );
+	Surface InSurface = SetupSurface( InMaterial, EyePosition.xyz, IN( VsWorldPosition ).xyz, Normal.xyz );
 
+	// Handle lighting.
 	for( int LightIdx = 0; LightIdx < 4; ++LightIdx )
 	{
 		Light InLight;
@@ -206,8 +205,15 @@ void pixelAll( FRAMEBUFFER_INPUT )
 		InLight.Colour_ = LightDiffuseColour_[ LightIdx ].xyz;
 		InLight.AttenuationCLQ_ = LightAttn_[ LightIdx ].xyz;
 #endif
-		TotalSurface += BRDF_Default( InLight, InMaterial, EyePosition.xyz, IN( VsWorldPosition ).xyz, Normal.xyz, ReflectionColour.xyz );
+		TotalSurface += BRDF_Default( InLight, InSurface );
 	}
+
+	// Handle reflection.
+	int ReflectionLevels = textureQueryLevels( aReflectionTex );
+	float MipLevel = float( ReflectionLevels ) * InMaterial.Roughness_;
+	float3 ReflectionColour = gammaToLinear( PSY_SAMPLE_CUBE_LOD( ReflectionTex, reflect( normalize( IN( VsWorldPosition ).xyz - EyePosition ), Normal.xyz ), MipLevel ).xyz );
+	TotalSurface += ApplyReflection( InSurface, ReflectionColour );
+
 	TotalSurface = min( float3( 1.0, 1.0, 1.0 ), TotalSurface );
 	TotalSurface = linearToGamma( TotalSurface );
 

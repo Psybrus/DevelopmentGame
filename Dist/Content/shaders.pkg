@@ -30,6 +30,18 @@
 			"target"		: "$(ScnShader:shader_textured_normal_mapped.textured_normal_mapped_mask)"
 		},
 
+		{
+			"type"			: "CsRedirector",
+			"name"			: "textured_normal_metallic_roughness",
+			"target"		: "$(ScnShader:shader_textured_normal_metallic_roughness.textured_normal_metallic_roughness)"
+		},
+
+		{
+			"type"			: "CsRedirector",
+			"name"			: "textured_normal_metallic_roughness_mask",
+			"target"		: "$(ScnShader:shader_textured_normal_metallic_roughness.textured_normal_metallic_roughness_mask)"
+		},
+
 
 		{
 			"type"			: "ScnShader",

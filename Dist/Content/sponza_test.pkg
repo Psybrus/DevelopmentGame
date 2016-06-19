@@ -46,7 +46,7 @@
 					"regex" : "(.*)", 
 					"templatematerial" : {
 						"$Class"		: "ScnMaterialImport",
-						"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
+						"shader"		: "$(ScnShader:shaders.textured_normal_metallic_roughness)",
 
 						"renderstate" : {
 							"blendstate" : {
@@ -77,7 +77,10 @@
 						]
 
 					}
-				},
+				}
+
+				/*
+				,
 
 				{
 					"regex" : "chain",
@@ -93,6 +96,7 @@
 					"regex" : "leaf",
 					"material" : "$(ScnMaterial:this.leaf)"
 				}
+				*/
 			],
 
 			"vertexformat" : {
@@ -106,13 +110,14 @@
 			"defaulttextures" : {
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
-				"aSpecularTex" : "$(ScnTexture:textures.black)",
+				"aSpecularTex" : "$(ScnTexture:textures.green)",
 				"aOpacityTex" : "$(ScnTexture:textures.white)",
 				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
 			}
-		},
+		}
 
-
+/*
+,
 		{
 			"type"			: "ScnMaterial",
 			"name"			: "chain",
@@ -550,5 +555,6 @@
 				}
 			}
 		}
+		*/
 	]
 }

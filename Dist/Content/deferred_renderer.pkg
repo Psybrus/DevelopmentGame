@@ -13,6 +13,7 @@
 					"width" : 0,
 					"height" : 0,
 
+					"enabled" : true,
 
 					"resolvex" : 0.0,
 					"resolvey" : 0.0,
@@ -30,6 +31,43 @@
 						"$(ScnShader:pp_shaders.pp_deferred_spot_light)"
 					],
 
+					"reflectionshader" : "$(ScnShader:pp_shaders.pp_deferred_reflection)",
+					"resolveshader" : "$(ScnShader:pp_shaders.pp_deferred_resolve)"
+				}
+			]
+		},
+
+		/////////////////////////////////////////////////////////////// 
+		// Entities.
+		{
+			"name" : "EnvironmentRenderer",
+			"type" : "ScnEntity",
+
+			"components" : [
+				{
+					"$Class" : "ScnDeferredRendererComponent",
+					"name" : "DeferredRenderer",
+					"width" : 256,
+					"height" : 256,
+
+					"enabled" : false,
+
+					"resolvex" : 0.0,
+					"resolvey" : 0.0,
+					"resolvew" : 1.0,
+					"resolveh" : 1.0,
+
+					"near" : 1.0,
+					"far" : 5000.0,
+
+					"reflectioncubemap"		: "$(ScnTexture:cubemap_textures.cubemap)",
+
+					"lightshaders" : [
+						"$(ScnShader:pp_shaders.pp_deferred_point_light)",
+						"$(ScnShader:pp_shaders.pp_deferred_spot_light)"
+					],
+
+					"reflectionshader" : "$(ScnShader:pp_shaders.pp_deferred_reflection)",
 					"resolveshader" : "$(ScnShader:pp_shaders.pp_deferred_resolve)"
 				}
 			]

@@ -309,7 +309,7 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.Texture3D_ )
 		{
-			Texture3D_ = ScnTexture::New3D( 64, 64, 64, 1, RsTextureFormat::R16F, getFullName().c_str() );
+			Texture3D_ = ScnTexture::New3D( 64, 64, 64, 1, RsTextureFormat::R16F, false, false, getFullName().c_str() );
 			auto Slice = Texture3D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture3D_->getTexture(),

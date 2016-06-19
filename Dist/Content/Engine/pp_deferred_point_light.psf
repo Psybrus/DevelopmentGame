@@ -73,16 +73,13 @@ PS_MAIN( pixelMain )
 	InMaterial.Colour_ = GBufferAlbedo.xyz;
 	InMaterial.Metallic_ = GBufferMaterial.x;
 	InMaterial.Roughness_ = GBufferMaterial.y;
-
-	int ReflectionLevels = textureQueryLevels( aReflectionTex );
-	float MipLevel = float(ReflectionLevels) * InMaterial.Roughness_;
-	float3 ReflectionColour = gammaToLinear( PSY_SAMPLE_CUBE_LOD( ReflectionTex, reflect( normalize( WorldPosition.xyz - EyePosition ), GBufferNormal.xyz ), MipLevel ).xyz );
+	Surface InSurface = SetupSurface( InMaterial, EyePosition, WorldPosition.xyz, GBufferNormal.xyz );
 
 	Light InLight;
 	InLight.Position_ = LightPosition_[ 0 ].xyz;
 	InLight.Colour_ = LightDiffuseColour_[ 0 ].xyz;
 	InLight.AttenuationCLQ_ = LightAttn_[ 0 ].xyz;
-	float3 TotalSurface = BRDF_Default( InLight, InMaterial, EyePosition, WorldPosition.xyz, GBufferNormal.xyz, ReflectionColour.xyz );
+	float3 TotalSurface = BRDF_Default( InLight, InSurface );
 	outputFrag[0] = float4( TotalSurface, 1.0 );
 	PS_EXIT;
 }

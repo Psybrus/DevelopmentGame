@@ -61,6 +61,7 @@
 #include "System/Scene/Rendering/ScnCanvasComponent.h"
 #include "System/Scene/Rendering/ScnDebugRenderComponent.h"
 #include "System/Scene/Rendering/ScnDeferredRendererComponent.h"
+#include "System/Scene/Rendering/ScnEnvironmentProbeComponent.h"
 #include "System/Scene/Rendering/ScnFont.h"
 #include "System/Scene/Rendering/ScnLightComponent.h"
 #include "System/Scene/Rendering/ScnMaterial.h"
@@ -181,6 +182,7 @@ void AutoGenRegisterReflection()
 	ScnDebugRenderComponent::StaticRegisterClass();
 	ScnDeferredRendererVertex::StaticRegisterClass();
 	ScnDeferredRendererComponent::StaticRegisterClass();
+	ScnEnvironmentProbeComponent::StaticRegisterClass();
 	ScnFont::StaticRegisterClass();
 	ScnFontUniformBlockData::StaticRegisterClass();
 	ScnFontDrawParams::StaticRegisterClass();
