@@ -26,6 +26,24 @@
 					"debugdrawworld"		: false
 				},
 
+				{
+					"name"					: "EnvironmentProbe",
+					"$Class"				: "ScnEntity",
+
+					"localtransform" : {
+						"row0" : "1.0, 0.0, 0.0, 0.0",
+						"row1" : "0.0, 1.0, 0.0, 0.0",
+						"row2" : "0.0, 0.0, 1.0, 0.0",
+						"row3" : "0.0, 10.0, 0.0, 1.0"
+					},
+
+					"components"			: [
+						{
+							"$Class"		: "ScnEnvironmentProbeComponent",
+							"templaterenderer" : "$(ScnEntity:deferred_renderer.EnvironmentRenderer)"
+						}						
+					]
+				},
 
 				{
 					"name"		: "FloorEntity",
@@ -63,34 +81,6 @@
 							"model"					: "$(ScnModel:models.floor)",
 							"islit"					: true,
 							"scale"					: "1.0, 1.0, 1.0"
-						},
-
-						{
-							"name"					: "EnvironmentProbe",
-							"$Class"				: "ScnEntity",
-
-							"localtransform" : {
-								"row0" : "1.0, 0.0, 0.0, 0.0",
-								"row1" : "0.0, 1.0, 0.0, 0.0",
-								"row2" : "0.0, 0.0, 1.0, 0.0",
-								"row3" : "0.0, 10.0, 0.0, 1.0"
-							},
-
-							"components"			: [
-								{
-									"$Class"		: "ScnEnvironmentProbeComponent",
-									"templaterenderer" : "$(ScnEntity:deferred_renderer.EnvironmentRenderer)"
-								},
-
-								{
-									"$Class"				: "ScnModelComponent",
-
-									"name"					: "TestModel",
-									"model"					: "$(ScnModel:models.sphere)",
-
-									"scale"					: "0.1, 0.1, 0.1"
-								}							
-							]
 						}
 					]
 				},

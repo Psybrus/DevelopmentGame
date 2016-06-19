@@ -155,6 +155,45 @@
 
 		{
 			"type"			: "ScnShader",
+			"name"			: "pp_deferred_resolve_envmap",
+			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/pp_deferred_resolve_envmap.psf",
+				"GLSL_430" : "Content/Engine/pp_deferred_resolve_envmap.psf",
+				"GLSL_330" : "Content/Engine/pp_deferred_resolve_envmap.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve_envmap.psf"
+			},
+
+
+			"@(android)" 		: {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve_envmap.psf"
+				}
+			},
+
+			"@(html5)" 		: {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve_envmap.psf"
+				}
+			},
+
+			"includepermutations" : [
+				"RENDER_POST_PROCESS",
+				"PASS_TRANSPARENT",
+				"MESH_STATIC_2D",
+				"LIGHTING_NONE"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
 			"name"			: "pp_deferred_reflection",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/pp_deferred_reflection.psf",
