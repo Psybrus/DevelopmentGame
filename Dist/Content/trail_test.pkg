@@ -49,8 +49,7 @@
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
 				"MESH_STATIC_3D",
-				"PASS_OPAQUE",
-				"LIGHTING_NONE"
+				"PASS_OPAQUE"
 			],
 
 			"entrypoints"		: {

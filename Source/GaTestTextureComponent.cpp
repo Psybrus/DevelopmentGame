@@ -281,8 +281,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 
 	ScnShaderPermutationFlags ShaderPermutation = 
 		ScnShaderPermutationFlags::MESH_STATIC_3D |
-		ScnShaderPermutationFlags::RENDER_FORWARD |
-		ScnShaderPermutationFlags::LIGHTING_NONE;
+		ScnShaderPermutationFlags::RENDER_FORWARD;
 
 	const auto& Features = RsCore::pImpl()->getContext( nullptr )->getFeatures();
 
@@ -295,7 +294,8 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.Texture1D_ )
 		{
-			Texture1D_ = ScnTexture::New1D( 32, 1, RsTextureFormat::R8G8B8A8, false, false, getFullName().c_str() );
+			Texture1D_ = ScnTexture::New1D( 32, 1, RsTextureFormat::R8G8B8A8, 
+				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture1D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture1D_->getTexture(),
@@ -325,7 +325,8 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.Texture2D_ )
 		{
-			Texture2D_ = ScnTexture::New2D( 32, 32, 1, RsTextureFormat::R8G8B8A8, false, false, getFullName().c_str() );
+			Texture2D_ = ScnTexture::New2D( 32, 32, 1, RsTextureFormat::R8G8B8A8, 
+				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture2D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture2D_->getTexture(),
@@ -359,7 +360,8 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.Texture3D_ )
 		{
-			Texture3D_ = ScnTexture::New3D( 32, 32, 32, 1, RsTextureFormat::R8G8B8A8, false, false, getFullName().c_str() );
+			Texture3D_ = ScnTexture::New3D( 32, 32, 32, 1, RsTextureFormat::R8G8B8A8, 
+				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture3D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture3D_->getTexture(),
@@ -399,7 +401,8 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.TextureCube_ )
 		{
-			TextureCube_ = ScnTexture::NewCube( 32, 32, 1, RsTextureFormat::R8G8B8A8, false, false, getFullName().c_str() );
+			TextureCube_ = ScnTexture::NewCube( 32, 32, 1, RsTextureFormat::R8G8B8A8, 
+				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			const BcU32 FaceColours[] = 
 			{
 				0xffff0000,

@@ -197,8 +197,7 @@ void GaTestShaderComponent::onAttach( ScnEntityWeakRef Parent )
 
 	ScnShaderPermutationFlags ShaderPermutation = 
 		ScnShaderPermutationFlags::MESH_STATIC_3D |
-		ScnShaderPermutationFlags::RENDER_FORWARD |
-		ScnShaderPermutationFlags::LIGHTING_NONE;
+		ScnShaderPermutationFlags::RENDER_FORWARD;
 
 	// Attach a new material component.
 	MaterialComponent_ = Parent->attach< ScnMaterialComponent >(

@@ -235,7 +235,6 @@
 					"$Class"				: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
-					"islit"					: true,
 					"scale"					: "0.1, 0.1, 0.1"
 				},
 

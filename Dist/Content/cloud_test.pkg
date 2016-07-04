@@ -81,10 +81,8 @@
 
 			"excludepermutations" : [
 				"RENDER_DEFERRED",
-				"RENDER_FORWARD_PLUS",
 				"PASS_SHADOW",
-				"MESH_INSTANCED_3D",
-				"LIGHTING_DIFFUSE"
+				"MESH_INSTANCED_3D"
 			],
 
 			"entrypoints"		: {

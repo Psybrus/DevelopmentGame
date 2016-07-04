@@ -121,7 +121,6 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 		TestModelUniforms_.MaterialMetallic_ = 0.0f;
 		TestModelUniforms_.MaterialRoughness_ = 0.0f;
 		TestModelComponent_->setUniforms( TestModelUniforms_ );
-		TestModelComponent_->setLit( true );
 	}
 
 	EntityTransform.scale( MaVec3d( 1.0f, 1.0f, 1.0f ) );
@@ -147,7 +146,6 @@ void GaTestLightingComponent::onAttach( ScnEntityWeakRef Parent )
 			MaterialData.MaterialMetallic_ = X;
 			MaterialData.MaterialRoughness_ = Z;
 			ModelComponent->setUniforms( MaterialData );
-			ModelComponent->setLit( true );
 		}
 	}
 }

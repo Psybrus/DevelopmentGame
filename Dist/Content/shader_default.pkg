@@ -25,8 +25,7 @@
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"PASS_OPAQUE",
-				"PASS_TRANSPARENT",
-				"LIGHTING_NONE"
+				"PASS_MAIN"
 			],
 
 			"excludepermutations" : [

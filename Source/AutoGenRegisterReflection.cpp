@@ -182,6 +182,7 @@ void AutoGenRegisterReflection()
 	ScnDebugRenderComponent::StaticRegisterClass();
 	ScnDeferredRendererVertex::StaticRegisterClass();
 	ScnDeferredRendererComponent::StaticRegisterClass();
+	ScnEnvironmentFilterUniformBlock::StaticRegisterClass();
 	ScnEnvironmentProbeComponent::StaticRegisterClass();
 	ScnFont::StaticRegisterClass();
 	ScnFontUniformBlockData::StaticRegisterClass();

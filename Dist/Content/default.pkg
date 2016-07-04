@@ -41,7 +41,7 @@
 						{
 							"$Class"		: "ScnEnvironmentProbeComponent",
 							"templaterenderer" : "$(ScnEntity:deferred_renderer.EnvironmentRenderer)"
-						}						
+						}
 					]
 				},
 
@@ -79,7 +79,6 @@
 
 							"name"					: "TestModel",
 							"model"					: "$(ScnModel:models.floor)",
-							"islit"					: true,
 							"scale"					: "1.0, 1.0, 1.0"
 						}
 					]
@@ -276,7 +275,6 @@
 				{
 					"$Class"				: "ScnModelComponent",
 					"model"					: "$(ScnModel:models.skysphere)",
-					"islit"					: false,
 					"scale"					: "1000.0, 1000.0, 1000.0",
 					"layer"					: 0,
 					"passes"				: "TRANSPARENT"

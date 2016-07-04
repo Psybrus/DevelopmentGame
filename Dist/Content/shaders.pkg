@@ -68,8 +68,7 @@
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
-				"PASS_OPAQUE",
-				"LIGHTING_NONE"
+				"PASS_OPAQUE"
 			],
 
 			"excludepermutations" : [
@@ -109,8 +108,7 @@
 			"includepermutations" : [
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
-				"PASS_OPAQUE",
-				"LIGHTING_NONE"
+				"PASS_OPAQUE"
 			],
 
 			"excludepermutations" : [
@@ -147,8 +145,7 @@
 			"includepermutations" : [
 				"MESH_STATIC_2D",
 				"RENDER_POST_PROCESS",
-				"PASS_OPAQUE",
-				"LIGHTING_NONE"
+				"PASS_OPAQUE"
 			],
 
 			"entrypoints"		: {

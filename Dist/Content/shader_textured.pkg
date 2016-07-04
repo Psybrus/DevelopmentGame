@@ -26,9 +26,7 @@
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
-				"PASS_TRANSPARENT",
-				"LIGHTING_NONE",
-				"LIGHTING_DIFFUSE"
+				"PASS_MAIN"
 			],
 
 			"excludepermutations" : [
@@ -66,9 +64,7 @@
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
-				"PASS_TRANSPARENT",
-				"LIGHTING_NONE",
-				"LIGHTING_DIFFUSE"
+				"PASS_MAIN"
 			],
 
 			"excludepermutations" : [

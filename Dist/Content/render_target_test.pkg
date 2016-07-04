@@ -10,7 +10,6 @@
 					"$Class"				: "ScnModelComponent",
 					"name"					: "TestModel",
 					"model"					: "$(ScnModel:ruiner.character_jacketmale)",
-					"islit"					: false,
 					"rendermask"			: 2,
 					"scale"					: "0.1, 0.1, 0.1"
 				},

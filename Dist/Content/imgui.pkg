@@ -25,8 +25,7 @@
 
 			"includepermutations" : [
 				"MESH_STATIC_2D",
-				"PASS_TRANSPARENT",
-				"LIGHTING_NONE"
+				"PASS_MAIN"
 			],
 
 			"entrypoints"		: {
@@ -60,8 +59,7 @@
 
 			"includepermutations" : [
 				"MESH_STATIC_2D",
-				"PASS_TRANSPARENT",
-				"LIGHTING_NONE"
+				"PASS_MAIN"
 			],
 
 			"entrypoints"		: {

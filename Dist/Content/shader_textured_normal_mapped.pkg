@@ -5,9 +5,9 @@
 			"name"			: "textured_normal_mapped",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/textured_normal_mapped.psf",
-				"GLSL_430" : "Content/Engine/textured_normal_mapped.psf"
-				//"GLSL_330" : "Content/Engine/textured_normal_mapped.psf",
-				//"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.psf"
+				"GLSL_430" : "Content/Engine/textured_normal_mapped.psf",
+				"GLSL_330" : "Content/Engine/textured_normal_mapped.psf",
+				"GLSL_ES_100" : "Content/Engine/textured_normal_mapped.psf"
 			},
 
 			"@(android)" : {
@@ -26,9 +26,7 @@
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
-				"PASS_TRANSPARENT",
-				"LIGHTING_NONE",
-				"LIGHTING_DIFFUSE"
+				"PASS_MAIN"
 			],
 
 			"excludepermutations" : [
@@ -66,9 +64,7 @@
 				"RENDER_FORWARD",
 				"RENDER_DEFERRED",
 				"PASS_OPAQUE",
-				"PASS_TRANSPARENT",
-				"LIGHTING_NONE",
-				"LIGHTING_DIFFUSE"
+				"PASS_MAIN"
 			],
 
 			"excludepermutations" : [

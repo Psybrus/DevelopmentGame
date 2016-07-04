@@ -183,7 +183,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 #  endif
 #endif
 
-#if defined( PERM_RENDER_FORWARD ) && defined( PERM_LIGHTING_DIFFUSE )
+#if defined( PERM_RENDER_FORWARD )
 	Diffuse = gammaToLinear( Diffuse ) * IN( VsColour0 ) * float4( InMaterial.Colour_, 1.0 );
 	float3 EyePosition = getViewPosition();
 	float3 TotalSurface = float3( 0.0, 0.0, 0.0 );

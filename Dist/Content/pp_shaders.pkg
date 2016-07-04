@@ -24,9 +24,8 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_TRANSPARENT",
-				"MESH_STATIC_2D",
-				"LIGHTING_NONE"
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
 			],
 
 			"excludepermutations" : [
@@ -35,6 +34,78 @@
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
 				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_compute_downsample_r8g8b8a8",
+			"sources" 		: {
+				"GLSL_430" : "Content/Engine/pp_compute_downsample.glsl"
+			},
+
+			"defines" : {
+				"OUTPUT_RGBA8" : "1"
+			},
+
+			"usepermutations" : false,
+
+			"entrypoints"		: {
+				"compute" : 	"main"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_compute_downsample_r16fg16fb16fa16f",
+			"sources" 		: {
+				"GLSL_430" : "Content/Engine/pp_compute_downsample.glsl"
+			},
+
+			"defines" : {
+				"OUTPUT_RGBA16F" : "1"
+			},
+
+			"usepermutations" : false,
+
+			"entrypoints"		: {
+				"compute" : 	"main"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_compute_filter_r8g8b8a8",
+			"sources" 		: {
+				"GLSL_430" : "Content/Engine/pp_compute_filter.glsl"
+			},
+
+			"defines" : {
+				"OUTPUT_RGBA8" : "1"
+			},
+
+			"usepermutations" : false,
+
+			"entrypoints"		: {
+				"compute" : 	"main"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_compute_filter_r16fg16fb16fa16f",
+			"sources" 		: {
+				"GLSL_430" : "Content/Engine/pp_compute_filter.glsl"
+			},
+
+			"defines" : {
+				"OUTPUT_RGBA16F" : "1"
+			},
+
+			"usepermutations" : false,
+
+			"entrypoints"		: {
+				"compute" : 	"main"
 			}
 		},
 
@@ -62,9 +133,8 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_TRANSPARENT",
-				"MESH_STATIC_2D",
-				"LIGHTING_NONE"
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
 			],
 
 			"excludepermutations" : [
@@ -100,9 +170,8 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_TRANSPARENT",
-				"MESH_STATIC_2D",
-				"LIGHTING_NONE"
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
 			],
 
 			"excludepermutations" : [
@@ -139,9 +208,8 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_TRANSPARENT",
-				"MESH_STATIC_2D",
-				"LIGHTING_NONE"
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
 			],
 
 			"excludepermutations" : [
@@ -178,9 +246,8 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_TRANSPARENT",
-				"MESH_STATIC_2D",
-				"LIGHTING_NONE"
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
 			],
 
 			"excludepermutations" : [
@@ -217,9 +284,8 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_TRANSPARENT",
-				"MESH_STATIC_2D",
-				"LIGHTING_NONE"
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
 			],
 
 			"excludepermutations" : [
@@ -255,9 +321,8 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_TRANSPARENT",
-				"MESH_STATIC_2D",
-				"LIGHTING_NONE"
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
 			],
 
 			"excludepermutations" : [
@@ -293,9 +358,8 @@
 
 			"includepermutations" : [
 				"RENDER_POST_PROCESS",
-				"PASS_TRANSPARENT",
-				"MESH_STATIC_2D",
-				"LIGHTING_NONE"
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
 			],
 
 			"excludepermutations" : [

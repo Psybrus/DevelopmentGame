@@ -1,0 +1,59 @@
+#ifndef __PP_COMPUTE_SHARED_PSH__
+#define __PP_COMPUTE_SHARED_PSH__
+
+float2 hammersley( uint Index, uint NumSamples )
+{
+	float X = float( Index ) / float( NumSamples );
+	float Y = float( reversebits( Index ) ) * 2.3283064365386963e-10; // / ( 1 << 32 );
+	return float2( X, Y );
+}
+
+// http://blog.selfshadow.com/publications/s2013-shading-course/karis/s2013_pbs_epic_notes_v2.pdf
+float3 importanceSampleGGX( float2 Xi, float Roughness, float3 N )
+{
+	float a = Roughness * Roughness;
+	float Phi = 2 * PI * Xi.x;
+	float CosTheta = sqrt( (1 - Xi.y) / ( 1 + (a*a - 1) * Xi.y ) );
+	float SinTheta = sqrt( 1 - CosTheta * CosTheta );
+	float3 H;
+	H.x = SinTheta * cos( Phi );
+	H.y = SinTheta * sin( Phi );
+	H.z = CosTheta;
+	float3 UpVector = abs( N.z ) < 0.999 ? float3(0,0,1) : float3(1,0,0);
+	float3 TangentX = normalize( cross( UpVector, N ) );
+	float3 TangentY = cross( N, TangentX );
+	// Tangent to world space
+	return TangentX * H.x + TangentY * H.y + N * H.z;
+}
+
+float3 getCubemapNormal( uint Face, float2 Coord )
+{
+	float3 Normal = float3( 0.0, 0.0, 0.0 );
+	if( Face == 0 )
+	{
+		Normal = float3( 1.0, -Coord.y, -Coord.x );
+	}
+	else if( Face == 1 )
+	{
+		Normal = float3( -1.0, -Coord.y, Coord.x );
+	}
+	else if( Face == 2 )
+	{
+		Normal = float3( Coord.x, 1.0, Coord.y );
+	}
+	else if( Face == 3 )
+	{
+		Normal = float3( Coord.x, -1.0, -Coord.y );
+	}
+	else if( Face == 4 )
+	{
+		Normal = float3( Coord.x, -Coord.y, 1.0 );
+	}
+	else if( Face == 5 )
+	{
+		Normal = float3( -Coord.x, -Coord.y, -1.0 );
+	}
+	return normalize( Normal );
+}
+
+#endif // __PP_COMPUTE_SHARED_PSH__
