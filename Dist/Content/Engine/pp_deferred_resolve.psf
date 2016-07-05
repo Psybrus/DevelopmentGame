@@ -4,23 +4,22 @@
 
 //////////////////////////////////////////////////////////////////////////
 // Tone mapping.
-float3 FilmicCurve( float3 X )
+float3 Uncharted2Curve( float3 X )
 {
 	const float A = 0.15;
+	const float B = 0.50;
 	const float C = 0.10;
 	const float D = 0.20;
 	const float E = 0.02;
 	const float F = 0.30;
-	const float B = 0.50;
 	return ( ( X * ( A * X + C * B ) + D * E ) / ( X * ( A * X + B ) + D * F ) ) - E / F;
 }
 
-float3 FilmicTonemapping( float3 X, float ExposureBias )
+float3 Uncharted2Tonemapping( float3 Colour, float Exposure )
 {
 	const float WhitePoint = 11.2;
-	float3 Curr = FilmicCurve( X * ExposureBias );
-	float3 WhiteScale = float3( 1.0, 1.0, 1.0 ) / FilmicCurve( float3( WhitePoint WhitePoint, WhitePoint ) );
-	return Curr * WhiteScale;
+	float3 WhitePoint3 = 1.0f / Uncharted2Curve( float3( WhitePoint, WhitePoint, WhitePoint ) );
+	return linearToGamma( WhitePoint3 * Uncharted2Curve( Colour * Exposure ) );
 }
 
 
@@ -61,9 +60,16 @@ PS_MAIN( pixelMain )
 	PS_ENTER;
 	float4 Colour = PSY_SAMPLE_2D( HDRTex, IN( VsTexCoord0 ).xy );
 
-	Colour.xyz = FilmicTonemapping( Colour.xyz, 2.0 );
+	if( IN( VsTexCoord0 ).x < 0.5 )
+	{
+		Colour.xyz = Uncharted2Tonemapping( Colour.xyz, 1.0 );
+	}
+	else
+	{
+		Colour.xyz = linearToGamma( Colour.xyz );
+	}
 
-	outputFrag[0] = linearToGamma( float4( Colour.xyz, 1.0 ) );
+	outputFrag[0] = float4( Colour.xyz, 1.0 );
 	PS_EXIT;
 }
 

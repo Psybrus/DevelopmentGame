@@ -31,6 +31,9 @@
 						"$(ScnShader:pp_shaders.pp_deferred_spot_light)"
 					],
 
+					"luminancecomputeshader" : "$(ScnShader:pp_shaders.pp_compute_luminance)",
+					"downsamplecomputeshader" : "$(ScnShader:pp_shaders.pp_compute_downsample_r16f)",
+
 					"reflectionshader" : "$(ScnShader:pp_shaders.pp_deferred_reflection)",
 					"resolveshader" : "$(ScnShader:pp_shaders.pp_deferred_resolve)"
 				}
@@ -67,6 +70,9 @@
 						"$(ScnShader:pp_shaders.pp_deferred_point_light)",
 						"$(ScnShader:pp_shaders.pp_deferred_spot_light)"
 					],
+
+					"luminancecomputeshader" : "$(ScnShader:pp_shaders.pp_compute_luminance)",
+					"downsamplecomputeshader" : "$(ScnShader:pp_shaders.pp_compute_downsample_r16f)",
 
 					"reflectionshader" : "$(ScnShader:pp_shaders.pp_deferred_reflection)",
 					"resolveshader" : "$(ScnShader:pp_shaders.pp_deferred_resolve_envmap)"
