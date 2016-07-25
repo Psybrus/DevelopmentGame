@@ -53,6 +53,20 @@
 
 		{
 			"type"			: "ScnShader",
+			"name"			: "pp_compute_luminance_transfer",
+			"sources" 		: {
+				"GLSL_430" : "Content/Engine/pp_compute_luminance_transfer.glsl"
+			},
+
+			"usepermutations" : false,
+
+			"entrypoints"		: {
+				"compute" : 	"main"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
 			"name"			: "pp_compute_downsample_r8g8b8a8",
 			"sources" 		: {
 				"GLSL_430" : "Content/Engine/pp_compute_downsample.glsl"
@@ -96,6 +110,24 @@
 
 			"defines" : {
 				"OUTPUT_R16F" : "1"
+			},
+
+			"usepermutations" : false,
+
+			"entrypoints"		: {
+				"compute" : 	"main"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_compute_downsample_r32f",
+			"sources" 		: {
+				"GLSL_430" : "Content/Engine/pp_compute_downsample.glsl"
+			},
+
+			"defines" : {
+				"OUTPUT_R32F" : "1"
 			},
 
 			"usepermutations" : false,

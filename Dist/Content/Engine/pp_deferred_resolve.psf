@@ -1,27 +1,30 @@
 #include <Psybrus.psh>
 
 #include <UniformPostProcessConfig.psh>
+#include <UniformToneMapping.psh>
 
 //////////////////////////////////////////////////////////////////////////
 // Tone mapping.
 float3 Uncharted2Curve( float3 X )
 {
-	const float A = 0.15;
-	const float B = 0.50;
-	const float C = 0.10;
-	const float D = 0.20;
-	const float E = 0.02;
-	const float F = 0.30;
+	float A = ToneMappingA_;
+	float B = ToneMappingB_;
+	float C = ToneMappingC_;
+	float D = ToneMappingD_;
+	float E = ToneMappingE_;
+	float F = ToneMappingF_;
 	return ( ( X * ( A * X + C * B ) + D * E ) / ( X * ( A * X + B ) + D * F ) ) - E / F;
 }
 
 float3 Uncharted2Tonemapping( float3 Colour, float Exposure )
 {
-	const float WhitePoint = 11.2;
-	float3 WhitePoint3 = 1.0f / Uncharted2Curve( float3( WhitePoint, WhitePoint, WhitePoint ) );
-	return linearToGamma( WhitePoint3 * Uncharted2Curve( Colour * Exposure ) );
-}
+	float WhitePoint = ToneMappingWhitePoint_;
+	float3 MiddleGrey3 = float3( ToneMappingMiddleGrey_, ToneMappingMiddleGrey_, ToneMappingMiddleGrey_ );
 
+	float3 WhitePoint3 = Uncharted2Curve( float3( WhitePoint, WhitePoint, WhitePoint ) );
+	Colour *= MiddleGrey3 / float3( Exposure, Exposure, Exposure ) / WhitePoint3;
+	return ( Uncharted2Curve( Colour ) / WhitePoint3 );
+}
 
 //////////////////////////////////////////////////////////////////////////
 // Vertex shader
@@ -54,20 +57,18 @@ PS_IN_BEGIN
 PS_IN_END
 #include <PsybrusOutput.psh>
 PSY_SAMPLER_2D( HDRTex );
+PSY_SAMPLER_2D( Luminance2Tex );
 
 PS_MAIN( pixelMain )
 {
 	PS_ENTER;
+	float AvgLum = PSY_SAMPLE_2D( Luminance2Tex, IN( VsTexCoord0 ).xy ).x;
 	float4 Colour = PSY_SAMPLE_2D( HDRTex, IN( VsTexCoord0 ).xy );
 
-	if( IN( VsTexCoord0 ).x < 0.5 )
-	{
-		Colour.xyz = Uncharted2Tonemapping( Colour.xyz, 1.0 );
-	}
-	else
-	{
-		Colour.xyz = linearToGamma( Colour.xyz );
-	}
+	Colour.xyz = Uncharted2Tonemapping( Colour.xyz, AvgLum * pow( 2.0, -ToneMappingExposure_ ) );
+
+	// Linear.
+	// Colour.xyz = linearToGamma( Colour.xyz );
 
 	outputFrag[0] = float4( Colour.xyz, 1.0 );
 	PS_EXIT;
