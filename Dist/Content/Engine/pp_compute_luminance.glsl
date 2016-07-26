@@ -14,11 +14,6 @@ layout(r32f) writeonly uniform image2D aOutputTexture;
 
 #endif
 
-float luminance( float3 Input )
-{
-	return dot( Input, float3( 0.2126, 0.7152, 0.0722 ) );
-}
-
 void main()
 {
 	int2 iId = int2( gl_GlobalInvocationID.xy ) * 2;

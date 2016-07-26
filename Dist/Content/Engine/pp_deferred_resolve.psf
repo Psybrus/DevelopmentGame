@@ -1,6 +1,5 @@
 #include <Psybrus.psh>
 
-#include <UniformPostProcessConfig.psh>
 #include <UniformToneMapping.psh>
 
 //////////////////////////////////////////////////////////////////////////
