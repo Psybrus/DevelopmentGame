@@ -236,6 +236,43 @@
 
 		{
 			"type"			: "ScnShader",
+			"name"			: "pp_downsample",
+			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/pp_downsample.psf",
+				"GLSL_430" : "Content/Engine/pp_downsample.psf",
+				"GLSL_330" : "Content/Engine/pp_downsample.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_downsample.psf"
+			},
+
+			"@(android)" 		: {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/pp_downsample.psf"
+				}
+			},
+
+			"@(html5)" 		: {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/pp_downsample.psf"
+				}
+			},
+
+			"includepermutations" : [
+				"RENDER_POST_PROCESS",
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
 			"name"			: "pp_h_blur",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/pp_h_blur.psf",

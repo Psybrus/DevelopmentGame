@@ -35,6 +35,10 @@
 					"luminancetransfercomputeshader" : "$(ScnShader:pp_shaders.pp_compute_luminance_transfer)",
 					"downsamplecomputeshader" : "$(ScnShader:pp_shaders.pp_compute_downsample_r32f)",
 
+					"luminanceshader" : "$(ScnShader:pp_shaders.pp_luminance)",
+					"luminancetransfershader" : "$(ScnShader:pp_shaders.pp_luminance_transfer)",
+					"downsampleshader" : "$(ScnShader:pp_shaders.pp_downsample)",
+
 					"reflectionshader" : "$(ScnShader:pp_shaders.pp_deferred_reflection)",
 					"resolveshader" : "$(ScnShader:pp_shaders.pp_deferred_resolve)"
 				}
@@ -75,6 +79,10 @@
 					"luminancecomputeshader" : "$(ScnShader:pp_shaders.pp_compute_luminance)",
 					"luminancetransfercomputeshader" : "$(ScnShader:pp_shaders.pp_compute_luminance_transfer)",
 					"downsamplecomputeshader" : "$(ScnShader:pp_shaders.pp_compute_downsample_r32f)",
+
+					"luminanceshader" : "$(ScnShader:pp_shaders.pp_luminance)",
+					"luminancetransfershader" : "$(ScnShader:pp_shaders.pp_luminance_transfer)",
+					"downsampleshader" : "$(ScnShader:pp_shaders.pp_downsample)",
 
 					"reflectionshader" : "$(ScnShader:pp_shaders.pp_deferred_reflection)",
 					"resolveshader" : "$(ScnShader:pp_shaders.pp_deferred_resolve_envmap)"
