@@ -12,8 +12,6 @@ layout (local_size_x = 1, local_size_y = 1) in;
 layout(rgba16f) readonly uniform image2D aInputTexture;
 layout(r32f) writeonly uniform image2D aOutputTexture;
 
-#endif
-
 void main()
 {
 	int2 iId = int2( gl_GlobalInvocationID.xy ) * 2;
