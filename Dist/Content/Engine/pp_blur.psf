@@ -42,9 +42,13 @@ PS_MAIN( pixelMain )
 	float Radius = Radius_;
 	float MaxRadius = 8.0;
 	float4 Colour = float4( 0.0, 0.0, 0.0, 0.0 );
+#if V_BLUR
+	float4 UVOffset = float4( 0.0, -Radius * Offset, 0.0, 0.0 );
+	float4 UVIncr = float4( 0.0, Offset, 0.0, 0.0 );
+#elif H_BLUR
 	float4 UVOffset = float4( -Radius * Offset, 0.0, 0.0, 0.0 );
 	float4 UVIncr = float4( Offset, 0.0, 0.0, 0.0 );
-
+#endif
 	for( float Idx = -MaxRadius; Idx <= MaxRadius; Idx += 1.0 )
 	{
 		if( Idx >= -Radius && Idx <= Radius )
