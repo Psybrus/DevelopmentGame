@@ -39,6 +39,10 @@
 					"luminancetransfershader" : "$(ScnShader:pp_shaders.pp_luminance_transfer)",
 					"downsampleshader" : "$(ScnShader:pp_shaders.pp_downsample)",
 
+					"bloomgenerateshader" : "$(ScnShader:pp_shaders.pp_bloom_generate)",
+					"bloomhblurshader" : "$(ScnShader:pp_shaders.pp_bloom_h_blur)",
+					"bloomvblurshader" : "$(ScnShader:pp_shaders.pp_bloom_v_blur)",
+
 					"reflectionshader" : "$(ScnShader:pp_shaders.pp_deferred_reflection)",
 					"resolveshader" : "$(ScnShader:pp_shaders.pp_deferred_resolve)"
 				}

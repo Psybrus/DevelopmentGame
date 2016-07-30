@@ -1,4 +1,4 @@
-#include <Psybrus.psh>
+#include "pp_shared.psh"
 
 #include <UniformToneMapping.psh>
 
@@ -24,28 +24,6 @@ float3 Uncharted2Tonemapping( float3 Colour, float Exposure )
 	Colour *= MiddleGrey3 / float3( Exposure, Exposure, Exposure ) / WhitePoint3;
 	return ( Uncharted2Curve( Colour ) / WhitePoint3 );
 }
-
-//////////////////////////////////////////////////////////////////////////
-// Vertex shader
-#if VERTEX_SHADER
-
-VS_IN_BEGIN
-	DECLARE_IN( float4, InPosition_, POSITION );
-	DECLARE_IN( float4, InTexCoord_, TEXCOORD0 );
-VS_IN_END
-
-VS_OUT_BEGIN
-	DECLARE_OUT( float4, VsTexCoord0, TEXCOORD0 );
-VS_OUT_END
-
-VS_MAIN( vertexMain )
-{
-	VS_ENTER;
-	OUT_POSITION = IN( InPosition_ ).xyzw;
-	OUT( VsTexCoord0 ) = IN( InTexCoord_ );
-	VS_EXIT;
-}
-#endif
 
 //////////////////////////////////////////////////////////////////////////
 // Pixel shader

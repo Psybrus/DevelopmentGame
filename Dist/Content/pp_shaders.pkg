@@ -310,23 +310,23 @@
 
 		{
 			"type"			: "ScnShader",
-			"name"			: "pp_h_blur",
+			"name"			: "pp_bloom_generate",
 			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/pp_blur.psf",
-				"GLSL_430" : "Content/Engine/pp_blur.psf",
-				"GLSL_330" : "Content/Engine/pp_blur.psf",
-				"GLSL_ES_100" : "Content/Engine/pp_blur.psf"
+				"D3D11_4_0" : "Content/Engine/pp_bloom.psf",
+				"GLSL_430" : "Content/Engine/pp_bloom.psf",
+				"GLSL_330" : "Content/Engine/pp_bloom.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_bloom.psf"
 			},
 
 			"@(android)" 		: {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/pp_blur.psf"
+					"GLSL_ES_100" : "Content/Engine/pp_bloom.psf"
 				}
 			},
 
 			"@(html5)" 		: {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/pp_blur.psf"
+					"GLSL_ES_100" : "Content/Engine/pp_bloom.psf"
 				}
 			},
 
@@ -345,29 +345,70 @@
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
-				"pixel" :		"pixelMain"
+				"pixel" :		"pixelMain_Generate"
 			}
 		},
 
 		{
 			"type"			: "ScnShader",
-			"name"			: "pp_v_blur",
+			"name"			: "pp_bloom_h_blur",
 			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/pp_blur.psf",
-				"GLSL_330" : "Content/Engine/pp_blur.psf",
-				"GLSL_430" : "Content/Engine/pp_blur.psf",
-				"GLSL_ES_100" : "Content/Engine/pp_blur.psf"
+				"D3D11_4_0" : "Content/Engine/pp_bloom.psf",
+				"GLSL_430" : "Content/Engine/pp_bloom.psf",
+				"GLSL_330" : "Content/Engine/pp_bloom.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_bloom.psf"
 			},
 
 			"@(android)" 		: {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/pp_blur.psf"
+					"GLSL_ES_100" : "Content/Engine/pp_bloom.psf"
 				}
 			},
 
 			"@(html5)" 		: {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/pp_blur.psf"
+					"GLSL_ES_100" : "Content/Engine/pp_bloom.psf"
+				}
+			},
+
+			"defines" : {
+				"H_BLUR" : "1"
+			},
+
+			"includepermutations" : [
+				"RENDER_POST_PROCESS",
+				"PASS_MAIN",
+				"MESH_STATIC_2D"
+			],
+
+			"excludepermutations" : [
+			],
+
+			"entrypoints"		: {
+				"vertex" : 		"vertexMain",
+				"pixel" :		"pixelMain_Blur"
+			}
+		},
+
+		{
+			"type"			: "ScnShader",
+			"name"			: "pp_bloom_v_blur",
+			"sources" 		: {
+				"D3D11_4_0" : "Content/Engine/pp_bloom.psf",
+				"GLSL_330" : "Content/Engine/pp_bloom.psf",
+				"GLSL_430" : "Content/Engine/pp_bloom.psf",
+				"GLSL_ES_100" : "Content/Engine/pp_bloom.psf"
+			},
+
+			"@(android)" 		: {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/pp_bloom.psf"
+				}
+			},
+
+			"@(html5)" 		: {
+				"sources" 		: {
+					"GLSL_ES_100" : "Content/Engine/pp_bloom.psf"
 				}
 			},
 
@@ -386,7 +427,7 @@
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
-				"pixel" :		"pixelMain"
+				"pixel" :		"pixelMain_Blur"
 			}
 		},
 

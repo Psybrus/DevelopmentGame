@@ -1,13 +1,13 @@
 #pragma version 430 core
 #define SKIP_VERSION
 
+#include "pp_shared.psh"
+
 #include <PsybrusLighting.psh>
 #include <PsybrusSamplers.psh>
 #include <PsybrusUtility.psh>
 
 #include <UniformEnvironmentFilter.psh>
-
-#include "pp_compute_shared.psh"
 
 precision highp float;
 precision highp int;
