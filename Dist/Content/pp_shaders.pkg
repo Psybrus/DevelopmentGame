@@ -310,7 +310,7 @@
 
 		{
 			"type"			: "ScnShader",
-			"name"			: "pp_bloom_generate",
+			"name"			: "pp_bloom_brightpass",
 			"sources" 		: {
 				"D3D11_4_0" : "Content/Engine/pp_bloom.psf",
 				"GLSL_430" : "Content/Engine/pp_bloom.psf",
@@ -345,7 +345,7 @@
 
 			"entrypoints"		: {
 				"vertex" : 		"vertexMain",
-				"pixel" :		"pixelMain_Generate"
+				"pixel" :		"pixelMain_BrightPass"
 			}
 		},
 

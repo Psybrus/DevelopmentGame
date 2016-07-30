@@ -34,17 +34,19 @@ PS_IN_BEGIN
 PS_IN_END
 #include <PsybrusOutput.psh>
 PSY_SAMPLER_2D( HDRTex );
+PSY_SAMPLER_2D( BloomTex );
 PSY_SAMPLER_2D( Luminance2Tex );
 
 PS_MAIN( pixelMain )
 {
 	PS_ENTER;
-	float AvgLum = PSY_SAMPLE_2D( Luminance2Tex, IN( VsTexCoord0 ).xy ).x;
+	float AvgLum = PSY_SAMPLE_2D( Luminance2Tex, float2( 0.0, 0.0 ) ).x;
 	float4 Colour = PSY_SAMPLE_2D( HDRTex, IN( VsTexCoord0 ).xy );
+	float4 Bloom = PSY_SAMPLE_2D( BloomTex, IN( VsTexCoord0 ).xy );
 
-	Colour.xyz = Uncharted2Tonemapping( Colour.xyz, AvgLum * pow( 2.0, -ToneMappingExposure_ ) );
+	Colour.xyz = Uncharted2Tonemapping( Colour.xyz + Bloom.xyz, AvgLum * pow( 2.0, -ToneMappingExposure_ ) );
 
-	// Linear.
+	// This linear -> gamma is handled by Uncharted2Tonemapping
 	// Colour.xyz = linearToGamma( Colour.xyz );
 
 	outputFrag[0] = float4( Colour.xyz, 1.0 );
