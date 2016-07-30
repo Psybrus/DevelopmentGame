@@ -72,7 +72,7 @@ PS_MAIN( pixelMain )
 	Diffuse = gammaToLinear( Diffuse );
 #endif
 
-	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse * IN( VsColour0 ), IN( VsNormal ).xyz, Specular.xyz );
+	writeFrag( FRAMEBUFFER_OUTPUT, Diffuse * IN( VsColour0 ), normalize( IN( VsNormal ).xyz ), Specular.xyz );
 	PS_EXIT;
 }
 

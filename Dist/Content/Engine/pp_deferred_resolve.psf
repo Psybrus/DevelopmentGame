@@ -42,7 +42,7 @@ PS_MAIN( pixelMain )
 	PS_ENTER;
 	float AvgLum = PSY_SAMPLE_2D( Luminance2Tex, float2( 0.0, 0.0 ) ).x;
 	float4 Colour = PSY_SAMPLE_2D( HDRTex, IN( VsTexCoord0 ).xy );
-	float4 Bloom = PSY_SAMPLE_2D( BloomTex, IN( VsTexCoord0 ).xy );
+	float4 Bloom = gammaToLinear( PSY_SAMPLE_2D( BloomTex, IN( VsTexCoord0 ).xy ) );
 
 	Colour.xyz = Uncharted2Tonemapping( Colour.xyz + Bloom.xyz, AvgLum * pow( 2.0, -ToneMappingExposure_ ) );
 

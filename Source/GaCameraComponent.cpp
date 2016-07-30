@@ -57,6 +57,7 @@ GaCameraComponent::GaCameraComponent()
 	CameraRotation_ = MaVec3d( 0.1f, 0.0f, 0.0f );
 #endif
 	CameraWalk_ = MaVec3d( 0.0f, 0.0f, 0.0f );
+	CameraTarget_ = MaVec3d( 0.0f, 5.0f, 5.0f );
 }
 
 //////////////////////////////////////////////////////////////////////////

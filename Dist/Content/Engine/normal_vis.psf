@@ -52,7 +52,7 @@ PS_IN_END
 PS_MAIN( pixelMain )
 {
 	PS_ENTER;
-	writeFrag( FRAMEBUFFER_OUTPUT, float4( IN( VsNormal ).xyz, 1.0 ), IN( VsNormal ).xyz );
+	writeFrag( FRAMEBUFFER_OUTPUT, float4( IN( VsNormal ).xyz, 1.0 ), normalize( IN( VsNormal ).xyz ) );
 	PS_EXIT;
 }
 

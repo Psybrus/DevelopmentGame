@@ -43,7 +43,6 @@ PS_IN_END
 PSY_SAMPLER_2D( AlbedoTex );
 PSY_SAMPLER_2D( MaterialTex );
 PSY_SAMPLER_2D( NormalTex );
-PSY_SAMPLER_2D( VelocityTex );
 PSY_SAMPLER_2D( DepthTex );
 PSY_SAMPLER_CUBE( ReflectionTex );
 
@@ -57,7 +56,6 @@ PS_MAIN( pixelMain )
 	float4 GBufferMaterial  = PSY_SAMPLE_2D( MaterialTex, IN( VsTexCoord0 ).xy );
 
 	float3 GBufferNormal  = normalize( PSY_SAMPLE_2D( NormalTex, IN( VsTexCoord0 ).xy ).xyz * 2.0 - 1.0 );
-	float4 Velocity  = PSY_SAMPLE_2D( VelocityTex, IN( VsTexCoord0 ).xy );
 	float4 Depth  = PSY_SAMPLE_2D( DepthTex, IN( VsTexCoord0 ).xy );
 
 	float4 SSPosition = float4( IN( VsTexCoord1 ).xy, Depth.x * 2.0 - 1.0, 1.0 );

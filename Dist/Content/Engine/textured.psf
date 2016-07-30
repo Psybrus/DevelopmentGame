@@ -158,7 +158,7 @@ void pixelAll( FRAMEBUFFER_INPUT )
 	TotalSurface = linearToGamma( TotalSurface );
 	writeFrag( FRAMEBUFFER_INTERNAL, float4( TotalSurface, Diffuse.w ), Normal.xyz, float3( 0.0, 0.0, 0.0 ) );
 #else
-	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * IN( VsColour0 ), IN( VsNormal ).xyz, float3( InMaterial.Metallic_, InMaterial.Roughness_, 0.0 ) );
+	writeFrag( FRAMEBUFFER_INTERNAL, Diffuse * IN( VsColour0 ), normalize( IN( VsNormal ).xyz ), float3( InMaterial.Metallic_, InMaterial.Roughness_, 0.0 ) );
 #endif
 }
 

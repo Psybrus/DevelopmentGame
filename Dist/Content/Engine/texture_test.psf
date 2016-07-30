@@ -80,7 +80,7 @@ PS_MAIN( pixelMain )
 #elif TEXTURE_TEST_DIMENSION == 6 && PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
 	Colour = PSY_SAMPLE_CUBE( DiffuseTex, IN( VsTexCoord0 ).xyz );
 #endif
-	writeFrag( FRAMEBUFFER_OUTPUT, Colour * IN( VsColour0 ), IN( VsNormal ).xyz );
+	writeFrag( FRAMEBUFFER_OUTPUT, Colour * IN( VsColour0 ), normalize( IN( VsNormal ).xyz ) );
 	PS_EXIT;
 }
 
