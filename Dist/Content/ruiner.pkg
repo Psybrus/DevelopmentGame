@@ -97,19 +97,19 @@
 			"source"		: "Content/Source/ruiner/character/ruinerbody01_d.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			},
 
 			"@(html5)" : {
-				"format" : "DXT1"
+				"format" : "BC1"
 			}
 		},
 
@@ -120,19 +120,19 @@
 			"source"		: "Content/Source/ruiner/character/ruinerbody01_local.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC5"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			},
 
 			"@(html5)" : {
-				"format" : "DXT1"
+				"format" : "BC1"
 			}
 		}
 	]

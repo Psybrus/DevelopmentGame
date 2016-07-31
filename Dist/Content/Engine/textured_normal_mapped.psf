@@ -126,7 +126,7 @@ float4 getMaterial( in float3 InNormal, in float3 InTangent, in float3 InBinorma
 	float3x3 TBN = buildTBN( InTangent.xyz, InBinormal.xyz, InNormal.xyz );
 
 	float4 TexNormal = PSY_SAMPLE_2D( NormalTex, InTexCoord0.xy );
-	Normal.xyz = TexNormal.xyz * 2.0 - 1.0;
+	Normal.xyz = reconstructNormal( TexNormal.xyz * 2.0 - 1.0 );
 	Normal.xyz = mul( TBN, Normal.xyz );
 	Normal.xyz = normalize( Normal.xyz );
 	Normal.w = 1.0;
