@@ -3,7 +3,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "teapot",
-			"source"	: "Content/Source/teapot/wt_teapot.obj",
+			"source"	: "Source/teapot/wt_teapot.obj",
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -46,8 +46,7 @@
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
 				"aSpecularTex" : "$(ScnTexture:textures.white)",
-				"aOpacityTex" : "$(ScnTexture:textures.white)",
-				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			},
 
 			"vertexformat" : {
@@ -62,7 +61,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "bunny",
-			"source"	: "Content/Source/bunny.obj",
+			"source"	: "Source/bunny.obj",
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -104,8 +103,7 @@
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
 				"aSpecularTex" : "$(ScnTexture:textures.white)",
-				"aOpacityTex" : "$(ScnTexture:textures.white)",
-				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			},
 
 			"vertexformat" : {
@@ -120,7 +118,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "test_fbx_model_static",
-			"source"	: "Content/Source/test_fbx_model_static.fbx",
+			"source"	: "Source/test_fbx_model_static.fbx",
 			"materials" : [
 				{
 					"regex" : "(.*)",
@@ -140,7 +138,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "test_fbx_model_skinned",
-			"source"	: "Content/Source/test_fbx_model_skinned.fbx",
+			"source"	: "Source/test_fbx_model_skinned.fbx",
 			"materials" : [
 				{
 					"regex" : "(.*)",
@@ -160,7 +158,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "sphere",
-			"source"	: "Content/Source/sphere.fbx",
+			"source"	: "Source/sphere.fbx",
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -203,7 +201,7 @@
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
 				"aSpecularTex" : "$(ScnTexture:textures.white)",
 				"aOpacityTex" : "$(ScnTexture:textures.white)",
-				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
+				"aReflectionTex" : "$(ScnTexture:cubemap_textures.default_cubemap)"
 			},
 
 			"vertexformat" : {
@@ -218,7 +216,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "skysphere",
-			"source"	: "Content/Source/skysphere.obj",
+			"source"	: "Source/skysphere.obj",
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -254,7 +252,7 @@
 			],
 
 			"defaulttextures" : {
-				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
+				"aReflectionTex" : "$(ScnTexture:cubemap_textures.default_cubemap)"
 			},
 
 			"vertexformat" : {
@@ -269,7 +267,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "cube",
-			"source"	: "Content/Source/cube.fbx",
+			"source"	: "Source/cube.fbx",
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -311,8 +309,7 @@
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
 				"aSpecularTex" : "$(ScnTexture:textures.black)",
-				"aOpacityTex" : "$(ScnTexture:textures.white)",
-				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			},
 
 			"vertexformat" : {
@@ -327,7 +324,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "floor",
-			"source"	: "Content/Source/floor.fbx",
+			"source"	: "Source/floor.fbx",
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -369,8 +366,7 @@
 				"aDiffuseTex" : "$(ScnTexture:textures.floor_albedo)",
 				"aNormalTex" : "$(ScnTexture:textures.floor_norm)",
 				"aSpecularTex" : "$(ScnTexture:textures.floor_spec)",
-				"aOpacityTex" : "$(ScnTexture:textures.white)",
-				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			},
 
 			"vertexformat" : {
@@ -386,7 +382,7 @@
 
 			"type"		: "ScnAnimation",
 			"name"		: "test_fbx_model_skinned_anim",
-			"source"	: "Content/Source/test_fbx_model_skinned.fbx"
+			"source"	: "Source/test_fbx_model_skinned.fbx"
 		}
 	]
 }

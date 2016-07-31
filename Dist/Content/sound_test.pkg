@@ -59,14 +59,14 @@
 		{
 			"name"		:		"Sound",
 			"type"		:		"ScnSound",
-			"source"	:		"Content/Source/explode.sfs",
+			"source"	:		"Source/explode.sfs",
 			"isstream"	:		true
 		},
 
 		{
 			"name"		:		"Music",
 			"type"		:		"ScnSound",
-			"source"	:		"Content/Source/HecticMurderParty.ogg",
+			"source"	:		"Source/HecticMurderParty.ogg",
 			"isstream"	:		true
 		}
 	]

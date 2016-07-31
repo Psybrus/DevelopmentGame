@@ -41,7 +41,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "sponza",
-			"source"	: "Content/Source/crytek-sponza/sponza.obj",
+			"source"	: "Source/crytek-sponza/sponza.obj",
 
 			"flattenhierarchy" : true,
 
@@ -115,8 +115,7 @@
 				"aDiffuseTex" : "$(ScnTexture:textures.white)",
 				"aNormalTex" : "$(ScnTexture:textures.normal)",
 				"aSpecularTex" : "$(ScnTexture:textures.green)",
-				"aOpacityTex" : "$(ScnTexture:textures.white)",
-				"aReflectionTex" : "$(ScnTexture:cubemap_textures.cubemap)"
+				"aOpacityTex" : "$(ScnTexture:textures.white)"
 			}
 		}
 
@@ -375,17 +374,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "vase_plant",
 
-			"source"		: "Content/Source/crytek-sponza/textures/vase_plant.png",
+			"source"		: "Source/crytek-sponza/textures/vase_plant.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		},
@@ -394,17 +393,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "chain_texture",
 
-			"source"		: "Content/Source/crytek-sponza/textures/chain_texture.png",
+			"source"		: "Source/crytek-sponza/textures/chain_texture.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		},
@@ -413,17 +412,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "chain_texture_mask",
 
-			"source"		: "Content/Source/crytek-sponza/textures/chain_texture_mask.png",
+			"source"		: "Source/crytek-sponza/textures/chain_texture_mask.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		},
@@ -432,17 +431,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "chain_texture_ddn",
 
-			"source"		: "Content/Source/crytek-sponza/textures/chain_texture_ddn.png",
+			"source"		: "Source/crytek-sponza/textures/chain_texture_ddn.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		},
@@ -451,17 +450,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "vase_plant_spec",
 
-			"source"		: "Content/Source/crytek-sponza/textures/vase_plant_spec.png",
+			"source"		: "Source/crytek-sponza/textures/vase_plant_spec.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		},
@@ -470,17 +469,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "vase_plant_mask",
 
-			"source"		: "Content/Source/crytek-sponza/textures/vase_plant_mask.png",
+			"source"		: "Source/crytek-sponza/textures/vase_plant_mask.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		},
@@ -489,17 +488,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "sponza_thorn_diff",
 
-			"source"		: "Content/Source/crytek-sponza/textures/sponza_thorn_diff.png",
+			"source"		: "Source/crytek-sponza/textures/sponza_thorn_diff.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		},
@@ -508,17 +507,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "sponza_thorn_ddn",
 
-			"source"		: "Content/Source/crytek-sponza/textures/sponza_thorn_ddn.png",
+			"source"		: "Source/crytek-sponza/textures/sponza_thorn_ddn.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		},
@@ -527,17 +526,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "sponza_thorn_spec",
 
-			"source"		: "Content/Source/crytek-sponza/textures/sponza_thorn_spec.png",
+			"source"		: "Source/crytek-sponza/textures/sponza_thorn_spec.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		},
@@ -545,17 +544,17 @@
 			"type"			: "ScnTexture",
 			"name"			: "sponza_thorn_mask",
 
-			"source"		: "Content/Source/crytek-sponza/textures/sponza_thorn_mask.png",
+			"source"		: "Source/crytek-sponza/textures/sponza_thorn_mask.png",
 
 			"@(pc)"	: {
-				"format" : "DXT1"
+				"format" : "BC1"
 			},
 
 			"@(android)" : {
 				"format" : "ETC1",
 
 				"@(tegra)" : {
-					"format" : "DXT1"
+					"format" : "BC1"
 				}
 			}
 		}

@@ -47,21 +47,21 @@
 			"type"			: "ScnShader",
 			"name"			: "skysphere",
 			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/skysphere.psf",
-				"GLSL_430" : "Content/Engine/skysphere.psf",
-				"GLSL_330" : "Content/Engine/skysphere.psf",
-				"GLSL_ES_100" : "Content/Engine/skysphere.psf"
+				"D3D11_4_0" : "Engine/skysphere.psf",
+				"GLSL_430" : "Engine/skysphere.psf",
+				"GLSL_330" : "Engine/skysphere.psf",
+				"GLSL_ES_100" : "Engine/skysphere.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/skysphere.psf"
+					"GLSL_ES_100" : "Engine/skysphere.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/skysphere.psf"
+					"GLSL_ES_100" : "Engine/skysphere.psf"
 				}
 			},
 
@@ -87,21 +87,21 @@
 			"type"			: "ScnShader",
 			"name"			: "normal_vis",
 			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/normal_vis.psf",
-				"GLSL_430" : "Content/Engine/normal_vis.psf",
-				"GLSL_330" : "Content/Engine/normal_vis.psf",
-				"GLSL_ES_100" : "Content/Engine/normal_vis.psf"
+				"D3D11_4_0" : "Engine/normal_vis.psf",
+				"GLSL_430" : "Engine/normal_vis.psf",
+				"GLSL_330" : "Engine/normal_vis.psf",
+				"GLSL_ES_100" : "Engine/normal_vis.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/normal_vis.psf"
+					"GLSL_ES_100" : "Engine/normal_vis.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/normal_vis.psf"
+					"GLSL_ES_100" : "Engine/normal_vis.psf"
 				}
 			},
 
@@ -124,21 +124,21 @@
 			"type"			: "ScnShader",
 			"name"			: "fullscreen",
 			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/fullscreen.psf",
-				"GLSL_430" : "Content/Engine/fullscreen.psf",
-				"GLSL_330" : "Content/Engine/fullscreen.psf",
-				"GLSL_ES_100" : "Content/Engine/fullscreen.psf"
+				"D3D11_4_0" : "Engine/fullscreen.psf",
+				"GLSL_430" : "Engine/fullscreen.psf",
+				"GLSL_330" : "Engine/fullscreen.psf",
+				"GLSL_ES_100" : "Engine/fullscreen.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/fullscreen.psf"
+					"GLSL_ES_100" : "Engine/fullscreen.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/fullscreen.psf"
+					"GLSL_ES_100" : "Engine/fullscreen.psf"
 				}
 			},
 

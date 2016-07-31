@@ -17,9 +17,9 @@
 			"type"			: "ScnShader",
 			"name"			: "pp_deferred_resolve",
 			"sources" 		: {
-				"GLSL_430" : "Content/Engine/pp_deferred_resolve.psf",
-				"GLSL_330" : "Content/Engine/pp_deferred_resolve.psf"//,
-				//"GLSL_ES_100" : "Content/Engine/pp_deferred_resolve.psf"
+				"GLSL_430" : "Engine/pp_deferred_resolve.psf",
+				"GLSL_330" : "Engine/pp_deferred_resolve.psf"//,
+				//"GLSL_ES_100" : "Engine/pp_deferred_resolve.psf"
 			},
 
 			"includepermutations" : [
@@ -41,21 +41,21 @@
 			"type"			: "ScnShader",
 			"name"			: "geometry_test",
 			"sources" 		: {
-				"D3D11_4_0" : "Content/Engine/geometry_test.psf",
-				"GLSL_430" : "Content/Engine/geometry_test.psf",
-				"GLSL_330" : "Content/Engine/geometry_test.psf",
-				"GLSL_ES_100" : "Content/Engine/geometry_test.psf"
+				"D3D11_4_0" : "Engine/geometry_test.psf",
+				"GLSL_430" : "Engine/geometry_test.psf",
+				"GLSL_330" : "Engine/geometry_test.psf",
+				"GLSL_ES_100" : "Engine/geometry_test.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/geometry_test.psf"
+					"GLSL_ES_100" : "Engine/geometry_test.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Content/Engine/geometry_test.psf"
+					"GLSL_ES_100" : "Engine/geometry_test.psf"
 				}
 			},
 

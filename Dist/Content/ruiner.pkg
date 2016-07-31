@@ -3,7 +3,7 @@
 		{
 			"type"		: "ScnModel",
 			"name"		: "character_jacketmale",
-			"source"	: "Content/Source/ruiner/character/jacketmale.md5mesh",
+			"source"	: "Source/ruiner/character/jacketmale.md5mesh",
 			"materials" : [
 				{
 					"regex" : "(.*)",
@@ -15,19 +15,19 @@
 		{
 			"type"		: "ScnAnimation",
 			"name"		: "character_sword_aim",
-			"source"	: "Content/Source/ruiner/character/sword_aim.md5anim"
+			"source"	: "Source/ruiner/character/sword_aim.md5anim"
 		},
 
 		{
 			"type"		: "ScnAnimation",
 			"name"		: "character_walk_fullbody",
-			"source"	: "Content/Source/ruiner/character/walk_fullbody.md5anim"
+			"source"	: "Source/ruiner/character/walk_fullbody.md5anim"
 		},
 
 		{
 			"type"		: "ScnAnimation",
 			"name"		: "character_walk_legsonly",
-			"source"	: "Content/Source/ruiner/character/walk_legsonly.md5anim"
+			"source"	: "Source/ruiner/character/walk_legsonly.md5anim"
 		},
 
 		{
@@ -94,7 +94,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "ruinerbody01_d",
 
-			"source"		: "Content/Source/ruiner/character/ruinerbody01_d.png",
+			"source"		: "Source/ruiner/character/ruinerbody01_d.png",
 
 			"@(pc)"	: {
 				"format" : "BC1"
@@ -117,7 +117,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "ruinerbody01_local",
 
-			"source"		: "Content/Source/ruiner/character/ruinerbody01_local.png",
+			"source"		: "Source/ruiner/character/ruinerbody01_local.png",
 
 			"@(pc)"	: {
 				"format" : "BC5"

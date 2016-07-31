@@ -21,8 +21,8 @@
 			"usepermutations" : false,
 
 			"sources" 		: {
-				"GLSL_430" : "Content/Engine/compute.glsl",
-				"D3D11_5_0" : "Content/Engine/compute.hlsl"
+				"GLSL_430" : "Engine/compute.glsl",
+				"D3D11_5_0" : "Engine/compute.hlsl"
 			},
 
 			"entrypoints"		: {

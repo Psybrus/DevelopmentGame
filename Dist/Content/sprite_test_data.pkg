@@ -5,7 +5,7 @@
 			"type" : "ScnTileMap",
 			"name" : "tilemap",
 
-			"source" : "Content/Source/level.tmx",
+			"source" : "Source/level.tmx",
 
 			// Map of regex:ScnTexture to override images/tileset names.
 			"textures" : {
@@ -21,7 +21,7 @@
 			"type" : "ScnTileMap",
 			"name" : "hexagonal-mini",
 
-			"source" : "Content/tmx/hexagonal-mini.tmx",
+			"source" : "tmx/hexagonal-mini.tmx",
 
 			// Map of regex:ScnTexture to override images/tileset names.
 			"textures" : {
@@ -37,7 +37,7 @@
 			"type" : "ScnTileMap",
 			"name" : "isometric_grass_and_water",
 
-			"source" : "Content/Source/tmx/isometric_grass_and_water.tmx",
+			"source" : "Source/tmx/isometric_grass_and_water.tmx",
 
 			// Map of regex:ScnTexture to override images/tileset names.
 			"textures" : {
@@ -60,7 +60,7 @@
 			"distancefield" : true,
 			"spread" : 8,
 
-			"source" : "Content/Source/sprites/spritesheet.png"
+			"source" : "Source/sprites/spritesheet.png"
 		},
 
 		{

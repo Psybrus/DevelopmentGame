@@ -4,7 +4,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "default",
 
-			"source"		: "EngineContent/TextureSource/default.png",
+			"source"		: "Source/Engine/default.png",
 			"spread"		: 32,
 
 			"@(pc)"	: {
@@ -29,10 +29,10 @@
 			"name"			: "particles",
 
 			"source"		: [
-				"EngineContent/TextureSource/particle0.png",
-				"EngineContent/TextureSource/particle1.png",
-				"EngineContent/TextureSource/particle2.png",
-				"EngineContent/TextureSource/particle3.png"
+				"Source/particle0.png",
+				"Source/particle1.png",
+				"Source/particle2.png",
+				"Source/particle3.png"
 			],
 
 			"format" : "R8G8B8A8",
@@ -46,36 +46,13 @@
 			}
 		},
 
-		{
-			"type"			: "ScnTexture",
-			"name"			: "test",
-
-			"source"		: "Content/Source/testtexture.png",
-
-			"@(pc)"	: {
-				"format" : "BC1"
-			},
-
-			"@(android)" : {
-				"format" : "ETC1",
-
-				"@(tegra)" : {
-					"format" : "BC1"
-				}
-			},
-
-			"@(html5)" : {
-				"format" : "BC1"
-			}
-		},
-
 		////////////////////////////////////////////////////////////////////////
 		// Floor textures
 		{
 			"type"			: "ScnTexture",
 			"name"			: "floor_albedo",
 
-			"source"		: "Content/Source/floor_albedo.png",
+			"source"		: "Source/floor_albedo.png",
 
 			"@(pc)"	: {
 				"format" : "BC1"
@@ -98,7 +75,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "floor_norm",
 
-			"source"		: "Content/Source/floor_norm.png",
+			"source"		: "Source/floor_norm.png",
 
 			"@(pc)"	: {
 				"format" : "R8G8B8A8"
@@ -121,7 +98,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "floor_spec",
 
-			"source"		: "Content/Source/floor_spec.png",
+			"source"		: "Source/floor_spec.png",
 
 			"@(pc)"	: {
 				"format" : "R8G8B8A8"
@@ -146,7 +123,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "black",
 
-			"source"		: "Content/Source/Textures/black.png",
+			"source"		: "Source/Engine/black.png",
 			"format" : "BC1",
 			"@(android)"	: {
 				"format" : "ETC1"
@@ -160,7 +137,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "white",
 
-			"source"		: "Content/Source/Textures/white.png",
+			"source"		: "Source/Engine/white.png",
 			"format" : "BC1",
 			"@(android)"	: {
 				"format" : "ETC1"
@@ -174,7 +151,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "red",
 
-			"source"		: "Content/Source/Textures/red.png",
+			"source"		: "Source/Engine/red.png",
 			"format" : "BC1",
 			"@(android)"	: {
 				"format" : "ETC1"
@@ -188,7 +165,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "green",
 
-			"source"		: "Content/Source/Textures/green.png",
+			"source"		: "Source/Engine/green.png",
 			"format" : "BC1",
 			"@(android)"	: {
 				"format" : "ETC1"
@@ -202,7 +179,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "blue",
 
-			"source"		: "Content/Source/Textures/blue.png",
+			"source"		: "Source/Engine/blue.png",
 			"format" : "BC1",
 			"@(android)"	: {
 				"format" : "ETC1"
@@ -216,7 +193,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "transparent",
 
-			"source"		: "Content/Source/Textures/transparent.png",
+			"source"		: "Source/Engine/transparent.png",
 			"format" : "BC3",
 			"@(android)"	: {
 				"format" : "R8G8B8A8"
@@ -230,7 +207,7 @@
 			"type"			: "ScnTexture",
 			"name"			: "normal",
 
-			"source"		: "Content/Source/Textures/normal.png",
+			"source"		: "Source/Engine/normal.png",
 			"format" : "BC5",
 			"@(android)"	: {
 				"format" : "ETC1"

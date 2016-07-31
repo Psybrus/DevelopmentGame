@@ -271,7 +271,7 @@
 			"type"		: "ScnPhysicsMesh",
 			"name"		: "teapot_static",
 			"shapetype"	: "static",
-			"source"	: "Content/Source/teapot/wt_teapot.obj",
+			"source"	: "Source/teapot/wt_teapot.obj",
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.default)"
 			}
@@ -281,7 +281,7 @@
 			"type"		: "ScnPhysicsMesh",
 			"name"		: "teapot_dynamic",
 			"shapetype"	: "convex_decomposition",
-			"source"	: "Content/Source/teapot/wt_teapot.obj",
+			"source"	: "Source/teapot/wt_teapot.obj",
 			"materials" : {
 				"(.*)" : 			"$(ScnMaterial:materials.default)"
 			},
