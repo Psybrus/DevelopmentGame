@@ -200,11 +200,11 @@ void GaTestComputeComponent::onAttach( ScnEntityWeakRef Parent )
 		getFullName().c_str() );
 
 	BcBool RandomTex = BcTrue;
-	RsTextureFormat TextureFormats[] = 
+	RsResourceFormat TextureFormats[] = 
 	{
-		RsTextureFormat::R32F,
-		RsTextureFormat::R16FG16F,
-		RsTextureFormat::R8G8B8A8,
+		RsResourceFormat::R32_FLOAT,
+		RsResourceFormat::R16G16_FLOAT,
+		RsResourceFormat::R8G8B8A8_UNORM,
 	};
 	auto TextureFormat = TextureFormats[0];
 	for( auto Format : TextureFormats )

@@ -294,7 +294,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.Texture1D_ )
 		{
-			Texture1D_ = ScnTexture::New1D( 32, 1, RsTextureFormat::R8G8B8A8, 
+			Texture1D_ = ScnTexture::New1D( 32, 1, RsResourceFormat::R8G8B8A8_UNORM, 
 				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture1D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
@@ -325,7 +325,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.Texture2D_ )
 		{
-			Texture2D_ = ScnTexture::New2D( 32, 32, 1, RsTextureFormat::R8G8B8A8, 
+			Texture2D_ = ScnTexture::New2D( 32, 32, 1, RsResourceFormat::R8G8B8A8_UNORM, 
 				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture2D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
@@ -360,7 +360,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.Texture3D_ )
 		{
-			Texture3D_ = ScnTexture::New3D( 32, 32, 32, 1, RsTextureFormat::R8G8B8A8, 
+			Texture3D_ = ScnTexture::New3D( 32, 32, 32, 1, RsResourceFormat::R8G8B8A8_UNORM, 
 				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture3D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
@@ -401,7 +401,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		// Create texture.
 		if( Features.TextureCube_ )
 		{
-			TextureCube_ = ScnTexture::NewCube( 32, 32, 1, RsTextureFormat::R8G8B8A8, 
+			TextureCube_ = ScnTexture::NewCube( 32, 32, 1, RsResourceFormat::R8G8B8A8_UNORM, 
 				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			const BcU32 FaceColours[] = 
 			{
