@@ -95,22 +95,32 @@ void GaTestSelectionComponent::preUpdate( BcF32 Tick )
 
 	MaVec2d ClientSize( OsCore::pImpl()->getClient( 0 )->getWidth(), OsCore::pImpl()->getClient( 0 )->getHeight() );
 	ImGui::SetNextWindowPos( MaVec2d( 0.0f, 16.0f ) );
-	if ( ImGui::Begin( "Test Menu", nullptr, ImVec2( 300.0f, ClientSize.y() - 32.0f ), 0.0f, 
+	if ( ImGui::Begin( "Test Menu", nullptr, ImVec2( 300.0f, 300.0f ), 0.0f, 
 		ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | 
 		ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing ) )
 	{
 		ImGui::BeginGroup();
 
-		// Selection menu.
-		BcU32 Idx = 0;
-		for( const auto& Option : Options_ )
+		std::array< char, 1024 > Buffer;
+		BcSPrintf( Buffer.data(), Buffer.size(), "Tests (%s)", Options_[ SelectedEntry_ ] );
+        if( ImGui::Button( Buffer.data() ) )
 		{
-			if( ImGui::Button( Option.Name_.c_str() ) )
-			{
-				LoadEntity( Idx );
-			}
-			++Idx;
+            ImGui::OpenPopup( "Tests Popup" );
 		}
+        if( ImGui::BeginPopup( "Tests Popup" ) )
+        {
+			// Selection menu.
+			BcU32 Idx = 0;
+			for( const auto& Option : Options_ )
+			{
+				if( ImGui::MenuItem( Option.Name_.c_str() ) )
+				{
+					LoadEntity( Idx );
+				}
+				++Idx;
+			}
+            ImGui::EndPopup();
+        }
 
 		ImGui::EndGroup();
 	}
