@@ -150,6 +150,14 @@
 				},
 
 				{
+					"$Class"				: "ScnModelComponent",
+					"model"					: "$(ScnModel:models.skysphere)",
+					"scale"					: "1000.0, 1000.0, 1000.0",
+					"layer"					: 0,
+					"passes"				: "TRANSPARENT"
+				},
+
+				{
 					"$Class"				: "ScnCanvasComponent",
 
 					"noofvertices" 			: 8192,
@@ -270,83 +278,7 @@
 
 				{
 					"$Class"				: "ScnSoundListenerComponent"
-				},
-
-				{
-					"$Class"				: "ScnModelComponent",
-					"model"					: "$(ScnModel:models.skysphere)",
-					"scale"					: "1000.0, 1000.0, 1000.0",
-					"layer"					: 0,
-					"passes"				: "TRANSPARENT"
 				}
-
-				/*,
-
-				{
-					"$Class"				: "ScnEntity",
-
-					"localtransform" : {
-						"row0" : "1.0, 0.0, 0.0, 0.0",
-						"row1" : "0.0, 1.0, 0.0, 0.0",
-						"row2" : "0.0, 0.0, 1.0, 0.0",
-						"row3" : "-16.0, 1.0, 4.0, 1.0"
-					},
-
-					"components" : [
-						{
-							"$Class"				: "ScnLightComponent",
-							"name"					: "Sunlight",
-
-							"diffusecolour"			: "0.2, 0.0, 0.0, 1.0",
-
-							"min"					: 16.0,
-							"mid"					: 2048.0,
-							"max"					: 1000000.0
-						},
-
-						{
-							"$Class"				: "ScnModelComponent",
-							"type"					: "ScnModelComponent",
-							"name"					: "TestModel",
-							"model"					: "$(ScnModel:models.sphere)",
-
-							"scale"					: "0.1, 0.1, 0.1"
-						}
-					]
-				},
-
-				{
-					"$Class"				: "ScnEntity",
-
-					"localtransform" : {
-						"row0" : "1.0, 0.0, 0.0, 0.0",
-						"row1" : "0.0, 1.0, 0.0, 0.0",
-						"row2" : "0.0, 0.0, 1.0, 0.0",
-						"row3" : "16.0, 1.0, 4.0, 1.0"
-					},
-
-					"components" : [
-						{
-							"$Class"				: "ScnLightComponent",
-							"name"					: "Sunlight",
-
-							"diffusecolour"			: "0.0, 0.0, 0.2, 1.0",
-
-							"min"					: 16.0,
-							"mid"					: 2048.0,
-							"max"					: 1000000.0
-						},
-
-						{
-							"$Class"				: "ScnModelComponent",
-							"name"					: "TestModel",
-							"model"					: "$(ScnModel:models.sphere)",
-
-							"scale"					: "0.1, 0.1, 0.1"
-						}
-					]
-				}
-				*/
 			]
 		}
 	]

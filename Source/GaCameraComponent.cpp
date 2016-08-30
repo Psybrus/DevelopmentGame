@@ -13,8 +13,11 @@
 
 #include "GaCameraComponent.h"
 
+#include "System/Debug/DsCore.h"
 #include "System/Debug/DsImGui.h"
 #include "System/Os/OsCore.h"
+
+#include "System/Scene/Rendering/ScnViewComponent.h"
 
 #include "Base/BcMath.h"
 
@@ -40,7 +43,8 @@ void GaCameraComponent::StaticRegisterClass()
 	ReRegisterClass< GaCameraComponent, Super >( Fields )
 		.addAttribute( new ScnComponentProcessor( 
 			{
-				ScnComponentProcessFuncEntry::PreUpdate< GaCameraComponent >()
+				ScnComponentProcessFuncEntry::PreUpdate< GaCameraComponent >(),
+				ScnComponentProcessFuncEntry::Update< GaCameraComponent >(),
 			} ) );
 }
 
@@ -137,7 +141,13 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 
 	// clear event.
 	BcMemZero( &LastMouseEvent_, sizeof( LastMouseEvent_ ) );
+}
 
+//////////////////////////////////////////////////////////////////////////
+// update
+//virtual
+void GaCameraComponent::update( BcF32 Tick )
+{
 	if ( ImGui::Begin( "Test Menu" ) )
 	{
 		ImGui::BeginGroup();
@@ -173,6 +183,17 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 			getParentEntity() );
 		SpawnedRenderer_ = ScnCore::pImpl()->spawnEntity( SpawnEntity );
 	}
+
+#if !PSY_PRODUCTION
+	if( DsCore::pImpl() )
+	{
+		auto ViewComponent = SpawnedRenderer_->getComponentByType< ScnViewComponent >();
+		DsCore::pImpl()->addViewOverlay( 
+			ViewComponent->getViewTransform(), 
+			ViewComponent->getProjectionTransform(), 
+			ViewComponent->getViewport() );
+	}
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////

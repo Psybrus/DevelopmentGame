@@ -35,6 +35,7 @@ public:
 	virtual ~GaCameraComponent();
 
 	void preUpdate( BcF32 Tick );
+	void update( BcF32 Tick );
 
 	void onAttach( ScnEntityWeakRef Parent ) override;
 	void onDetach( ScnEntityWeakRef Parent ) override;

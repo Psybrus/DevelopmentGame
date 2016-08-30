@@ -52,7 +52,7 @@ void GaTestSelectionComponent::StaticRegisterClass()
 	ReRegisterClass< GaTestSelectionComponent, Super >( Fields )
 		.addAttribute( new ScnComponentProcessor( 
 			{
-				ScnComponentProcessFuncEntry::Update< GaTestSelectionComponent >( 
+				ScnComponentProcessFuncEntry::PreUpdate< GaTestSelectionComponent >( 
 					"Update", ScnComponentPriority::DEFAULT_UPDATE - 1 )
 			} ) );
 }
@@ -77,9 +77,9 @@ GaTestSelectionComponent::~GaTestSelectionComponent()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// update
+// preUpdate
 //virtual
-void GaTestSelectionComponent::update( BcF32 Tick )
+void GaTestSelectionComponent::preUpdate( BcF32 Tick )
 {
 	if( RunAutomatedTest_ )
 	{
@@ -93,10 +93,11 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 		}
 	}
 
-	static MaVec2d WindowPos = MaVec2d( 10.0f, 10.0f );
-	static bool ShowOpened = true;
-	ImGui::SetNextWindowPos( WindowPos );
-	if ( ImGui::Begin( "Test Menu", &ShowOpened, ImVec2( 0.0f, 0.0f ), 0.3f, 0 ) )
+	MaVec2d ClientSize( OsCore::pImpl()->getClient( 0 )->getWidth(), OsCore::pImpl()->getClient( 0 )->getHeight() );
+	ImGui::SetNextWindowPos( MaVec2d( 0.0f, 16.0f ) );
+	if ( ImGui::Begin( "Test Menu", nullptr, ImVec2( 300.0f, ClientSize.y() - 32.0f ), 0.0f, 
+		ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | 
+		ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing ) )
 	{
 		ImGui::BeginGroup();
 
@@ -113,7 +114,6 @@ void GaTestSelectionComponent::update( BcF32 Tick )
 
 		ImGui::EndGroup();
 	}
-	WindowPos = ImGui::GetWindowPos();
 	ImGui::End();
 
 	ScnDebugRenderComponent::pImpl()->drawGrid( 
