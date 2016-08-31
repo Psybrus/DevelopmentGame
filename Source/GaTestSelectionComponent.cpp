@@ -17,6 +17,7 @@
 #include "System/Os/OsCore.h"
 
 #include "System/Debug/DsImGui.h"
+#include "System/Debug/DsUtils.h"
 #include "System/Scene/Rendering/ScnDebugRenderComponent.h"
 #include "System/SysKernel.h"
 
@@ -53,7 +54,9 @@ void GaTestSelectionComponent::StaticRegisterClass()
 		.addAttribute( new ScnComponentProcessor( 
 			{
 				ScnComponentProcessFuncEntry::PreUpdate< GaTestSelectionComponent >( 
-					"Update", ScnComponentPriority::DEFAULT_UPDATE - 1 )
+					"PreUpdate", ScnComponentPriority::CANVAS_CLEAR + 1 ),
+				ScnComponentProcessFuncEntry::Update< GaTestSelectionComponent >( 
+					"Update", ScnComponentPriority::DEFAULT_UPDATE - 2 ),
 			} ) );
 }
 
@@ -78,7 +81,6 @@ GaTestSelectionComponent::~GaTestSelectionComponent()
 
 //////////////////////////////////////////////////////////////////////////
 // preUpdate
-//virtual
 void GaTestSelectionComponent::preUpdate( BcF32 Tick )
 {
 	if( RunAutomatedTest_ )
@@ -94,15 +96,35 @@ void GaTestSelectionComponent::preUpdate( BcF32 Tick )
 	}
 
 	MaVec2d ClientSize( OsCore::pImpl()->getClient( 0 )->getWidth(), OsCore::pImpl()->getClient( 0 )->getHeight() );
-	ImGui::SetNextWindowPos( MaVec2d( 0.0f, 16.0f ) );
+	ImGui::SetNextWindowPos( MaVec2d( 0.0f, 0.0f ) );
 	if ( ImGui::Begin( "Test Menu", nullptr, ImVec2( 300.0f, 300.0f ), 0.0f, 
 		ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | 
-		ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing ) )
+		ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing |
+		ImGuiWindowFlags_NoBringToFrontOnFocus ) )
+	{
+	}
+	ImGui::End();
+
+#if !PSY_PRODUCTION
+	Debug::DrawGrid( 
+		MaVec3d( 0.0f, 0.0f, 0.0f ),
+		MaVec3d( 500.0f, 0.0f, 500.0f ),
+		10.0f,
+		10.0f,
+		0 );
+#endif
+}
+
+//////////////////////////////////////////////////////////////////////////
+// update
+void GaTestSelectionComponent::update( BcF32 Tick )
+{
+	if( ImGui::Begin( "Test Menu" ) )
 	{
 		ImGui::BeginGroup();
 
 		std::array< char, 1024 > Buffer;
-		BcSPrintf( Buffer.data(), Buffer.size(), "Tests (%s)", Options_[ SelectedEntry_ ] );
+		BcSPrintf( Buffer.data(), Buffer.size(), "Tests (%s)", Options_[ SelectedEntry_ ].Name_.c_str() );
         if( ImGui::Button( Buffer.data() ) )
 		{
             ImGui::OpenPopup( "Tests Popup" );
@@ -125,13 +147,6 @@ void GaTestSelectionComponent::preUpdate( BcF32 Tick )
 		ImGui::EndGroup();
 	}
 	ImGui::End();
-
-	ScnDebugRenderComponent::pImpl()->drawGrid( 
-		MaVec3d( 0.0f, 0.0f, 0.0f ),
-		MaVec3d( 500.0f, 0.0f, 500.0f ),
-		10.0f,
-		10.0f,
-		0 );
 }
 
 //////////////////////////////////////////////////////////////////////////
