@@ -14,13 +14,6 @@
 				},
 
 				{
-					"$Class"				: "ScnDebugRenderComponent",
-					"noofvertices"			: 65536,
-					"material"				: "$(ScnMaterial:materials.debugrender)",
-					"rendermask"			: 3
-				},
-
-				{
 					"$Class"				: "ScnPhysicsWorldComponent",
 					"gravity"				: "0.0, -9.8, 0.0",
 					"debugdrawworld"		: false

@@ -16,7 +16,6 @@
 #include "System/Content/CsPackage.h"
 #include "System/Os/OsCore.h"
 
-#include "System/Scene/Rendering/ScnDebugRenderComponent.h"
 #include "System/SysKernel.h"
 
 //////////////////////////////////////////////////////////////////////////

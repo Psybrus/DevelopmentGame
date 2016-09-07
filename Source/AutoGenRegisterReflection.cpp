@@ -59,10 +59,10 @@
 #include "System/Scene/Physics/ScnPhysicsSphereCollisionComponent.h"
 #include "System/Scene/Physics/ScnPhysicsWorldComponent.h"
 #include "System/Scene/Rendering/ScnCanvasComponent.h"
-#include "System/Scene/Rendering/ScnDebugRenderComponent.h"
 #include "System/Scene/Rendering/ScnDeferredRendererComponent.h"
 #include "System/Scene/Rendering/ScnEnvironmentProbeComponent.h"
 #include "System/Scene/Rendering/ScnFont.h"
+#include "System/Scene/Rendering/ScnForwardRendererComponent.h"
 #include "System/Scene/Rendering/ScnLightComponent.h"
 #include "System/Scene/Rendering/ScnMaterial.h"
 #include "System/Scene/Rendering/ScnModel.h"
@@ -179,7 +179,6 @@ void AutoGenRegisterReflection()
 	ScnPhysicsSphereCollisionComponent::StaticRegisterClass();
 	ScnPhysicsWorldComponent::StaticRegisterClass();
 	ScnCanvasComponent::StaticRegisterClass();
-	ScnDebugRenderComponent::StaticRegisterClass();
 	ScnDeferredRendererVertex::StaticRegisterClass();
 	ScnDeferredRendererComponent::StaticRegisterClass();
 	ScnEnvironmentFilterUniformBlock::StaticRegisterClass();
@@ -188,6 +187,7 @@ void AutoGenRegisterReflection()
 	ScnFontUniformBlockData::StaticRegisterClass();
 	ScnFontDrawParams::StaticRegisterClass();
 	ScnFontComponent::StaticRegisterClass();
+	ScnForwardRendererComponent::StaticRegisterClass();
 	ScnLightComponent::StaticRegisterClass();
 	ScnMaterial::StaticRegisterClass();
 	ScnMaterialComponent::StaticRegisterClass();

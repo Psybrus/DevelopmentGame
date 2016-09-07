@@ -183,17 +183,6 @@ void GaCameraComponent::update( BcF32 Tick )
 			getParentEntity() );
 		SpawnedRenderer_ = ScnCore::pImpl()->spawnEntity( SpawnEntity );
 	}
-
-#if !PSY_PRODUCTION
-	if( DsCore::pImpl() )
-	{
-		auto ViewComponent = SpawnedRenderer_->getComponentByType< ScnViewComponent >();
-		DsCore::pImpl()->addViewOverlay( 
-			ViewComponent->getViewTransform(), 
-			ViewComponent->getProjectionTransform(), 
-			ViewComponent->getViewport() );
-	}
-#endif
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -18,7 +18,6 @@
 
 #include "System/Debug/DsImGui.h"
 #include "System/Debug/DsUtils.h"
-#include "System/Scene/Rendering/ScnDebugRenderComponent.h"
 #include "System/SysKernel.h"
 
 //////////////////////////////////////////////////////////////////////////
