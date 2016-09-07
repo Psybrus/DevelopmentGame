@@ -30,12 +30,16 @@
 						"row3" : "0.0, 10.0, 0.0, 1.0"
 					},
 
-					"components"			: [
-						{
-							"$Class"		: "ScnEnvironmentProbeComponent",
-							"templaterenderer" : "$(ScnEntity:deferred_renderer.EnvironmentRenderer)"
-						}
-					]
+					"components"			: [],
+
+					"@(pc)"	: {
+						"components"			: [
+							{
+								"$Class"		: "ScnEnvironmentProbeComponent",
+								"templaterenderer" : "$(ScnEntity:deferred_renderer.EnvironmentRenderer)"
+							}
+						]
+					}
 				},
 
 				{
@@ -264,9 +268,15 @@
 					"$Class"				: "GaCameraComponent",
 
 					"renderers"	: [
-						"$(ScnEntity:deferred_renderer.Renderer)",
 						"$(ScnEntity:forward_renderer.Renderer)"
-					]
+					],
+
+					"@(pc)"	: {
+						"renderers"	: [
+							"$(ScnEntity:deferred_renderer.Renderer)",
+							"$(ScnEntity:forward_renderer.Renderer)"
+						]
+					}
 				},
 
 				{

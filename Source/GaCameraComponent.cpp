@@ -30,7 +30,7 @@ void GaCameraComponent::StaticRegisterClass()
 	ReField* Fields[] = 
 	{
 		new ReField( "CameraTarget_",		&GaCameraComponent::CameraTarget_ ),
-		new ReField( "CameraRotation_",		&GaCameraComponent::CameraRotation_ ),
+		new ReField( "CameraRotation_",		&GaCameraComponent::CameraRotation_, bcRFF_TRANSIENT ),
 		new ReField( "CameraWalk_",			&GaCameraComponent::CameraWalk_ ),
 		new ReField( "CameraDistance_",		&GaCameraComponent::CameraDistance_ ),
 		new ReField( "CameraZoom_",			&GaCameraComponent::CameraZoom_ ),
@@ -60,6 +60,7 @@ GaCameraComponent::GaCameraComponent()
 #if PLATFORM_ANDROID
 	CameraRotation_ = MaVec3d( 0.1f, 0.0f, 0.0f );
 #endif
+	CameraRotation_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 	CameraWalk_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 	CameraTarget_ = MaVec3d( 0.0f, 5.0f, 5.0f );
 }
@@ -381,7 +382,9 @@ MaMat4d GaCameraComponent::getCameraRotationMatrix() const
 {
 	MaMat4d CameraPitchMatrix;
 	MaMat4d CameraYawMatrix;
+	MaMat4d CameraRollMatrix;
 	CameraPitchMatrix.rotation( MaVec3d( CameraRotation_.x(), 0.0f, 0.0f ) );
 	CameraYawMatrix.rotation( MaVec3d( 0.0f, CameraRotation_.y(), 0.0f ) );
-	return CameraPitchMatrix * CameraYawMatrix;
+	CameraRollMatrix.rotation( MaVec3d( 0.0f, 0.0f, CameraRotation_.z()) );
+	return CameraRollMatrix * CameraPitchMatrix * CameraYawMatrix;
 }

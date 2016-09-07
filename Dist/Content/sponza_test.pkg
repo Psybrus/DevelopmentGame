@@ -16,22 +16,88 @@
 							"model"					: "$(ScnModel:this.sponza)",
 							"scale"					: "0.1, 0.1, 0.1",
 							"position"				: "0.0, 1.0, 0.0"
-						}
-
-						/*
-						,
-
-						{
-							"$Class"				: "ScnParticleSystemComponent",
-							"noofparticles"			: 10000,
-							"islocalspace"			: false,
-							"material"				: "$(ScnMaterial:materials.particles)"
 						},
 
 						{
-							"$Class"				: "GaTestParticleComponent"
+							"$Class"		:		"ScnEntity",
+
+							"components" : [
+								{
+									"$Class"				: "GaMovingComponent",
+									"position"				: "0.0, 0.0, 0.0",
+									"axisspeed"				: "1.0, 0.5, 0.01",
+									"axismagnitude"			: "50.0, 50.0, 50.0"
+								},
+
+								{
+									"$Class"				: "ScnModelComponent",
+									"model"					: "$(ScnModel:models.sphere)"
+								},
+
+								{
+									"$Class"				: "ScnLightComponent",
+									"diffusecolour"			: "1.0, 0.0, 0.0, 1.0",
+
+									"min"					: 16.0,
+									"mid"					: 32.0,
+									"max"					: 128.0
+								}
+							]
+						},	
+
+						{
+							"$Class"		:		"ScnEntity",
+
+							"components" : [
+								{
+									"$Class"				: "GaMovingComponent",
+									"position"				: "0.0, 0.0, 10.0",
+									"axisspeed"				: "0.1, 1.0, 0.2",
+									"axismagnitude"			: "50.0, 50.0, 50.0"
+								},
+
+								{
+									"$Class"				: "ScnModelComponent",
+									"model"					: "$(ScnModel:models.sphere)"
+								},
+
+								{
+									"$Class"				: "ScnLightComponent",
+									"diffusecolour"			: "0.0, 1.0, 0.0, 1.0",
+
+									"min"					: 16.0,
+									"mid"					: 32.0,
+									"max"					: 128.0
+								}
+							]
+						},	
+
+						{
+							"$Class"		:		"ScnEntity",
+
+							"components" : [
+								{
+									"$Class"				: "GaMovingComponent",
+									"position"				: "0.0, 0.0, -10.0",
+									"axisspeed"				: "0.5, 0.2, 1.0",
+									"axismagnitude"			: "50.0, 50.0, 50.0"
+								},
+
+								{
+									"$Class"				: "ScnModelComponent",
+									"model"					: "$(ScnModel:models.sphere)"
+								},
+
+								{
+									"$Class"				: "ScnLightComponent",
+									"diffusecolour"			: "0.0, 0.0, 1.0, 1.0",
+
+									"min"					: 16.0,
+									"mid"					: 32.0,
+									"max"					: 128.0
+								}
+							]
 						}
-						*/
 					]
 				}
 
