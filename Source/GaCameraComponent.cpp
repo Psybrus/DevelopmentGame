@@ -21,6 +21,22 @@
 
 #include "Base/BcMath.h"
 
+namespace
+{
+	BcF32 NormaliseInput( BcF32 InputValue, BcF32 Deadzone, BcF32 Max )
+	{
+		if( InputValue > Deadzone)
+		{
+			return ( InputValue - Deadzone ) / ( Max - Deadzone );
+		}
+		else if( InputValue < -Deadzone )
+		{
+			return ( InputValue + Deadzone ) / ( Max - Deadzone );
+		}
+		return 0.0;
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
 REFLECTION_DEFINE_DERIVED( GaCameraComponent );
@@ -63,6 +79,9 @@ GaCameraComponent::GaCameraComponent()
 	CameraRotation_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 	CameraWalk_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 	CameraTarget_ = MaVec3d( 0.0f, 5.0f, 5.0f );
+
+	TouchesDown_.fill( false );
+	TouchControllerActive_ = false;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -114,7 +133,16 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 		break;
 	}
 
-	// Keyboard rotation.
+	if( TouchControllerActive_ )
+	{
+		CameraRotationDelta_.x( TouchAxis_[ 1 ].y() * 8.0f );
+		CameraRotationDelta_.y( -TouchAxis_[ 1 ].x() * 8.0f );
+
+		CameraWalk_.z( -TouchAxis_[ 0 ].y() * 8.0f );
+		CameraWalk_.x( TouchAxis_[ 0 ].x() * 8.0f );
+	}
+
+	// Rotation.
 	CameraRotation_ += CameraRotationDelta_ * Tick;
 
 	CameraDistance_ += CameraZoom_ * Tick;
@@ -212,6 +240,15 @@ void GaCameraComponent::onAttach( ScnEntityWeakRef Parent )
 
 	OsCore::pImpl()->subscribe( osEVT_INPUT_KEYUP, this,
 		std::bind( &GaCameraComponent::onKeyUp, this, _1, _2 ) );
+
+	OsCore::pImpl()->subscribe( osEVT_INPUT_TOUCHDOWN, this, 
+		std::bind( &GaCameraComponent::onTouchDown, this, _1, _2 ) );
+
+	OsCore::pImpl()->subscribe( osEVT_INPUT_TOUCHUP, this,
+		std::bind( &GaCameraComponent::onTouchUp, this, _1, _2 ) );
+
+	OsCore::pImpl()->subscribe( osEVT_INPUT_TOUCHMOVE, this,
+		std::bind( &GaCameraComponent::onTouchMove, this, _1, _2 ) );
 }
 
 
@@ -247,6 +284,22 @@ eEvtReturn GaCameraComponent::onMouseDown( EvtID ID, const EvtBaseEvent& Event )
 		LastMouseEvent_ = MouseEvent;
 	}
 
+#if !PLATFORM_ANDROID
+	OsEventInputTouch TouchA, TouchB;
+	TouchA.DeviceID_ = MouseEvent.DeviceID_;
+	TouchA.TouchID_ = 0;
+	TouchA.TouchX_ = 1280/2;
+	TouchA.TouchY_ = 720/2;
+
+	TouchB.DeviceID_ = MouseEvent.DeviceID_;
+	TouchB.TouchID_ = 1;
+	TouchB.TouchX_ = MouseEvent.MouseX_;
+	TouchB.TouchY_ = MouseEvent.MouseY_;
+
+	onTouchDown( osEVT_INPUT_TOUCHDOWN, TouchA );
+	onTouchDown( osEVT_INPUT_TOUCHDOWN, TouchB );
+#endif
+
 	return evtRET_PASS;
 }
 
@@ -261,6 +314,22 @@ eEvtReturn GaCameraComponent::onMouseUp( EvtID ID, const EvtBaseEvent& Event )
 		NextCameraState_ = STATE_IDLE;
 	}
 
+#if !PLATFORM_ANDROID
+	OsEventInputTouch TouchA, TouchB;
+	TouchA.DeviceID_ = MouseEvent.DeviceID_;
+	TouchA.TouchID_ = 0;
+	TouchA.TouchX_ = 1280/2;
+	TouchA.TouchY_ = 720/2;
+
+	TouchB.DeviceID_ = MouseEvent.DeviceID_;
+	TouchB.TouchID_ = 1;
+	TouchB.TouchX_ = MouseEvent.MouseX_;
+	TouchB.TouchY_ = MouseEvent.MouseY_;
+
+	onTouchUp( osEVT_INPUT_TOUCHUP, TouchA );
+	onTouchUp( osEVT_INPUT_TOUCHUP, TouchB );
+#endif
+
 	return evtRET_PASS;
 }
 
@@ -271,6 +340,22 @@ eEvtReturn GaCameraComponent::onMouseMove( EvtID ID, const EvtBaseEvent& Event )
 	const auto& MouseEvent = Event.get< OsEventInputMouse >();
 
 	LastMouseEvent_ = MouseEvent;
+
+#if !PLATFORM_ANDROID
+	OsEventInputTouch TouchA, TouchB;
+	TouchA.DeviceID_ = MouseEvent.DeviceID_;
+	TouchA.TouchID_ = 0;
+	TouchA.TouchX_ = 1280/2;
+	TouchA.TouchY_ = 720/2;
+
+	TouchB.DeviceID_ = MouseEvent.DeviceID_;
+	TouchB.TouchID_ = 1;
+	TouchB.TouchX_ = MouseEvent.MouseX_;
+	TouchB.TouchY_ = MouseEvent.MouseY_;
+
+	onTouchMove( osEVT_INPUT_TOUCHMOVE, TouchA );
+	onTouchMove( osEVT_INPUT_TOUCHMOVE, TouchB );
+#endif
 
 	return evtRET_PASS;
 }
@@ -375,7 +460,61 @@ eEvtReturn GaCameraComponent::onKeyUp( EvtID ID, const EvtBaseEvent& Event )
 	return evtRET_PASS;
 }
 
-	
+//////////////////////////////////////////////////////////////////////////
+// getCameraRotationMatrix
+eEvtReturn GaCameraComponent::onTouchDown( EvtID ID, const EvtBaseEvent& InEvent )
+{
+	auto Event  = InEvent.get< OsEventInputTouch >();
+	if( Event.TouchID_ < 2 )
+	{
+		InitialTouches_[ Event.TouchID_ ] = Event;
+		Touches_[ Event.TouchID_ ] = Event;
+		TouchesDown_[ Event.TouchID_ ] = true;
+
+		if( getNoofTouches() == 2 )
+		{
+			calculateTouchAxis();
+		}
+	}
+	return evtRET_PASS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// getCameraRotationMatrix
+eEvtReturn GaCameraComponent::onTouchUp( EvtID ID, const EvtBaseEvent& InEvent )
+{
+	auto Event  = InEvent.get< OsEventInputTouch >();
+	if( Event.TouchID_ < 2 )
+	{
+		Touches_[ Event.TouchID_ ] = Event;
+		TouchesDown_[ Event.TouchID_ ] = false;
+		TouchAxis_[ 0 ] = MaVec2d( 0.0f, 0.0f );
+		TouchAxis_[ 1 ] = MaVec2d( 0.0f, 0.0f );
+
+		TouchControllerActive_ = false;
+		CameraRotationDelta_ = MaVec3d( 0.0f, 0.0f, 0.0f );
+		CameraWalk_ = MaVec3d( 0.0f, 0.0f, 0.0f );
+	}
+	return evtRET_PASS;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// getCameraRotationMatrix
+eEvtReturn GaCameraComponent::onTouchMove( EvtID ID, const EvtBaseEvent& InEvent )
+{
+	auto Event  = InEvent.get< OsEventInputTouch >();
+	if( Event.TouchID_ < 2 )
+	{
+		Touches_[ Event.TouchID_ ] = Event;
+
+		if( getNoofTouches() == 2 )
+		{
+			calculateTouchAxis();
+		}
+	}
+	return evtRET_PASS;
+}
+
 //////////////////////////////////////////////////////////////////////////
 // getCameraRotationMatrix
 MaMat4d GaCameraComponent::getCameraRotationMatrix() const
@@ -388,3 +527,61 @@ MaMat4d GaCameraComponent::getCameraRotationMatrix() const
 	CameraRollMatrix.rotation( MaVec3d( 0.0f, 0.0f, CameraRotation_.z()) );
 	return CameraRollMatrix * CameraPitchMatrix * CameraYawMatrix;
 }
+
+//////////////////////////////////////////////////////////////////////////
+// getCameraRotationMatrix
+size_t GaCameraComponent::getNoofTouches() const
+{
+	size_t NoofTouches = 0;
+	for( const auto& TouchDown : TouchesDown_ )
+	{
+		if( TouchDown )
+		{
+			++NoofTouches;
+		}
+	}
+	return NoofTouches;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// calculateTouchAxis
+void GaCameraComponent::calculateTouchAxis()
+{
+	BcAssert( getNoofTouches() == 2 );
+
+	TouchControllerActive_ = true;
+	auto InitialTouchA = InitialTouches_[ 0 ];
+	auto InitialTouchB = InitialTouches_[ 1 ];
+	auto TouchA = Touches_[ 0 ];
+	auto TouchB = Touches_[ 1 ];
+	if( InitialTouchA.TouchX_ > InitialTouchB.TouchX_ )
+	{
+		std::swap( InitialTouchA, InitialTouchB );
+		std::swap( TouchA, TouchB );
+	}
+
+	const BcF32 Deadzone = 64.0f;
+	const BcF32 Range = 256.0f;
+
+	MaVec2d DeltaA = MaVec2d( TouchA.TouchX_, TouchA.TouchY_ ) -
+		MaVec2d( InitialTouchA.TouchX_, InitialTouchA.TouchY_ ); 
+	MaVec2d DeltaB = MaVec2d( TouchB.TouchX_, TouchB.TouchY_ ) -
+		MaVec2d( InitialTouchB.TouchX_, InitialTouchB.TouchY_ ); 
+
+	DeltaA.x( BcClamp( NormaliseInput( DeltaA.x(), Deadzone, Range ), -1.0f, 1.0f ) );
+	DeltaA.y( BcClamp( NormaliseInput( DeltaA.y(), Deadzone, Range ), -1.0f, 1.0f ) );
+	DeltaB.x( BcClamp( NormaliseInput( DeltaB.x(), Deadzone, Range ), -1.0f, 1.0f ) );
+	DeltaB.y( BcClamp( NormaliseInput( DeltaB.y(), Deadzone, Range ), -1.0f, 1.0f ) );
+	if( DeltaA.magnitude() > 1.0f )
+	{
+		DeltaA.normalise();
+	}
+	if( DeltaB.magnitude() > 1.0f )
+	{
+		DeltaB.normalise();
+	}
+
+	TouchAxis_[ 0 ] = DeltaA;
+	TouchAxis_[ 1 ] = DeltaB;
+}
+

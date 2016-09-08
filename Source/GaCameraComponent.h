@@ -48,6 +48,10 @@ public:
 	eEvtReturn onKeyDown( EvtID ID, const EvtBaseEvent& Event );
 	eEvtReturn onKeyUp( EvtID ID, const EvtBaseEvent& Event );
 
+	eEvtReturn onTouchDown( EvtID ID, const EvtBaseEvent& InEvent );
+	eEvtReturn onTouchUp( EvtID ID, const EvtBaseEvent& InEvent );
+	eEvtReturn onTouchMove( EvtID ID, const EvtBaseEvent& InEvent );
+
 	MaMat4d getCameraRotationMatrix() const;
 	
 private:
@@ -77,6 +81,16 @@ private:
 	int SelectedRenderer_ = 0;
 	std::vector< ScnEntityRef > Renderers_;
 	ScnEntityRef SpawnedRenderer_;
+
+	// Touch driven controller.
+	std::array< OsEventInputTouch, 2 > InitialTouches_;
+	std::array< OsEventInputTouch, 2 > Touches_;
+	bool TouchControllerActive_;
+	std::array< bool, 2 > TouchesDown_;
+	std::array< MaVec2d, 2 > TouchAxis_;
+
+	size_t getNoofTouches() const;
+	void calculateTouchAxis();
 };
 
 #endif

@@ -95,8 +95,8 @@ void GaTestSelectionComponent::preUpdate( BcF32 Tick )
 	}
 
 	MaVec2d ClientSize( OsCore::pImpl()->getClient( 0 )->getWidth(), OsCore::pImpl()->getClient( 0 )->getHeight() );
-	ImGui::SetNextWindowPos( MaVec2d( 0.0f, 0.0f ) );
-	if ( ImGui::Begin( "Test Menu", nullptr, ImVec2( 300.0f, 300.0f ), 0.0f, 
+	ImGui::SetNextWindowPos( MaVec2d( 32.0f, 32.0f ) );
+	if ( ImGui::Begin( "Test Menu", nullptr, MaVec2d( 300.0f, 300.0f ) * ImGui::GetIO().FontGlobalScale, 0.0f, 
 		ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | 
 		ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing |
 		ImGuiWindowFlags_NoBringToFrontOnFocus ) )
