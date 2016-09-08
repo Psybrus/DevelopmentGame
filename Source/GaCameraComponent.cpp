@@ -73,9 +73,6 @@ GaCameraComponent::GaCameraComponent()
 	CameraDistance_ = 1.0f;
 	CameraZoom_ = 0.0f;
 	MoveFast_ = BcFalse;
-#if PLATFORM_ANDROID
-	CameraRotation_ = MaVec3d( 0.1f, 0.0f, 0.0f );
-#endif
 	CameraRotation_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 	CameraWalk_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 	CameraTarget_ = MaVec3d( 0.0f, 5.0f, 5.0f );
@@ -97,10 +94,6 @@ GaCameraComponent::~GaCameraComponent()
 //virtual
 void GaCameraComponent::preUpdate( BcF32 Tick )
 {
-#if PLATFORM_ANDROID
-	CameraRotation_ += MaVec3d( 0.0f, 0.05f, 0.0f ) * Tick;
-#endif
-
 	// Update state.
 	switch( CameraState_ )
 	{
@@ -135,11 +128,11 @@ void GaCameraComponent::preUpdate( BcF32 Tick )
 
 	if( TouchControllerActive_ )
 	{
-		CameraRotationDelta_.x( TouchAxis_[ 1 ].y() * 8.0f );
-		CameraRotationDelta_.y( -TouchAxis_[ 1 ].x() * 8.0f );
+		CameraRotationDelta_.x( TouchAxis_[ 1 ].y() * 1.0f );
+		CameraRotationDelta_.y( -TouchAxis_[ 1 ].x() * 1.0f );
 
-		CameraWalk_.z( -TouchAxis_[ 0 ].y() * 8.0f );
-		CameraWalk_.x( TouchAxis_[ 0 ].x() * 8.0f );
+		CameraWalk_.z( -TouchAxis_[ 0 ].y() * 1.0f );
+		CameraWalk_.x( TouchAxis_[ 0 ].x() * 1.0f );
 	}
 
 	// Rotation.
@@ -476,6 +469,7 @@ eEvtReturn GaCameraComponent::onTouchDown( EvtID ID, const EvtBaseEvent& InEvent
 			calculateTouchAxis();
 		}
 	}
+	PSY_LOG( "onTouchDown: %u, %u, %u", Event.TouchID_, Event.TouchX_, Event.TouchY_ );
 	return evtRET_PASS;
 }
 
@@ -495,6 +489,7 @@ eEvtReturn GaCameraComponent::onTouchUp( EvtID ID, const EvtBaseEvent& InEvent )
 		CameraRotationDelta_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 		CameraWalk_ = MaVec3d( 0.0f, 0.0f, 0.0f );
 	}
+	PSY_LOG( "onTouchUp: %u, %u, %u", Event.TouchID_, Event.TouchX_, Event.TouchY_ );
 	return evtRET_PASS;
 }
 
@@ -583,5 +578,6 @@ void GaCameraComponent::calculateTouchAxis()
 
 	TouchAxis_[ 0 ] = DeltaA;
 	TouchAxis_[ 1 ] = DeltaB;
+	PSY_LOG( "DeltaA: %f, %f", DeltaA.x(), DeltaA.y() );
 }
 
