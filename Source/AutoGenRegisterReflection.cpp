@@ -25,11 +25,11 @@
 #include "System/Content/CsTypes.h"
 #include "System/Debug/DsImGuiFieldEditor.h"
 #include "System/File/FsTypes.h"
+#include "System/Renderer/RsColour.h"
 #include "System/Renderer/RsCore.h"
 #include "System/Renderer/RsCoreImpl.h"
 #include "System/Renderer/RsRenderState.h"
 #include "System/Renderer/RsSamplerState.h"
-#include "System/Renderer/RsTypes.h"
 #include "System/Scene/Animation/ScnAnimation.h"
 #include "System/Scene/Animation/ScnAnimationComponent.h"
 #include "System/Scene/Animation/ScnAnimationPose.h"
@@ -138,6 +138,7 @@ void AutoGenRegisterReflection()
 	DsImGuiFieldEditor::StaticRegisterClass();
 	FsTimestamp::StaticRegisterClass();
 	FsStats::StaticRegisterClass();
+	RsColour::StaticRegisterClass();
 	RsCore::StaticRegisterClass();
 	RsCoreImpl::StaticRegisterClass();
 	RsRenderTargetBlendState::StaticRegisterClass();
@@ -147,7 +148,6 @@ void AutoGenRegisterReflection()
 	RsRasteriserState::StaticRegisterClass();
 	RsRenderStateDesc::StaticRegisterClass();
 	RsSamplerStateDesc::StaticRegisterClass();
-	RsColour::StaticRegisterClass();
 	ScnAnimation::StaticRegisterClass();
 	ScnAnimationComponent::StaticRegisterClass();
 	ScnAnimationPose::StaticRegisterClass();
@@ -164,6 +164,7 @@ void AutoGenRegisterReflection()
 	ScnModelImport::StaticRegisterClass();
 	ScnShaderImport::StaticRegisterClass();
 	ScnSoundImport::StaticRegisterClass();
+	ScnTextureImportParams::StaticRegisterClass();
 	ScnTextureImport::StaticRegisterClass();
 	ScnTileMapImport::StaticRegisterClass();
 	ScnPhysicsBoxCollisionComponent::StaticRegisterClass();

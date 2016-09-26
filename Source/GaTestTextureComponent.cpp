@@ -128,7 +128,7 @@ void GaTestTextureComponent::drawTest(
 		Material->setUniformBlock( "GaTestTextureBlockData", TestUniformBuffer_.get() );
 		
 		// Set material components for view.
-		RenderContext.pViewComponent_->setMaterialParameters( Material );
+		RenderContext.View_->setMaterialParameters( Material );
 				
 		// Render primitive.
 		RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
@@ -137,8 +137,8 @@ void GaTestTextureComponent::drawTest(
 				GeometryBinding = GeometryBinding_.get(),
 				ProgramBinding = Material->getProgramBinding(),
 				RenderState = Material->getRenderState(),
-				FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
-				Viewport = RenderContext.pViewComponent_->getViewport(),
+				FrameBuffer = RenderContext.View_->getFrameBuffer(),
+				Viewport = RenderContext.View_->getViewport(),
 				Transform 
 			]
 			( RsContext* Context )

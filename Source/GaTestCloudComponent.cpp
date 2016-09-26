@@ -27,6 +27,8 @@
 #include "Base/BcProfiler.h"
 #include "Base/BcRandom.h"
 
+#include "Editor/Editor.h"
+
 //////////////////////////////////////////////////////////////////////////
 // GaVertex
 struct GaVertex
@@ -97,7 +99,7 @@ void GaTestCloudComponent::StaticRegisterClass()
 			[]( DsImGuiFieldEditor* ThisFieldEditor, std::string Name, void* Object, const ReClass* Class, ReFieldFlags Flags )
 			{
 				GaTestCloudComponent* Component = reinterpret_cast< GaTestCloudComponent* >( Object );
-				DsCore::pImpl()->drawObjectEditor( ThisFieldEditor, &Component->TestUniformBlock_, GaTestCloudBlockData::StaticGetClass(), Flags );
+				Editor::ObjectEditor( ThisFieldEditor, &Component->TestUniformBlock_, GaTestCloudBlockData::StaticGetClass(), Flags );
 			} ) );
 }
 
@@ -133,7 +135,7 @@ void GaTestCloudComponent::drawTest(
 		Material->setUniformBlock( "GaTestCloudBlockData", TestUniformBuffer_.get() );
 		
 		// Set material components for view.
-		RenderContext.pViewComponent_->setMaterialParameters( Material );
+		RenderContext.View_->setMaterialParameters( Material );
 				
 		// Render primitive.				
 		RsCore::pImpl()->updateBuffer(
@@ -152,8 +154,8 @@ void GaTestCloudComponent::drawTest(
 				GeometryBinding = GeometryBinding_.get(),
 				ProgramBinding = Material->getProgramBinding(),
 				RenderState = Material->getRenderState(),
-				FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
-				Viewport = RenderContext.pViewComponent_->getViewport()
+				FrameBuffer = RenderContext.View_->getFrameBuffer(),
+				Viewport = RenderContext.View_->getViewport()
 			]
 			( RsContext* Context )
 			{
@@ -194,7 +196,7 @@ void GaTestCloudComponent::render( ScnRenderContext & RenderContext )
 		ImGui::EndGroup();
 		ImGui::Separator();
 
-		DsCore::pImpl()->drawObjectEditor( nullptr, this, getClass(), 0 );
+		Editor::ObjectEditor( nullptr, this, getClass(), 0 );
 	}
 	ImGui::End();
 
@@ -335,7 +337,7 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 								BcF32 Val = 0.0f;
 								BcF32 Freq = 1.0f / Desc.Width_;
 								BcF32 Mul = 0.5f;
-								MaVec3d SamplingPos( X, Y, Z );
+								MaVec3d SamplingPos( (BcF32)X, (BcF32)Y, (BcF32)Z );
 								for( BcU32 Idx = 0; Idx < 8; ++Idx )
 								{
 									Val += Mul * 

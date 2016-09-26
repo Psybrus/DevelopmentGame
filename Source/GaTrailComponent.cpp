@@ -138,14 +138,14 @@ void GaTrailComponent::render( ScnRenderContext & RenderContext )
 		Sort.Layer_ = 15;
 
 #if 1
-		RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
+		RenderContext.View_->setMaterialParameters( MaterialComponent_ );
 		RenderContext.pFrame_->queueRenderNode( Sort,
 			[ 
 				GeometryBinding = GeometryBinding_.get(),
 				ProgramBinding = MaterialComponent_->getProgramBinding(),
 				RenderState = MaterialComponent_->getRenderState(),
-				FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
-				Viewport = RenderContext.pViewComponent_->getViewport(),
+				FrameBuffer = RenderContext.View_->getFrameBuffer(),
+				Viewport = RenderContext.View_->getViewport(),
 				NoofIndices = static_cast< BcU32 >( TrailHistory_.size() * 2 )
 			]
 			( RsContext* Context )

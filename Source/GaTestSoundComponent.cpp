@@ -27,6 +27,8 @@
 #include "Base/BcProfiler.h"
 #include "Base/BcRandom.h"
 
+#include "Editor/Editor.h"
+
 //////////////////////////////////////////////////////////////////////////
 // Define resource internals.
 REFLECTION_DEFINE_DERIVED( GaTestSoundComponent );
@@ -95,7 +97,7 @@ void GaTestSoundComponent::update( BcF32 Tick )
 		ImGui::EndGroup();
 		ImGui::Separator();
 
-		DsCore::pImpl()->drawObjectEditor( nullptr, this, getClass(), 0 );
+		Editor::ObjectEditor( nullptr, this, getClass(), 0 );
 	}
 	ImGui::End();
 }

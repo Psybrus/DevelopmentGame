@@ -105,7 +105,7 @@ void GaTestShaderComponent::render( ScnRenderContext & RenderContext )
 	MaterialComponent_->setObjectUniformBlock( ObjectUniformBuffer_.get() );
 			
 	// Set material components for view.
-	RenderContext.pViewComponent_->setMaterialParameters( MaterialComponent_ );
+	RenderContext.View_->setMaterialParameters( MaterialComponent_ );
 	
 	// Render primitive.				
 	RenderContext.pFrame_->queueRenderNode( RenderContext.Sort_,
@@ -113,8 +113,8 @@ void GaTestShaderComponent::render( ScnRenderContext & RenderContext )
 			GeometryBinding = GeometryBinding_.get(),
 			ProgramBinding = MaterialComponent_->getProgramBinding(),
 			RenderState = MaterialComponent_->getRenderState(),
-			FrameBuffer = RenderContext.pViewComponent_->getFrameBuffer(),
-			Viewport = RenderContext.pViewComponent_->getViewport()
+			FrameBuffer = RenderContext.View_->getFrameBuffer(),
+			Viewport = RenderContext.View_->getViewport()
 		]
 		( RsContext* Context )
 		{
