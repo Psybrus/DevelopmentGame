@@ -57,7 +57,7 @@
 						{
 							"$Class"				: "ScnPhysicsBoxCollisionComponent",
 
-							"size"					: "100.0, 0.1, 100.0",
+							"size"					: "100.0, 0.05, 100.0",
 							"localscaling"			: "1.0, 1.0, 1.0",
 							"margin"				: 0.0
 						},

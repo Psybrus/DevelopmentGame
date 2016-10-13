@@ -4,6 +4,7 @@
 			"type"		: "ScnModel",
 			"name"		: "teapot",
 			"source"	: "Source/teapot/wt_teapot.obj",
+			"flattenhierarchy" : true,
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -62,6 +63,7 @@
 			"type"		: "ScnModel",
 			"name"		: "bunny",
 			"source"	: "Source/bunny.obj",
+			"flattenhierarchy" : true,
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -119,6 +121,7 @@
 			"type"		: "ScnModel",
 			"name"		: "test_fbx_model_static",
 			"source"	: "Source/test_fbx_model_static.fbx",
+			"flattenhierarchy" : true,
 			"materials" : [
 				{
 					"regex" : "(.*)",
@@ -139,6 +142,7 @@
 			"type"		: "ScnModel",
 			"name"		: "test_fbx_model_skinned",
 			"source"	: "Source/test_fbx_model_skinned.fbx",
+			"flattenhierarchy" : true,
 			"materials" : [
 				{
 					"regex" : "(.*)",
@@ -159,6 +163,125 @@
 			"type"		: "ScnModel",
 			"name"		: "sphere",
 			"source"	: "Source/sphere.fbx",
+			"flattenhierarchy" : true,
+			"materials": [
+				{
+					"regex" : "(.*)", 
+					"templatematerial" : {
+						"$Class"		: "ScnMaterialImport",
+						"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
+
+						"renderstate" : {
+							"blendstate" : {
+								"rendertarget" : [
+									{
+										"enable" : false
+									}
+								]
+							},
+
+							"depthstencilstate" : {
+								"depthtestenable" : true,
+								"depthwriteenable" : true,
+								"depthfunc" : "lessequal",
+								"stencilenable" : false
+							},
+
+							"rasteriserstate" : {
+								"fillmode" : "solid",
+								"cullmode" : "ccw",
+								"depthclipenable" : true,
+								"antialiasedlineenable" : true
+							}
+						},
+						"automaticuniformblocks" : [
+							"ScnShaderMaterialUniformBlockData"
+						]
+					}
+				}
+			],
+
+			"defaulttextures" : {
+				"aDiffuseTex" : "$(ScnTexture:textures.white)",
+				"aNormalTex" : "$(ScnTexture:textures.normal)",
+				"aSpecularTex" : "$(ScnTexture:textures.white)",
+				"aOpacityTex" : "$(ScnTexture:textures.white)",
+				"aReflectionTex" : "$(ScnTexture:cubemap_textures.default_cubemap)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
+				"normal" : "FLOAT32",
+				"binormal" : "FLOAT32",
+				"tangent" : "FLOAT32"
+			}
+		},
+
+		{
+			"type"		: "ScnModel",
+			"name"		: "cylinder",
+			"source"	: "Source/cylinder.fbx",
+			"flattenhierarchy" : true,
+			"materials": [
+				{
+					"regex" : "(.*)", 
+					"templatematerial" : {
+						"$Class"		: "ScnMaterialImport",
+						"shader"		: "$(ScnShader:shaders.textured_normal_mapped)",
+
+						"renderstate" : {
+							"blendstate" : {
+								"rendertarget" : [
+									{
+										"enable" : false
+									}
+								]
+							},
+
+							"depthstencilstate" : {
+								"depthtestenable" : true,
+								"depthwriteenable" : true,
+								"depthfunc" : "lessequal",
+								"stencilenable" : false
+							},
+
+							"rasteriserstate" : {
+								"fillmode" : "solid",
+								"cullmode" : "ccw",
+								"depthclipenable" : true,
+								"antialiasedlineenable" : true
+							}
+						},
+						"automaticuniformblocks" : [
+							"ScnShaderMaterialUniformBlockData"
+						]
+					}
+				}
+			],
+
+			"defaulttextures" : {
+				"aDiffuseTex" : "$(ScnTexture:textures.white)",
+				"aNormalTex" : "$(ScnTexture:textures.normal)",
+				"aSpecularTex" : "$(ScnTexture:textures.white)",
+				"aOpacityTex" : "$(ScnTexture:textures.white)",
+				"aReflectionTex" : "$(ScnTexture:cubemap_textures.default_cubemap)"
+			},
+
+			"vertexformat" : {
+				"position" : "FLOAT32",
+				"texcoord0" : "FLOAT32",
+				"normal" : "FLOAT32",
+				"binormal" : "FLOAT32",
+				"tangent" : "FLOAT32"
+			}
+		},
+
+		{
+			"type"		: "ScnModel",
+			"name"		: "capsule",
+			"source"	: "Source/capsule.fbx",
+			"flattenhierarchy" : true,
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -217,6 +340,7 @@
 			"type"		: "ScnModel",
 			"name"		: "skysphere",
 			"source"	: "Source/skysphere.obj",
+			"flattenhierarchy" : true,
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -268,6 +392,7 @@
 			"type"		: "ScnModel",
 			"name"		: "cube",
 			"source"	: "Source/cube.fbx",
+			"flattenhierarchy" : true,
 			"materials": [
 				{
 					"regex" : "(.*)", 
@@ -325,6 +450,7 @@
 			"type"		: "ScnModel",
 			"name"		: "floor",
 			"source"	: "Source/floor.fbx",
+			"flattenhierarchy" : true,
 			"materials": [
 				{
 					"regex" : "(.*)", 

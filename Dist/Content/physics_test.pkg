@@ -210,6 +210,12 @@
 					"friction"				: 0.5,
 					"rollingfriction"		: 0.1,
 					"restitution"			: 0.5
+				},
+
+				{
+					"$Class"				: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:models.capsule)"
 				}
 			]
 		},
@@ -234,6 +240,12 @@
 					"friction"				: 0.5,
 					"rollingfriction"		: 0.1,
 					"restitution"			: 0.5
+				},
+
+				{
+					"$Class"				: "ScnModelComponent",
+					"name"					: "TestModel",
+					"model"					: "$(ScnModel:models.cylinder)"
 				}
 			]
 		},

@@ -68,6 +68,8 @@
 #include "System/Scene/Rendering/ScnModel.h"
 #include "System/Scene/Rendering/ScnParticleSystemComponent.h"
 #include "System/Scene/Rendering/ScnPostProcessComponent.h"
+#include "System/Scene/Rendering/ScnRenderMesh.h"
+#include "System/Scene/Rendering/ScnRenderMeshImport.h"
 #include "System/Scene/Rendering/ScnRenderableComponent.h"
 #include "System/Scene/Rendering/ScnShader.h"
 #include "System/Scene/Rendering/ScnShaderFileData.h"
@@ -200,6 +202,8 @@ void AutoGenRegisterReflection()
 	ScnPostProcessUniforms::StaticRegisterClass();
 	ScnPostProcessNode::StaticRegisterClass();
 	ScnPostProcessComponent::StaticRegisterClass();
+	ScnRenderMesh::StaticRegisterClass();
+	ScnRenderMeshImport::StaticRegisterClass();
 	ScnRenderableComponent::StaticRegisterClass();
 	ScnShader::StaticRegisterClass();
 	ScnShaderDataAttribute::StaticRegisterClass();
