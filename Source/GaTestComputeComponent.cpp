@@ -133,7 +133,7 @@ void GaTestComputeComponent::render( ScnRenderContext & RenderContext )
 		]
 		( RsContext* Context )
 		{
-			PSY_PROFILER_SECTION( RenderRoot, "GaTestComputeComponentRenderNode::render" );
+			PSY_PROFILER_SECTION( "GaTestComputeComponentRenderNode::render" );
 			auto& Features = Context->getFeatures();
 			if( Features.ComputeShaders_ )
 			{

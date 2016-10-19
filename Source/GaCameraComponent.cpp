@@ -277,7 +277,7 @@ eEvtReturn GaCameraComponent::onMouseDown( EvtID ID, const EvtBaseEvent& Event )
 		LastMouseEvent_ = MouseEvent;
 	}
 
-#if !PLATFORM_ANDROID
+#if 0 && !PLATFORM_ANDROID
 	OsEventInputTouch TouchA, TouchB;
 	TouchA.DeviceID_ = MouseEvent.DeviceID_;
 	TouchA.TouchID_ = 0;
@@ -307,7 +307,7 @@ eEvtReturn GaCameraComponent::onMouseUp( EvtID ID, const EvtBaseEvent& Event )
 		NextCameraState_ = STATE_IDLE;
 	}
 
-#if !PLATFORM_ANDROID
+#if 0 && !PLATFORM_ANDROID
 	OsEventInputTouch TouchA, TouchB;
 	TouchA.DeviceID_ = MouseEvent.DeviceID_;
 	TouchA.TouchID_ = 0;
@@ -334,7 +334,7 @@ eEvtReturn GaCameraComponent::onMouseMove( EvtID ID, const EvtBaseEvent& Event )
 
 	LastMouseEvent_ = MouseEvent;
 
-#if !PLATFORM_ANDROID
+#if 0 && !PLATFORM_ANDROID
 	OsEventInputTouch TouchA, TouchB;
 	TouchA.DeviceID_ = MouseEvent.DeviceID_;
 	TouchA.TouchID_ = 0;

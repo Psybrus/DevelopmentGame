@@ -143,7 +143,7 @@ void GaTestTextureComponent::drawTest(
 			]
 			( RsContext* Context )
 			{
-				PSY_PROFILER_SECTION( RenderRoot, "GaTestTextureComponentRenderNode::render" );
+				PSY_PROFILER_SECTION( "GaTestTextureComponentRenderNode::render" );
 
 				Context->updateBuffer( 
 					ObjectUniformBuffer,
