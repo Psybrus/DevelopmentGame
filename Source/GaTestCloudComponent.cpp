@@ -232,7 +232,7 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 	TestUniformBlock_.CloudThreshold_ = 0.8f;
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
-			RsResourceBindFlags::UNIFORM_BUFFER,
+			RsBindFlags::UNIFORM_BUFFER,
 			RsResourceCreationFlags::STREAM,
 			sizeof( ScnShaderObjectUniformBlockData ) ),
 		getFullName().c_str() );
@@ -240,14 +240,14 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 
 	TestUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
-			RsResourceBindFlags::UNIFORM_BUFFER,
+			RsBindFlags::UNIFORM_BUFFER,
 			RsResourceCreationFlags::STREAM,
 			sizeof( GaTestCloudBlockData ) ),
 		getFullName().c_str() );
 
 	BcU32 IndexBufferSize = sizeof( BcU16 ) * 4;
 	IndexBuffer_ = RsCore::pImpl()->createBuffer(
-		RsBufferDesc( RsResourceBindFlags::INDEX_BUFFER, RsResourceCreationFlags::STATIC, IndexBufferSize ),
+		RsBufferDesc( RsBindFlags::INDEX_BUFFER, RsResourceCreationFlags::STATIC, IndexBufferSize ),
 		getFullName().c_str() );
 
 	RsCore::pImpl()->updateBuffer( 
@@ -264,7 +264,7 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 	BcU32 VertexBufferSize = 2048 * sizeof( GaVertex );
 	VertexBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
-			RsResourceBindFlags::VERTEX_BUFFER,
+			RsBindFlags::VERTEX_BUFFER,
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ),
 		getFullName().c_str() );
@@ -311,7 +311,7 @@ void GaTestCloudComponent::onAttach( ScnEntityWeakRef Parent )
 		if( Features.Texture3D_ )
 		{
 			Texture3D_ = ScnTexture::New3D( 64, 64, 64, 1, RsResourceFormat::R16_FLOAT, 
-				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
+				RsBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture3D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture3D_->getTexture(),

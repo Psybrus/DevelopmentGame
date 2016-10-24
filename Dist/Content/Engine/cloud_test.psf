@@ -103,14 +103,14 @@ float2 rayMarch( float3 RayPos, float3 RayDir )
 
 //////////////////////////////////////////////////////////////////////////
 // sampleCloud
-#if PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
+#if PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_ESSL_100
 PSY_SAMPLER_3D( CloudTex );
 #endif
 
 float sampleCloud( float3 Position )
 {
 	float3 SamplePosition = ( Position.xzy / ( CloudScale_.xyz * 2.0 ) ) + 0.5;
-#if PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_GLSL_ES_100
+#if PSY_OUTPUT_CODE_TYPE != PSY_CODE_TYPE_ESSL_100
 	float4 CloudSample = PSY_SAMPLE_3D( CloudTex, SamplePosition + float3( CloudTimer_.w, 0.0, 0.0 ) );
 #else
 	float4 CloudSample = float4( 0.0, 0.0, 0.0, 0.0 );

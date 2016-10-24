@@ -215,7 +215,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
-			RsResourceBindFlags::UNIFORM_BUFFER,
+			RsBindFlags::UNIFORM_BUFFER,
 			RsResourceCreationFlags::STREAM,
 			sizeof( ScnShaderObjectUniformBlockData ) ),
 		getFullName().c_str() );
@@ -223,14 +223,14 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 
 	TestUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
-			RsResourceBindFlags::UNIFORM_BUFFER,
+			RsBindFlags::UNIFORM_BUFFER,
 			RsResourceCreationFlags::STREAM,
 			sizeof( GaTestTextureBlockData ) ),
 		getFullName().c_str() );
 
 	BcU32 IndexBufferSize = sizeof( BcU16 ) * 4;
 	IndexBuffer_ = RsCore::pImpl()->createBuffer(
-		RsBufferDesc( RsResourceBindFlags::INDEX_BUFFER, RsResourceCreationFlags::STATIC, IndexBufferSize ),
+		RsBufferDesc( RsBindFlags::INDEX_BUFFER, RsResourceCreationFlags::STATIC, IndexBufferSize ),
 		getFullName().c_str() );
 
 	RsCore::pImpl()->updateBuffer( 
@@ -247,7 +247,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 	BcU32 VertexBufferSize = 2048 * sizeof( GaVertex );
 	VertexBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
-			RsResourceBindFlags::VERTEX_BUFFER,
+			RsBindFlags::VERTEX_BUFFER,
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ),
 		getFullName().c_str() );
@@ -295,7 +295,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		if( Features.Texture1D_ )
 		{
 			Texture1D_ = ScnTexture::New1D( 32, 1, RsResourceFormat::R8G8B8A8_UNORM, 
-				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
+				RsBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture1D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture1D_->getTexture(),
@@ -326,7 +326,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		if( Features.Texture2D_ )
 		{
 			Texture2D_ = ScnTexture::New2D( 32, 32, 1, RsResourceFormat::R8G8B8A8_UNORM, 
-				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
+				RsBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture2D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture2D_->getTexture(),
@@ -361,7 +361,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		if( Features.Texture3D_ )
 		{
 			Texture3D_ = ScnTexture::New3D( 32, 32, 32, 1, RsResourceFormat::R8G8B8A8_UNORM, 
-				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
+				RsBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			auto Slice = Texture3D_->getTexture()->getSlice( 0 );
 			RsCore::pImpl()->updateTexture( 
 				Texture3D_->getTexture(),
@@ -402,7 +402,7 @@ void GaTestTextureComponent::onAttach( ScnEntityWeakRef Parent )
 		if( Features.TextureCube_ )
 		{
 			TextureCube_ = ScnTexture::NewCube( 32, 32, 1, RsResourceFormat::R8G8B8A8_UNORM, 
-				RsResourceBindFlags::SHADER_RESOURCE, getFullName().c_str() );
+				RsBindFlags::SHADER_RESOURCE, getFullName().c_str() );
 			const BcU32 FaceColours[] = 
 			{
 				0xffff0000,

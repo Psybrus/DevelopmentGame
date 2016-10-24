@@ -7,18 +7,18 @@
 				"D3D11_4_0" : "Engine/default.psf",
 				"GLSL_430" : "Engine/default.psf",
 				"GLSL_330" : "Engine/default.psf",
-				"GLSL_ES_100" : "Engine/default.psf"
+				"ESSL_100" : "Engine/default.psf"
 			},
 
 			"@(gles)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/default.psf"
+					"ESSL_100" : "Engine/default.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/default.psf"
+					"ESSL_100" : "Engine/default.psf"
 				}
 			},
 

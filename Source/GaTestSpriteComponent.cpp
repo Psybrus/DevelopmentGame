@@ -92,7 +92,7 @@ void GaTestSpriteComponent::onAttach( ScnEntityWeakRef Parent )
 
 	LightUniformBuffer_ = RsCore::pImpl()->createBuffer(
 		RsBufferDesc( 
-			RsResourceBindFlags::UNIFORM_BUFFER, 
+			RsBindFlags::UNIFORM_BUFFER, 
 			RsResourceCreationFlags::STREAM, 
 			sizeof( LightUniformBlock_ ) ),
 		getFullName().c_str() );

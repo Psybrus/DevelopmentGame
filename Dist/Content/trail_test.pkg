@@ -30,18 +30,18 @@
 				"D3D11_4_0" : "Engine/trail.psf",
 				"GLSL_430" : "Engine/trail.psf",
 				"GLSL_330" : "Engine/trail.psf",
-				"GLSL_ES_100" : "Engine/trail.psf"
+				"ESSL_100" : "Engine/trail.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/trail.psf"
+					"ESSL_100" : "Engine/trail.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/trail.psf"
+					"ESSL_100" : "Engine/trail.psf"
 				}
 			},
 

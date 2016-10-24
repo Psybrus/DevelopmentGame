@@ -74,7 +74,7 @@
 			"name"			: "cloud_shader",
 			"sources" 		: {
 				//"D3D11_4_0" : "Engine/cloud_test.psf",
-				"GLSL_ES_100" : "Engine/cloud_test.psf",
+				"ESSL_100" : "Engine/cloud_test.psf",
 				"GLSL_430" : "Engine/cloud_test.psf",
 				"GLSL_330" : "Engine/cloud_test.psf"
 			},

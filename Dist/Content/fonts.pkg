@@ -7,18 +7,18 @@
 				"D3D11_4_0" : "Engine/font.psf",
 				"GLSL_430" : "Engine/font.psf",
 				"GLSL_330" : "Engine/font.psf",
-				"GLSL_ES_100" : "Engine/font.psf"
+				"ESSL_100" : "Engine/font.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/font.psf"
+					"ESSL_100" : "Engine/font.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/font.psf"
+					"ESSL_100" : "Engine/font.psf"
 				}
 			},
 

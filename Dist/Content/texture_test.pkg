@@ -228,18 +228,18 @@
 				"D3D11_4_0" : "Engine/texture_test.psf",
 				"GLSL_430" : "Engine/texture_test.psf",
 				"GLSL_330" : "Engine/texture_test.psf",
-				"GLSL_ES_100" : "Engine/texture_test.psf"
+				"ESSL_100" : "Engine/texture_test.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/texture_test.psf"
+					"ESSL_100" : "Engine/texture_test.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/texture_test.psf"
+					"ESSL_100" : "Engine/texture_test.psf"
 				}
 			},
 
@@ -266,18 +266,18 @@
 				"D3D11_4_0" : "Engine/texture_test.psf",
 				"GLSL_430" : "Engine/texture_test.psf",
 				"GLSL_330" : "Engine/texture_test.psf",
-				"GLSL_ES_100" : "Engine/texture_test.psf"
+				"ESSL_100" : "Engine/texture_test.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/texture_test.psf"
+					"ESSL_100" : "Engine/texture_test.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/texture_test.psf"
+					"ESSL_100" : "Engine/texture_test.psf"
 				}
 			},
 
@@ -304,18 +304,18 @@
 				"D3D11_4_0" : "Engine/texture_test.psf",
 				"GLSL_430" : "Engine/texture_test.psf",
 				"GLSL_330" : "Engine/texture_test.psf",
-				"GLSL_ES_100" : "Engine/texture_test.psf"
+				"ESSL_100" : "Engine/texture_test.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/texture_test.psf"
+					"ESSL_100" : "Engine/texture_test.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/texture_test.psf"
+					"ESSL_100" : "Engine/texture_test.psf"
 				}
 			},
 
@@ -342,18 +342,18 @@
 				"D3D11_4_0" : "Engine/texture_test.psf",
 				"GLSL_430" : "Engine/texture_test.psf",
 				"GLSL_330" : "Engine/texture_test.psf",
-				"GLSL_ES_100" : "Engine/texture_test.psf"
+				"ESSL_100" : "Engine/texture_test.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/texture_test.psf"
+					"ESSL_100" : "Engine/texture_test.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/texture_test.psf"
+					"ESSL_100" : "Engine/texture_test.psf"
 				}
 			},
 

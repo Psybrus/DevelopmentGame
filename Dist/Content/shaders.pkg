@@ -46,24 +46,7 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "skysphere",
-			"sources" 		: {
-				"D3D11_4_0" : "Engine/skysphere.psf",
-				"GLSL_430" : "Engine/skysphere.psf",
-				"GLSL_330" : "Engine/skysphere.psf",
-				"GLSL_ES_100" : "Engine/skysphere.psf"
-			},
-
-			"@(android)" : {
-				"sources" 		: {
-					"GLSL_ES_100" : "Engine/skysphere.psf"
-				}
-			},
-
-			"@(html5)" : {
-				"sources" 		: {
-					"GLSL_ES_100" : "Engine/skysphere.psf"
-				}
-			},
+			"source" 		: "Engine/skysphere.psf",
 
 			"includepermutations" : [
 				"RENDER_FORWARD",
@@ -86,24 +69,7 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "normal_vis",
-			"sources" 		: {
-				"D3D11_4_0" : "Engine/normal_vis.psf",
-				"GLSL_430" : "Engine/normal_vis.psf",
-				"GLSL_330" : "Engine/normal_vis.psf",
-				"GLSL_ES_100" : "Engine/normal_vis.psf"
-			},
-
-			"@(android)" : {
-				"sources" 		: {
-					"GLSL_ES_100" : "Engine/normal_vis.psf"
-				}
-			},
-
-			"@(html5)" : {
-				"sources" 		: {
-					"GLSL_ES_100" : "Engine/normal_vis.psf"
-				}
-			},
+			"source" 		: "Engine/normal_vis.psf",
 
 			"includepermutations" : [
 				"RENDER_FORWARD",
@@ -123,24 +89,7 @@
 		{
 			"type"			: "ScnShader",
 			"name"			: "fullscreen",
-			"sources" 		: {
-				"D3D11_4_0" : "Engine/fullscreen.psf",
-				"GLSL_430" : "Engine/fullscreen.psf",
-				"GLSL_330" : "Engine/fullscreen.psf",
-				"GLSL_ES_100" : "Engine/fullscreen.psf"
-			},
-
-			"@(android)" : {
-				"sources" 		: {
-					"GLSL_ES_100" : "Engine/fullscreen.psf"
-				}
-			},
-
-			"@(html5)" : {
-				"sources" 		: {
-					"GLSL_ES_100" : "Engine/fullscreen.psf"
-				}
-			},
+			"source" 		: "Engine/fullscreen.psf",
 
 			"includepermutations" : [
 				"MESH_STATIC_2D",

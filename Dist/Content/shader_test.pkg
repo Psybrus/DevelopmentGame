@@ -19,7 +19,7 @@
 			"sources" 		: {
 				"GLSL_430" : "Engine/pp_deferred_resolve.psf",
 				"GLSL_330" : "Engine/pp_deferred_resolve.psf"//,
-				//"GLSL_ES_100" : "Engine/pp_deferred_resolve.psf"
+				//"ESSL_100" : "Engine/pp_deferred_resolve.psf"
 			},
 
 			"includepermutations" : [
@@ -44,18 +44,18 @@
 				"D3D11_4_0" : "Engine/geometry_test.psf",
 				"GLSL_430" : "Engine/geometry_test.psf",
 				"GLSL_330" : "Engine/geometry_test.psf",
-				"GLSL_ES_100" : "Engine/geometry_test.psf"
+				"ESSL_100" : "Engine/geometry_test.psf"
 			},
 
 			"@(android)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/geometry_test.psf"
+					"ESSL_100" : "Engine/geometry_test.psf"
 				}
 			},
 
 			"@(html5)" : {
 				"sources" 		: {
-					"GLSL_ES_100" : "Engine/geometry_test.psf"
+					"ESSL_100" : "Engine/geometry_test.psf"
 				}
 			},
 

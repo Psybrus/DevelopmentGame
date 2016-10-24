@@ -142,14 +142,14 @@ void GaFullscreenQuadComponent::onAttach( ScnEntityWeakRef Parent )
 
 	ObjectUniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc(
-			RsResourceBindFlags::UNIFORM_BUFFER,
+			RsBindFlags::UNIFORM_BUFFER,
 			RsResourceCreationFlags::STREAM,
 			sizeof( ScnShaderObjectUniformBlockData ) ),
 		getFullName().c_str() );
 
 	BcU32 IndexBufferSize = sizeof( BcU16 ) * 4;
 	IndexBuffer_ = RsCore::pImpl()->createBuffer(
-		RsBufferDesc( RsResourceBindFlags::INDEX_BUFFER, RsResourceCreationFlags::STATIC, IndexBufferSize ),
+		RsBufferDesc( RsBindFlags::INDEX_BUFFER, RsResourceCreationFlags::STATIC, IndexBufferSize ),
 		getFullName().c_str() );
 
 	RsCore::pImpl()->updateBuffer( 
@@ -166,7 +166,7 @@ void GaFullscreenQuadComponent::onAttach( ScnEntityWeakRef Parent )
 	BcU32 VertexBufferSize = 2048 * sizeof( GaVertex );
 	VertexBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
-			RsResourceBindFlags::VERTEX_BUFFER,
+			RsBindFlags::VERTEX_BUFFER,
 			RsResourceCreationFlags::STATIC,
 			VertexBufferSize ),
 		getFullName().c_str() );

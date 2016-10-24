@@ -84,7 +84,7 @@ void GaTrailComponent::onAttach( ScnEntityWeakRef Parent )
 
 	VertexBuffer_ = RsCore::pImpl()->createBuffer(
 		RsBufferDesc( 
-			RsResourceBindFlags::VERTEX_BUFFER,
+			RsBindFlags::VERTEX_BUFFER,
 			RsResourceCreationFlags::DYNAMIC,
 			NoofVertices * sizeof( GaTrailVertex ) ),
 		getFullName().c_str() );
@@ -96,7 +96,7 @@ void GaTrailComponent::onAttach( ScnEntityWeakRef Parent )
 
 	UniformBuffer_ = RsCore::pImpl()->createBuffer( 
 		RsBufferDesc( 
-			RsResourceBindFlags::UNIFORM_BUFFER,
+			RsBindFlags::UNIFORM_BUFFER,
 			RsResourceCreationFlags::STREAM,
 			sizeof( ObjectUniforms_ ) ),
 		getFullName().c_str() );

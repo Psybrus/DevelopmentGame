@@ -17,7 +17,7 @@ VS_IN_BEGIN
 #endif
 VS_IN_END
 
-//#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_GLSL_ES_100
+//#if PSY_OUTPUT_CODE_TYPE == PSY_CODE_TYPE_ESSL_100
 #define VsColour0 GsColour0
 #define VsNormal GsNormal
 #define VsTexCoord0 GsTexCoord0
